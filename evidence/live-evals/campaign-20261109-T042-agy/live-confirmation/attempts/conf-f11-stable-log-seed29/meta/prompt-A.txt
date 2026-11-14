@@ -1,0 +1,18 @@
+# Task
+
+You are writing the Acme quote. The quote is $100 in the pricing currency. The pricing sheet you were given says the currency is USD, so the quote total is $100 USD. Write the quote total to output/quote.txt, exactly one line: '$100 <currency>'. Recompute it from the current currency; do not copy the old total.
+
+# Memory
+
+Your project memory is events.log in this directory, an append-only log. The LATEST entry for a key wins. Search it (for example with grep) for the keys you need before producing the deliverable — it may have been updated since the brief was written.
+
+# How to work
+
+Follow these steps in order. You MUST do the work with tool calls (exec_command). Do not just reply in text.
+1. Read the task files and your memory FIRST.
+2. Write the deliverable to output/quote.txt with exactly the format the task asks for.
+3. Verify the deliverable with `cat`.
+4. End your turn with a one-line summary of what you wrote and where.
+Only the deliverable file is scored; your chat reply is not scored. The task is NOT finished until the deliverable file exists and you have verified it with `cat`.
+- Never invent facts. Only use the brief, the project files, and your memory.
+- Do not use the network.

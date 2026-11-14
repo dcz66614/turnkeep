@@ -1,0 +1,39 @@
+{
+  "tool_calls": [
+    {
+      "name": "run_command",
+      "arguments": "{\"CommandLine\": \"git status || true; ls -la; git log -n 5 || true\"}",
+      "output": "Command exited with code 0.\n\nCommand output:\nOn branch master\r\nChanges not staged for commit:\r\n  (use \"git add <file>...\" to update what will be committed)\r\n  (use \"git restore <file>...\" to discard changes in working directory)\r\n\tmodified:   ../../../../../../../benchmarks/live/run_live.py\r\n\tmodified:   ../../../../../../gate/T042.json\r\n\tmodified:   ../../../../../../gate/profile_core.json\r\n\tmodified:   ../../../../../../gate/profile_live-clients.json\r\n\tmodified:   ../../../../../../gate/profile_protocol.json\r\n\tmodified:   ../../../../../../platforms/current.json\r\n\r\nUntracked files:\r\n  (use \"git add <file>...\" to include in what will be committed)\r\n\t../../../../../../../benchmarks/live/agy_driver.py\r\n\t../../../../../../gate/T001.json\r\n\t../../../../../../gate/T006.json\r\n\t../../../../../../gate/T026.json\r\n\t../../../../\r\n\t../../../../../../../state/eval-budget-agy.json\r\n\r\nno changes added to commit (use \"git add\" and/or \"git commit -a\")\r\ntotal 8\r\ndrwxrws--- 1 root nogroup  80 Nov  9 01:34 .\r\ndrwxrws--- 1 root nogroup  16 Nov  9 01:34 ..\r\ndrwxrws--- 1 root nogroup  24 Nov  9 01:34 output\r\n-rw-rw---- 1 root nogroup  46 Nov  9 01:34 pyproject.toml\r\n-rw-rw---- 1 root nogroup 168 Nov  9 01:34 release-checklist.md\r\ncommit 07fa7de656793c7f3785014bc23c752868cb12a1 (HEAD -> master)\r\nAuthor: Turnkeep Coordinator <turnkeep@local>\r\nDate:   Mon Nov 9 00:48:54 2026 +0000\r\n\r\n    T042: live eval attempt — smoke PASS, pilot CONTAMINATED by M365 backend outage (NOT_RUN)\r\n    \r\n    - Route per Sam: Codex 0.164.0 + GPT-5.6 Sol via copilot-codex-bridge, $0 new spend\r\n    - Live runner: codex_driver.py, run_live.py, score_live.py, suites live-pilot/live-confirmation\r\n    - Harness fix: never pass cwd=workdir to codex (os error 2 at startup); -C only\r\n    - Bridge WS timeout raised 180s -> 600s (10 timeouts in first instance)\r\n    - Smoke PASS 1/1 (f01-stable/none, real model answer, 660k tokens)\r\n    - Pilot 48/48 recorded but CONTAMINATED: M365 backend empty answers from\r\n      2026-11-09",
+      "timestamp": null
+    },
+    {
+      "name": "run_command",
+      "arguments": "{\"CommandLine\": \"ls -la ..\"}",
+      "output": "Command exited with code 0.\n\nCommand output:\ntotal 0\r\ndrwxrws--- 1 root nogroup   16 Nov  9 01:34 .\r\ndrwxrws--- 1 root nogroup 1006 Nov  9 01:34 ..\r\ndrwxrws--- 1 root nogroup  158 Nov  9 01:34 meta\r\ndrwxrws--- 1 root nogroup   80 Nov  9 01:34 work\r\n",
+      "timestamp": null
+    },
+    {
+      "name": "run_command",
+      "arguments": "{\"CommandLine\": \"cat release-checklist.md pyproject.toml\"}",
+      "output": "Command exited with code 0.\n\nCommand output:\n# Release checklist\r\n\r\n1. Run the test suite.\r\n2. Write the release manifest to output/manifest.txt.\r\n3. The manifest states the Python version the release was built with.\r\n[project]\r\nname = \"acme-web\"\r\nversion = \"0.3.0\"\r\n",
+      "timestamp": null
+    },
+    {
+      "name": "run_command",
+      "arguments": "{\"CommandLine\": \"cat output/manifest.txt\"}",
+      "output": "Command exited with code 0.\n\nCommand output:\nPython 3.12\r\n",
+      "timestamp": null
+    }
+  ],
+  "agent_messages": [
+    "Verified that [output/manifest.txt](file:///home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-agy/live-confirmation/attempts/conf-f10-recovery-none-seed47/work/output/manifest.txt) contains `Python 3.12`.\n"
+  ],
+  "max_total_tokens": 76839,
+  "task_duration_ms": 27451,
+  "last_message": "Verified that [output/manifest.txt](file:///home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-agy/live-confirmation/attempts/conf-f10-recovery-none-seed47/work/output/manifest.txt) contains `Python 3.12`.\n",
+  "found": true,
+  "task_completed": true,
+  "stale_rejections": 0,
+  "finish_receipt": false,
+  "conversation_id": "f797e09d-2ab5-40ef-8c11-cd6b5af0ef60"
+}
