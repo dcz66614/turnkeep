@@ -1,0 +1,1 @@
+Wrote and verified `user.name` in [output/field.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f02-stable-turnkeep-seed11/work/output/field.txt); Turnkeep `finish` failed because `api.user_field` already exists as a unique key.

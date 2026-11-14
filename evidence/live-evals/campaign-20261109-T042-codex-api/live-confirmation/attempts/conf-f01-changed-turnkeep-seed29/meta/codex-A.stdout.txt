@@ -1,0 +1,1 @@
+Wrote and verified `output/manifest.txt` with the single line `Python 3.12`, using the current Turnkeep memory. Recorded the deliverable with a receipt.

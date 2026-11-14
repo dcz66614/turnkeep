@@ -1,0 +1,66 @@
+{
+  "suite": "live-pilot",
+  "mode": "live",
+  "label": "LIVE_MODEL",
+  "driver": "agy",
+  "model": "gemini-3.8-flash-low",
+  "note": "Real model (agy CLI, gemini-3.8-flash-low). Scored deterministically from raw traces + deliverable artifacts.",
+  "seed": 20261108,
+  "budget": {
+    "max_seconds": 600,
+    "max_steps": 60,
+    "max_tool_calls": 60
+  },
+  "overall": {
+    "attempts": 48,
+    "completed": 43,
+    "success_rate": 0.8958333333333334,
+    "stale_fact_rate": 0.10416666666666667,
+    "contract_violations": 0,
+    "irrelevant_refusals": 0,
+    "mean_redo_cost_steps": 3.0833333333333335
+  },
+  "per_arm": {
+    "none": {
+      "attempts": 12,
+      "completed": 7,
+      "success_rate": 0.5833333333333334,
+      "stale_fact_rate": 0.4166666666666667,
+      "contract_violations": 0,
+      "irrelevant_refusals": 0,
+      "mean_redo_cost_steps": 2.75
+    },
+    "markdown": {
+      "attempts": 12,
+      "completed": 12,
+      "success_rate": 1.0,
+      "stale_fact_rate": 0.0,
+      "contract_violations": 0,
+      "irrelevant_refusals": 0,
+      "mean_redo_cost_steps": 0.25
+    },
+    "log": {
+      "attempts": 12,
+      "completed": 12,
+      "success_rate": 1.0,
+      "stale_fact_rate": 0.0,
+      "contract_violations": 0,
+      "irrelevant_refusals": 0,
+      "mean_redo_cost_steps": 0.25
+    },
+    "turnkeep": {
+      "attempts": 12,
+      "completed": 12,
+      "success_rate": 1.0,
+      "stale_fact_rate": 0.0,
+      "contract_violations": 0,
+      "irrelevant_refusals": 0,
+      "mean_redo_cost_steps": 9.083333333333334
+    }
+  },
+  "attempts": 48,
+  "not_run_arms": {
+    "mature-memory": "NOT_RUN: no real Mem0/Hindsight install configured",
+    "nearest-workflow": "NOT_RUN: no real Tigerless/Engram install configured"
+  }
+}

@@ -1,0 +1,1 @@
+Wrote `user.display_name` to [output/field.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f02-recovery-turnkeep-seed47/work/output/field.txt). Turnkeep’s `finish` did not record a receipt: it failed because `api.user_field` already exists.

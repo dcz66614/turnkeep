@@ -1,0 +1,1 @@
+Updated and verified [output/manifest.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f01-recovery-turnkeep-seed29/work/output/manifest.txt) as `Python 3.13`. Turnkeep’s resumed run rejected the new receipt because that run was already accepted with a different value.

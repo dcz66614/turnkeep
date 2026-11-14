@@ -1,0 +1,18 @@
+# Task
+
+You are writing the weekly report summary for the Acme web service. The report draft you were given says the deadline is Friday. The summary must state the deadline, or state that it is unknown if the source was retracted. Write the summary to output/summary.txt as exactly one line: 'deadline <value>' or 'deadline unknown — source retracted'.
+
+# Memory
+
+You have no persistent memory. Only the brief above and the project files are available. If a fact changed after the brief was written, you have no way to know — do the best you can with what you have.
+
+# How to work
+
+Follow these steps in order. You MUST do the work with tool calls (exec_command). Do not just reply in text.
+1. Read the task files and your memory FIRST.
+2. Write the deliverable to output/summary.txt with exactly the format the task asks for.
+3. Verify the deliverable with `cat`.
+4. End your turn with a one-line summary of what you wrote and where.
+Only the deliverable file is scored; your chat reply is not scored. The task is NOT finished until the deliverable file exists and you have verified it with `cat`.
+- Never invent facts. Only use the brief, the project files, and your memory.
+- Do not use the network.

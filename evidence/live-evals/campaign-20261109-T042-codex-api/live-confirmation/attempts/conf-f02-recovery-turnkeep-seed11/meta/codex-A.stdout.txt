@@ -1,0 +1,1 @@
+Wrote `user.display_name` to [output/field.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f02-recovery-turnkeep-seed11/work/output/field.txt) and verified it with `cat`. Turnkeep `finish` failed with a UNIQUE constraint error for the existing `api.user_field` key, so no receipt was recorded.

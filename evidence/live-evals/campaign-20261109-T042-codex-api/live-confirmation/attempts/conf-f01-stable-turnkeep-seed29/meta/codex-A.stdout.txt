@@ -1,0 +1,1 @@
+Wrote and verified `output/manifest.txt` as `Python 3.11`; recorded the deliverable in Turnkeep.

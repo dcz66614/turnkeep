@@ -1,0 +1,1 @@
+Updated `output/field.txt` to `user.legal_name` and verified it with `cat`.

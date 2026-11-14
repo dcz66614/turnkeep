@@ -1,0 +1,1 @@
+Re-checked the available files and wrote `Python 3.11` to `output/manifest.txt`; verified it with `cat`.
