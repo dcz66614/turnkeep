@@ -1,0 +1,1 @@
+Wrote and verified `https://api-a.example.com/v1` in `output/api-url.txt`. Turnkeep’s `finish` could not record it: the `projA.api_url` key already exists, causing a unique constraint error.

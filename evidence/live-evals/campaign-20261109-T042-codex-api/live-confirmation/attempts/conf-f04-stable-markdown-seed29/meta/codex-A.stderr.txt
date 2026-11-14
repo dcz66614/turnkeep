@@ -1,0 +1,62 @@
+OpenAI Codex v0.164.0-alpha.9
+--------
+workdir: /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f04-stable-markdown-seed29/work
+model: gpt-6-luna
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: low
+reasoning summaries: none
+session id: 01a1c2c0-3156-78d1-b3b5-edf367e3a4f0
+--------
+user
+# Task
+
+You are configuring the Acme-A service. Two services run in parallel (Acme-A and Acme-B) and they have different API URLs. The brief you were given says Acme-A must call https://api-a.example.com/v1. Write the URL Acme-A must call to output/api-url.txt, exactly one line, nothing else. Do not mix in Acme-B's URL.
+
+# Memory
+
+Your project memory is decisions.md in this directory. It records the project's facts; the LATEST entry for a key wins. Re-read it before producing the deliverable — it may have been updated since the brief was written.
+
+# How to work
+
+Follow these steps in order. You MUST do the work with tool calls (exec_command). Do not just reply in text.
+1. Read the task files and your memory FIRST.
+2. Write the deliverable to output/api-url.txt with exactly the format the task asks for.
+3. Verify the deliverable with `cat`.
+4. End your turn with a one-line summary of what you wrote and where.
+Only the deliverable file is scored; your chat reply is not scored. The task is NOT finished until the deliverable file exists and you have verified it with `cat`.
+- Never invent facts. Only use the brief, the project files, and your memory.
+- Do not use the network.
+
+warning: Codex could not find bubblewrap on PATH. Install bubblewrap with your OS package manager. See the sandbox prerequisites: https://developers.openai.com/codex/concepts/sandboxing#prerequisites. Codex will use the bundled bubblewrap in the meantime.
+codex
+I’ll read the project memory and task files first, then write and verify the single-line URL.
+exec
+/bin/bash -lc "pwd && rg --files -g 'decisions.md' -g '"'!output/**'"' -g '*'" in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f04-stable-markdown-seed29/work
+ succeeded in 0ms:
+/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f04-stable-markdown-seed29/work
+decisions.md
+services.md
+
+exec
+/bin/bash -lc 'cat decisions.md && cat services.md' in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f04-stable-markdown-seed29/work
+ succeeded in 3ms:
+# Project decisions (memory)
+
+The LATEST entry for a key wins.
+- projA.api_url = https://api-a.example.com/v1 (fact) — recorded 2026-11-08, source: user
+- projB.api_url = https://api-b.example.com/v1 (fact) — recorded 2026-11-08, source: user
+# Services
+
+Acme-A and Acme-B run in parallel. Each has its own API URL; never copy one service's URL into the other's config.
+
+exec
+/bin/bash -lc "mkdir -p output && printf '%s\\n' 'https://api-a.example.com/v1' > output/api-url.txt && cat output/api-url.txt" in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f04-stable-markdown-seed29/work
+ succeeded in 18ms:
+https://api-a.example.com/v1
+
+codex
+Wrote `https://api-a.example.com/v1` to `output/api-url.txt`.
+tokens used
+13,830

@@ -1,0 +1,1 @@
+Re-checked available files and memory; no updated format was available, so `output/format.txt` remains `PDF`.

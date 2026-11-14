@@ -1,0 +1,1 @@
+https://api-a.example.com/v1

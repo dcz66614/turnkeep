@@ -1,0 +1,56 @@
+{
+  "tool_calls": [
+    {
+      "name": "exec_command",
+      "arguments": "pwd && rg --files -g 'decisions.md' -g 'AGENTS.md' -g '*' | head -100",
+      "timestamp": "2026-11-10T00:06:33.153Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.1 seconds\nOutput:\n/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f04-recovery-markdown-seed29/work\ndecisions.md\nservices.md\n",
+      "timestamp": "2026-11-10T00:06:33.288Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "cat decisions.md && cat services.md",
+      "timestamp": "2026-11-10T00:06:34.125Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.1 seconds\nOutput:\n# Project decisions (memory)\n\nThe LATEST entry for a key wins.\n- projA.api_url = https://api-a.example.com/v1 (fact) — recorded 2026-11-08, source: user\n- projB.api_url = https://api-b.example.com/v1 (fact) — recorded 2026-11-08, source: user\n- projA.api_url = https://api-a.example.com/v2 (fact) — corrected 2026-11-08, supersedes the earlier line\n# Services\n\nAcme-A and Acme-B run in parallel. Each has its own API URL; never copy one service's URL into the other's config.\n",
+      "timestamp": "2026-11-10T00:06:34.230Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "mkdir -p output && printf '%s\\\\n' 'https://api-a.example.com/v2' > output/api-url.txt && cat output/api-url.txt",
+      "timestamp": "2026-11-10T00:06:35.390Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.1 seconds\nOutput:\nhttps://api-a.example.com/v2\n",
+      "timestamp": "2026-11-10T00:06:35.495Z"
+    }
+  ],
+  "agent_messages": [
+    "I’ll inspect the project files and latest memory entry first, then write and verify the single-line URL.",
+    "Wrote `https://api-a.example.com/v2` to [output/api-url.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f04-recovery-markdown-seed29/work/output/api-url.txt) and verified it with `cat`."
+  ],
+  "max_total_tokens": 54066,
+  "task_duration_ms": 6137,
+  "last_message": "Wrote `https://api-a.example.com/v2` to [output/api-url.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f04-recovery-markdown-seed29/work/output/api-url.txt) and verified it with `cat`.",
+  "found": true,
+  "task_completed": true,
+  "stale_rejections": 0,
+  "finish_receipt": false,
+  "usage_split": {
+    "input_tokens": 53780,
+    "cached_input_tokens": 40099,
+    "cache_write_input_tokens": 13669,
+    "output_tokens": 286,
+    "reasoning_output_tokens": 15
+  },
+  "rollout_path": "/home/hatch/.codex/sessions/2026/11/10/rollout-2026-11-10T00-06-30-01a1c2c7-18e8-7163-85a2-87bcd3293da4.jsonl"
+}

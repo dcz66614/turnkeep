@@ -1,0 +1,1 @@
+Updated `output/api-url.txt` to `https://api-a.example.com/v3` and verified it with `cat`.

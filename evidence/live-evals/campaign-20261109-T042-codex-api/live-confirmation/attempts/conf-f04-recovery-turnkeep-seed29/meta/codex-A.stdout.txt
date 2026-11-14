@@ -1,0 +1,1 @@
+Wrote and verified `https://api-a.example.com/v2` in [output/api-url.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f04-recovery-turnkeep-seed29/work/output/api-url.txt). Turnkeep `finish` failed with a UNIQUE constraint error because `projA.api_url` already exists, so no receipt was recorded.

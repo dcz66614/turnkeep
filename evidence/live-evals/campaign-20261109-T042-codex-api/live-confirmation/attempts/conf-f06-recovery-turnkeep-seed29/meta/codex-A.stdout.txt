@@ -1,0 +1,1 @@
+Wrote and verified `Markdown` in [output/format.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f06-recovery-turnkeep-seed29/work/output/format.txt). Turnkeep `finish` failed with a SQLite unique-key error because `delivery.format` already exists, so no receipt was recorded.

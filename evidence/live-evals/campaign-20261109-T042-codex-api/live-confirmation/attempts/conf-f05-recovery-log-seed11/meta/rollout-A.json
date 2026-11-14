@@ -1,0 +1,45 @@
+{
+  "tool_calls": [
+    {
+      "name": "exec_command",
+      "arguments": "pwd && rg --files -g '!*git*' && cat events.log",
+      "timestamp": "2026-11-09T23:37:30.617Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.2 seconds\nOutput:\n/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f05-recovery-log-seed11/work\nevents.log\nreport-draft.md\n2026-11-08T10:00:00Z remember report.deadline = Friday (fact)\n2026-11-08T11:00:00Z retract report.deadline (was Friday)\n",
+      "timestamp": "2026-11-09T23:37:30.815Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "cat report-draft.md && mkdir -p output && printf '%s\\\\n' 'deadline unknown — source retracted' > output/summary.txt && cat output/summary.txt",
+      "timestamp": "2026-11-09T23:37:32.764Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.5 seconds\nOutput:\n# Weekly report (draft)\n\nStatus: on track.\ndeadline unknown — source retracted\n",
+      "timestamp": "2026-11-09T23:37:33.225Z"
+    }
+  ],
+  "agent_messages": [
+    "I’ll inspect the task files and `events.log` first, then write the one-line summary and verify it with `cat`.",
+    "Wrote `deadline unknown — source retracted` to [output/summary.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f05-recovery-log-seed11/work/output/summary.txt)."
+  ],
+  "max_total_tokens": 40342,
+  "task_duration_ms": 16414,
+  "last_message": "Wrote `deadline unknown — source retracted` to [output/summary.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f05-recovery-log-seed11/work/output/summary.txt).",
+  "found": true,
+  "task_completed": true,
+  "stale_rejections": 0,
+  "finish_receipt": false,
+  "usage_split": {
+    "input_tokens": 40095,
+    "cached_input_tokens": 13184,
+    "cache_write_input_tokens": 26902,
+    "output_tokens": 247,
+    "reasoning_output_tokens": 27
+  },
+  "rollout_path": "/home/hatch/.codex/sessions/2026/11/09/rollout-2026-11-09T23-37-18-01a1c2ac-5db6-7453-b9f8-a73a191da6be.jsonl"
+}

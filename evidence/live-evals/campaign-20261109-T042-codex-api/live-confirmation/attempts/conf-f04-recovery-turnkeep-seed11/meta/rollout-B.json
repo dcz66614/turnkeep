@@ -1,0 +1,92 @@
+{
+  "tool_calls": [
+    {
+      "name": "exec_command",
+      "arguments": "pwd && rg --files -g '!tk.sqlite3' -g '!output/**' && ./turnkeep brief --scope bench --goal \\\"Configure Acme-A API URL\\\" && ./turnkeep recall --scope bench --query projA.api_url",
+      "timestamp": "2026-11-09T23:21:20.993Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.6 seconds\nOutput:\n/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f04-recovery-turnkeep-seed11/work\nturnkeep\ntk.sqlite3.pre-v1.bak\nservices.md\n{\n  \"scope\": \"bench\",\n  \"goal\": \"Configure Acme-A API URL\",\n  \"epoch\": 3,\n  \"current_status\": \"2 active records\",\n  \"valid_decisions\": [],\n  \"open_questions\": [],\n  \"attempts\": [],\n  \"recent_changes\": [\n    {\n      \"epoch\": 3,\n      \"event\": \"correct\",\n      \"affected_ids\": [\n        \"1950fa5237434598aede475991c03945\",\n        \"ff3bf9d5a3bb4d569c73368b9a300ebc\"\n      ],\n      \"at\": \"2026-11-09T23:21:07.788610+00:00\"\n    },\n    {\n      \"epoch\": 2,\n      \"event\": \"remember\",\n      \"affected_ids\": [\n        \"6afc978a55714095ad6cb09cbbe0bda3\"\n      ],\n      \"at\": \"2026-11-09T23:21:07.723482+00:00\"\n    },\n    {\n      \"epoch\": 1,\n      \"event\": \"remember\",\n      \"affected_ids\": [\n        \"ff3bf9d5a3bb4d569c73368b9a300ebc\"\n      ],\n      \"at\": \"2026-11-09T23:21:07.701099+00:00\"\n    }\n  ],\n  \"suggested_next_steps\": [\n    \"Continue from the latest active records\"\n  ],\n  \"records\": [\n    {\n      \"must_keep\": false,\n      \"text\": \"projA.api_url: \\\"https://api-a.example.com/v2\\\" [1950fa5237434598aede475991c03945]\"\n    },\n    {\n      \"must_keep\": false,\n      \"text\": \"projB.api_url: \\\"https://api-b.example.com/v1\\\" [6afc978a55714095ad6cb09cbbe0bda3]\"\n    }\n  ],\n  \"dropped_record_count\": 0,\n  \"chars_used\": 160,\n  \"max_chars\": 4000,\n  \"estimated_tokens\": 41,\n  \"budget_overrun\": false\n}\n{\n  \"scope\": \"bench\",\n  \"records\": [\n    {\n      \"id\": \"1950fa5237434598aede475991c03945\",\n      \"key\": \"projA.api_url\",\n      \"kind\": \"fact\",\n      \"state\": \"active\",\n      \"revision\": 1,\n      \"created_at\": \"2026-11-09T23:21:07.788249+00:00\",\n      \"updated_at\": \"2026-11-09T23:21:07.788249+00:00\",\n      \"valid_until\": null,\n      \"cause_event_id\": null,\n      \"scope\": \"bench\",\n      \"value\": \"https://api-a.example.com/v2\",\n      \"source_refs\": [\n        {\n ",
+      "timestamp": "2026-11-09T23:21:21.629Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "cat services.md && ./turnkeep begin --scope bench --task \\\"Configure Acme-A API URL\\\"",
+      "timestamp": "2026-11-09T23:21:23.743Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.4 seconds\nOutput:\n# Services\n\nAcme-A and Acme-B run in parallel. Each has its own API URL; never copy one service's URL into the other's config.\n{\n  \"run_id\": \"b0c2b94793794ea3925a497eda9b5cab\",\n  \"scope\": \"bench\",\n  \"task\": \"Configure Acme-A API URL\",\n  \"read_epoch\": 3,\n  \"records\": [\n    {\n      \"id\": \"1950fa5237434598aede475991c03945\",\n      \"key\": \"projA.api_url\",\n      \"kind\": \"fact\",\n      \"state\": \"active\",\n      \"revision\": 1,\n      \"created_at\": \"2026-11-09T23:21:07.788249+00:00\",\n      \"updated_at\": \"2026-11-09T23:21:07.788249+00:00\",\n      \"valid_until\": null,\n      \"cause_event_id\": null,\n      \"scope\": \"bench\",\n      \"value\": \"https://api-a.example.com/v2\",\n      \"source_refs\": [\n        {\n          \"id\": \"u:1\",\n          \"type\": \"user_statement\"\n        }\n      ],\n      \"parent_ids\": [],\n      \"supersedes_ids\": [\n        \"ff3bf9d5a3bb4d569c73368b9a300ebc\"\n      ]\n    },\n    {\n      \"id\": \"6afc978a55714095ad6cb09cbbe0bda3\",\n      \"key\": \"projB.api_url\",\n      \"kind\": \"fact\",\n      \"state\": \"active\",\n      \"revision\": 1,\n      \"created_at\": \"2026-11-09T23:21:07.723295+00:00\",\n      \"updated_at\": \"2026-11-09T23:21:07.723295+00:00\",\n      \"valid_until\": null,\n      \"cause_event_id\": null,\n      \"scope\": \"bench\",\n      \"value\": \"https://api-b.example.com/v1\",\n      \"source_refs\": [\n        {\n          \"id\": \"u:1\",\n          \"type\": \"user_statement\"\n        }\n      ],\n      \"parent_ids\": [],\n      \"supersedes_ids\": []\n    }\n  ],\n  \"conflicts\": [],\n  \"status\": \"open\"\n}\n",
+      "timestamp": "2026-11-09T23:21:24.193Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "mkdir -p output && printf '%s\\\\n' 'https://api-a.example.com/v2' > output/api-url.txt && cat output/api-url.txt && ./turnkeep finish --scope bench --run b0c2b94793794ea3925a497eda9b5cab --key projA.api_url --value \\\"https://api-a.example.com/v2\\\" --idempotency-key conf-f04-recovery-1",
+      "timestamp": "2026-11-09T23:21:26.475Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.6 seconds\nOutput:\nhttps://api-a.example.com/v2\nTraceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/home/hatch/workspace/turnkeep-work/src/turnkeep/__main__.py\", line 7, in <module>\n    raise SystemExit(main())\n                     ^^^^^^\n  File \"/home/hatch/workspace/turnkeep-work/src/turnkeep/cli.py\", line 216, in main\n    out = _com.finish(db, args.scope, args.run, {\"key\": args.key, \"value\": args.value},\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/hatch/workspace/turnkeep-work/src/turnkeep/commits.py\", line 103, in finish\n    result_id = insert_record(db, scope_id, result[\"key\"], _json(result[\"value\"]),\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/hatch/workspace/turnkeep-work/src/turnkeep/storage.py\", line 387, in insert_record\n    db.execute(\"INSERT INTO memories(id, scope_id, key, value_json, kind, state, revision, created_at, updated_at) \"\nsqlite3.IntegrityError: UNIQUE constraint failed: memories.scope_id, memories.key\n",
+      "timestamp": "2026-11-09T23:21:27.088Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "./turnkeep recall --scope bench --query projA.api_url && ./turnkeep brief --scope bench --goal \\\"Configure Acme-A API URL\\\" && ./turnkeep resume --scope bench --run b0c2b94793794ea3925a497eda9b5cab",
+      "timestamp": "2026-11-09T23:21:46.376Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 1.0 seconds\nOutput:\n{\n  \"scope\": \"bench\",\n  \"records\": [\n    {\n      \"id\": \"9da6644281a44ff0812214090376f279\",\n      \"key\": \"projA.api_url\",\n      \"kind\": \"fact\",\n      \"state\": \"active\",\n      \"revision\": 1,\n      \"created_at\": \"2026-11-09T23:21:31.211521+00:00\",\n      \"updated_at\": \"2026-11-09T23:21:31.211521+00:00\",\n      \"valid_until\": null,\n      \"cause_event_id\": null,\n      \"scope\": \"bench\",\n      \"value\": \"https://api-a.example.com/v3\",\n      \"source_refs\": [\n        {\n          \"id\": \"u:1\",\n          \"type\": \"user_statement\"\n        }\n      ],\n      \"parent_ids\": [],\n      \"supersedes_ids\": [\n        \"1950fa5237434598aede475991c03945\"\n      ],\n      \"_score\": 3,\n      \"_label\": \"active\",\n      \"_lexical_fallback\": true\n    },\n    {\n      \"id\": \"6afc978a55714095ad6cb09cbbe0bda3\",\n      \"key\": \"projB.api_url\",\n      \"kind\": \"fact\",\n      \"state\": \"active\",\n      \"revision\": 1,\n      \"created_at\": \"2026-11-09T23:21:07.723295+00:00\",\n      \"updated_at\": \"2026-11-09T23:21:07.723295+00:00\",\n      \"valid_until\": null,\n      \"cause_event_id\": null,\n      \"scope\": \"bench\",\n      \"value\": \"https://api-b.example.com/v1\",\n      \"source_refs\": [\n        {\n          \"id\": \"u:1\",\n          \"type\": \"user_statement\"\n        }\n      ],\n      \"parent_ids\": [],\n      \"supersedes_ids\": [],\n      \"_score\": 2,\n      \"_label\": \"active\",\n      \"_lexical_fallback\": true\n    }\n  ]\n}\n{\n  \"scope\": \"bench\",\n  \"goal\": \"Configure Acme-A API URL\",\n  \"epoch\": 4,\n  \"current_status\": \"2 active records\",\n  \"valid_decisions\": [],\n  \"open_questions\": [],\n  \"attempts\": [],\n  \"recent_changes\": [\n    {\n      \"epoch\": 4,\n      \"event\": \"correct\",\n      \"affected_ids\": [\n        \"1950fa5237434598aede475991c03945\",\n        \"9da6644281a44ff0812214090376f279\"\n      ],\n      \"at\": \"2026-11-09T23:21:31.216570+00:00\"\n    },\n    {\n      \"epoch\": 3,\n      \"event\": \"correct\",\n      \"affected_ids\": [\n        \"1950fa5237434598aede475991c03945\",\n        \"ff3bf9d5a3bb4d569c73368b9a300eb",
+      "timestamp": "2026-11-09T23:21:47.380Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "printf '%s\\\\n' 'https://api-a.example.com/v3' > output/api-url.txt && cat output/api-url.txt && ./turnkeep finish --scope bench --run b0c2b94793794ea3925a497eda9b5cab --key projA.api_url --value \\\"https://api-a.example.com/v3\\\" --idempotency-key conf-f04-recovery-1",
+      "timestamp": "2026-11-09T23:21:50.586Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.4 seconds\nOutput:\nhttps://api-a.example.com/v3\n{\n  \"error\": {\n    \"code\": \"STALE_SNAPSHOT\",\n    \"message\": \"Project memory changed after this run read its snapshot; reread changes and recompute affected work.\",\n    \"details\": {\n      \"changed_record_ids\": [\n        \"1950fa5237434598aede475991c03945\",\n        \"9da6644281a44ff0812214090376f279\",\n        \"ff3bf9d5a3bb4d569c73368b9a300ebc\"\n      ],\n      \"changed_keys\": [\n        \"projA.api_url\"\n      ],\n      \"from_epoch\": 3,\n      \"to_epoch\": 4\n    }\n  }\n}\n",
+      "timestamp": "2026-11-09T23:21:51.011Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "./turnkeep resume --scope bench --run b0c2b94793794ea3925a497eda9b5cab && ./turnkeep finish --scope bench --run e4973282fa5a4c3198ada0c9c719427c --key projA.api_url --value \\\"https://api-a.example.com/v3\\\" --idempotency-key conf-f04-recovery-1",
+      "timestamp": "2026-11-09T23:21:53.438Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.5 seconds\nOutput:\n{\n  \"run_id\": \"b0c2b94793794ea3925a497eda9b5cab\",\n  \"scope\": \"bench\",\n  \"from_epoch\": 3,\n  \"to_epoch\": 4,\n  \"changed\": [\n    {\n      \"id\": \"1950fa5237434598aede475991c03945\",\n      \"key\": \"projA.api_url\",\n      \"from_state\": \"active\",\n      \"to_state\": \"superseded\",\n      \"from_revision\": 1,\n      \"to_revision\": 2\n    }\n  ],\n  \"added\": [\n    {\n      \"id\": \"9da6644281a44ff0812214090376f279\",\n      \"key\": \"projA.api_url\"\n    }\n  ],\n  \"removed\": [],\n  \"changed_keys\": [\n    \"projA.api_url\"\n  ],\n  \"changed_record_ids\": [\n    \"1950fa5237434598aede475991c03945\",\n    \"9da6644281a44ff0812214090376f279\"\n  ],\n  \"candidate_snapshot\": {\n    \"run_id\": \"b06e0e292d0b4bfe84744ccf359fc898\",\n    \"read_epoch\": 4,\n    \"record_ids\": [\n      \"9da6644281a44ff0812214090376f279\",\n      \"6afc978a55714095ad6cb09cbbe0bda3\"\n    ]\n  },\n  \"old_result_still_valid\": false\n}\nTraceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/home/hatch/workspace/turnkeep-work/src/turnkeep/__main__.py\", line 7, in <module>\n    raise SystemExit(main())\n                     ^^^^^^\n  File \"/home/hatch/workspace/turnkeep-work/src/turnkeep/cli.py\", line 216, in main\n    out = _com.finish(db, args.scope, args.run, {\"key\": args.key, \"value\": args.value},\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/hatch/workspace/turnkeep-work/src/turnkeep/commits.py\", line 103, in finish\n    result_id = insert_record(db, scope_id, result[\"key\"], _json(result[\"value\"]),\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/hatch/workspace/turnkeep-work/src/turnkeep/storage.py\", line 387, in insert_record\n    db.execute(\"INSERT INTO memories(id, scope_id, key, value_json, kind, state, revision, created_at, updated_at) \"\nsqlite3.IntegrityError: UNIQUE constraint failed: memories.scope_id, memories.key\n",
+      "timestamp": "2026-11-09T23:21:53.983Z"
+    }
+  ],
+  "agent_messages": [
+    "I’ll check the project files and Turnkeep memory first, then write and verify the one-line URL and record it with a receipt.",
+    "Turnkeep’s active Acme-A value is `https://api-a.example.com/v2` (epoch 3), superseding the earlier value. I’ll use that current memory value and keep Acme-B’s URL separate.",
+    "Wrote and verified `https://api-a.example.com/v2` in [output/api-url.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f04-recovery-turnkeep-seed11/work/output/api-url.txt). Turnkeep `finish` failed with a unique-key constraint because `projA.api_url` already exists, so no receipt was recorded.",
+    "I’ll re-check the current Acme-A memory value and run status, then update and verify the file before recording the current value.",
+    "Updated and verified [output/api-url.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f04-recovery-turnkeep-seed11/work/output/api-url.txt) with `https://api-a.example.com/v3`; Turnkeep finish again failed on the existing `projA.api_url` unique-key constraint."
+  ],
+  "max_total_tokens": 130468,
+  "task_duration_ms": 24229,
+  "last_message": "Updated and verified [output/api-url.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f04-recovery-turnkeep-seed11/work/output/api-url.txt) with `https://api-a.example.com/v3`; Turnkeep finish again failed on the existing `projA.api_url` unique-key constraint.",
+  "found": true,
+  "task_completed": true,
+  "stale_rejections": 1,
+  "finish_receipt": false,
+  "usage_split": {
+    "input_tokens": 129220,
+    "cached_input_tokens": 60395,
+    "cache_write_input_tokens": 68801,
+    "output_tokens": 1248,
+    "reasoning_output_tokens": 305
+  },
+  "rollout_path": "/home/hatch/.codex/sessions/2026/11/09/rollout-2026-11-09T23-21-08-01a1c29d-9048-73f1-ba0c-b76a55dbebea.jsonl"
+}

@@ -1,0 +1,1 @@
+Updated and verified `HTML` in [output/format.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f06-recovery-turnkeep-seed29/work/output/format.txt); after resuming, Turnkeep still rejected finish as stale.

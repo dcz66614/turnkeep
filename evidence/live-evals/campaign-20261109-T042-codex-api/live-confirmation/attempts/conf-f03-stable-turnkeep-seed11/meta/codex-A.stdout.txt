@@ -1,0 +1,1 @@
+Wrote and verified `npm run build-legacy` in `output/build.txt`. Turnkeep’s required `finish` command failed because `build.command` already exists and violates a uniqueness constraint.

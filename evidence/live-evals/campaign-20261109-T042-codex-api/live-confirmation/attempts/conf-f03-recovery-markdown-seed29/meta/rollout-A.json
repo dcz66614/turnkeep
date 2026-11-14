@@ -1,0 +1,67 @@
+{
+  "tool_calls": [
+    {
+      "name": "exec_command",
+      "arguments": "pwd && rg --files -g 'decisions.md' -g 'AGENTS.md' -g '*build*' -g 'README*' -g 'package.json'",
+      "timestamp": "2026-11-09T23:50:30.460Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.2 seconds\nOutput:\n/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f03-recovery-markdown-seed29/work\ndecisions.md\n",
+      "timestamp": "2026-11-09T23:50:30.625Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "cat decisions.md && rg --files -g '!**/.git/**'",
+      "timestamp": "2026-11-09T23:50:31.854Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.1 seconds\nOutput:\n# Project decisions (memory)\n\nThe LATEST entry for a key wins.\n- build.command = npm run build-legacy (fact) — recorded 2026-11-08, source: user\n- build.command = npm run build (fact) — corrected 2026-11-08, supersedes the earlier line\ndecisions.md\nrunbook.md\n",
+      "timestamp": "2026-11-09T23:50:31.982Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "cat runbook.md",
+      "timestamp": "2026-11-09T23:50:33.390Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.1 seconds\nOutput:\n# Runbook\n\nBuild: see the recorded build command.\nDeploy: after a green build.\n",
+      "timestamp": "2026-11-09T23:50:33.521Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "mkdir -p output && printf '%s\\\\n' 'npm run build' > output/build.txt && cat output/build.txt",
+      "timestamp": "2026-11-09T23:50:34.698Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.3 seconds\nOutput:\nnpm run build\n",
+      "timestamp": "2026-11-09T23:50:34.980Z"
+    }
+  ],
+  "agent_messages": [
+    "I’ll read the project memory and relevant task files first, then write and verify the single-line output.",
+    "Wrote `npm run build` to [output/build.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f03-recovery-markdown-seed29/work/output/build.txt)."
+  ],
+  "max_total_tokens": 67687,
+  "task_duration_ms": 8440,
+  "last_message": "Wrote `npm run build` to [output/build.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f03-recovery-markdown-seed29/work/output/build.txt).",
+  "found": true,
+  "task_completed": true,
+  "stale_rejections": 0,
+  "finish_receipt": false,
+  "usage_split": {
+    "input_tokens": 67322,
+    "cached_input_tokens": 53603,
+    "cache_write_input_tokens": 13704,
+    "output_tokens": 365,
+    "reasoning_output_tokens": 57
+  },
+  "rollout_path": "/home/hatch/.codex/sessions/2026/11/09/rollout-2026-11-09T23-50-27-01a1c2b8-6744-7260-a1c6-79ec015fa3bc.jsonl"
+}

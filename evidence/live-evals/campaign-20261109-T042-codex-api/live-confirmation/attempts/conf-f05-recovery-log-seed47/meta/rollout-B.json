@@ -1,0 +1,80 @@
+{
+  "tool_calls": [
+    {
+      "name": "exec_command",
+      "arguments": "pwd && rg --files -g 'events.log' -g '*draft*' -g '*.txt' -g 'AGENTS.md'",
+      "timestamp": "2026-11-09T23:27:28.349Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.3 seconds\nOutput:\n/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f05-recovery-log-seed47/work\nevents.log\nreport-draft.md\n",
+      "timestamp": "2026-11-09T23:27:28.665Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "cat report-draft.md && cat events.log",
+      "timestamp": "2026-11-09T23:27:30.109Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.1 seconds\nOutput:\n# Weekly report (draft)\n\nStatus: on track.\n2026-11-08T10:00:00Z remember report.deadline = Friday (fact)\n2026-11-08T11:00:00Z retract report.deadline (was Friday)\n",
+      "timestamp": "2026-11-09T23:27:30.232Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "mkdir -p output && printf '%s\\\\n' 'deadline unknown — source retracted' > output/summary.txt && cat output/summary.txt",
+      "timestamp": "2026-11-09T23:27:31.887Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.1 seconds\nOutput:\ndeadline unknown — source retracted\n",
+      "timestamp": "2026-11-09T23:27:32.002Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "cat events.log",
+      "timestamp": "2026-11-09T23:27:48.638Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.1 seconds\nOutput:\n2026-11-08T10:00:00Z remember report.deadline = Friday (fact)\n2026-11-08T11:00:00Z retract report.deadline (was Friday)\n2026-11-08T11:00:00Z correct report.deadline = Monday\n",
+      "timestamp": "2026-11-09T23:27:48.752Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "printf '%s\\\\n' 'deadline Monday' > output/summary.txt && cat output/summary.txt",
+      "timestamp": "2026-11-09T23:27:51.794Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.1 seconds\nOutput:\ndeadline Monday\n",
+      "timestamp": "2026-11-09T23:27:51.917Z"
+    }
+  ],
+  "agent_messages": [
+    "I’ll check the project files and latest memory entry first, then write and verify the one-line summary.",
+    "Wrote and verified `deadline unknown — source retracted` in [output/summary.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f05-recovery-log-seed47/work/output/summary.txt).",
+    "I’ll re-read the append-only log for the latest deadline state, then update and verify the deliverable.",
+    "Updated and verified [output/summary.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f05-recovery-log-seed47/work/output/summary.txt) with `deadline Monday`."
+  ],
+  "max_total_tokens": 95829,
+  "task_duration_ms": 15890,
+  "last_message": "Updated and verified [output/summary.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f05-recovery-log-seed47/work/output/summary.txt) with `deadline Monday`.",
+  "found": true,
+  "task_completed": true,
+  "stale_rejections": 0,
+  "finish_receipt": false,
+  "usage_split": {
+    "input_tokens": 95347,
+    "cached_input_tokens": 40713,
+    "cache_write_input_tokens": 54613,
+    "output_tokens": 482,
+    "reasoning_output_tokens": 32
+  },
+  "rollout_path": "/home/hatch/.codex/sessions/2026/11/09/rollout-2026-11-09T23-27-16-01a1c2a3-2c3b-7021-91b3-be5e4a672c1d.jsonl"
+}

@@ -1,0 +1,1 @@
+Updated `output/summary.txt` to `deadline Monday` and verified it.

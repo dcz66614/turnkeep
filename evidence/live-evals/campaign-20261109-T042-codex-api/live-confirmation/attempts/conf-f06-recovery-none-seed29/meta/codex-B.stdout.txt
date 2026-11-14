@@ -1,0 +1,1 @@
+Re-checked the brief and project notes; the format remains PDF. Verified `output/format.txt` contains `PDF`.

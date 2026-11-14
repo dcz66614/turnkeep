@@ -1,0 +1,1 @@
+Re-checked the available facts and verified `https://api-a.example.com/v1` remains in `output/api-url.txt`.

@@ -1,0 +1,1 @@
+Updated `output/format.txt` to `HTML`.

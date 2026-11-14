@@ -1,0 +1,56 @@
+{
+  "tool_calls": [
+    {
+      "name": "exec_command",
+      "arguments": "pwd && rg --files -g '!tk.sqlite3' -g '!output/**' && ./turnkeep brief --scope bench --goal \\\"weekly report summary for the Acme web service\\\" && ./turnkeep recall --scope bench --query report.summary && ./turnkeep recall --scope bench --query deadline && ./turnkeep begin --scope bench --task \\\"weekly report summary for the Acme web service\\\"",
+      "timestamp": "2026-11-10T00:02:11.437Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.7 seconds\nOutput:\n/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f05-recovery-turnkeep-seed47/work\nturnkeep\ntk.sqlite3.pre-v1.bak\nreport-draft.md\n{\n  \"scope\": \"bench\",\n  \"goal\": \"weekly report summary for the Acme web service\",\n  \"epoch\": 2,\n  \"current_status\": \"unknown\",\n  \"valid_decisions\": [],\n  \"open_questions\": [],\n  \"attempts\": [],\n  \"recent_changes\": [\n    {\n      \"epoch\": 2,\n      \"event\": \"retract\",\n      \"affected_ids\": [\n        \"ec4b40c3358544eb9b1153a809f45aad\"\n      ],\n      \"at\": \"2026-11-10T00:02:08.008148+00:00\"\n    },\n    {\n      \"epoch\": 1,\n      \"event\": \"remember\",\n      \"affected_ids\": [\n        \"ec4b40c3358544eb9b1153a809f45aad\"\n      ],\n      \"at\": \"2026-11-10T00:02:07.961435+00:00\"\n    }\n  ],\n  \"suggested_next_steps\": [\n    \"Continue from the latest active records\"\n  ],\n  \"records\": [],\n  \"dropped_record_count\": 0,\n  \"chars_used\": 0,\n  \"max_chars\": 4000,\n  \"estimated_tokens\": 1,\n  \"budget_overrun\": false\n}\n{\n  \"scope\": \"bench\",\n  \"records\": []\n}\n{\n  \"scope\": \"bench\",\n  \"records\": []\n}\n{\n  \"run_id\": \"6805f56532e348b0ad9077a859637696\",\n  \"scope\": \"bench\",\n  \"task\": \"weekly report summary for the Acme web service\",\n  \"read_epoch\": 2,\n  \"records\": [],\n  \"conflicts\": [],\n  \"status\": \"open\"\n}\n",
+      "timestamp": "2026-11-10T00:02:12.171Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "cat report-draft.md",
+      "timestamp": "2026-11-10T00:02:13.098Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.1 seconds\nOutput:\n# Weekly report (draft)\n\nStatus: on track.\n",
+      "timestamp": "2026-11-10T00:02:13.222Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "mkdir -p output && printf '%s\\\\n' 'deadline unknown — source retracted' > output/summary.txt && cat output/summary.txt && ./turnkeep finish --scope bench --run 6805f56532e348b0ad9077a859637696 --key report.summary --value \\\"deadline unknown — source retracted\\\" --idempotency-key conf-f05-recovery-1",
+      "timestamp": "2026-11-10T00:02:15.072Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.3 seconds\nOutput:\ndeadline unknown — source retracted\n{\n  \"run_id\": \"6805f56532e348b0ad9077a859637696\",\n  \"scope\": \"bench\",\n  \"record_id\": \"3243596c6b984d5dbea4f1a591cea64b\",\n  \"request_digest\": \"7b40483ae1fc62dcdb2163d365ee39f7f296ddcebf6595ddedaa968d957fd038\",\n  \"read_epoch\": 2,\n  \"commit_epoch\": 3,\n  \"parent_ids\": [],\n  \"committed_at\": \"2026-11-10T00:02:15.245434+00:00\",\n  \"status_at_commit\": \"active\",\n  \"guarantee\": \"local_sqlite_commit_only\"\n}\n",
+      "timestamp": "2026-11-10T00:02:15.382Z"
+    }
+  ],
+  "agent_messages": [
+    "I’ll check the project files and Turnkeep memory first, then write and verify the one-line summary and record it with the required receipt.",
+    "Wrote and verified `deadline unknown — source retracted` in `output/summary.txt`, and recorded it with a Turnkeep receipt."
+  ],
+  "max_total_tokens": 56755,
+  "task_duration_ms": 7633,
+  "last_message": "Wrote and verified `deadline unknown — source retracted` in `output/summary.txt`, and recorded it with a Turnkeep receipt.",
+  "found": true,
+  "task_completed": true,
+  "stale_rejections": 0,
+  "finish_receipt": false,
+  "usage_split": {
+    "input_tokens": 56252,
+    "cached_input_tokens": 41656,
+    "cache_write_input_tokens": 14584,
+    "output_tokens": 503,
+    "reasoning_output_tokens": 142
+  },
+  "rollout_path": "/home/hatch/.codex/sessions/2026/11/10/rollout-2026-11-10T00-02-08-01a1c2c3-1946-7471-a665-9f6f32dfb4a5.jsonl"
+}

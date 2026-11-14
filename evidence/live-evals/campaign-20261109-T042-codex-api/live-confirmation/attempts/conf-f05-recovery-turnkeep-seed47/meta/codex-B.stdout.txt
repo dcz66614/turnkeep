@@ -1,0 +1,1 @@
+Updated and verified `output/summary.txt`: `deadline Monday`. Turnkeep rejected recording the revised value because the existing `report.summary` key is already present.

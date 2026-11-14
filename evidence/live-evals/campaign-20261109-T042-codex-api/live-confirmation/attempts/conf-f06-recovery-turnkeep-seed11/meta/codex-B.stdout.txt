@@ -1,0 +1,1 @@
+Updated [output/format.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f06-recovery-turnkeep-seed11/work/output/format.txt) to `HTML` and verified it with `cat`. Turnkeep’s `finish` still fails on the existing `delivery.format` key with a uniqueness constraint error.

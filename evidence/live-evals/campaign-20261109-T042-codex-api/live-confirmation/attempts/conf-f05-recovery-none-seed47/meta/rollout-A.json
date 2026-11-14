@@ -1,0 +1,56 @@
+{
+  "tool_calls": [
+    {
+      "name": "exec_command",
+      "arguments": "pwd && rg --files -g '!* .git*' .",
+      "timestamp": "2026-11-10T00:02:56.349Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.1 seconds\nOutput:\n/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f05-recovery-none-seed47/work\n./report-draft.md\n",
+      "timestamp": "2026-11-10T00:02:56.499Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "cat report-draft.md && git status --short",
+      "timestamp": "2026-11-10T00:02:57.126Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.1 seconds\nOutput:\n# Weekly report (draft)\n\nStatus: on track.\n M ../../../../../../gate/T042.json\n M ../../../../../../gate/profile_core.json\n M ../../../../../../gate/profile_live-clients.json\n M ../../../../../../gate/profile_protocol.json\n D ../../../../../campaign-20261108-T042/live-pilot/attempts/pilot-f01-changed-turnkeep-seed20261108/work/tk.sqlite3-shm\n D ../../../../../campaign-20261108-T042/live-pilot/attempts/pilot-f01-changed-turnkeep-seed20261108/work/tk.sqlite3-wal\n D ../../../../../campaign-20261108-T042/live-pilot/attempts/pilot-f01-stable-turnkeep-seed20261108/work/tk.sqlite3-shm\n D ../../../../../campaign-20261108-T042/live-pilot/attempts/pilot-f01-stable-turnkeep-seed20261108/work/tk.sqlite3-wal\n D ../../../../../campaign-20261108-T042/live-pilot/attempts/pilot-f03-changed-turnkeep-seed20261108/work/tk.sqlite3-shm\n D ../../../../../campaign-20261108-T042/live-pilot/attempts/pilot-f03-changed-turnkeep-seed20261108/work/tk.sqlite3-wal\n D ../../../../../campaign-20261108-T042/live-pilot/attempts/pilot-f03-stable-turnkeep-seed20261108/work/tk.sqlite3-shm\n D ../../../../../campaign-20261108-T042/live-pilot/attempts/pilot-f03-stable-turnkeep-seed20261108/work/tk.sqlite3-wal\n D ../../../../../campaign-20261108-T042/live-pilot/attempts/pilot-f05-changed-turnkeep-seed20261108/work/tk.sqlite3-shm\n D ../../../../../campaign-20261108-T042/live-pilot/attempts/pilot-f05-changed-turnkeep-seed20261108/work/tk.sqlite3-wal\n D ../../../../../campaign-20261108-T042/live-pilot/attempts/pilot-f05-stable-turnkeep-seed20261108/work/tk.sqlite3-shm\n D ../../../../../campaign-20261108-T042/live-pilot/attempts/pilot-f05-stable-turnkeep-seed20261108/work/tk.sqlite3-wal\n D ../../../../../campaign-20261108-T042/live-pilot/attempts/pilot-f07-changed-turnkeep-seed20261108/work/tk.sqlite3-shm\n D ../../../../../campaign-20261108-T042/live-pilot/attempts/pilot-f07-changed-turnkeep-seed20261108/work/tk.sqlite3-wal\n D ../../../../../campaign-20261108-T042/l",
+      "timestamp": "2026-11-10T00:02:57.277Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "mkdir -p output && printf '%s\\\\n' 'deadline Friday' > output/summary.txt && cat output/summary.txt",
+      "timestamp": "2026-11-10T00:02:58.776Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.1 seconds\nOutput:\ndeadline Friday\n",
+      "timestamp": "2026-11-10T00:02:58.880Z"
+    }
+  ],
+  "agent_messages": [
+    "I’ll inspect the project files first for any updated or retracted deadline source, then write and verify the one-line summary.",
+    "Wrote and verified `output/summary.txt`: `deadline Friday`."
+  ],
+  "max_total_tokens": 55440,
+  "task_duration_ms": 5633,
+  "last_message": "Wrote and verified `output/summary.txt`: `deadline Friday`.",
+  "found": true,
+  "task_completed": true,
+  "stale_rejections": 0,
+  "finish_receipt": false,
+  "usage_split": {
+    "input_tokens": 55164,
+    "cached_input_tokens": 40743,
+    "cache_write_input_tokens": 14409,
+    "output_tokens": 276,
+    "reasoning_output_tokens": 78
+  },
+  "rollout_path": "/home/hatch/.codex/sessions/2026/11/10/rollout-2026-11-10T00-02-53-01a1c2c3-ca6d-7f81-9e5b-b321b15efaa5.jsonl"
+}

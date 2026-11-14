@@ -1,0 +1,1 @@
+Wrote `npm run build` to [output/build.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f03-changed-turnkeep-seed47/work/output/build.txt) and verified it with `cat`; Turnkeep `finish` failed with a unique-key constraint error for the existing `build.command` record.

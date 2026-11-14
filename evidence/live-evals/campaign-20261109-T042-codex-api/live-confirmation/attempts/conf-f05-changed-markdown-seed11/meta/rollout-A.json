@@ -1,0 +1,56 @@
+{
+  "tool_calls": [
+    {
+      "name": "exec_command",
+      "arguments": "pwd && rg --files -g 'decisions.md' -g '*draft*' -g '*.md' -g '*.txt'",
+      "timestamp": "2026-11-09T23:51:30.475Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.3 seconds\nOutput:\n/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f05-changed-markdown-seed11/work\ndecisions.md\nreport-draft.md\n",
+      "timestamp": "2026-11-09T23:51:30.803Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "cat decisions.md && cat report-draft.md",
+      "timestamp": "2026-11-09T23:51:31.779Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.1 seconds\nOutput:\n# Project decisions (memory)\n\nThe LATEST entry for a key wins.\n- report.deadline = Friday (fact) — recorded 2026-11-08, source: user\n- RETRACTED: report.deadline (was Friday) — source retracted 2026-11-08\n# Weekly report (draft)\n\nStatus: on track.\n",
+      "timestamp": "2026-11-09T23:51:31.927Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "mkdir -p output && printf '%s\\\\n' 'deadline unknown — source retracted' > output/summary.txt && cat output/summary.txt",
+      "timestamp": "2026-11-09T23:51:33.718Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.2 seconds\nOutput:\ndeadline unknown — source retracted\n",
+      "timestamp": "2026-11-09T23:51:33.918Z"
+    }
+  ],
+  "agent_messages": [
+    "I’ll read the project memory and report draft first, then write and verify the single-line summary.",
+    "Wrote and verified `output/summary.txt`: `deadline unknown — source retracted`"
+  ],
+  "max_total_tokens": 53853,
+  "task_duration_ms": 7726,
+  "last_message": "Wrote and verified `output/summary.txt`: `deadline unknown — source retracted`",
+  "found": true,
+  "task_completed": true,
+  "stale_rejections": 0,
+  "finish_receipt": false,
+  "usage_split": {
+    "input_tokens": 53621,
+    "cached_input_tokens": 40013,
+    "cache_write_input_tokens": 13596,
+    "output_tokens": 232,
+    "reasoning_output_tokens": 18
+  },
+  "rollout_path": "/home/hatch/.codex/sessions/2026/11/09/rollout-2026-11-09T23-51-27-01a1c2b9-50f5-7980-b7fd-5615eb9ab3e9.jsonl"
+}

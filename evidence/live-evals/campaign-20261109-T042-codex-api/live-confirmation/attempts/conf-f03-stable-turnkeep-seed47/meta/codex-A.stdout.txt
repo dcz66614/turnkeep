@@ -1,0 +1,1 @@
+Wrote and verified `npm run build-legacy` in `output/build.txt`. Turnkeep `finish` failed twice because `build.command` already exists and the database rejected the duplicate key.

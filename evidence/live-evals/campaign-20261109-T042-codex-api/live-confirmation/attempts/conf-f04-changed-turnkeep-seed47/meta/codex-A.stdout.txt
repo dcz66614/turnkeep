@@ -1,0 +1,1 @@
+Wrote `https://api-a.example.com/v2` to `output/api-url.txt` and verified it with `cat`. Turnkeep `finish` failed with a SQLite unique-key error because `projA.api_url` already exists, so no receipt was recorded.

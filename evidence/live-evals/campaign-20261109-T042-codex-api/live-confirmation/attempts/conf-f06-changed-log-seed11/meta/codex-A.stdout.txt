@@ -1,0 +1,1 @@
+Wrote `Markdown` to [output/format.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f06-changed-log-seed11/work/output/format.txt).

@@ -1,0 +1,56 @@
+{
+  "tool_calls": [
+    {
+      "name": "exec_command",
+      "arguments": "pwd && rg --files -g 'decisions.md' -g '*draft*' -g '*.md' -g '*.txt'",
+      "timestamp": "2026-11-09T23:49:13.575Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.3 seconds\nOutput:\n/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f05-changed-markdown-seed29/work\ndecisions.md\nreport-draft.md\n",
+      "timestamp": "2026-11-09T23:49:13.898Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "cat decisions.md && cat report-draft.md",
+      "timestamp": "2026-11-09T23:49:14.975Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.3 seconds\nOutput:\n# Project decisions (memory)\n\nThe LATEST entry for a key wins.\n- report.deadline = Friday (fact) — recorded 2026-11-08, source: user\n- RETRACTED: report.deadline (was Friday) — source retracted 2026-11-08\n# Weekly report (draft)\n\nStatus: on track.\n",
+      "timestamp": "2026-11-09T23:49:15.283Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "mkdir -p output && printf '%s\\\\n' 'deadline unknown — source retracted' > output/summary.txt && cat output/summary.txt",
+      "timestamp": "2026-11-09T23:49:16.576Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.4 seconds\nOutput:\ndeadline unknown — source retracted\n",
+      "timestamp": "2026-11-09T23:49:16.994Z"
+    }
+  ],
+  "agent_messages": [
+    "I’ll read the report draft and the latest memory entry first, then write and verify the one-line summary.",
+    "Wrote `deadline unknown — source retracted` to [output/summary.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f05-changed-markdown-seed29/work/output/summary.txt)."
+  ],
+  "max_total_tokens": 53909,
+  "task_duration_ms": 7099,
+  "last_message": "Wrote `deadline unknown — source retracted` to [output/summary.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f05-changed-markdown-seed29/work/output/summary.txt).",
+  "found": true,
+  "task_completed": true,
+  "stale_rejections": 0,
+  "finish_receipt": false,
+  "usage_split": {
+    "input_tokens": 53627,
+    "cached_input_tokens": 40017,
+    "cache_write_input_tokens": 13598,
+    "output_tokens": 282,
+    "reasoning_output_tokens": 18
+  },
+  "rollout_path": "/home/hatch/.codex/sessions/2026/11/09/rollout-2026-11-09T23-49-10-01a1c2b7-3ba4-7d33-a0f1-ab234fc24517.jsonl"
+}

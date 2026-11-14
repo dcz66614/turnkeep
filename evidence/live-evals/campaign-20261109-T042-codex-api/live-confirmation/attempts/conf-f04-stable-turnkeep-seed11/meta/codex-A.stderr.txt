@@ -1,0 +1,512 @@
+OpenAI Codex v0.164.0-alpha.9
+--------
+workdir: /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f04-stable-turnkeep-seed11/work
+model: gpt-6-luna
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: low
+reasoning summaries: none
+session id: 01a1c2a0-3074-7f60-ac75-63ffcb6b4001
+--------
+user
+# Task
+
+You are configuring the Acme-A service. Two services run in parallel (Acme-A and Acme-B) and they have different API URLs. The brief you were given says Acme-A must call https://api-a.example.com/v1. Write the URL Acme-A must call to output/api-url.txt, exactly one line, nothing else. Do not mix in Acme-B's URL.
+
+# Memory
+
+Your project memory is the Turnkeep database tk.sqlite3 in this directory. Use the ./turnkeep command to consult it BEFORE producing the deliverable — it may have been updated since the brief was written.
+Commands (run them in this directory, each needs --scope bench):
+  ./turnkeep recall --scope bench --query <key>   — show the current value of a fact
+  ./turnkeep brief --scope bench --goal "<goal>"  — show the current brief
+  ./turnkeep begin --scope bench --task "<goal>"  — start a run (prints a run id)
+  ./turnkeep finish --scope bench --run <run-id> --key <deliverable-key> --value "<value>" --idempotency-key <task-id>-1  — record the deliverable with a receipt
+  If finish is rejected with STALE_SNAPSHOT, run ./turnkeep resume --scope bench --run <run-id>, then re-check with recall and finish again.
+  Always record the deliverable with finish (with a receipt) after writing the deliverable file.
+Exact finish command for this task (copy it, filling in <run-id> and <value>):
+  ./turnkeep finish --scope bench --run <run-id> --key projA.api_url --value "<value>" --idempotency-key conf-f04-stable-1
+
+
+# How to work
+
+Follow these steps in order. You MUST do the work with tool calls (exec_command). Do not just reply in text.
+1. Read the task files and your memory FIRST.
+2. Write the deliverable to output/api-url.txt with exactly the format the task asks for.
+3. Verify the deliverable with `cat`.
+4. End your turn with a one-line summary of what you wrote and where.
+Only the deliverable file is scored; your chat reply is not scored. The task is NOT finished until the deliverable file exists and you have verified it with `cat`.
+- Never invent facts. Only use the brief, the project files, and your memory.
+- Do not use the network.
+
+warning: Codex could not find bubblewrap on PATH. Install bubblewrap with your OS package manager. See the sandbox prerequisites: https://developers.openai.com/codex/concepts/sandboxing#prerequisites. Codex will use the bundled bubblewrap in the meantime.
+2026-11-09T23:24:01.044284Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: WebSocket protocol error: No "Connection: upgrade" header, url: wss://api.openai.com/v1/responses
+2026-11-09T23:24:02.644122Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: WebSocket protocol error: No "Connection: upgrade" header, url: wss://api.openai.com/v1/responses
+2026-11-09T23:24:03.243571Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: WebSocket protocol error: No "Connection: upgrade" header, url: wss://api.openai.com/v1/responses
+ERROR: Reconnecting... 2/5
+2026-11-09T23:24:04.174642Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: WebSocket protocol error: No "Connection: upgrade" header, url: wss://api.openai.com/v1/responses
+ERROR: Reconnecting... 3/5
+2026-11-09T23:24:05.309943Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: WebSocket protocol error: No "Connection: upgrade" header, url: wss://api.openai.com/v1/responses
+ERROR: Reconnecting... 4/5
+2026-11-09T23:24:07.344119Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: WebSocket protocol error: No "Connection: upgrade" header, url: wss://api.openai.com/v1/responses
+ERROR: Reconnecting... 5/5
+2026-11-09T23:24:11.018881Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: WebSocket protocol error: No "Connection: upgrade" header, url: wss://api.openai.com/v1/responses
+warning: Falling back from WebSockets to HTTPS transport. stream disconnected before completion: WebSocket protocol error: No "Connection: upgrade" header
+codex
+I’ll check the task files and Turnkeep memory first, then write and verify the single-line URL and record it with the required receipt.
+exec
+/bin/bash -lc "pwd && rg --files -g '"'!tk.sqlite3'"' -g '"'!turnkeep'"' -g '"'!output/api-url.txt'"' && ./turnkeep brief --scope bench --goal \"Configure Acme-A API URL\" && ./turnkeep recall --scope bench --query projA.api_url" in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f04-stable-turnkeep-seed11/work
+ succeeded in 473ms:
+/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f04-stable-turnkeep-seed11/work
+tk.sqlite3.pre-v1.bak
+services.md
+{
+  "scope": "bench",
+  "goal": "Configure Acme-A API URL",
+  "epoch": 2,
+  "current_status": "2 active records",
+  "valid_decisions": [],
+  "open_questions": [],
+  "attempts": [],
+  "recent_changes": [
+    {
+      "epoch": 2,
+      "event": "remember",
+      "affected_ids": [
+        "b1e11c5558464308b04cb4d8d06f7e4d"
+      ],
+      "at": "2026-11-09T23:23:59.819156+00:00"
+    },
+    {
+      "epoch": 1,
+      "event": "remember",
+      "affected_ids": [
+        "d55325b007d84bd58e5ea1f80379212a"
+      ],
+      "at": "2026-11-09T23:23:59.797700+00:00"
+    }
+  ],
+  "suggested_next_steps": [
+    "Continue from the latest active records"
+  ],
+  "records": [
+    {
+      "must_keep": false,
+      "text": "projA.api_url: \"https://api-a.example.com/v1\" [d55325b007d84bd58e5ea1f80379212a]"
+    },
+    {
+      "must_keep": false,
+      "text": "projB.api_url: \"https://api-b.example.com/v1\" [b1e11c5558464308b04cb4d8d06f7e4d]"
+    }
+  ],
+  "dropped_record_count": 0,
+  "chars_used": 160,
+  "max_chars": 4000,
+  "estimated_tokens": 41,
+  "budget_overrun": false
+}
+{
+  "scope": "bench",
+  "records": [
+    {
+      "id": "d55325b007d84bd58e5ea1f80379212a",
+      "key": "projA.api_url",
+      "kind": "fact",
+      "state": "active",
+      "revision": 1,
+      "created_at": "2026-11-09T23:23:59.797407+00:00",
+      "updated_at": "2026-11-09T23:23:59.797407+00:00",
+      "valid_until": null,
+      "cause_event_id": null,
+      "scope": "bench",
+      "value": "https://api-a.example.com/v1",
+      "source_refs": [
+        {
+          "id": "u:1",
+          "type": "user_statement"
+        }
+      ],
+      "parent_ids": [],
+      "supersedes_ids": [],
+      "_score": 3,
+      "_label": "active",
+      "_lexical_fallback": true
+    },
+    {
+      "id": "b1e11c5558464308b04cb4d8d06f7e4d",
+      "key": "projB.api_url",
+      "kind": "fact",
+      "state": "active",
+      "revision": 1,
+      "created_at": "2026-11-09T23:23:59.818980+00:00",
+      "updated_at": "2026-11-09T23:23:59.818980+00:00",
+      "valid_until": null,
+      "cause_event_id": null,
+      "scope": "bench",
+      "value": "https://api-b.example.com/v1",
+      "source_refs": [
+        {
+          "id": "u:1",
+          "type": "user_statement"
+        }
+      ],
+      "parent_ids": [],
+      "supersedes_ids": [],
+      "_score": 2,
+      "_label": "active",
+      "_lexical_fallback": true
+    }
+  ]
+}
+
+exec
+/bin/bash -lc 'cat services.md && ./turnkeep begin --scope bench --task "Configure Acme-A API URL"' in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f04-stable-turnkeep-seed11/work
+ succeeded in 206ms:
+# Services
+
+Acme-A and Acme-B run in parallel. Each has its own API URL; never copy one service's URL into the other's config.
+{
+  "run_id": "ec0265597a7a42cda6322b7445fa811c",
+  "scope": "bench",
+  "task": "Configure Acme-A API URL",
+  "read_epoch": 2,
+  "records": [
+    {
+      "id": "d55325b007d84bd58e5ea1f80379212a",
+      "key": "projA.api_url",
+      "kind": "fact",
+      "state": "active",
+      "revision": 1,
+      "created_at": "2026-11-09T23:23:59.797407+00:00",
+      "updated_at": "2026-11-09T23:23:59.797407+00:00",
+      "valid_until": null,
+      "cause_event_id": null,
+      "scope": "bench",
+      "value": "https://api-a.example.com/v1",
+      "source_refs": [
+        {
+          "id": "u:1",
+          "type": "user_statement"
+        }
+      ],
+      "parent_ids": [],
+      "supersedes_ids": []
+    },
+    {
+      "id": "b1e11c5558464308b04cb4d8d06f7e4d",
+      "key": "projB.api_url",
+      "kind": "fact",
+      "state": "active",
+      "revision": 1,
+      "created_at": "2026-11-09T23:23:59.818980+00:00",
+      "updated_at": "2026-11-09T23:23:59.818980+00:00",
+      "valid_until": null,
+      "cause_event_id": null,
+      "scope": "bench",
+      "value": "https://api-b.example.com/v1",
+      "source_refs": [
+        {
+          "id": "u:1",
+          "type": "user_statement"
+        }
+      ],
+      "parent_ids": [],
+      "supersedes_ids": []
+    }
+  ],
+  "conflicts": [],
+  "status": "open"
+}
+
+codex
+The current memory confirms Acme-A’s URL is `https://api-a.example.com/v1`; Acme-B has a separate URL. I’m writing Acme-A’s value and then recording the deliverable in Turnkeep.
+exec
+/bin/bash -lc "mkdir -p output && printf '%s\\n' 'https://api-a.example.com/v1' > output/api-url.txt && cat output/api-url.txt && ./turnkeep finish --scope bench --run ec0265597a7a42cda6322b7445fa811c --key projA.api_url --value \"https://api-a.example.com/v1\" --idempotency-key conf-f04-stable-1" in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f04-stable-turnkeep-seed11/work
+ exited 1 in 90ms:
+https://api-a.example.com/v1
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/hatch/workspace/turnkeep-work/src/turnkeep/__main__.py", line 7, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/hatch/workspace/turnkeep-work/src/turnkeep/cli.py", line 216, in main
+    out = _com.finish(db, args.scope, args.run, {"key": args.key, "value": args.value},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hatch/workspace/turnkeep-work/src/turnkeep/commits.py", line 103, in finish
+    result_id = insert_record(db, scope_id, result["key"], _json(result["value"]),
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hatch/workspace/turnkeep-work/src/turnkeep/storage.py", line 387, in insert_record
+    db.execute("INSERT INTO memories(id, scope_id, key, value_json, kind, state, revision, created_at, updated_at) "
+sqlite3.IntegrityError: UNIQUE constraint failed: memories.scope_id, memories.key
+
+exec
+/bin/bash -lc "./turnkeep --help && rg -n \"finish\\(|idempotency|UNIQUE constraint|already\" /home/hatch/workspace/turnkeep-work/src/turnkeep" in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f04-stable-turnkeep-seed11/work
+ succeeded in 107ms:
+usage: turnkeep [-h] [--version] [--db DB] [--json] [--non-interactive]
+                {init,remember,begin,correct,retract,resolve,finish,resume,rebase,recall,brief,inspect,history,expire,sweep-expiry,erase,residuals,export,import,demo,doctor,mcp,serve}
+                ...
+
+Turnkeep local project memory (v0.1)
+
+positional arguments:
+  {init,remember,begin,correct,retract,resolve,finish,resume,rebase,recall,brief,inspect,history,expire,sweep-expiry,erase,residuals,export,import,demo,doctor,mcp,serve}
+
+options:
+  -h, --help            show this help message and exit
+  --version             show program's version number and exit
+  --db DB               SQLite path (default: per-scope data path)
+  --json                stable JSON output
+  --non-interactive     never prompt (default behaviour)
+/home/hatch/workspace/turnkeep-work/src/turnkeep/commits.py:4:1. Idempotency FIRST: if this run already succeeded, same request digest ->
+/home/hatch/workspace/turnkeep-work/src/turnkeep/commits.py:11:5. Write result + event + idempotency row, bump epoch, close run, store receipt.
+/home/hatch/workspace/turnkeep-work/src/turnkeep/commits.py:26:from .idempotency import request_digest, check as idem_check, store as idem_store
+/home/hatch/workspace/turnkeep-work/src/turnkeep/commits.py:49:def finish(db, scope_id, run_id, result, *, parent_ids=(), idempotency_key="",
+/home/hatch/workspace/turnkeep-work/src/turnkeep/commits.py:62:        if idempotency_key:
+/home/hatch/workspace/turnkeep-work/src/turnkeep/commits.py:63:            prior = idem_check(db, scope_id, actor_binding, "finish", idempotency_key, digest)
+/home/hatch/workspace/turnkeep-work/src/turnkeep/commits.py:69:                                idempotency_key or run_id, digest)
+/home/hatch/workspace/turnkeep-work/src/turnkeep/commits.py:72:            # accepted but no idempotency row under this key: same digest via
+/home/hatch/workspace/turnkeep-work/src/turnkeep/commits.py:77:                                "Run already accepted with a different request")
+/home/hatch/workspace/turnkeep-work/src/turnkeep/commits.py:100:        # 5. Write result + event + receipt + idempotency, in this tx.
+/home/hatch/workspace/turnkeep-work/src/turnkeep/commits.py:116:        if idempotency_key:
+/home/hatch/workspace/turnkeep-work/src/turnkeep/commits.py:117:            idem_store(db, scope_id, actor_binding, "finish", idempotency_key, digest, receipt)
+/home/hatch/workspace/turnkeep-work/src/turnkeep/client.py:11:  already carries code + details; SDKError wraps only unexpected errors).
+/home/hatch/workspace/turnkeep-work/src/turnkeep/client.py:81:    def finish(self, run_id, key, value, *, parent_ids=(), idempotency_key=""):
+/home/hatch/workspace/turnkeep-work/src/turnkeep/client.py:82:        return _com.finish(self._db, self.scope_id, run_id, {"key": key, "value": value},
+/home/hatch/workspace/turnkeep-work/src/turnkeep/client.py:83:                           parent_ids=parent_ids, idempotency_key=idempotency_key,
+/home/hatch/workspace/turnkeep-work/src/turnkeep/corrections.py:35:        # already superseded gets VERSION_CONFLICT, not INVALID_INPUT.
+/home/hatch/workspace/turnkeep-work/src/turnkeep/corrections.py:63:            raise TurnkeepError("INVALID_INPUT", "Record is already retracted")
+/home/hatch/workspace/turnkeep-work/src/turnkeep/backup.py:33:                   "replacements", "runs", "observed_reads", "events", "idempotency",
+/home/hatch/workspace/turnkeep-work/src/turnkeep/backup.py:105:                            f"destination already exists (use force=True to overwrite): {dest}")
+/home/hatch/workspace/turnkeep-work/src/turnkeep/demo.py:68:        finish(db, scope, run_a["run_id"], {"key": "export.manifest", "value": "manifest for zip"},
+/home/hatch/workspace/turnkeep-work/src/turnkeep/demo.py:80:    receipt = finish(db, scope, run_b["run_id"],
+/home/hatch/workspace/turnkeep-work/src/turnkeep/demo.py:83:    replay = finish(db, scope, run_b["run_id"],
+/home/hatch/workspace/turnkeep-work/src/turnkeep/demo.py:186:        finish(db, scope, run_a["run_id"], {"key": "release", "value": "Python 3.11"})
+/home/hatch/workspace/turnkeep-work/src/turnkeep/demo.py:195:    receipt = finish(db, scope, run_b["run_id"], result)
+/home/hatch/workspace/turnkeep-work/src/turnkeep/demo.py:196:    replay = finish(db, scope, run_b["run_id"], result)
+/home/hatch/workspace/turnkeep-work/src/turnkeep/cli.py:12:  finish --scope S --run RUN_ID --key K --value V [--parent ID]... [--idempotency-key K]
+/home/hatch/workspace/turnkeep-work/src/turnkeep/cli.py:106:    p.add_argument("--parent", action="append", default=[]); p.add_argument("--idempotency-key", default="")
+/home/hatch/workspace/turnkeep-work/src/turnkeep/cli.py:216:            out = _com.finish(db, args.scope, args.run, {"key": args.key, "value": args.value},
+/home/hatch/workspace/turnkeep-work/src/turnkeep/cli.py:217:                              parent_ids=args.parent, idempotency_key=args.idempotency_key,
+/home/hatch/workspace/turnkeep-work/src/turnkeep/erasure.py:10:     runs.receipt_json and idempotency.response_json for receipts that
+/home/hatch/workspace/turnkeep-work/src/turnkeep/erasure.py:22:  - copies the user already exported, backed up (.bak / export packages),
+/home/hatch/workspace/turnkeep-work/src/turnkeep/erasure.py:41:SCRUBBABLE = (("runs", "receipt_json"), ("idempotency", "response_json"))
+/home/hatch/workspace/turnkeep-work/src/turnkeep/erasure.py:89:            raise TurnkeepError("INVALID_INPUT", "record is already erased")
+/home/hatch/workspace/turnkeep-work/src/turnkeep/mcp_server.py:146:    def finish(run_id: str, key: str, value: str, idempotency_key: str = "") -> str:
+/home/hatch/workspace/turnkeep-work/src/turnkeep/mcp_server.py:149:                return _tool_result(_com.finish(db, ctx.scope_id, run_id, {"key": key, "value": value},
+/home/hatch/workspace/turnkeep-work/src/turnkeep/mcp_server.py:150:                                                idempotency_key=idempotency_key,
+/home/hatch/workspace/turnkeep-work/src/turnkeep/importers/markdown.py:173:    # All states, not just active: a key already in conflict must stay for
+/home/hatch/workspace/turnkeep-work/src/turnkeep/web/routes.py:134:        return _com.finish(db, scope, run_id, {"key": key, "value": value},
+/home/hatch/workspace/turnkeep-work/src/turnkeep/web/routes.py:136:                           idempotency_key=body.get("idempotency_key", ""),
+/home/hatch/workspace/turnkeep-work/src/turnkeep/migrations/001_initial.sql:115:CREATE TABLE idempotency (
+/home/hatch/workspace/turnkeep-work/src/turnkeep/migrations/001_initial.sql:119:  idempotency_key TEXT NOT NULL,
+/home/hatch/workspace/turnkeep-work/src/turnkeep/migrations/001_initial.sql:123:  PRIMARY KEY(scope_id,principal_binding,operation,idempotency_key)
+/home/hatch/workspace/turnkeep-work/src/turnkeep/types.py:36:    idempotency_key: str = ""
+/home/hatch/workspace/turnkeep-work/src/turnkeep/types.py:39:        if self.idempotency_key and not (8 <= len(self.idempotency_key) <= 128):
+/home/hatch/workspace/turnkeep-work/src/turnkeep/storage.py:141:                  "replacements", "runs", "observed_reads", "events", "idempotency",
+/home/hatch/workspace/turnkeep-work/src/turnkeep/idempotency.py:1:"""Idempotency (T009). Request digest + scoped idempotency keys.
+/home/hatch/workspace/turnkeep-work/src/turnkeep/idempotency.py:32:        "SELECT request_digest, response_json FROM idempotency "
+/home/hatch/workspace/turnkeep-work/src/turnkeep/idempotency.py:33:        "WHERE scope_id=? AND principal_binding=? AND operation=? AND idempotency_key=?",
+/home/hatch/workspace/turnkeep-work/src/turnkeep/idempotency.py:39:                            "Same idempotency key with a different request")
+/home/hatch/workspace/turnkeep-work/src/turnkeep/idempotency.py:46:        "INSERT INTO idempotency(scope_id, principal_binding, operation, idempotency_key, "
+/home/hatch/workspace/turnkeep-work/src/turnkeep/store.py:413:                raise TurnkeepError("INVALID_STATE", "Record is already retired")
+/home/hatch/workspace/turnkeep-work/src/turnkeep/store.py:495:    def finish(self, scope, run_id, result, *, parent_ids=()):
+/home/hatch/workspace/turnkeep-work/src/turnkeep/store.py:505:                    raise TurnkeepError("IDEMPOTENCY_MISMATCH", "This run already committed a different request")
+/home/hatch/workspace/turnkeep-work/src/turnkeep/portability.py:168:    # actually exist (imported now or already in the DB). A parent that was
+/home/hatch/workspace/turnkeep-work/src/turnkeep/portability.py:194:    already = db.execute(
+/home/hatch/workspace/turnkeep-work/src/turnkeep/portability.py:197:    if already is not None and already[0] == "published":
+/home/hatch/workspace/turnkeep-work/src/turnkeep/portability.py:198:        plan["already_imported"] = True
+/home/hatch/workspace/turnkeep-work/src/turnkeep/portability.py:202:    plan["already_imported"] = False
+/home/hatch/workspace/turnkeep-work/src/turnkeep/portability.py:221:                # (the record is already tainted by the second pass), never
+
+exec
+/bin/bash -lc "sed -n '45,125p' /home/hatch/workspace/turnkeep-work/src/turnkeep/commits.py && sed -n '1,70p' /home/hatch/workspace/turnkeep-work/src/turnkeep/corrections.py && ./turnkeep resume --scope bench --run ec0265597a7a42cda6322b7445fa811c" in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f04-stable-turnkeep-seed11/work
+ succeeded in 156ms:
+            changed_ids.append(s["id"])
+    return sorted(set(changed_ids)), sorted(changed_keys)
+
+
+def finish(db, scope_id, run_id, result, *, parent_ids=(), idempotency_key="",
+           actor_binding="local"):
+    scope_id = _text(scope_id, "scope")
+    if not isinstance(result, dict) or "key" not in result or "value" not in result:
+        raise TurnkeepError("INVALID_INPUT", "finish result needs {key, value}")
+    parents = _ids(parent_ids)
+    with transaction(db, write=True):
+        ensure_scope(db, scope_id)
+        run = get_run(db, scope_id, run_id)
+        digest = request_digest("finish", scope_id, actor_binding,
+                                {"run_id": run_id, "result": result})
+        # Same key, different request -> refuse before any work, even on a
+        # run that has not succeeded yet.
+        if idempotency_key:
+            prior = idem_check(db, scope_id, actor_binding, "finish", idempotency_key, digest)
+            if prior is not None:
+                return prior
+        # 1. Idempotent replay precedes closed/epoch checks.
+        if run["status"] == "accepted" and run.get("receipt"):
+            stored = idem_check(db, scope_id, actor_binding, "finish",
+                                idempotency_key or run_id, digest)
+            if stored is not None:
+                return stored
+            # accepted but no idempotency row under this key: same digest via
+            # run-bound digest check
+            if run.get("request_digest") == digest:
+                return run["receipt"]
+            raise TurnkeepError("IDEMPOTENCY_MISMATCH",
+                                "Run already accepted with a different request")
+        if run["status"] != "open":
+            raise TurnkeepError("INVALID_INPUT", f"Run is {run['status']}, cannot finish")
+        # 3. Epoch check (before any write).
+        current_epoch = scope_epoch(db, scope_id)
+        if current_epoch != run["snapshot_epoch"]:
+            changed_ids, changed_keys = _changed_since(db, scope_id, run)
+            raise TurnkeepError("STALE_SNAPSHOT",
+                                "Project memory changed after this run read its snapshot; reread changes and recompute affected work.",
+                                changed_record_ids=changed_ids, changed_keys=changed_keys,
+                                from_epoch=run["snapshot_epoch"], to_epoch=current_epoch)
+        # 4. Declared parents must still be usable + in scope.
+        for p in parents:
+            if not usable(db, scope_id, p):
+                raise TurnkeepError("INVALID_PARENT",
+                                    "Declared parent is missing or unavailable", parent_id=p)
+        # Server read-set is merged in: the client cannot omit snapshot parents.
+        snapshot_ids = [r["id"] for r in run["snapshot"]["records"]]
+        all_parents = sorted(set(parents) | set(snapshot_ids))
+        for p in all_parents:
+            if not usable(db, scope_id, p):
+                raise TurnkeepError("INVALID_PARENT",
+                                    "Snapshot parent is no longer usable", parent_id=p)
+        # 5. Write result + event + receipt + idempotency, in this tx.
+        changes = {}
+        sources = [{"id": f"run:{run_id}", "type": "agent_inference"}]
+        result_id = insert_record(db, scope_id, result["key"], _json(result["value"]),
+                                  result.get("kind", "handoff"), sources, all_parents,
+                                  changes, state="active")
+        receipt = {"run_id": run_id, "scope": scope_id, "record_id": result_id,
+                   "request_digest": digest, "read_epoch": run["snapshot_epoch"],
+                   "commit_epoch": current_epoch + 1, "parent_ids": all_parents,
+                   "committed_at": _now(), "status_at_commit": "active",
+                   "guarantee": "local_sqlite_commit_only"}
+        db.execute("UPDATE runs SET status='accepted', accepted_at=?, result_memory_id=?, "
+                   "request_digest=?, receipt_json=? WHERE scope_id=? AND id=?",
+                   (receipt["committed_at"], result_id, digest, _json(receipt), scope_id, run_id))
+        publish_event(db, scope_id, "finish", actor_binding, changes,
+                      metadata={"key": result["key"], "run_id": run_id})
+        if idempotency_key:
+            idem_store(db, scope_id, actor_binding, "finish", idempotency_key, digest, receipt)
+        return receipt
+"""CAS corrections, retract and full-candidate conflict resolution (T011).
+
+- correct(): BEGIN IMMEDIATE, check scope + expected_revision + old state
+  (active only; conflicted -> CONFLICT_REQUIRES_RESOLVE). Success: old
+  becomes superseded, new record created with a supersedes link, descendants
+  of the old record are tainted. One epoch bump per scope per change-set.
+  Two concurrent corrections on the same old revision: only one wins
+  (BEGIN IMMEDIATE serialises writers; the loser sees VERSION_CONFLICT).
+- retract(): history kept + reason recorded; record leaves default recall.
+  Logical retract is NOT payload erasure (erasure is T038, product-only).
+  Revision is never rolled back / reused.
+- resolve_conflict(): the FULL current candidate set (ids + revisions) must
+  be supplied; any missing/changed candidate rejects the whole transaction
+  (CANDIDATE_SET_CHANGED). Success creates one new active record and marks
+  all candidates superseded, in one transaction. No model vote substitutes
+  for external evidence: without sufficient basis, keep the conflict.
+"""
+from __future__ import annotations
+from .errors import TurnkeepError
+from .storage import (transaction, ensure_scope, row_or_404, dump_record,
+                      insert_record, set_state, taint_descendants,
+                      publish_event, _json, _text, _ids, _sources,
+                      check_revision, _now)
+
+
+def correct(db, scope_id, old_id, expected_revision, new_value, *, source_refs,
+            parent_ids=(), actor_binding="local"):
+    scope_id = _text(scope_id, "scope")
+    sources = _sources(source_refs)
+    parents = _ids(parent_ids)
+    with transaction(db, write=True):
+        ensure_scope(db, scope_id)
+        old = row_or_404(db, scope_id, old_id)
+        # Revision FIRST (starter order): a concurrent loser whose record was
+        # already superseded gets VERSION_CONFLICT, not INVALID_INPUT.
+        check_revision(old, expected_revision)
+        if old["state"] == "conflicted":
+            raise TurnkeepError("CONFLICT_REQUIRES_RESOLVE",
+                                "Correct a conflicted record only via resolve_conflict")
+        if old["state"] != "active":
+            raise TurnkeepError("INVALID_INPUT",
+                                f"Only active records can be corrected (state={old['state']})")
+        changes = {}
+        set_state(db, scope_id, old_id, "superseded", changes)
+        taint_descendants(db, scope_id, [old_id], changes)
+        new_id = insert_record(db, scope_id, old["key"], _json(new_value), old["kind"],
+                               sources, parents, changes, state="active")
+        db.execute("INSERT INTO replacements(scope_id, old_id, new_id, reason) VALUES (?,?,?,?)",
+                   (scope_id, old_id, new_id, "correct"))
+        publish_event(db, scope_id, "correct", actor_binding, changes,
+                      metadata={"key": old["key"]})
+        return dump_record(db, row_or_404(db, scope_id, new_id))
+
+
+def retract(db, scope_id, record_id, expected_revision, reason, *, actor_binding="local"):
+    scope_id = _text(scope_id, "scope")
+    reason = _text(reason, "reason")
+    with transaction(db, write=True):
+        ensure_scope(db, scope_id)
+        row = row_or_404(db, scope_id, record_id)
+        check_revision(row, expected_revision)
+        if row["state"] == "retracted":
+            raise TurnkeepError("INVALID_INPUT", "Record is already retracted")
+        changes = {}
+        set_state(db, scope_id, record_id, "retracted", changes)
+        taint_descendants(db, scope_id, [record_id], changes)
+        publish_event(db, scope_id, "retract", actor_binding, changes,
+                      metadata={"key": row["key"], "reason": reason})
+        return dump_record(db, row_or_404(db, scope_id, record_id))
+
+{
+  "run_id": "ec0265597a7a42cda6322b7445fa811c",
+  "scope": "bench",
+  "from_epoch": 2,
+  "to_epoch": 2,
+  "changed": [],
+  "added": [],
+  "removed": [],
+  "changed_keys": [],
+  "changed_record_ids": [],
+  "candidate_snapshot": {
+    "run_id": "708bc10584464564878e2884a95529d3",
+    "read_epoch": 2,
+    "record_ids": [
+      "d55325b007d84bd58e5ea1f80379212a",
+      "b1e11c5558464308b04cb4d8d06f7e4d"
+    ]
+  },
+  "old_result_still_valid": false
+}
+
+exec
+/bin/bash -lc './turnkeep finish --scope bench --run ec0265597a7a42cda6322b7445fa811c --key projA.api_url --value "https://api-a.example.com/v1" --idempotency-key conf-f04-stable-1' in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f04-stable-turnkeep-seed11/work
+ exited 1 in 66ms:
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/hatch/workspace/turnkeep-work/src/turnkeep/__main__.py", line 7, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/hatch/workspace/turnkeep-work/src/turnkeep/cli.py", line 216, in main
+    out = _com.finish(db, args.scope, args.run, {"key": args.key, "value": args.value},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hatch/workspace/turnkeep-work/src/turnkeep/commits.py", line 103, in finish
+    result_id = insert_record(db, scope_id, result["key"], _json(result["value"]),
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hatch/workspace/turnkeep-work/src/turnkeep/storage.py", line 387, in insert_record
+    db.execute("INSERT INTO memories(id, scope_id, key, value_json, kind, state, revision, created_at, updated_at) "
+sqlite3.IntegrityError: UNIQUE constraint failed: memories.scope_id, memories.key
+
+codex
+Wrote `https://api-a.example.com/v1` to [output/api-url.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f04-stable-turnkeep-seed11/work/output/api-url.txt) and verified it with `cat`. Turnkeep already has that key, so `finish` failed twice with a unique constraint error; the deliverable is in place, but no receipt was recorded.
+tokens used
+36,557

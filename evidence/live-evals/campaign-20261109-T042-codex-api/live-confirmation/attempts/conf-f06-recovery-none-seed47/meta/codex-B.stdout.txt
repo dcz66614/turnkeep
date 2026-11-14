@@ -1,0 +1,1 @@
+Re-checked the available brief and verified `PDF` in `output/format.txt`.

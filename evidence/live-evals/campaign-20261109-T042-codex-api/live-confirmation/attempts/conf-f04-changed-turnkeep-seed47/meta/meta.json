@@ -1,0 +1,12 @@
+{
+  "turnkeep_ids": {
+    "projA.api_url": {
+      "id": "db4443f730f44d43ad2fb17720c3f336",
+      "revision": 1
+    },
+    "projB.api_url": {
+      "id": "3a89bbc9ef994e62a79288bec519b69a",
+      "revision": 1
+    }
+  }
+}

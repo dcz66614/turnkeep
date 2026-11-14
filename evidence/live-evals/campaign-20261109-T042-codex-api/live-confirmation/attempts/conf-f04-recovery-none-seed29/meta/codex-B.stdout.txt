@@ -1,0 +1,1 @@
+Verified `https://api-a.example.com/v1` in `output/api-url.txt`.

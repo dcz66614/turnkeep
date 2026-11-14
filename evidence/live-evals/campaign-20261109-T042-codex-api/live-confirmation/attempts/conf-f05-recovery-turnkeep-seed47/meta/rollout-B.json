@@ -1,0 +1,135 @@
+{
+  "tool_calls": [
+    {
+      "name": "exec_command",
+      "arguments": "pwd && rg --files -g '!tk.sqlite3' -g '!output/**' && ./turnkeep brief --scope bench --goal \\\"weekly report summary for the Acme web service\\\" && ./turnkeep recall --scope bench --query report.summary && ./turnkeep recall --scope bench --query deadline && ./turnkeep begin --scope bench --task \\\"weekly report summary for the Acme web service\\\"",
+      "timestamp": "2026-11-10T00:02:11.437Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.7 seconds\nOutput:\n/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f05-recovery-turnkeep-seed47/work\nturnkeep\ntk.sqlite3.pre-v1.bak\nreport-draft.md\n{\n  \"scope\": \"bench\",\n  \"goal\": \"weekly report summary for the Acme web service\",\n  \"epoch\": 2,\n  \"current_status\": \"unknown\",\n  \"valid_decisions\": [],\n  \"open_questions\": [],\n  \"attempts\": [],\n  \"recent_changes\": [\n    {\n      \"epoch\": 2,\n      \"event\": \"retract\",\n      \"affected_ids\": [\n        \"ec4b40c3358544eb9b1153a809f45aad\"\n      ],\n      \"at\": \"2026-11-10T00:02:08.008148+00:00\"\n    },\n    {\n      \"epoch\": 1,\n      \"event\": \"remember\",\n      \"affected_ids\": [\n        \"ec4b40c3358544eb9b1153a809f45aad\"\n      ],\n      \"at\": \"2026-11-10T00:02:07.961435+00:00\"\n    }\n  ],\n  \"suggested_next_steps\": [\n    \"Continue from the latest active records\"\n  ],\n  \"records\": [],\n  \"dropped_record_count\": 0,\n  \"chars_used\": 0,\n  \"max_chars\": 4000,\n  \"estimated_tokens\": 1,\n  \"budget_overrun\": false\n}\n{\n  \"scope\": \"bench\",\n  \"records\": []\n}\n{\n  \"scope\": \"bench\",\n  \"records\": []\n}\n{\n  \"run_id\": \"6805f56532e348b0ad9077a859637696\",\n  \"scope\": \"bench\",\n  \"task\": \"weekly report summary for the Acme web service\",\n  \"read_epoch\": 2,\n  \"records\": [],\n  \"conflicts\": [],\n  \"status\": \"open\"\n}\n",
+      "timestamp": "2026-11-10T00:02:12.171Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "cat report-draft.md",
+      "timestamp": "2026-11-10T00:02:13.098Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.1 seconds\nOutput:\n# Weekly report (draft)\n\nStatus: on track.\n",
+      "timestamp": "2026-11-10T00:02:13.222Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "mkdir -p output && printf '%s\\\\n' 'deadline unknown — source retracted' > output/summary.txt && cat output/summary.txt && ./turnkeep finish --scope bench --run 6805f56532e348b0ad9077a859637696 --key report.summary --value \\\"deadline unknown — source retracted\\\" --idempotency-key conf-f05-recovery-1",
+      "timestamp": "2026-11-10T00:02:15.072Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.3 seconds\nOutput:\ndeadline unknown — source retracted\n{\n  \"run_id\": \"6805f56532e348b0ad9077a859637696\",\n  \"scope\": \"bench\",\n  \"record_id\": \"3243596c6b984d5dbea4f1a591cea64b\",\n  \"request_digest\": \"7b40483ae1fc62dcdb2163d365ee39f7f296ddcebf6595ddedaa968d957fd038\",\n  \"read_epoch\": 2,\n  \"commit_epoch\": 3,\n  \"parent_ids\": [],\n  \"committed_at\": \"2026-11-10T00:02:15.245434+00:00\",\n  \"status_at_commit\": \"active\",\n  \"guarantee\": \"local_sqlite_commit_only\"\n}\n",
+      "timestamp": "2026-11-10T00:02:15.382Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "./turnkeep brief --scope bench --goal \\\"weekly report summary for the Acme web service\\\" && ./turnkeep recall --scope bench --query deadline && ./turnkeep recall --scope bench --query report.summary",
+      "timestamp": "2026-11-10T00:02:20.103Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.4 seconds\nOutput:\n{\n  \"scope\": \"bench\",\n  \"goal\": \"weekly report summary for the Acme web service\",\n  \"epoch\": 4,\n  \"current_status\": \"2 active records\",\n  \"valid_decisions\": [],\n  \"open_questions\": [],\n  \"attempts\": [],\n  \"recent_changes\": [\n    {\n      \"epoch\": 4,\n      \"event\": \"remember\",\n      \"affected_ids\": [\n        \"b1c192221d034a6ea59979d6d9142c50\"\n      ],\n      \"at\": \"2026-11-10T00:02:16.910595+00:00\"\n    },\n    {\n      \"epoch\": 3,\n      \"event\": \"finish\",\n      \"affected_ids\": [\n        \"3243596c6b984d5dbea4f1a591cea64b\"\n      ],\n      \"at\": \"2026-11-10T00:02:15.245582+00:00\"\n    },\n    {\n      \"epoch\": 2,\n      \"event\": \"retract\",\n      \"affected_ids\": [\n        \"ec4b40c3358544eb9b1153a809f45aad\"\n      ],\n      \"at\": \"2026-11-10T00:02:08.008148+00:00\"\n    },\n    {\n      \"epoch\": 1,\n      \"event\": \"remember\",\n      \"affected_ids\": [\n        \"ec4b40c3358544eb9b1153a809f45aad\"\n      ],\n      \"at\": \"2026-11-10T00:02:07.961435+00:00\"\n    }\n  ],\n  \"suggested_next_steps\": [\n    \"Continue from the latest active records\"\n  ],\n  \"records\": [\n    {\n      \"must_keep\": false,\n      \"text\": \"report.deadline: \\\"Monday\\\" [b1c192221d034a6ea59979d6d9142c50]\"\n    },\n    {\n      \"must_keep\": false,\n      \"text\": \"report.summary: \\\"deadline unknown — source retracted\\\" [3243596c6b984d5dbea4f1a591cea64b]\"\n    }\n  ],\n  \"dropped_record_count\": 0,\n  \"chars_used\": 148,\n  \"max_chars\": 4000,\n  \"estimated_tokens\": 38,\n  \"budget_overrun\": false\n}\n{\n  \"scope\": \"bench\",\n  \"records\": [\n    {\n      \"id\": \"3243596c6b984d5dbea4f1a591cea64b\",\n      \"key\": \"report.summary\",\n      \"kind\": \"handoff\",\n      \"state\": \"active\",\n      \"revision\": 1,\n      \"created_at\": \"2026-11-10T00:02:15.245059+00:00\",\n      \"updated_at\": \"2026-11-10T00:02:15.245059+00:00\",\n      \"valid_until\": null,\n      \"cause_event_id\": null,\n      \"scope\": \"bench\",\n      \"value\": \"deadline unknown — source retracted\",\n      \"source_refs\": [\n        {\n          \"id\": \"run:6805f56532e348b0ad9077",
+      "timestamp": "2026-11-10T00:02:20.488Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "./turnkeep resume --scope bench --run 6805f56532e348b0ad9077a859637696 && ./turnkeep recall --scope bench --query deadline",
+      "timestamp": "2026-11-10T00:02:22.090Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.4 seconds\nOutput:\n{\n  \"run_id\": \"6805f56532e348b0ad9077a859637696\",\n  \"scope\": \"bench\",\n  \"from_epoch\": 2,\n  \"to_epoch\": 4,\n  \"changed\": [],\n  \"added\": [\n    {\n      \"id\": \"b1c192221d034a6ea59979d6d9142c50\",\n      \"key\": \"report.deadline\"\n    },\n    {\n      \"id\": \"3243596c6b984d5dbea4f1a591cea64b\",\n      \"key\": \"report.summary\"\n    }\n  ],\n  \"removed\": [],\n  \"changed_keys\": [\n    \"report.deadline\",\n    \"report.summary\"\n  ],\n  \"changed_record_ids\": [\n    \"3243596c6b984d5dbea4f1a591cea64b\",\n    \"b1c192221d034a6ea59979d6d9142c50\"\n  ],\n  \"candidate_snapshot\": {\n    \"run_id\": \"7169ae3f84c3444a86394ffe065e0fe0\",\n    \"read_epoch\": 4,\n    \"record_ids\": [\n      \"b1c192221d034a6ea59979d6d9142c50\",\n      \"3243596c6b984d5dbea4f1a591cea64b\"\n    ]\n  },\n  \"old_result_still_valid\": false\n}\n{\n  \"scope\": \"bench\",\n  \"records\": [\n    {\n      \"id\": \"3243596c6b984d5dbea4f1a591cea64b\",\n      \"key\": \"report.summary\",\n      \"kind\": \"handoff\",\n      \"state\": \"active\",\n      \"revision\": 1,\n      \"created_at\": \"2026-11-10T00:02:15.245059+00:00\",\n      \"updated_at\": \"2026-11-10T00:02:15.245059+00:00\",\n      \"valid_until\": null,\n      \"cause_event_id\": null,\n      \"scope\": \"bench\",\n      \"value\": \"deadline unknown — source retracted\",\n      \"source_refs\": [\n        {\n          \"id\": \"run:6805f56532e348b0ad9077a859637696\",\n          \"type\": \"agent_inference\"\n        }\n      ],\n      \"parent_ids\": [],\n      \"supersedes_ids\": [],\n      \"_score\": 1,\n      \"_label\": \"active\",\n      \"_lexical_fallback\": true\n    },\n    {\n      \"id\": \"b1c192221d034a6ea59979d6d9142c50\",\n      \"key\": \"report.deadline\",\n      \"kind\": \"fact\",\n      \"state\": \"active\",\n      \"revision\": 1,\n      \"created_at\": \"2026-11-10T00:02:16.910308+00:00\",\n      \"updated_at\": \"2026-11-10T00:02:16.910308+00:00\",\n      \"valid_until\": null,\n      \"cause_event_id\": null,\n      \"scope\": \"bench\",\n      \"value\": \"Monday\",\n      \"source_refs\": [\n        {\n          \"id\": \"u:1\",\n          \"type\": \"user_statement\"\n    ",
+      "timestamp": "2026-11-10T00:02:22.466Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "printf '%s\\\\n' 'deadline Monday' > output/summary.txt && cat output/summary.txt && ./turnkeep finish --scope bench --run 6805f56532e348b0ad9077a859637696 --key report.summary --value \\\"deadline Monday\\\" --idempotency-key conf-f05-recovery-1",
+      "timestamp": "2026-11-10T00:02:24.506Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.2 seconds\nOutput:\ndeadline Monday\n{\n  \"error\": {\n    \"code\": \"IDEMPOTENCY_MISMATCH\",\n    \"message\": \"Same idempotency key with a different request\",\n    \"details\": {}\n  }\n}\n",
+      "timestamp": "2026-11-10T00:02:24.703Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "./turnkeep finish --scope bench --run 6805f56532e348b0ad9077a859637696 --key report.summary --value \\\"deadline Monday\\\" --idempotency-key conf-f05-recovery-2",
+      "timestamp": "2026-11-10T00:02:26.341Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.2 seconds\nOutput:\n{\n  \"error\": {\n    \"code\": \"IDEMPOTENCY_MISMATCH\",\n    \"message\": \"Run already accepted with a different request\",\n    \"details\": {}\n  }\n}\n",
+      "timestamp": "2026-11-10T00:02:26.541Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "./turnkeep begin --scope bench --task \\\"weekly report summary for the Acme web service\\\"",
+      "timestamp": "2026-11-10T00:02:27.579Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.3 seconds\nOutput:\n{\n  \"run_id\": \"80186c0794a04adba0ec8a4bd8ca9615\",\n  \"scope\": \"bench\",\n  \"task\": \"weekly report summary for the Acme web service\",\n  \"read_epoch\": 4,\n  \"records\": [\n    {\n      \"id\": \"b1c192221d034a6ea59979d6d9142c50\",\n      \"key\": \"report.deadline\",\n      \"kind\": \"fact\",\n      \"state\": \"active\",\n      \"revision\": 1,\n      \"created_at\": \"2026-11-10T00:02:16.910308+00:00\",\n      \"updated_at\": \"2026-11-10T00:02:16.910308+00:00\",\n      \"valid_until\": null,\n      \"cause_event_id\": null,\n      \"scope\": \"bench\",\n      \"value\": \"Monday\",\n      \"source_refs\": [\n        {\n          \"id\": \"u:1\",\n          \"type\": \"user_statement\"\n        }\n      ],\n      \"parent_ids\": [],\n      \"supersedes_ids\": [\n        \"ec4b40c3358544eb9b1153a809f45aad\"\n      ]\n    },\n    {\n      \"id\": \"3243596c6b984d5dbea4f1a591cea64b\",\n      \"key\": \"report.summary\",\n      \"kind\": \"handoff\",\n      \"state\": \"active\",\n      \"revision\": 1,\n      \"created_at\": \"2026-11-10T00:02:15.245059+00:00\",\n      \"updated_at\": \"2026-11-10T00:02:15.245059+00:00\",\n      \"valid_until\": null,\n      \"cause_event_id\": null,\n      \"scope\": \"bench\",\n      \"value\": \"deadline unknown — source retracted\",\n      \"source_refs\": [\n        {\n          \"id\": \"run:6805f56532e348b0ad9077a859637696\",\n          \"type\": \"agent_inference\"\n        }\n      ],\n      \"parent_ids\": [],\n      \"supersedes_ids\": []\n    }\n  ],\n  \"conflicts\": [],\n  \"status\": \"open\"\n}\n",
+      "timestamp": "2026-11-10T00:02:27.911Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "./turnkeep finish --scope bench --run 80186c0794a04adba0ec8a4bd8ca9615 --key report.summary --value \\\"deadline Monday\\\" --idempotency-key conf-f05-recovery-2 && cat output/summary.txt",
+      "timestamp": "2026-11-10T00:02:30.766Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.2 seconds\nOutput:\nTraceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/home/hatch/workspace/turnkeep-work/src/turnkeep/__main__.py\", line 7, in <module>\n    raise SystemExit(main())\n                     ^^^^^^\n  File \"/home/hatch/workspace/turnkeep-work/src/turnkeep/cli.py\", line 216, in main\n    out = _com.finish(db, args.scope, args.run, {\"key\": args.key, \"value\": args.value},\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/hatch/workspace/turnkeep-work/src/turnkeep/commits.py\", line 103, in finish\n    result_id = insert_record(db, scope_id, result[\"key\"], _json(result[\"value\"]),\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/hatch/workspace/turnkeep-work/src/turnkeep/storage.py\", line 387, in insert_record\n    db.execute(\"INSERT INTO memories(id, scope_id, key, value_json, kind, state, revision, created_at, updated_at) \"\nsqlite3.IntegrityError: UNIQUE constraint failed: memories.scope_id, memories.key\n",
+      "timestamp": "2026-11-10T00:02:30.979Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "cat output/summary.txt",
+      "timestamp": "2026-11-10T00:02:32.477Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.1 seconds\nOutput:\ndeadline Monday\n",
+      "timestamp": "2026-11-10T00:02:32.614Z"
+    }
+  ],
+  "agent_messages": [
+    "I’ll check the project files and Turnkeep memory first, then write and verify the one-line summary and record it with the required receipt.",
+    "Wrote and verified `deadline unknown — source retracted` in `output/summary.txt`, and recorded it with a Turnkeep receipt.",
+    "I’ll re-check the current brief and deadline memory, then update and verify the file if the active value changed.",
+    "Updated and verified `output/summary.txt`: `deadline Monday`. Turnkeep rejected recording the revised value because the existing `report.summary` key is already present."
+  ],
+  "max_total_tokens": 197557,
+  "task_duration_ms": 16084,
+  "last_message": "Updated and verified `output/summary.txt`: `deadline Monday`. Turnkeep rejected recording the revised value because the existing `report.summary` key is already present.",
+  "found": true,
+  "task_completed": true,
+  "stale_rejections": 0,
+  "finish_receipt": false,
+  "usage_split": {
+    "input_tokens": 196118,
+    "cached_input_tokens": 177157,
+    "cache_write_input_tokens": 18925,
+    "output_tokens": 1439,
+    "reasoning_output_tokens": 450
+  },
+  "rollout_path": "/home/hatch/.codex/sessions/2026/11/10/rollout-2026-11-10T00-02-08-01a1c2c3-1946-7471-a665-9f6f32dfb4a5.jsonl"
+}
