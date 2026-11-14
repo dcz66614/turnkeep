@@ -1,0 +1,3 @@
+2026-11-08T10:00:00Z remember deploy.plan = run migrate-db-v2 then deploy (fact)
+2026-11-08T11:00:00Z correct deploy.plan = run migrate-db-v3 then deploy
+2026-11-08T11:00:00Z correct deploy.plan = run migrate-db-v4 then deploy

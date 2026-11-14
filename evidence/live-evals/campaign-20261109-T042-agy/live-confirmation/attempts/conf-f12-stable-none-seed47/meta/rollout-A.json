@@ -1,0 +1,12 @@
+{
+  "tool_calls": [],
+  "agent_messages": [],
+  "max_total_tokens": 0,
+  "task_duration_ms": 0,
+  "last_message": "",
+  "found": true,
+  "task_completed": false,
+  "stale_rejections": 0,
+  "finish_receipt": false,
+  "conversation_id": "3df5987b-3a96-4ddd-a443-72cb39a825cc"
+}
