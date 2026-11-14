@@ -1,0 +1,3 @@
+#!/bin/sh
+# Local wrapper so the agent can run the Turnkeep CLI in this directory.
+exec /home/hatch/workspace/turnkeep-work/.venv/bin/python -m turnkeep --db tk.sqlite3 --json "$@"

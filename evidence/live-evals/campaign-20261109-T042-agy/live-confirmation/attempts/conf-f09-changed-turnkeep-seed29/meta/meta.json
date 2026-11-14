@@ -1,0 +1,12 @@
+{
+  "turnkeep_ids": {
+    "deploy.region": {
+      "id": "2f2e2a0b224d4deea6c0699931929110",
+      "revision": 1
+    },
+    "deploy.region_guess": {
+      "id": "46ee3cfe3bdd4258bb17cbe756ee545b",
+      "revision": 2
+    }
+  }
+}
