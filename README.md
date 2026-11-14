@@ -201,7 +201,7 @@ delete the data directory (`~/.local/share/turnkeep` on Linux).
 | Change replay, 25 frozen scenarios | [verified] | real core 25/25; mutations no-taint 21/25, silent-overwrite 22/25 |
 | Real two-client handover (Claude Code ↔ Codex) | [verified — with disclosed limits] | T026 hybrid accepted by Sam 2026-11-10; agy reverse leg verified in-DB (6 MCP calls, finish receipt); Codex forward leg NOT run, strict gate NOT_RUN — see below |
 | Live-model evaluation (Gate C) | [verified — finding MIXED] | T042 two clean live runs (codex-api 354/432, agy 352/432); turnkeep 0% stale, completion below the file arms — see below |
-| Windows / macOS install + journeys | [not run] | T043 — see below |
+| Windows / macOS install + journeys | [not run]（Windows 环境尚未测试） | T043 — see below |
 | Performance at 10k / 100k records | [verified — FAIL] | Gate FAIL, 3 thresholds — see below |
 
 ## Known limitations
