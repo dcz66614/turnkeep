@@ -1,0 +1,2 @@
+2026-11-08T10:00:00Z remember build.command = npm run build-legacy (fact)
+2026-11-08T11:00:00Z correct build.command = npm run build

@@ -1,0 +1,51 @@
+{
+  "tool_calls": [
+    {
+      "name": "run_command",
+      "arguments": "{\"CommandLine\": \"ls -la ..\"}",
+      "output": "Command exited with code 0.\n\nCommand output:\ntotal 0\r\ndrwxrws--- 1 root nogroup   16 Nov  9 01:38 .\r\ndrwxrws--- 1 root nogroup 2022 Nov  9 01:38 ..\r\ndrwxrws--- 1 root nogroup  158 Nov  9 01:39 meta\r\ndrwxrws--- 1 root nogroup   32 Nov  9 01:38 work\r\n",
+      "timestamp": null
+    },
+    {
+      "name": "run_command",
+      "arguments": "{\"CommandLine\": \"ls -la\"}",
+      "output": "Command exited with code 0.\n\nCommand output:\ntotal 4\r\ndrwxrws--- 1 root nogroup 32 Nov  9 01:38 .\r\ndrwxrws--- 1 root nogroup 16 Nov  9 01:38 ..\r\ndrwxrws--- 1 root nogroup 18 Nov  9 01:38 output\r\n-rw-rw---- 1 root nogroup 79 Nov  9 01:38 runbook.md\r\n",
+      "timestamp": null
+    },
+    {
+      "name": "run_command",
+      "arguments": "{\"CommandLine\": \"find . -type f\"}",
+      "output": "Command exited with code 0.\n\nCommand output:\n./runbook.md\r\n./output/build.txt\r\n",
+      "timestamp": null
+    },
+    {
+      "name": "run_command",
+      "arguments": "{\"CommandLine\": \"git status 2>&1 || true; git log -n 5 2>&1 || true\"}",
+      "output": "Command exited with code 0.\n\nCommand output:\nOn branch master\r\nChanges not staged for commit:\r\n  (use \"git add <file>...\" to update what will be committed)\r\n  (use \"git restore <file>...\" to discard changes in working directory)\r\n\tmodified:   ../../../../../../../benchmarks/live/run_live.py\r\n\tmodified:   ../../../../../../gate/T042.json\r\n\tmodified:   ../../../../../../gate/profile_core.json\r\n\tmodified:   ../../../../../../gate/profile_live-clients.json\r\n\tmodified:   ../../../../../../gate/profile_protocol.json\r\n\tmodified:   ../../../../../../platforms/current.json\r\n\r\nUntracked files:\r\n  (use \"git add <file>...\" to include in what will be committed)\r\n\t../../../../../../../benchmarks/live/agy_driver.py\r\n\t../../../../../../gate/T001.json\r\n\t../../../../../../gate/T006.json\r\n\t../../../../../../gate/T026.json\r\n\t../../../../\r\n\t../../../../../../../state/eval-budget-agy.json\r\n\r\nno changes added to commit (use \"git add\" and/or \"git commit -a\")\r\ncommit 07fa7de656793c7f3785014bc23c752868cb12a1 (HEAD -> master)\r\nAuthor: Turnkeep Coordinator <turnkeep@local>\r\nDate:   Mon Nov 9 00:48:54 2026 +0000\r\n\r\n    T042: live eval attempt — smoke PASS, pilot CONTAMINATED by M365 backend outage (NOT_RUN)\r\n    \r\n    - Route per Sam: Codex 0.164.0 + GPT-5.6 Sol via copilot-codex-bridge, $0 new spend\r\n    - Live runner: codex_driver.py, run_live.py, score_live.py, suites live-pilot/live-confirmation\r\n    - Harness fix: never pass cwd=workdir to codex (os error 2 at startup); -C only\r\n    - Bridge WS timeout raised 180s -> 600s (10 timeouts in first instance)\r\n    - Smoke PASS 1/1 (f01-stable/none, real model answer, 660k tokens)\r\n    - Pilot 48/48 recorded but CONTAMINATED: M365 backend empty answers from\r\n      2026-11-09T00:30:57Z (0 output tokens, both tones, trivial prompts; still\r\n      empty after 10-min wait + bridge restart); 32 attempts are outage\r\n      artifacts, 16 valid with 10 completed. 10/48 must NOT be quoted.\r\n    - Confirmation NOT_RUN; two-client comparison NOT_RUN (T026); B",
+      "timestamp": null
+    },
+    {
+      "name": "run_command",
+      "arguments": "{\"CommandLine\": \"cat runbook.md\"}",
+      "output": "Command exited with code 0.\n\nCommand output:\n# Runbook\r\n\r\nBuild: see the recorded build command.\r\nDeploy: after a green build.\r\n",
+      "timestamp": null
+    },
+    {
+      "name": "run_command",
+      "arguments": "{\"CommandLine\": \"cat output/build.txt\"}",
+      "output": "Command exited with code 0.\n\nCommand output:\nnpm run build-legacy\r\n",
+      "timestamp": null
+    }
+  ],
+  "agent_messages": [
+    "Verified `npm run build-legacy` in [output/build.txt](file:///home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-agy/live-confirmation/attempts/conf-f03-recovery-none-seed29/work/output/build.txt).\n"
+  ],
+  "max_total_tokens": 117938,
+  "task_duration_ms": 37962,
+  "last_message": "Verified `npm run build-legacy` in [output/build.txt](file:///home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-agy/live-confirmation/attempts/conf-f03-recovery-none-seed29/work/output/build.txt).\n",
+  "found": true,
+  "task_completed": true,
+  "stale_rejections": 0,
+  "finish_receipt": false,
+  "conversation_id": "4d168489-7238-466e-ae78-6c430e6420af"
+}
