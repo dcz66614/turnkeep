@@ -8,6 +8,14 @@ name: test
 # PowerShell (the runner default) with .venv\Scripts\python.exe; other
 # steps use .venv/bin/python. No `||` fallbacks — a backslash path is
 # mangled by bash. Core tests and journeys need no network model.
+#
+# A clean checkout lacks two things the tests assume: the release zip
+# (release/TURNKEEP_RC.zip — a locally built binary, never pushed) and
+# the tasks/backlog.json symlink (a symlink, never pushed). The
+# "Restore ..." and "Build release candidate for tests" steps recreate
+# both from the checked-out commit before Core tests, so the
+# handoff-verifier and state-recovery tests run against a real, current
+# RC instead of failing on missing files.
 on:
   push:
     branches: [main]
@@ -25,6 +33,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
+      # The RC build below needs node/npm (ui build). Pin it like
+      # release-candidate.yml instead of relying on the runner image.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
       - name: Install (Linux/macOS)
         if: runner.os != 'Windows'
         run: |
@@ -43,6 +56,46 @@ jobs:
           # official MCP SDK later). CI installs the dev-venv version
           # explicitly so tests/mcp can import it on a clean checkout.
           .venv\Scripts\python.exe -m pip install "mcp==2.3.0"
+      # tasks/backlog.json is a symlink to ../state/backlog.json in the
+      # repo, but symlinks are not pushed to GitHub, so a clean checkout
+      # has no tasks/ directory at all. Recreate it: the state-recovery
+      # tests compare its content with state/backlog.json. The read at
+      # the end fails the step fast if the link dangles.
+      - name: Restore tasks/backlog.json symlink (Linux/macOS)
+        if: runner.os != 'Windows'
+        run: |
+          mkdir -p tasks
+          ln -sfn ../state/backlog.json tasks/backlog.json
+          test -L tasks/backlog.json && test -r tasks/backlog.json
+      - name: Restore tasks/backlog.json symlink (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          if (!(Test-Path tasks)) { New-Item -ItemType Directory -Path tasks | Out-Null }
+          New-Item -ItemType SymbolicLink -Path tasks\backlog.json -Target "$PWD\state\backlog.json" -Force | Out-Null
+          Get-Content tasks\backlog.json -TotalCount 1 | Out-Null
+      # `pip install -e ".[dev]"` regenerates the tracked
+      # src/turnkeep.egg-info/SOURCES.txt, dirtying the tree; the build
+      # refuses a dirty tracked tree by design, so restore it first
+      # (same step as release-candidate.yml).
+      - name: Restore tracked egg-info after editable install
+        run: git checkout -- src/turnkeep.egg-info
+      # The handoff-verifier tests run against the CURRENT release zip
+      # (release/TURNKEEP_RC.zip), which is a locally built binary and
+      # is never in the repo on GitHub. Build it here from the
+      # checked-out commit (same commands as release-candidate.yml, so
+      # the zip the tests see is the one this commit would ship).
+      - name: Build release candidate for tests (Linux/macOS)
+        if: runner.os != 'Windows'
+        run: |
+          npm --prefix ui ci
+          .venv/bin/python scripts/build_release.py --clean --output release/artifacts
+          .venv/bin/python scripts/package_handoff.py --output release/TURNKEEP_RC.zip
+      - name: Build release candidate for tests (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          npm --prefix ui ci
+          .venv\Scripts\python.exe scripts/build_release.py --clean --output release/artifacts
+          .venv\Scripts\python.exe scripts/package_handoff.py --output release/TURNKEEP_RC.zip
       - name: Core tests (Linux/macOS)
         if: runner.os != 'Windows'
         run: .venv/bin/python -m pytest tests/ -q
