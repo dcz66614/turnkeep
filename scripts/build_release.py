@@ -88,6 +88,18 @@ def _run(argv, cwd=ROOT, env=None, timeout=900):
     merged = dict(os.environ)
     if env:
         merged.update(env)
+    argv = list(argv)
+    # Windows: a bare "npm" is npm.cmd, and CreateProcess (no shell)
+    # cannot resolve it -- FileNotFoundError [WinError 2]. Resolve the
+    # program the way the shell would: shutil.which() honours PATHEXT
+    # on Windows, so it finds npm.cmd. On POSIX this is a no-op
+    # (execvp searches PATH the same way); absolute paths (e.g.
+    # sys.executable) are returned unchanged when executable. If the
+    # program is not found, keep the original name so the error
+    # surfaces exactly as before.
+    resolved = shutil.which(argv[0], path=merged.get("PATH"))
+    if resolved is not None:
+        argv[0] = resolved
     return subprocess.run(argv, cwd=str(cwd), env=merged,
                           capture_output=True, text=True, timeout=timeout)
 
