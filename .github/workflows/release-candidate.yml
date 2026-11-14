@@ -1,0 +1,59 @@
+# Release candidate (T046) — Linux-only build + verify.
+#
+# This workflow file is NOT evidence of a run: it has never executed on
+# any runner (no GitHub upload / no CI trigger without Sam's explicit
+# authorisation). Windows/macOS packaging is NOT_RUN (see
+# docs/COMPATIBILITY.md); only ubuntu-latest is listed here, and no job
+# pretends another platform was built.
+#
+# What it does when a runner with permission executes it:
+#   1. Build the release candidate from a clean checkout
+#      (scripts/build_release.py --clean --output release/artifacts).
+#   2. Verify it independently (scripts/verify_release.py --manifest ...),
+#      which installs the built wheel into a clean venv and runs the
+#      zero-key demo + a CLI remember/begin/finish receipt check there.
+#   3. Keep the artifacts as CI-internal workflow artifacts
+#      (actions/upload-artifact) for inspection. That is retention on the
+#      runner host, not a public release: there is NO publish / release /
+#      deploy step in this file, and adding one needs a separate,
+#      explicitly authorised workflow.
+#
+# System Python on the runners is used only to create .venv; the build
+# itself runs under .venv/bin/python (PEP-668 on the dev VM maps to the
+# same layout).
+
+name: release-candidate
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Install build toolchain + dev deps
+        run: |
+          python -m venv .venv
+          .venv/bin/python -m pip install -e ".[dev]"
+          .venv/bin/python -m pip install build setuptools wheel
+      - name: Build release candidate
+        run: .venv/bin/python scripts/build_release.py --clean --output release/artifacts
+      - name: Verify release candidate
+        run: .venv/bin/python scripts/verify_release.py --manifest release/artifacts/manifest.json
+      - name: Keep candidate artifacts (CI-internal only, not a release)
+        uses: actions/upload-artifact@v4
+        with:
+          name: turnkeep-0.1.0-rc
+          path: release/artifacts
+          if-no-files-found: error
