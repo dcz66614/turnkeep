@@ -1,0 +1,76 @@
+# NOTICE — Turnkeep (working name)
+
+Product version 0.1.0, contract v0.1. This file is part of the T045
+release checks. It records what this repository contains and whose
+licences apply. The project's own code is MIT — see `LICENSE`.
+
+## 1. Own code
+
+All original Turnkeep code in this repository (`src/`, `scripts/`,
+`ui/src/`, `tests/`, `examples/`, `docs/`, `specs/`) is
+Copyright (c) 2026 Turnkeep contributors, MIT License (`LICENSE`).
+The starter seed code this product grew from was original MIT code
+from the input kit (`starter/` in the reference package); no
+third-party code was copied into `src/turnkeep/` from another project.
+
+## 2. Dependencies — see `release/SBOM.json`
+
+The candidate artifact uses only the dependencies listed in
+`release/SBOM.json` (103 components: 33 Python, 70 Node), with
+name / version / licence / source for each. Licence families present:
+
+- MIT, MIT-0, ISC, PSF-2.0 (permissive)
+- Apache-2.0, BSD-2-Clause, BSD-3-Clause (permissive, attribution)
+
+No copyleft (GPL / LGPL / AGPL) dependency is present in the SBOM.
+If a future dependency introduces a copyleft licence, it must be
+reviewed before it is added to any lock file — this NOTICE and the
+SBOM must be updated in the same change.
+
+Runtime note: the Python core is stdlib + SQLite only and has zero
+runtime Python dependencies. The MCP server uses the official MCP
+Python SDK (`mcp` 2.3.0, MIT) plus its transitive dependencies.
+The local workbench HTTP API is stdlib `http.server` only — no
+FastAPI / Uvicorn at runtime (Uvicorn appears in the SBOM only as a
+transitive dependency of the MCP SDK). The UI is built with Vite /
+TypeScript / Playwright (dev / build / test only).
+
+System tools: CPython 3.12.3 (PSF-2.0), bundled SQLite 3.45.1
+(public domain), Node.js 24.22.1 (MIT, build/test only).
+Graphviz is **not** used anywhere in this repository and is not
+part of the candidate artifact.
+
+## 3. What is NOT bundled
+
+- No third-party full text is packaged: `docs/comparison.md` and
+  `docs/COMPETITORS.md` quote only short competitor taglines and
+  link to the original projects; those projects keep their own
+  licences and the quotations do not relicense them.
+- The kit's distribution note names Relay (BSL) only as a
+  comparison point: BSL is **not** an OSI open-source licence and
+  no Relay code is included. Turnkeep's own code is MIT; nothing
+  in this repository should be described as "open source" on the
+  strength of merely being source-visible. Until the repository is
+  actually published under the MIT licence in `LICENSE`, the
+  accurate description is "MIT-licensed source, release candidate
+  for local use" — see `SECURITY.md` and `docs/KNOWN_LIMITATIONS.md`.
+- No third-party demo assets, fonts, images or sample data are
+  bundled. UI `dist/` output is built from the project's own
+  TypeScript sources; the only image/svg files in the tree live
+  inside `ui/node_modules/` (Playwright's own assets) and are
+  never shipped (gitignored, excluded from the release package).
+
+## 4. Known lock-file gaps (recorded, not hidden)
+
+- `requirements/ui.lock` is empty/stale (it still says "T029 pins
+  later") while `ui/package-lock.json` actually pins the Node
+  dependencies. The SBOM's Node inventory comes from
+  `ui/package-lock.json`. `ui.lock` must be regenerated or removed
+  by its owner; T045 does not edit files outside its owned paths.
+- `pyproject.toml` `[project.optional-dependencies]` still lists
+  `mcp = []` and `ui = []`, while `requirements/mcp.lock` pins the
+  real MCP dependencies. Same owner follow-up.
+- Python transitive packages installed in `.venv` but absent from
+  every `requirements/*.lock` are listed in the SBOM with source
+  "transitive, not pinned in a lock" — real versions from installed
+  package metadata, not estimates.

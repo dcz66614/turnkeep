@@ -1,0 +1,45 @@
+{
+  "gate": "run_gate",
+  "selector": "T039",
+  "status": "PASS",
+  "generated": "2026-11-08T20:16:32Z",
+  "python": "3.12.3",
+  "results": [
+    {
+      "task_id": "T039",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/storage/test_backup_restore.py",
+            "tests/storage/test_restore_erasure.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.619,
+          "stdout_tail": ".......                                                                  [100%]\n7 passed in 0.17s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/restore_check.py",
+            "--fixture",
+            "restart-handoff"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.175,
+          "stdout_tail": "{\n  \"status\": \"PASS\",\n  \"failures\": []\n}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    }
+  ]
+}

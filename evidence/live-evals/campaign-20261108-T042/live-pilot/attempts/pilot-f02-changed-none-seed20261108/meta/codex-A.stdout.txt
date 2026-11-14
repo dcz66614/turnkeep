@@ -1,0 +1,1 @@
+Wrote `user.name` to `output/field.txt` and verified it.

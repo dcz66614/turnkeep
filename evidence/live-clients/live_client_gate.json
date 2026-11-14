@@ -1,0 +1,30 @@
+{
+  "task": "T026",
+  "journey": "J02",
+  "pair": [
+    "claude-code",
+    "codex"
+  ],
+  "fixture": "/home/hatch/workspace/turnkeep-work/fixtures/live-handoff/export-format.json",
+  "clients": {
+    "claude-code": {
+      "binary": false,
+      "turnkeep_installed": false,
+      "config_path": null,
+      "auth": null,
+      "note": "claude CLI absent on this machine"
+    },
+    "codex": {
+      "binary": true,
+      "turnkeep_installed": true,
+      "config_path": "/home/hatch/.codex/config.toml",
+      "auth": true,
+      "note": "auth.json absent — login state unknown, no login attempted"
+    }
+  },
+  "status": "NOT_RUN",
+  "reasons": [
+    "claude-code: CLI binary not installed"
+  ],
+  "note": "Two real host products are required; two SDK test processes are NOT a substitute (backlog invariant). No mock recording was made."
+}

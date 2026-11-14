@@ -1,0 +1,47 @@
+{
+  "gate": "run_gate",
+  "selector": "T030",
+  "status": "PASS",
+  "generated": "2026-11-08T19:40:29Z",
+  "python": "3.12.3",
+  "results": [
+    {
+      "task_id": "T030",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "npm",
+            "--prefix",
+            "ui",
+            "run",
+            "build"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 6.196,
+          "stdout_tail": "\n> turnkeep-workbench@0.1.0 build\n> tsc -b && vite build\n\nvite v6.4.5 building for production...\ntransforming...\n✓ 8 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                1.43 kB │ gzip: 0.74 kB\ndist/assets/index-CCepq3d-.js  5.18 kB │ gzip: 2.55 kB │ map: 11.61 kB\n✓ built in 385ms\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "npm",
+            "--prefix",
+            "ui",
+            "run",
+            "test:e2e",
+            "--",
+            "overview.spec.ts"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 12.991,
+          "stdout_tail": "\n> turnkeep-workbench@0.1.0 test:e2e\n> NODE_PATH=./node_modules playwright test overview.spec.ts\n\n\nRunning 2 tests using 1 worker\n\n  ✓  1 ../tests/ui/overview.spec.ts:52:1 › overview shows seeded decision and history lists it (3.2s)\n  ✓  2 ../tests/ui/overview.spec.ts:73:1 › wrong token shows an actionable error, not fake data (1.9s)\n\n  2 passed (10.1s)\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    }
+  ]
+}

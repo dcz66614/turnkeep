@@ -1,0 +1,46 @@
+{
+  "gate": "run_gate",
+  "selector": "T024",
+  "status": "PASS",
+  "generated": "2026-11-08T19:10:50Z",
+  "python": "3.12.3",
+  "results": [
+    {
+      "task_id": "T024",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/adapters/test_claude_config.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.415,
+          "stdout_tail": "..                                                                       [100%]\n2 passed in 0.01s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/check_adapter.py",
+            "--client",
+            "claude-code",
+            "--mode",
+            "config"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.066,
+          "stdout_tail": "{\n  \"client\": \"claude-code\",\n  \"mode\": \"config\",\n  \"config\": \"PASS\",\n  \"config_path\": \"/home/hatch/workspace/turnkeep-work/adapters/claude-code/.mcp.json\",\n  \"server\": {\n    \"args\": [\n      \"python3\",\n      \"-m\",\n      \"turnkeep\",\n      \"mcp\",\n      \"--scope\",\n      \"claude-code\",\n      \"--db\",\n      \"~/.local/share/turnkeep/turnkeep.sqlite3\"\n    ],\n    \"command\": \"/usr/bin/env\",\n    \"env\": {\n      \"PYTHONPATH\": \"<turnkeep-work>/src\",\n      \"TURNKEEP_PRINCIPAL\": \"claude-code\"\n    },\n    \"type\": \"stdio\"\n  },\n  \"live\": \"NOT_RUN\",\n  \"live_reason\": \"claude CLI not installed on this machine\"\n}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    }
+  ]
+}

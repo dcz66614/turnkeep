@@ -1,0 +1,3 @@
+#!/bin/sh
+# Local wrapper so the agent can run the Turnkeep CLI here.
+exec /home/hatch/workspace/turnkeep-work/.venv/bin/python -m turnkeep --db /home/hatch/workspace/turnkeep-work/evidence/live-clients/run-20261109-01/handover.sqlite3 --json "$@"

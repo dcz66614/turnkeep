@@ -1,0 +1,2 @@
+{"action": "correct", "key": "export.format", "new_value": "tar", "source": {"id": "doc:9", "type": "imported_text"}, "note": "B found the target system only accepts tar"}
+{"action": "note", "key": "export.manifest", "note": "manifest must list tar contents, not zip"}

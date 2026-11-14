@@ -1,0 +1,41 @@
+{
+  "gate": "run_gate",
+  "selector": "T022",
+  "status": "PASS",
+  "generated": "2026-11-08T19:05:02Z",
+  "python": "3.12.3",
+  "results": [
+    {
+      "task_id": "T022",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/security/test_transport_binding.py",
+            "tests/security/test_untrusted_text.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 1.638,
+          "stdout_tail": "..........                                                               [100%]\n10 passed in 0.12s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_gate.py",
+            "--task",
+            "T022"
+          ],
+          "status": "DEFERRED_AGGREGATE",
+          "reason": "aggregate command: top-level caller only; not dispatched by run_gate"
+        }
+      ]
+    }
+  ]
+}

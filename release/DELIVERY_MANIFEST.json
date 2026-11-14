@@ -1,0 +1,2512 @@
+{
+  "product": "Turnkeep (working name)",
+  "version": "0.1.0",
+  "contract_version": "0.1",
+  "head_sha": "c269d06a680bdc2912e0c96e8e92880c67245258",
+  "packaging_commit": "c269d06a680bdc2912e0c96e8e92880c67245258",
+  "packaging_note": "Packaging does not commit git, so the HEAD recorded here is the HEAD the zip was built from; the artifact manifest commit matches it (D-R5-2).",
+  "built_at": "2026-11-13T23:10:26+00:00",
+  "source_date_epoch": 1794611426,
+  "archive_name": "TURNKEEP_RC.zip",
+  "archive_sha256": "1cd394cfa51daea18b2cc666919d340b446b1717ea66ba311cd518f689d17c21",
+  "archive_sha256_note": "sha256 of the finished release/TURNKEEP_RC.zip.",
+  "release_artifacts": {
+    "manifest_commit": "c269d06a680bdc2912e0c96e8e92880c67245258",
+    "manifest_matches_head": true,
+    "reproducible": true,
+    "files": 8
+  },
+  "grading": {
+    "INTEGRATED_RC_READY": {
+      "basis": "T026 VERIFIED 2026-11-10 ~09:08 GMT per Sam's decision accepting the hybrid substitution (Codex-via-CLI + agy-via-MCP; agy reverse leg verified, commit f9e2786). Disclosed: Codex forward leg not run (outage); strict live-clients gate remains NOT_RUN.",
+      "verdict": "READY"
+    },
+    "OFFLINE_RC_READY": {
+      "basis": "All gates for the advertised Linux offline scope PASS: core, protocol, UI, data, docs, build. Perf FAIL and NOT_RUN gates are disclosed limits of the RC, not hidden; they block higher grades, not this one.",
+      "verdict": "READY"
+    },
+    "PUBLIC_CANDIDATE": {
+      "basis": "Missing: cross-platform (T043 Windows/macOS NOT_RUN, perf gate FAIL) + trademark clearance NOT_RUN + dependency vulnerability scan NOT_RUN. (T026/T042 no longer missing.)",
+      "verdict": "NOT MET"
+    },
+    "REFERENCE_CORE_READY": {
+      "basis": "Reference core re-run on this VM: starter unittest 25/25 + demo OK (T001, state/BASELINE_STATUS.json); product core gate profile_core.json PASS.",
+      "verdict": "READY"
+    },
+    "VALUE_EVALUATED": {
+      "basis": "T042 VERIFIED 2026-11-10 ~09:08 GMT: two independent clean live runs (codex-api 354/432, agy 352/432). Finding MIXED: turnkeep arm 0% stale, completion below files - graded on that basis, no blanket win claim.",
+      "verdict": "READY"
+    }
+  },
+  "known_gaps": {
+    "T026": {
+      "status": "VERIFIED",
+      "detail": "Hybrid substitution accepted by Sam 2026-11-10 ~09:08 GMT: Codex CLI 0.164.0-alpha.9 (bridge, GPT-5.6 Sol) + agy 1.5.3 (gemini-3.8-flash-low); agy reverse leg VERIFIED (6 real MCP calls, finish receipt; commit f9e2786). Disclosed: Codex forward leg not run (M365 outage); strict live-clients gate remains NOT_RUN."
+    },
+    "T042": {
+      "status": "VERIFIED",
+      "detail": "Two independent clean live runs: codex-api (GPT-6 Luna low, official OpenAI API) pilot 43/48, confirmation 354/432 (81.9%); agy pilot 43/48, confirmation 352/432 (81.5%). Spend $1.90 for all 480 attempts. Finding MIXED: turnkeep arm 0% stale, completion below files."
+    },
+    "T043": {
+      "status": "FAIL",
+      "detail": "Performance gate FAIL (3 thresholds): finish p95 7759.9 ms > 500 ms at 10k records; recall p95 3182.9 ms > 1000 ms at 100k records; finish p95 12288.3 ms > 500 ms at 100k records. Causes: begin() full-snapshot O(n), recall() full-table scan O(n). Cold start 159.4 ms PASS. Thresholds not lowered, datasets not shrunk."
+    },
+    "trademark": {
+      "status": "NOT_RUN",
+      "detail": "No trademark clearance claimed. turnkeep.app is a live rental product in a different domain (T002); 'Turnkeep' is a working name only."
+    },
+    "demo_fixtures_installed": {
+      "status": "FAIL",
+      "detail": "README's --scenario export-format / research-correction demos fail from the installed wheel (FileNotFoundError): demo.py resolves fixtures via Path(__file__).parents[2], the repo root in source but lib/python3.12 when installed -- a location no wheel layout can populate. The default j01 scenario (the actual J01 journey) needs no fixtures and passes installed. Durable fix: demo.py via importlib.resources (core-owned, not T046). Fixtures are shipped in the sdist, so a source checkout unpacked from it runs them."
+    }
+  },
+  "files": [
+    {
+      "path": "turnkeep-0.1.0/.github/workflows/release-candidate.yml",
+      "sha256": "024a9854941150c1431edafe533b4244799e2b1cf921fc27b14d4dd3ac2c8265",
+      "bytes": 2335
+    },
+    {
+      "path": "turnkeep-0.1.0/.github/workflows/test.yml",
+      "sha256": "ae473c3723a8a7b4f549d72e151eaf36c9ad368b57dcdde7b0912a2e19908629",
+      "bytes": 1519
+    },
+    {
+      "path": "turnkeep-0.1.0/HANDOFF.md",
+      "sha256": "66a8ddcfbb5405f0f2acc721351fa0791ab3c9a01fcdc449c5bf837c0d9f47bb",
+      "bytes": 7146
+    },
+    {
+      "path": "turnkeep-0.1.0/LICENSE",
+      "sha256": "73dec276480cf2d2336f96abeaf4f0f7c047fbdbbba118e9c394005afa405521",
+      "bytes": 1079
+    },
+    {
+      "path": "turnkeep-0.1.0/NOTICE",
+      "sha256": "dd6a4f0965babaae89eb8190baf41aab381fa412604e762ad159d71c5529bb46",
+      "bytes": 3792
+    },
+    {
+      "path": "turnkeep-0.1.0/README.md",
+      "sha256": "9bb8f8f5c72681e57e4c3f28f12cc26920e03dff20d0c956c49bd5fe971fe7d1",
+      "bytes": 16146
+    },
+    {
+      "path": "turnkeep-0.1.0/README.zh-CN.md",
+      "sha256": "7ee90fcdcfd6743ce152b967d535045a25ccb9ce6cd930e5780c7a0c8d485d99",
+      "bytes": 16011
+    },
+    {
+      "path": "turnkeep-0.1.0/SECURITY.md",
+      "sha256": "6c097abfc85a32f51b9f69df976fcb6c434ef1e5f189571a0c1f3b9655aef825",
+      "bytes": 10510
+    },
+    {
+      "path": "turnkeep-0.1.0/adapters/claude-code/.mcp.json",
+      "sha256": "f467b5359453ff7b2231709cd830710dc21806577168be3cb89942aa3063129c",
+      "bytes": 262
+    },
+    {
+      "path": "turnkeep-0.1.0/adapters/claude-code/README.md",
+      "sha256": "25d5e50fde2020803302cc9ed1474d8dd3f025b3cc4a764d43c2e45a81befbc3",
+      "bytes": 1210
+    },
+    {
+      "path": "turnkeep-0.1.0/adapters/codex/config.toml",
+      "sha256": "808b05060b11b60d5ca94019c0b646222b58fa105af179814c132ac17aba66d6",
+      "bytes": 1687
+    },
+    {
+      "path": "turnkeep-0.1.0/benchmarks/PROTOCOL.md",
+      "sha256": "b071c15933e8f74b152ba73e6cdff5bbb05f7ec7fb63c2fdb571b4ca52633a0e",
+      "bytes": 2628
+    },
+    {
+      "path": "turnkeep-0.1.0/benchmarks/baselines/README.md",
+      "sha256": "46156132eb9b8e929755d02b66c5a59a9ac6d993428b22441306fa1dcdd74e3e",
+      "bytes": 1018
+    },
+    {
+      "path": "turnkeep-0.1.0/benchmarks/harness/arms/__init__.py",
+      "sha256": "6e612665ac18aa08ccb69b4fca1f8c93fe9dbb8a11326d331c7977b58babcd6a",
+      "bytes": 769
+    },
+    {
+      "path": "turnkeep-0.1.0/benchmarks/harness/arms/log.py",
+      "sha256": "e6362d7b6c036d0ccab60b9bbce6fd959f19d5c7c2cfcafef956757274b67052",
+      "bytes": 2174
+    },
+    {
+      "path": "turnkeep-0.1.0/benchmarks/harness/arms/markdown.py",
+      "sha256": "7fda442e85be939e3ac2c74aea38d4e40def097e96c85ab4b2f66e1da297e49e",
+      "bytes": 2513
+    },
+    {
+      "path": "turnkeep-0.1.0/benchmarks/harness/arms/none.py",
+      "sha256": "d1bc557df8e67ed579640880a043c731739eb356f91e2be0100509882b76063c",
+      "bytes": 1108
+    },
+    {
+      "path": "turnkeep-0.1.0/benchmarks/harness/arms/turnkeep.py",
+      "sha256": "250d229a802cc60afeb6b942917bd73a901ea68f3cda355db63fd1720fec1384",
+      "bytes": 5429
+    },
+    {
+      "path": "turnkeep-0.1.0/benchmarks/harness/mutations.py",
+      "sha256": "367a54e879723a0879946179f7734ef1df2c8e1cfd6020dc68e3d72557908165",
+      "bytes": 2892
+    },
+    {
+      "path": "turnkeep-0.1.0/benchmarks/harness/perf.py",
+      "sha256": "f972673dcbec1fb97f8c7be2d9f6eee63fa5b3903851d3ae9efcb30fe1172db2",
+      "bytes": 8412
+    },
+    {
+      "path": "turnkeep-0.1.0/benchmarks/harness/run.py",
+      "sha256": "03ae2b1a5b41785fb79a6d510b02c90a3a460795f3ff75ed3a99ae5addc1bc8a",
+      "bytes": 4673
+    },
+    {
+      "path": "turnkeep-0.1.0/benchmarks/harness/scoring.py",
+      "sha256": "add93891d253da3e87cb5f2ed2f3258dd0debc19d273eedd12419f02fdb8db24",
+      "bytes": 3665
+    },
+    {
+      "path": "turnkeep-0.1.0/benchmarks/live/agy_driver.py",
+      "sha256": "3615d40d5819634331df1a6df8840c9fb5d078f6da225630c5e152c174ae75d6",
+      "bytes": 14721
+    },
+    {
+      "path": "turnkeep-0.1.0/benchmarks/live/codex_driver.py",
+      "sha256": "9fb4290923652d72927b638e370778be1969f45b6bcb764fe6f7463b4cbbb58f",
+      "bytes": 37881
+    },
+    {
+      "path": "turnkeep-0.1.0/benchmarks/live/gen_confirmation_suite.py",
+      "sha256": "9450144928ba80083e4525c9ec618d1c97686cb651f438531c4a13fa8a783533",
+      "bytes": 17778
+    },
+    {
+      "path": "turnkeep-0.1.0/benchmarks/live/report.py",
+      "sha256": "699d900f001a7c34864256626b1f371986446cf98fa2917b1230e82079eabbcb",
+      "bytes": 2867
+    },
+    {
+      "path": "turnkeep-0.1.0/benchmarks/live/run.py",
+      "sha256": "60e4f72d114ef7db2063ecf6c9ae5600d6b609b50ee6cb0d3812e351fea72141",
+      "bytes": 8719
+    },
+    {
+      "path": "turnkeep-0.1.0/benchmarks/live/run_live.py",
+      "sha256": "9de317092a878373b1f0ae37eed95419a015dc8c9563d6a655916abc9bd1f4b3",
+      "bytes": 19690
+    },
+    {
+      "path": "turnkeep-0.1.0/benchmarks/live/score_live.py",
+      "sha256": "f49310cb41ebe6932ca480ec5e0cf8fbcaf99e622afa0699fdea4ad6ba9d1167",
+      "bytes": 4414
+    },
+    {
+      "path": "turnkeep-0.1.0/benchmarks/replay.py",
+      "sha256": "a9500278019d3f50d558dfb47e7119a038c06e703eb8798495482a290ad3b28a",
+      "bytes": 15562
+    },
+    {
+      "path": "turnkeep-0.1.0/benchmarks/scenarios/core-change.json",
+      "sha256": "d5b15f2bae2b5a6e9ac9e97f1894244a9cdf935c89119d21b64233464377bc5c",
+      "bytes": 33217
+    },
+    {
+      "path": "turnkeep-0.1.0/benchmarks/suites/live-confirmation.json",
+      "sha256": "cf4ddb183c14f772675cc362bce6cb0b741b31d65dc25a1f60a4a139cf0ef919",
+      "bytes": 48200
+    },
+    {
+      "path": "turnkeep-0.1.0/benchmarks/suites/live-pilot.json",
+      "sha256": "d52c36485a502f6f818e38c536155c7a6b89a53f6d4e057b9a4f92f2a45028c1",
+      "bytes": 11927
+    },
+    {
+      "path": "turnkeep-0.1.0/benchmarks/suites/smoke.json",
+      "sha256": "595aa1624b1bf0732c8f164ca4f0cb5c7ae8bb9d0f8bd63457f0fc3aa2cc5679",
+      "bytes": 1421
+    },
+    {
+      "path": "turnkeep-0.1.0/conftest.py",
+      "sha256": "f5fd2cb26471b8739f5e9136db6df6e2e9e628f65ef42d95ead3737cb81f1033",
+      "bytes": 247
+    },
+    {
+      "path": "turnkeep-0.1.0/docs/COMPATIBILITY.md",
+      "sha256": "e57dd15d53678c635bbe8f9d98fed2148f6c6fe4b56759cadf7a9b1680971ee1",
+      "bytes": 4202
+    },
+    {
+      "path": "turnkeep-0.1.0/docs/COMPETITORS.md",
+      "sha256": "608f37ef9f5110a6320f6fca7233578d0cb2025031b09ce20faf4052d74d68f4",
+      "bytes": 3335
+    },
+    {
+      "path": "turnkeep-0.1.0/docs/DISCOVERY_DECISION.md",
+      "sha256": "760ba13f7a052d52a94e32d5c39e9ff6ec0f6d3213a07e83f94b7aa5f5837c8f",
+      "bytes": 1670
+    },
+    {
+      "path": "turnkeep-0.1.0/docs/ENVIRONMENT.md",
+      "sha256": "12a07a10f77cd16102f1efe003cac66b7a4fa92013027e4717213cd6666e7589",
+      "bytes": 1216
+    },
+    {
+      "path": "turnkeep-0.1.0/docs/EVALUATION_RESULTS.md",
+      "sha256": "e8180e7289954d5f4d5647e3784b17de8bee7f054b281673627bbdd70f33a2d3",
+      "bytes": 10834
+    },
+    {
+      "path": "turnkeep-0.1.0/docs/KNOWN_LIMITATIONS.md",
+      "sha256": "4b6b61537643af02dcd7caae9f2703a5d7291d55e1332f380631762ecfff8d85",
+      "bytes": 182824
+    },
+    {
+      "path": "turnkeep-0.1.0/docs/NAME_CHECK.md",
+      "sha256": "58f45684322864ea45a7500871c34e4bfebe8b561da85d210c283016a3d88e59",
+      "bytes": 1976
+    },
+    {
+      "path": "turnkeep-0.1.0/docs/UX_SPEC.md",
+      "sha256": "5fa9b451cc579f250e7c2e0e130fe4c68cb08d900cb8c354bde8ef004a9d34df",
+      "bytes": 3792
+    },
+    {
+      "path": "turnkeep-0.1.0/docs/comparison.md",
+      "sha256": "2a04ed1bf10312019ef91fa1a978b42a821fbc6063d2fbefb44dbd75c42b73c4",
+      "bytes": 7220
+    },
+    {
+      "path": "turnkeep-0.1.0/docs/demo.md",
+      "sha256": "4ffc6fcad79a78182451dc437912bee4dd14872c8e76b07ea8c7294f2cbf6b54",
+      "bytes": 2273
+    },
+    {
+      "path": "turnkeep-0.1.0/docs/discovery-scorecard.json",
+      "sha256": "c1a852bcbed6b46430325707893d60c8e82028761783f8e18744c43b1b196b74",
+      "bytes": 1757
+    },
+    {
+      "path": "turnkeep-0.1.0/docs/install.md",
+      "sha256": "5c54abd9193036e4c4dd160557d613cc7537485d76c9820eb0e190f4f0d687fc",
+      "bytes": 1946
+    },
+    {
+      "path": "turnkeep-0.1.0/docs/integrations/claude-code.md",
+      "sha256": "4197e97d34be50b02d61e657dbc0ba0b276578e2dcc8560b230db586a9b1ddff",
+      "bytes": 1526
+    },
+    {
+      "path": "turnkeep-0.1.0/docs/integrations/codex.md",
+      "sha256": "a1941b48226e08e8c46ba68af1b98e02297057f78de4100b6f305cdc37f983da",
+      "bytes": 1240
+    },
+    {
+      "path": "turnkeep-0.1.0/docs/migration.md",
+      "sha256": "85879d28d83a5db83a4c6e7e7eb08bb786060a032297db6d619a48404d52b66f",
+      "bytes": 2980
+    },
+    {
+      "path": "turnkeep-0.1.0/docs/quickstart.md",
+      "sha256": "314e6f9447bc10744d11cfb9385e9889371fa65419beedd5ecf86b449da790b7",
+      "bytes": 5964
+    },
+    {
+      "path": "turnkeep-0.1.0/docs/recovery.md",
+      "sha256": "9bc7f9b5feabf80e76dd174d453638b77b648efa28f573fd0ec5dcbf6d20aafb",
+      "bytes": 1807
+    },
+    {
+      "path": "turnkeep-0.1.0/docs/retention.md",
+      "sha256": "4940395dd70523bfc77a9ba6133c1df4aaf7eca46ff5c015133c78d0c69d5d8f",
+      "bytes": 4165
+    },
+    {
+      "path": "turnkeep-0.1.0/docs/storage.md",
+      "sha256": "b260a5ca7fa0ec78751966604413f8cd1b2adaa5b9b9f75d648028e4b5c86666",
+      "bytes": 1166
+    },
+    {
+      "path": "turnkeep-0.1.0/docs/troubleshooting.md",
+      "sha256": "a80d6f6bddae90ffb6bedaafa82b33919cdc08450a704799b22e3ed579187912",
+      "bytes": 5153
+    },
+    {
+      "path": "turnkeep-0.1.0/evidence-summary.json",
+      "sha256": "e5c87250e6706de828fa01c7b7f0d74e5a4c65f7a724a4d1b25132d875c479df",
+      "bytes": 20853
+    },
+    {
+      "path": "turnkeep-0.1.0/examples/README.md",
+      "sha256": "aea0b577e80752f6dffaee7334bbef140a6742876d7743bbf8c88496a56f34fa",
+      "bytes": 2075
+    },
+    {
+      "path": "turnkeep-0.1.0/examples/demo/export-format.replay.jsonl",
+      "sha256": "d118ca03c15b5e8435687d5abf2029fa9b4728fbe601f77788067ec50e2fba11",
+      "bytes": 1508
+    },
+    {
+      "path": "turnkeep-0.1.0/examples/demo/research-correction.replay.jsonl",
+      "sha256": "c6dcc107df6e6d65a79c5633119fd03ec747c6ede183a2463f87f6a6e50ca0d1",
+      "bytes": 1452
+    },
+    {
+      "path": "turnkeep-0.1.0/examples/python/handoff.py",
+      "sha256": "199e34fa2f985a8cc7daef5adc11dce5f9874d23033625d701a5374d44ca5761",
+      "bytes": 2391
+    },
+    {
+      "path": "turnkeep-0.1.0/fixtures/core/scenarios.json",
+      "sha256": "61aecea0fa5f7a98d6c6557bf480451173af30cc638163446123bd157d5d37bb",
+      "bytes": 430
+    },
+    {
+      "path": "turnkeep-0.1.0/fixtures/demo/export-format/changes.jsonl",
+      "sha256": "3f8c11ec2f198d285e1bb935fd99f0299711e5aaeba99dcecd9195e70a81c4b8",
+      "bytes": 269
+    },
+    {
+      "path": "turnkeep-0.1.0/fixtures/demo/export-format/requirements.csv",
+      "sha256": "a61a2b691ad9b008eed209af37dd1a0c7e1116561024db6cc60cc01b830333f5",
+      "bytes": 206
+    },
+    {
+      "path": "turnkeep-0.1.0/fixtures/demo/research-correction/notes.csv",
+      "sha256": "152dedf52e10cd0b1a01861ca57abc92faea4b97e75513dad4aa494a85b1c913",
+      "bytes": 234
+    },
+    {
+      "path": "turnkeep-0.1.0/fixtures/demo/research-correction/retraction.jsonl",
+      "sha256": "4bedf9e9e326caf8a0b6006d5b13639f374b113ebfe981340b38a6e940a97f32",
+      "bytes": 257
+    },
+    {
+      "path": "turnkeep-0.1.0/fixtures/imports/example-project/events.jsonl",
+      "sha256": "566fd46fa35993861031adf720a13ad8a2fa45f6652e53eef9cc315cc504787d",
+      "bytes": 357
+    },
+    {
+      "path": "turnkeep-0.1.0/fixtures/imports/example-project/manifest.json",
+      "sha256": "d11205050f32b93cb852e9af0218dc752128ffc9cc68ca204266819b710b3c48",
+      "bytes": 350
+    },
+    {
+      "path": "turnkeep-0.1.0/fixtures/imports/example-project/records.jsonl",
+      "sha256": "0fd477123883f1fbfd3b216ce9eab03cc05a077bd5f382be9a8916c987e8e06e",
+      "bytes": 752
+    },
+    {
+      "path": "turnkeep-0.1.0/fixtures/imports/future-version/events.jsonl",
+      "sha256": "566fd46fa35993861031adf720a13ad8a2fa45f6652e53eef9cc315cc504787d",
+      "bytes": 357
+    },
+    {
+      "path": "turnkeep-0.1.0/fixtures/imports/future-version/manifest.json",
+      "sha256": "4dd0db807b7dcc1a25d3d16407c98e80ee6fd873f0295f17d78283bee2358bac",
+      "bytes": 398
+    },
+    {
+      "path": "turnkeep-0.1.0/fixtures/imports/future-version/records.jsonl",
+      "sha256": "0fd477123883f1fbfd3b216ce9eab03cc05a077bd5f382be9a8916c987e8e06e",
+      "bytes": 752
+    },
+    {
+      "path": "turnkeep-0.1.0/fixtures/imports/markdown-sample/injection.md",
+      "sha256": "9b0e935818cf7e4847066dc99e5f5df3e74f4fe934373c8db9ce952f4877b9e3",
+      "bytes": 406
+    },
+    {
+      "path": "turnkeep-0.1.0/fixtures/imports/markdown-sample/notes.md",
+      "sha256": "46074d8db6719339c603fc3e21e4fbdf3cb18cc057cf60163e9b782beb4723a8",
+      "bytes": 1001
+    },
+    {
+      "path": "turnkeep-0.1.0/fixtures/imports/tampered/events.jsonl",
+      "sha256": "566fd46fa35993861031adf720a13ad8a2fa45f6652e53eef9cc315cc504787d",
+      "bytes": 357
+    },
+    {
+      "path": "turnkeep-0.1.0/fixtures/imports/tampered/manifest.json",
+      "sha256": "d11205050f32b93cb852e9af0218dc752128ffc9cc68ca204266819b710b3c48",
+      "bytes": 350
+    },
+    {
+      "path": "turnkeep-0.1.0/fixtures/imports/tampered/records.jsonl",
+      "sha256": "fbcd74b4e2e9f3fabb827888cfbd83b581d9f88121083ca41fb2fd2223bb6d22",
+      "bytes": 752
+    },
+    {
+      "path": "turnkeep-0.1.0/fixtures/live-handoff/export-format.json",
+      "sha256": "b8fa92380cb75294eede8fda9438be608844c4fda87b61d0fcf19556b66387eb",
+      "bytes": 1621
+    },
+    {
+      "path": "turnkeep-0.1.0/fixtures/perf/manifest.json",
+      "sha256": "8bbdc38d12204ea740908043b2813d3bd0367b3347c5c9a3f21000186a1010eb",
+      "bytes": 873
+    },
+    {
+      "path": "turnkeep-0.1.0/ops/bootstrap/README.md",
+      "sha256": "341cb398d764a687e64e8dc7fdcdf2968f0734f1a87ffd7d664b9ffa8f38e850",
+      "bytes": 654
+    },
+    {
+      "path": "turnkeep-0.1.0/ops/worker-contract.json",
+      "sha256": "1ae2671806df5391cc1d59a83fb0e397e80c983f3ce5e55655d598a3fa74e686",
+      "bytes": 1578
+    },
+    {
+      "path": "turnkeep-0.1.0/pyproject.toml",
+      "sha256": "531364c62f6724f62d48618ea2e961719c0ad6e64eaa79bafd9cd6c7cb60c8e4",
+      "bytes": 1767
+    },
+    {
+      "path": "turnkeep-0.1.0/release/FINAL_HANDOFF.md",
+      "sha256": "5a46367b12251c693f5cf7bc87d6cc889fbb924a5c27bc7c1181230bfaac7b31",
+      "bytes": 16772
+    },
+    {
+      "path": "turnkeep-0.1.0/release/KNOWN_LIMITATIONS.md",
+      "sha256": "e2b79809fddc9c530d6defa38fd64a55f46a77296ba0aba6779f6d3c186ca80d",
+      "bytes": 31116
+    },
+    {
+      "path": "turnkeep-0.1.0/release/SBOM.json",
+      "sha256": "736ba5cb9ef8f0fc2a1860b21107bc2c584352e68c425d8634d933a71e42b2ff",
+      "bytes": 27166
+    },
+    {
+      "path": "turnkeep-0.1.0/release/announcement-drafts/forum-post.md",
+      "sha256": "df2a8a5a0969ac219a38731efe09d6090e4a8b141b39a23472851b7483cf8496",
+      "bytes": 2384
+    },
+    {
+      "path": "turnkeep-0.1.0/release/announcement-drafts/github-release.md",
+      "sha256": "7cc02f1c183ee99357fa2380a19a69e4f5eac242315f8b69b10c59c8ed73397d",
+      "bytes": 2713
+    },
+    {
+      "path": "turnkeep-0.1.0/release/announcement-drafts/hacker-news.md",
+      "sha256": "ae7e5878a8922f76f336d70a9b14339ab095c42ddd3ed50cc25e10af3f1aa496",
+      "bytes": 2143
+    },
+    {
+      "path": "turnkeep-0.1.0/release/announcement-drafts/issue-replies.md",
+      "sha256": "45f2bf1c006460b0602b249ffb3fd9d90b7b8d330be8bba106b0fc3dffdc5615",
+      "bytes": 4093
+    },
+    {
+      "path": "turnkeep-0.1.0/release/artifacts/SBOM.json",
+      "sha256": "736ba5cb9ef8f0fc2a1860b21107bc2c584352e68c425d8634d933a71e42b2ff",
+      "bytes": 27166
+    },
+    {
+      "path": "turnkeep-0.1.0/release/artifacts/SHA256SUMS",
+      "sha256": "c0607404722174fb2d49cdef360b5fc3b65042b1b21344342a0876b37370a5c7",
+      "bytes": 611
+    },
+    {
+      "path": "turnkeep-0.1.0/release/artifacts/locks/base.lock",
+      "sha256": "7ca8eda8953e2520d20446e0ad4bd337f16e11e0c62283c46c7db97788029a0e",
+      "bytes": 319
+    },
+    {
+      "path": "turnkeep-0.1.0/release/artifacts/locks/mcp.lock",
+      "sha256": "8ee0370d271cbf54b68aed4719c4bab31c3fb0cb04364fd2d0c09a45e0faa439",
+      "bytes": 535
+    },
+    {
+      "path": "turnkeep-0.1.0/release/artifacts/locks/package-lock.json",
+      "sha256": "a0a9be414a70245a9a96314d06138125e26be8947dc623aa1b7c18d8da046b13",
+      "bytes": 37456
+    },
+    {
+      "path": "turnkeep-0.1.0/release/artifacts/manifest.json",
+      "sha256": "7091c44012ef82cc61e692c79dc8190e379ac310f649c26203297598888c9cf0",
+      "bytes": 8898
+    },
+    {
+      "path": "turnkeep-0.1.0/release/artifacts/turnkeep-0.1.0-py3-none-any.whl",
+      "sha256": "d378ac057b3aaaca47a96c1b3cd7e1fe0bc7a7bf799caa6ba05118047422b311",
+      "bytes": 177128
+    },
+    {
+      "path": "turnkeep-0.1.0/release/artifacts/turnkeep-0.1.0-ui-dist.tar.gz",
+      "sha256": "1eda17802ad9aeae6bccbf3b112ee09a835459c9c7d428a51280e89ecbde34e9",
+      "bytes": 21753
+    },
+    {
+      "path": "turnkeep-0.1.0/release/artifacts/turnkeep-0.1.0.tar.gz",
+      "sha256": "02e8f550b8379551461004dc8ef5188eb6f21c8130e18651e1ff2a228edc5a55",
+      "bytes": 161946
+    },
+    {
+      "path": "turnkeep-0.1.0/requirements/base.lock",
+      "sha256": "7ca8eda8953e2520d20446e0ad4bd337f16e11e0c62283c46c7db97788029a0e",
+      "bytes": 319
+    },
+    {
+      "path": "turnkeep-0.1.0/requirements/mcp.lock",
+      "sha256": "8ee0370d271cbf54b68aed4719c4bab31c3fb0cb04364fd2d0c09a45e0faa439",
+      "bytes": 535
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/bootstrap_product.py",
+      "sha256": "1f7ce0e339b5179cc883a2639d23e95b35f12a0f699953580bc08b6ca7f8a5a2",
+      "bytes": 1659
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/build_release.py",
+      "sha256": "e80084e17d53591c02c8190a5021fb00082cf64171d0edb919fdea4c5f341375",
+      "bytes": 36052
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/check_adapter.py",
+      "sha256": "6511e14530484fc27ba25499b9c84c63ef780f140ce50eee698c64b596fb7aa5",
+      "bytes": 3242
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/check_contract.py",
+      "sha256": "bd3a60c2d9f6f116205c4e6051fb559bd4f3d9bff8d3889afbd41868be7c7032",
+      "bytes": 3042
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/check_discovery.py",
+      "sha256": "6758687afa179df74a06a024e635e6b301c153ff388f2088b32052a7db3b4539",
+      "bytes": 2185
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/check_docs.py",
+      "sha256": "ba1ef6cf0ad6020ed7b518db31cf3026649a0cd495c23b2c106cd0c5c3e921a8",
+      "bytes": 6904
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/check_erasure.py",
+      "sha256": "fdcfda537f278aa8aae6d45f82c399a222c3bd7558e77c39c94c3c1038f66904",
+      "bytes": 4189
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/check_openapi.py",
+      "sha256": "3e4c6f94357816b5e7657642aacbe82569bcdb5f656e54415864e0a5b417f5ac",
+      "bytes": 1468
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/check_state.py",
+      "sha256": "142ad217f3f90b8ad768f6e3aa651d5e99aa3bbb4cf5c98905e72e483b6699db",
+      "bytes": 3377
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/crash_child.py",
+      "sha256": "c624c3798b036041362703ce99d20fb20cd64792132b369ed98b4abbc9a13c25",
+      "bytes": 4611
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/install.ps1",
+      "sha256": "be5c5e14ae8eebd3ecc77d186afb56fb407aaf9502b2bbd2b1a14114c5355adf",
+      "bytes": 2438
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/install.sh",
+      "sha256": "07cd32b007089d68051550d2c8aadcef8fe13554aed13ad23fbc774677621fca",
+      "bytes": 3662
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/live_client_handoff.py",
+      "sha256": "cac5ef36e7c537e1cf6aaaa021ff235b4918c493ffeab9b16be0a3d183a6a4e5",
+      "bytes": 4807
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/mcp_smoke.py",
+      "sha256": "21884f936e39910aba2d5e244fd10e12e6dd1d6f17ee47cb89f4af3e8d0b8ac4",
+      "bytes": 2670
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/off_residue_child.py",
+      "sha256": "d2daf99367c926066175cedc3ac5d1047de67e4ce5fbc5be65582c7536ca3d67",
+      "bytes": 4657
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/package_handoff.py",
+      "sha256": "c8b2afafa3b998ab892214efea91c549750dd9f342fc81d22a52245988d6aed8",
+      "bytes": 29320
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/platform_gate.py",
+      "sha256": "db2d33b07fab29862c524882769e5458e13c03f156af5914007f10736c6f4ee8",
+      "bytes": 4400
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/record_demo.py",
+      "sha256": "4ecc1ec52e61ddf4f7fd27d960865e93b28a7b45014e54d8a7733444e8925782",
+      "bytes": 3941
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/release_checks.py",
+      "sha256": "d56023c958c09ed6e1e45bfc80d95ef1ef979fe919a598441b27d316a2c1f58b",
+      "bytes": 14370
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/repro_r10.py",
+      "sha256": "8d5ab5fa61747ec123f788e87b9da3c0afd541cb00a5b6808badc7dffd7a9e08",
+      "bytes": 18030
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/repro_r11.py",
+      "sha256": "cc5a23f62c91bd0e21caa384be4130f3bca2190bbf8f4d77bfd02efa562ac36b",
+      "bytes": 42269
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/repro_r12.py",
+      "sha256": "2fea911cbe553fd2970028033e5511461c2be6c58f71f93bdc26742b688d021d",
+      "bytes": 25215
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/repro_r13.py",
+      "sha256": "6cabaf8eb46f29ea04358799f590a809f70731c38b35ba89bc143ff1fa7c8f4b",
+      "bytes": 19021
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/repro_r14.py",
+      "sha256": "a90e82f288826963686d145f5b5cd0f6dd175b645a9554d42ad9b67834a2b701",
+      "bytes": 17349
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/repro_r15.py",
+      "sha256": "f810a313d1228ea09b81523da79eaca37a096594a7134a4febd4daa2655c658b",
+      "bytes": 40498
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/repro_r16.py",
+      "sha256": "e64ff05eefbd6e976b939bf4f2a31a63ddb70cc06f44c38f74a8a975edb074f4",
+      "bytes": 32419
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/repro_r17.py",
+      "sha256": "ae8a0db986304c9322bb846f88f6411d5ed4b6aa8bfd4f746248be62553b6fcb",
+      "bytes": 19792
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/repro_r18.py",
+      "sha256": "97ec4fde0b4f5144899833443f31bdd6c277267ff31321eb0413ce9d8d2ae802",
+      "bytes": 24312
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/repro_r19.py",
+      "sha256": "04a3e4dfe0fac9efcc809863cfbe6e67ffd2132f7d0e8588dc1a10bca0df698d",
+      "bytes": 34102
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/repro_r20.py",
+      "sha256": "34ef6b032cd6cd4a194741835a850ac7a1c8f76aef657e793384f13a8e960baf",
+      "bytes": 44924
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/repro_r21.py",
+      "sha256": "9e6e0536697387974f7eadac9003e87e89e49b27587564042ee6576ddd92637e",
+      "bytes": 8649
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/repro_r8.py",
+      "sha256": "0891194c351f48211af60b25ed633b18c0df72235e5292c33070cac2c0cb7b27",
+      "bytes": 14278
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/repro_r9.py",
+      "sha256": "f4630d621dd365c8d8910a11cb80908daeca2349f36ff94a7b996e5ae2f94e3f",
+      "bytes": 22011
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/restore_check.py",
+      "sha256": "04647cb32e14da8400f34ae66b32962da9203ea1a55feec111eb4593f14c8284",
+      "bytes": 3935
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/run_gate.py",
+      "sha256": "d24f2cefe32beb398ce65d87cc393ebded194004955634e78178640e550899b5",
+      "bytes": 14056
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/run_journey.py",
+      "sha256": "2b0ef226ecc7f00d4ff87d4d98b96a7fc62b09cb449d292905cd47a04a63eb78",
+      "bytes": 16113
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/run_t026_handover.py",
+      "sha256": "87f92030738d8c7fac2ec7b78834d4dbdde3431572e3f78c163798d8d78f7c2d",
+      "bytes": 25769
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/test_documented_commands.py",
+      "sha256": "2449b00ba26fe4773bee14563402ba8c2e021074da8d8d1b5745eb5c70b303ab",
+      "bytes": 13327
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/ui_gate.py",
+      "sha256": "13d99328c6dedeb081a6af82419b6e10120da325c7c7679b933b6418be12c82e",
+      "bytes": 3597
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/verify_handoff.py",
+      "sha256": "c3032b3d061993a6dc1681c545d784bd995ef903b0a16005904949b32007c294",
+      "bytes": 14803
+    },
+    {
+      "path": "turnkeep-0.1.0/scripts/verify_release.py",
+      "sha256": "53ae6497125bf001d137c6fb41d236d9a19c0bda9296b7d49f6601feaf7c59c7",
+      "bytes": 25432
+    },
+    {
+      "path": "turnkeep-0.1.0/specs/ADAPTER_MAPPING.md",
+      "sha256": "2222ade5c730a07f1b5e248c9ed0102acb38347a9a51a645d84b2eff3120d804",
+      "bytes": 1806
+    },
+    {
+      "path": "turnkeep-0.1.0/specs/CORE_CONTRACT.md",
+      "sha256": "fc1909bd0ab1dcb053802147949a66f1cfd51da956573acd6943d0ba52c6a634",
+      "bytes": 13546
+    },
+    {
+      "path": "turnkeep-0.1.0/specs/PUBLIC_API.json",
+      "sha256": "e9e2e9e9de2700e607b7c4310136a0df642010ebc5e542bec248e20c009eb667",
+      "bytes": 26185
+    },
+    {
+      "path": "turnkeep-0.1.0/specs/TARGET_SCHEMA.sql",
+      "sha256": "e10682989b37fb8e509fd62eccf032919e5f15a609b721466c9ea502d6dc13d4",
+      "bytes": 5070
+    },
+    {
+      "path": "turnkeep-0.1.0/specs/error-codes.md",
+      "sha256": "f45bd37eebe2aac757576f9b7b4cdfea4476983e590877c98b43f16aa3efcdc8",
+      "bytes": 1706
+    },
+    {
+      "path": "turnkeep-0.1.0/specs/export.schema.json",
+      "sha256": "24489104b53b2e1ff85dd29f3f71ca898ed9fb49be41cf3d5005eab232470b30",
+      "bytes": 1604
+    },
+    {
+      "path": "turnkeep-0.1.0/specs/local-app-api.json",
+      "sha256": "9d5998fdbc3e1b980c8a5e8295abe504e882c8c5f312af2211200716656acedc",
+      "bytes": 9315
+    },
+    {
+      "path": "turnkeep-0.1.0/specs/public_api.schema.json",
+      "sha256": "4a5e5096eebf1c1a3a6068781847533b6f2732592d4ecd3e3a36f246e2deac00",
+      "bytes": 16839
+    },
+    {
+      "path": "turnkeep-0.1.0/specs/state-transitions.json",
+      "sha256": "87426cca799b508c97e7f931c911f7560440e1c854bc8bcc2be29d70fd5f00dd",
+      "bytes": 942
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/__init__.py",
+      "sha256": "e65bc14857c17f78622b6f53d5724ea84322b20f9ffc8792213b48023ab229d5",
+      "bytes": 278
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/__main__.py",
+      "sha256": "f952f87d7bb060feb533ea0546f14078f527a05019e9faded9969a23dddd9050",
+      "bytes": 173
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/backup.py",
+      "sha256": "e3de3f375ac1f2aedf536af90b51333a22a6186705ea5c8d8d53485e6e15d9a3",
+      "bytes": 7837
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/briefs.py",
+      "sha256": "bf02cf5d24a4181ce0822e607b973c45c996299e9392d72dd90a863fd4d7cb94",
+      "bytes": 4786
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/budget.py",
+      "sha256": "b3b2c4b0fa5cc1c0156e96cfee02dd78621a85bdfcd8979b73fc24ca7a0c8284",
+      "bytes": 1233
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/cli.py",
+      "sha256": "8962267c0b39de729400d95e96f4e4e74e8d3059da6dca7b7b6f2502a3eab9f4",
+      "bytes": 20227
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/client.py",
+      "sha256": "f21d92d6947d0f760a4e36d2b5e76e3bff23b23291cb9cfff50919c77038d77e",
+      "bytes": 4978
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/commits.py",
+      "sha256": "f235648282dc6bd05d993297003a1e08368dd5976f4eba3b8812773a8331d90f",
+      "bytes": 7841
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/context.py",
+      "sha256": "c6d8a0181e87e986b8e490ae0cfe6ac525b6ee4201b9b540c931287508b5fae4",
+      "bytes": 1671
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/corrections.py",
+      "sha256": "a31456f2a144a7f251dfa21b503dd0eb34191ccf0c0f4786b69898813b65db48",
+      "bytes": 11726
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/demo.py",
+      "sha256": "6f71c74cbefc9af8ca2089b3bb78d077a2db09e73425e990c9efca6ba447f468",
+      "bytes": 11516
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/doctor.py",
+      "sha256": "1c69b64855afbbc6c5b35d2c7aa6220986fb48797f291c5417fffaf2dc436386",
+      "bytes": 5858
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/erasure.py",
+      "sha256": "f84eb4f5a167bf6fec197c274d87c23b69057f9d684a3f74737871163feef82d",
+      "bytes": 270905
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/errors.py",
+      "sha256": "609b354b6c6b97beab84857bc0302e950f98a6f7c02924736aa68d253f68f87d",
+      "bytes": 360
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/events.py",
+      "sha256": "aca44f6ebbd5baf7981347b6863161bad2d59511e7ccd7c202fec64a940b5098",
+      "bytes": 1410
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/handoff.py",
+      "sha256": "273286cff08a1946beb6ebf5f06008a263241456625b8fce6abf002416c39934",
+      "bytes": 1749
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/idempotency.py",
+      "sha256": "ef053e38dc50475856d20e192381e2e51537e5cda57647a9ed15c614d1bdafa4",
+      "bytes": 6377
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/importers/__init__.py",
+      "sha256": "116bddc938b7f5b342ff3bddb453eff65d02cfe6ea5ebc926a535824e884fcb7",
+      "bytes": 182
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/importers/markdown.py",
+      "sha256": "5b2418548b0bfa6ef22019a4b280a2c4972164f122cce0fa4547253004b66a94",
+      "bytes": 9235
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/lineage.py",
+      "sha256": "fb396965466d9f98e7ffb2dc1c7c062bd5cb0cc378f37051587973bdd4d98bf2",
+      "bytes": 2189
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/mcp_server.py",
+      "sha256": "5a236340cf6d627fcf09f6202dfedc8c33a61f350450181a36d52a5a81886b60",
+      "bytes": 9672
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/memory.py",
+      "sha256": "2855dc6a695cfd9cc42067475dd88d8a8f329a64cf5f7189d45ce5d0ec46b0f9",
+      "bytes": 9143
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/migrations/001_initial.sql",
+      "sha256": "3bb32f7777c44dfe2d96ddc9fe1fbde9045b5dfe2ad8f512812c3e80d1208e9a",
+      "bytes": 5072
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/migrations/002_record_provenance.sql",
+      "sha256": "d7b5f430ae6a4507266778723e57e93010cfe9537e709debf827d408e8f31469",
+      "bytes": 553
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/migrations/003_scope_secrets.sql",
+      "sha256": "2ee92e6c7cca5f7516d0e143a1a91818dcfed685b2d4a36e34282839675765bc",
+      "bytes": 919
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/migrations/004_erase_flags.sql",
+      "sha256": "ffa489d16433a3d5cd4f969fdca64d2259a97a8b338ad45c84cea4019b45c4ca",
+      "bytes": 1865
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/migrations/005_record_erase_keys.sql",
+      "sha256": "d8abe74dc5e5578ae233d96ae525512c94db7397e3bafb5cbef2eddedee99e3d",
+      "bytes": 2358
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/migrations/006_maintenance_pending.sql",
+      "sha256": "1f214cb660fb7640f27c2cbe6da6750520739f93139b0dd5c521714b4db7eaa7",
+      "bytes": 1810
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/migrations/007_purge_pending.sql",
+      "sha256": "c8ea32f08358605d45d6b679583b3fc54ea5c3ba702f014bef702062809f2e1c",
+      "bytes": 3067
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/normalization.py",
+      "sha256": "d111fe3752b5f7db858a054c8c9fea045966858053d682da523b44f35a26e19e",
+      "bytes": 648
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/portability.py",
+      "sha256": "e67c3b0b42a46c137efe2ff1d55d7ff7f1857e477a1f32b30f825f5653867e05",
+      "bytes": 37419
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/recovery.py",
+      "sha256": "0ec42a291c7472262c26b1d3cc267544ba80fb668afdf849c209659437359359",
+      "bytes": 27066
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/retention.py",
+      "sha256": "1c14a77a89ccbd0306084abc4123fd52b84649dfccdc07979cbd0473a5298e46",
+      "bytes": 9040
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/retrieval.py",
+      "sha256": "a55498e6eccd1689999393295b6aa6ea771cdc494a8c2908c0397e98fc8e7c09",
+      "bytes": 3941
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/runs.py",
+      "sha256": "3ec11dd63223b5f1aa97577059b4b7d926429faaeb10acb3701e695c8d5cdae7",
+      "bytes": 4499
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/scopes.py",
+      "sha256": "3b2fea4eddb8e5fbb16f55d102df9655ef12f39763639e16c1860d64f46b3aa7",
+      "bytes": 2147
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/storage.py",
+      "sha256": "54b9357fabb1069e8f7fb560f9c192a924440a95a7d9609dddf77401505a0655",
+      "bytes": 26455
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/store.py",
+      "sha256": "8287b6d48692a1bfee814678bc7268ce0001c6c4845a6c9c94d59412c6b61d92",
+      "bytes": 29212
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/transports/context.py",
+      "sha256": "9ff3752336b3fe9f47ec5dd318e31fcf0b60cc3f5fb77895d2959c569e524e6b",
+      "bytes": 1390
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/transports/policy.py",
+      "sha256": "c0a02f29fd02fdab6e34b9e03858b6365822617c8af131742a5241a50db95d46",
+      "bytes": 2647
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/types.py",
+      "sha256": "8865d22c7f495188af34d8acff7fdaea5dce7e66956269aed62c7fc6245da426",
+      "bytes": 2040
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/web/__init__.py",
+      "sha256": "65948f2f6d4941154620519a5079618b58e9716527ea723460babee8067c47d5",
+      "bytes": 68
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/web/app.py",
+      "sha256": "bfde99588b599e69898353ae3d1a88fef0ea8c6df9088a5cfcc98aee3bd6ad14",
+      "bytes": 10275
+    },
+    {
+      "path": "turnkeep-0.1.0/src/turnkeep/web/routes.py",
+      "sha256": "08de6c083648fec1aa3db28cc80a11709c8193dfb1f2067265d4f0d339065612",
+      "bytes": 8927
+    },
+    {
+      "path": "turnkeep-0.1.0/tasks/backlog.json",
+      "sha256": "0cd9aa1e9acc6ddb0ca5b525736e7adb88441f71ba0af687f894c45f382c7a33",
+      "bytes": 156686
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/adapters/test_claude_config.py",
+      "sha256": "747eb3ef1e64942135e195ae9af21ad058714afd1a712a032df469d5c8ad713b",
+      "bytes": 679
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/adapters/test_codex_config.py",
+      "sha256": "cc44ff20eab4928d69d003f5cb312a63a3a32eb458a07865f3ea165324190aa2",
+      "bytes": 568
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/baseline/test_seed_parity.py",
+      "sha256": "433972ffe08c3afba2070f9039c0b1d2642cebc3f80372aa1ca3c4e9d9b30008",
+      "bytes": 2429
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/benchmarks/test_baseline_parity.py",
+      "sha256": "964cbcfffb45d97f29d6adb553932a5410ab41c9e9e63e382ecbc217522a0161",
+      "bytes": 2170
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/benchmarks/test_mutations.py",
+      "sha256": "bb33ff6b47e2be32d314caacdea73fd25410fcc01ffabd563d0bbec3cb3c3135",
+      "bytes": 1604
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/benchmarks/test_replay.py",
+      "sha256": "39d3a17829072a3d3dbea04f36f9921733ca03fd4f98f3efef2856daad683c37",
+      "bytes": 1650
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/benchmarks/test_scoring.py",
+      "sha256": "a2e07c022c11b9c09a1c85e82b573aa536888d2b3663fcf2a6488eb170e67a9a",
+      "bytes": 2955
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/cli/test_exit_codes.py",
+      "sha256": "00a4a47c9e08dff7de39f264f5d42ee8f30e850f7635b614ed59840525cb960f",
+      "bytes": 1918
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/cli/test_journeys.py",
+      "sha256": "88493707d8309d7275f96506f4846cb8b07767f25f739b6c94bf64e77f68631c",
+      "bytes": 3350
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/contract/fixtures/correct_missing_revision.json",
+      "sha256": "44e408a116a7dc712d5a27a25d4760a4135e13117aae1d21a9fb0c7e17be57f3",
+      "bytes": 95
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/contract/fixtures/finish_valid.json",
+      "sha256": "03f5053da87f7e2fd8a836695a09cf1a7b69215d7d3918c800cf1a7fc1608379",
+      "bytes": 91
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/contract/fixtures/remember_missing_key.json",
+      "sha256": "b263963a2de65e822cc911c982b2c758e4f30f39ac590afbd3aa3419427aac0f",
+      "bytes": 59
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/contract/fixtures/remember_valid.json",
+      "sha256": "553c6fb5adfb71e59e089a5b6242926d1819960b0f2058c848bb1adb12364730",
+      "bytes": 181
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/contract/fixtures/resolve_partial_candidates.json",
+      "sha256": "3ea25e1eb730bc9b7084582604c6766d7c94cfc3ab0acf63a028c562f92da4ec",
+      "bytes": 186
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/contract/test_schemas.py",
+      "sha256": "257fc0ad2dbee6d28152ed372e345dcc5add78765f7d626d4c5f2fc78a7c8636",
+      "bytes": 2136
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/core/test_begin_snapshot.py",
+      "sha256": "424ede22403ceeaefc67dc49eb25fd44a3af341da2ae179fb8a300f09f1cfa6d",
+      "bytes": 1567
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/core/test_briefs.py",
+      "sha256": "0e2d19418dc0dd5a19f5eac59efa8e870bac411c0781cf5241a6c627eb242468",
+      "bytes": 4320
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/core/test_briefs_budget.py",
+      "sha256": "42041d3eb4d0abc881f086377ce9b83a7601d2dcbf4c4773daf7a97526c9f431",
+      "bytes": 2527
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/core/test_cause_event_id.py",
+      "sha256": "8ff263dd35eabc490cced68a91b63b5b5a6e266f34e9d6244b64ec40eb9cce9a",
+      "bytes": 6434
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/core/test_conflicts.py",
+      "sha256": "a6cba72b02253e5d5e8e42ff523bd0cd496364ec416a33c687cd57be9ea506a8",
+      "bytes": 1173
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/core/test_context_binding.py",
+      "sha256": "5023adc165ba24aafa8668d4fb76d15ece061f02826e4062b9ecc112327fe372",
+      "bytes": 928
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/core/test_corrections.py",
+      "sha256": "0137f9bd1ccbae9dfd4403773d745c4a38d4c317a895220f66d44c19e3a5b779",
+      "bytes": 2016
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/core/test_empty_read.py",
+      "sha256": "b9cf73294bd66a0a0ec784070796b2bbf42fb889deabced64efe4f7a2e718f1b",
+      "bytes": 900
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/core/test_event_atomicity.py",
+      "sha256": "ae659e5d4dfb1f5cbe7e63eca3875221b7df1a2f9ea639d165b2852d0768a11e",
+      "bytes": 1213
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/core/test_finish.py",
+      "sha256": "a3403613f2fad17e18aac9a52f30703d5ec61572bd7d0b15a351a3256a0567ab",
+      "bytes": 7843
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/core/test_finish_races.py",
+      "sha256": "a85323b05b3305fae7fb954a8bc9dc014c548b1fedc14df2fb272b7a48d7d01a",
+      "bytes": 3349
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/core/test_handoff.py",
+      "sha256": "b2287acaab6826185481384693ccafdd1a1a0d29dc38907a251c662d63567cd4",
+      "bytes": 1516
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/core/test_idempotency.py",
+      "sha256": "ee681b4f67b0500520b03ad04865bd1e751ebdee3c7cbf3bd00183e70d483a5c",
+      "bytes": 9874
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/core/test_lineage.py",
+      "sha256": "cf192aa22bfa178ea989a93d858732207a5fdcb91a6726c71f06167a153c43a4",
+      "bytes": 3427
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/core/test_rebase.py",
+      "sha256": "af696936318dd3cb6e20114a385008f90751ae4a453f45c9083e3fa34aece8c8",
+      "bytes": 28118
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/core/test_remember.py",
+      "sha256": "125d7928b62b31dcac8cb0e66307e3b1a531f58f5d2bb639094ce580a49865b9",
+      "bytes": 3147
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/core/test_resolve.py",
+      "sha256": "07387c8b73dc1cac2d814370be1e27932b3e3bfcf501b2f0ca5afd0a9622aeb4",
+      "bytes": 1909
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/core/test_resume.py",
+      "sha256": "78295544ad35b972ab69d8851837f3ec92d82c7aa82b5775fa6f28a14dba1db0",
+      "bytes": 1900
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/core/test_retract.py",
+      "sha256": "6bc6110fbc583d1fb194e87e6a6d59eb8c261923e9951023860eb71ac4bc3753",
+      "bytes": 1523
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/core/test_scopes.py",
+      "sha256": "80ed5175ae82e764bbbe6fc0191e3df517637baf59c7557da7204c09fc4adb10",
+      "bytes": 1304
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/core/test_taint.py",
+      "sha256": "ba8297906ee016b49244d49c002fc6a57e36b4ad5b4ddf3d7036f6a7cde9580e",
+      "bytes": 1345
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/data/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/data/test_import_injection.py",
+      "sha256": "d35ff74c5017f7fb6af161f9cf37842533696689c39099f3b58bfd6768e20d2e",
+      "bytes": 3112
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/data/test_import_trust.py",
+      "sha256": "8130ccc9abed900e56aa851ef66e107c6eeebf7f53cc9a337ece9f032323c3fa",
+      "bytes": 13030
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/data/test_markdown_import.py",
+      "sha256": "9d3fc900ec5a566ce5867a73ca147ee4112f6bd91e4e7b447ffbce0455757fe0",
+      "bytes": 5497
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/data/test_roundtrip.py",
+      "sha256": "cf0d8cc82346ab79830dcad56d781a89abe53db1923662a97b3e8f4c1428c71b",
+      "bytes": 9026
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/harness/test_runner.py",
+      "sha256": "bca8e91ee2bd9286dedadf0296d14848089eee2e339ac3ec0b5295e08b120999",
+      "bytes": 2496
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/harness/test_state_recovery.py",
+      "sha256": "6792fbafa09da047469e70070033e8a715243b46111d0cf7aca801666e060134",
+      "bytes": 2773
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/integration/test_concurrency.py",
+      "sha256": "5775c0b6a50f7dd652d9988d4e81394871974d449e822b4081e1f1a32c367853",
+      "bytes": 3633
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/integration/test_core_faults.py",
+      "sha256": "bb2c19797f7d1f459d18bd58f71a8654558434a4fbd0af9b37fae44c9921815b",
+      "bytes": 3310
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/mcp/test_conformance.py",
+      "sha256": "5199614c62e515d49c7c4dd47d6d4baec6ba088ea4cf36ce04185f1b96b86f8f",
+      "bytes": 3542
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/mcp/test_lifecycle.py",
+      "sha256": "0c25eefd119f865a43b87a017758997c52ce23f52b7401baaee38d3c3f48dedd",
+      "bytes": 2167
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/mcp/test_parallel_clients.py",
+      "sha256": "609bb6ee00d07dec8f13e098609373fb2f79fc221e7fa158c4684356601f4eff",
+      "bytes": 2447
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/mcp/test_tools.py",
+      "sha256": "f19b9ec24c84fc83fe2ab91011da3febd17f3774c54a421b8a739746a4e944d3",
+      "bytes": 3804
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/platform/test_doctor.py",
+      "sha256": "41b68e297100234f6f4f00332d5167e66fc174a6d2a465f9cc6135bd469b3ce5",
+      "bytes": 1596
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/platform/test_paths.py",
+      "sha256": "39cff99a78e8d16cfe702a54d50154cb1706462630b18bc9c35592e51650f943",
+      "bytes": 1699
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/privacy/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/privacy/test_erasure.py",
+      "sha256": "4a4b81c26fb71794f137846d18b5b3843a428dce764bd7b579a864218d534bd1",
+      "bytes": 6596
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/privacy/test_expiry.py",
+      "sha256": "462aebaf77b9029580f48981101b2364d564630b6a171cdac466b9fe15fef6b6",
+      "bytes": 3550
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/privacy/test_r10_erasure_rework.py",
+      "sha256": "93412634b8a9795c335aac8cb701f7048bbcb3ddcfae2a712f7e04a069f3243c",
+      "bytes": 31848
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/privacy/test_r11_erasure_rework.py",
+      "sha256": "9720faf1178cb821758f7d79498f839a18b7f3647abd7663152f64fd709f664b",
+      "bytes": 30356
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/privacy/test_r13_erasure_rework.py",
+      "sha256": "9997d79ad5d848dd6b37f7594201925072dc8a18f58ea3d1b8b817168e9bb185",
+      "bytes": 25264
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/privacy/test_r14_erasure_rework.py",
+      "sha256": "ee8940aafb2c16eeb337ffb0c6b2bb7139b76f3d6cbd96112f52655425a91c8b",
+      "bytes": 17835
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/privacy/test_r15_erasure_rework.py",
+      "sha256": "b9380c86d9b2cb5deff8e8ec7a5ac98cd62b58c0001828069a6a497b483806a9",
+      "bytes": 29640
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/privacy/test_r16_erasure_rework.py",
+      "sha256": "92c812a5f1fee4df61466bf4e39ffa964f11157ee6d1999e0514f149f41418b7",
+      "bytes": 26437
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/privacy/test_r17_erasure_rework.py",
+      "sha256": "28aeda4b08611cd1bf54db5cbfb80dbfcd3ef9a675d1a36792515c4271d1aad7",
+      "bytes": 21155
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/privacy/test_r18_erasure_rework.py",
+      "sha256": "7d8696a684c045501e8fd94312feabe75bbdd84e536508ce2d8a92b745ea8d5d",
+      "bytes": 12046
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/privacy/test_r19_erasure_rework.py",
+      "sha256": "f92a658918f234177dd4aa3990f805bfd4aee919839f4a56e9aa0ddcf9ac6d79",
+      "bytes": 24396
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/privacy/test_r20_erasure_rework.py",
+      "sha256": "56063e05368501b4683746b293b730d6fb82630df7ebffda7bbcf49f46e3a35d",
+      "bytes": 31260
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/privacy/test_r21_erasure_rework.py",
+      "sha256": "9e0b7a47b9bb4aaea0a59e5b6c12136a4f691dcdcb95fbdfd447a7ce5b5535f6",
+      "bytes": 4909
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/privacy/test_r3_erasure_rework.py",
+      "sha256": "016ac3fa00063407d0c7bbf0c19e5be47daed6d80c00aa0b86ab8a0f6b221af0",
+      "bytes": 18628
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/privacy/test_r4_erasure_rework.py",
+      "sha256": "6e005889e44b54ae8c05d8f8e09b2c4f19a4f7b6ba10e27c2d431332d9fb4eb4",
+      "bytes": 18224
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/privacy/test_r5_erasure_rework.py",
+      "sha256": "fd8f8f94d90342a686ed7d8b07fe77b9b8508b9a1cf5e42761f2bc75dbf8325d",
+      "bytes": 12186
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/privacy/test_r6_erasure_rework.py",
+      "sha256": "96d13c1415a6dbc99e410843ba9c620c1f8c22704fbf6bf46ffe98b6f6255142",
+      "bytes": 17941
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/privacy/test_r7_erasure_rework.py",
+      "sha256": "d5a5dd45edb3425d016a09267f7330eb05e8ae4ad9c25d91c522c586c8c8e166",
+      "bytes": 32455
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/privacy/test_r8_erasure_rework.py",
+      "sha256": "34684b263f1b16f9ebe62cb393afe5f199005603e8453196c235b5f90dbce7d2",
+      "bytes": 32985
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/privacy/test_r9_erasure_rework.py",
+      "sha256": "0c28e71cff29d1b5ebd5c0645c2ba9ab7f562191ed9e04cf73f9ca3e629e5ac6",
+      "bytes": 25001
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/privacy/test_residuals.py",
+      "sha256": "a8d2096543672c25ecc395e3655302f8d60f00d795ca9247a7ca310841dacf49",
+      "bytes": 7551
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/release/test_release_guards.py",
+      "sha256": "9c6821c2ff27e98c60563dcd7b3dd8bcbc098f4b4acb9f3c4a1e25695f1aba6b",
+      "bytes": 16273
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/release/test_verify_handoff.py",
+      "sha256": "b28ee8f0c942a7a698b4a9b8c78234e0dd410a4120c8007419a83b6d53fd6a81",
+      "bytes": 5797
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/retrieval/test_budget.py",
+      "sha256": "d08d8d60ac4666abd40fcb30f80cf6112126e2e8095b30a347508a1c980953e2",
+      "bytes": 1013
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/retrieval/test_filters.py",
+      "sha256": "0124bf18b884c17f84ef17f92a9f34439a7cab03ad193c8ee79b9b77638e91ac",
+      "bytes": 2796
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/retrieval/test_multilingual.py",
+      "sha256": "7b69381197411f3c69e0f0a22c9f4d3a0823696a6b8decd25e85af3016ec0ad2",
+      "bytes": 1388
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/sdk/test_client_contract.py",
+      "sha256": "0de30fb4228c407146223d7d0497eae5b481712e070028bf1b5d680a9a35c99d",
+      "bytes": 1811
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/security/test_release_boundary.py",
+      "sha256": "3b86f5506b9c215877db9b2247c0f7c7f1b4e03d3bb8295f32db46ca2367440e",
+      "bytes": 4671
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/security/test_transport_binding.py",
+      "sha256": "c46d41bf6b816c954d02905e369994dea13b05c9ae0c640dbdae687e768365e6",
+      "bytes": 1250
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/security/test_untrusted_text.py",
+      "sha256": "17c5b20872543bc70ee27e62409c8045fc58a9a1f5567179dbe1c0134022f818",
+      "bytes": 1472
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/storage/test_backup_restore.py",
+      "sha256": "f105be8d6e0dda996fff28c7b03a6ee7f8e846ad593214544eb65522522391fc",
+      "bytes": 3017
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/storage/test_constraints.py",
+      "sha256": "a3008b730e2bc622277068aea6db2d4a89c7981a61f710d95c4a9f4bc7c1f57b",
+      "bytes": 2221
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/storage/test_migrations.py",
+      "sha256": "4ca06a92593e8cd9a5ab150287240e56b140240d52a84a5d5ebb33378887fea8",
+      "bytes": 6758
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/storage/test_restore_erasure.py",
+      "sha256": "92bc02ea600bfe0c6e42ac0771cee8c24dfe24f6426710a349d409cca1ec6390",
+      "bytes": 2281
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/test_offline_install.py",
+      "sha256": "d9928c47666904a3bebeb3ad99bb0127461892f528c7ce1ea75be47d76716d6c",
+      "bytes": 2981
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/ui/accessibility.spec.ts",
+      "sha256": "34000fee86a4c3305fa5245d7e8d3b4ffa0bc5f1788f7adb3f5347a32ca616fe",
+      "bytes": 5368
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/ui/correction.spec.ts",
+      "sha256": "55b804e2207ef2224c66282e7189af8fca96ffa9ca91c23f84ce4ba0fe69b382",
+      "bytes": 4503
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/ui/fixtures/overview.json",
+      "sha256": "bd59aabd46e82e542e78a2beaad0c3a5ef586d7afefccc3ffdd1c9b977239afe",
+      "bytes": 694
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/ui/fixtures/states.json",
+      "sha256": "997b6a90db531a5c35b6f4b1a3cced6194bea6c96486bad4eb1c72227f9027a0",
+      "bytes": 638
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/ui/impact.spec.ts",
+      "sha256": "b5d4e42fcd1b231d00447e5d40c9278b0fe27d04a1ccca31d6784a240f516bd7",
+      "bytes": 3603
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/ui/journeys.spec.ts",
+      "sha256": "84e37b6d4a3e8d8dc9b5a710de97fde323e7d17371cb8a243d455f8ead67ad68",
+      "bytes": 4837
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/ui/overview.spec.ts",
+      "sha256": "db831f0b351305515766e916d2ce92401dd9a9c3cd73556e6d6058d3ed4f51ab",
+      "bytes": 3544
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/ui/recovery.spec.ts",
+      "sha256": "9f891229f8174c0b65e4d9ea3143dfe5ac68939b7db32aa6e6f1366492822002",
+      "bytes": 4331
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/web/test_idempotency_header.py",
+      "sha256": "53824a9df26ec5dd311723e0d667e54085d3f8eefce0737b499c625d53627ff6",
+      "bytes": 5486
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/web/test_local_boundary.py",
+      "sha256": "663131a6decd49884b1c8c56fbaeeb28722dbcc31bf55147e71a7dc22d0fa0c6",
+      "bytes": 3720
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/web/test_routes.py",
+      "sha256": "6c4b83423b5023d5025d81ffa2c64f9273588bc32514a3373f36d74fbeeec7c4",
+      "bytes": 6437
+    },
+    {
+      "path": "turnkeep-0.1.0/tests/web/test_write_races.py",
+      "sha256": "d30bbf006178e666e291b30c25d3cf786b3afa9472acc843fa00aa20438425bb",
+      "bytes": 5302
+    },
+    {
+      "path": "turnkeep-0.1.0/ui/design/information-architecture.md",
+      "sha256": "cac2a99093c4b67b2c07662a15b39fb1300e5cb0b4bce9c5c96901b177fb73a7",
+      "bytes": 1146
+    },
+    {
+      "path": "turnkeep-0.1.0/ui/index.html",
+      "sha256": "c154b9eac27065da5c2e75bb75852b82cf83cb6366ecb446a297493e38d06341",
+      "bytes": 1593
+    },
+    {
+      "path": "turnkeep-0.1.0/ui/package-lock.json",
+      "sha256": "a0a9be414a70245a9a96314d06138125e26be8947dc623aa1b7c18d8da046b13",
+      "bytes": 37456
+    },
+    {
+      "path": "turnkeep-0.1.0/ui/package.json",
+      "sha256": "9ccb308dfeace2851efe91ca5f7d02421abbd32674249530d8e9282cb6c7ddeb",
+      "bytes": 548
+    },
+    {
+      "path": "turnkeep-0.1.0/ui/playwright.config.ts",
+      "sha256": "47a390c73840de1a5087000c4877318ed5b6dd5e9b439494e6b2b816d71c8e5f",
+      "bytes": 350
+    },
+    {
+      "path": "turnkeep-0.1.0/ui/playwright.prod.config.ts",
+      "sha256": "2c7b42c1b7ce5e7b93f9b966cfbf8359e3ba624f8089be2bb6d06a63197d8301",
+      "bytes": 503
+    },
+    {
+      "path": "turnkeep-0.1.0/ui/src/api.ts",
+      "sha256": "2b8a111926b5dbb3dce5337b0d8f3e47a8d0f6ac9041768c2bad9ca5c72dbe2c",
+      "bytes": 1471
+    },
+    {
+      "path": "turnkeep-0.1.0/ui/src/components/ImpactPath.ts",
+      "sha256": "05d40fa0beacac7b982ac1996cb38ffacf029aea59ab51eee0ab6da06b376b47",
+      "bytes": 984
+    },
+    {
+      "path": "turnkeep-0.1.0/ui/src/components/RecordCard.ts",
+      "sha256": "72cdb0e89137b7ab23c26ca01d47099576c7c69376245e457263fdb844a2965a",
+      "bytes": 1126
+    },
+    {
+      "path": "turnkeep-0.1.0/ui/src/guard.ts",
+      "sha256": "2863757390a97791c6aba18bd1493d8ab969091d61d7ab9d79423c5b733439ee",
+      "bytes": 401
+    },
+    {
+      "path": "turnkeep-0.1.0/ui/src/main.ts",
+      "sha256": "f59f88a929669055a2882522f3c5527a481f6a1803a6839b90843db85582eb6b",
+      "bytes": 2495
+    },
+    {
+      "path": "turnkeep-0.1.0/ui/src/types.ts",
+      "sha256": "624e4007c1f83f9502276278da251c265c9440495b148c2f40f2497fbe630b5d",
+      "bytes": 1913
+    },
+    {
+      "path": "turnkeep-0.1.0/ui/src/views/Conflicts.ts",
+      "sha256": "551227a1c032db7c32ba5a8d84e3cfaaf65f94c2bef62c804909d955b29ee2bb",
+      "bytes": 4309
+    },
+    {
+      "path": "turnkeep-0.1.0/ui/src/views/Handoff.ts",
+      "sha256": "24df59792240ecbb2605587067154a0f501faa876a6b996c90be6d056ec77984",
+      "bytes": 7844
+    },
+    {
+      "path": "turnkeep-0.1.0/ui/src/views/History.ts",
+      "sha256": "b7b42726185af04c2ff20aa8d2e48d86c349a2393d0af0ba8c97c3258f902618",
+      "bytes": 1470
+    },
+    {
+      "path": "turnkeep-0.1.0/ui/src/views/Impact.ts",
+      "sha256": "f43461161017641e4c6c0a60176052a23ebad04cc15b5ce3db87f61eaa96c248",
+      "bytes": 5468
+    },
+    {
+      "path": "turnkeep-0.1.0/ui/src/views/Overview.ts",
+      "sha256": "cb1db3498e99ee584241d1e2853845dc31ac1119953432ca8a404f8739555a6c",
+      "bytes": 2342
+    },
+    {
+      "path": "turnkeep-0.1.0/ui/src/views/RecordEditor.ts",
+      "sha256": "03ebf3559cbe0e303a0c3d71ff0006ed577ef0814cbcf8b767ad50498d2f05e7",
+      "bytes": 4551
+    },
+    {
+      "path": "turnkeep-0.1.0/ui/src/views/Recovery.ts",
+      "sha256": "7a25ddbea262d189fb647399ff9505640a492a08a2581a50c6ea4e2ac628470f",
+      "bytes": 4084
+    },
+    {
+      "path": "turnkeep-0.1.0/ui/tsconfig.json",
+      "sha256": "3c39d3aa86ec99e82e85f8a9c12b2bd2b023bebf823990e093dfb1616179d1ee",
+      "bytes": 249
+    },
+    {
+      "path": "turnkeep-0.1.0/ui/vite.config.ts",
+      "sha256": "350bd8637a0cb6a2d529a13ac0b6c0ca34c07fd4a49e6412ed61d3cc163ef9d3",
+      "bytes": 386
+    },
+    {
+      "path": "turnkeep-0.1.0/release/DELIVERY_MANIFEST.json",
+      "sha256": null,
+      "bytes": 121767,
+      "note": "Present in the zip; excluded from its own hash list (sha256 null). The on-disk copy at release/DELIVERY_MANIFEST.json is identical except archive_sha256, which is filled in there; verify_handoff.py checks both."
+    }
+  ],
+  "file_count": 315,
+  "total_bytes": 3446526,
+  "excluded": [
+    "excluded: src/turnkeep/__pycache__/__init__.cpython-312.pyc",
+    "excluded: src/turnkeep/__pycache__/__main__.cpython-312.pyc",
+    "excluded: src/turnkeep/__pycache__/backup.cpython-312.pyc",
+    "excluded: src/turnkeep/__pycache__/briefs.cpython-312.pyc",
+    "excluded: src/turnkeep/__pycache__/budget.cpython-312.pyc",
+    "excluded: src/turnkeep/__pycache__/cli.cpython-312.pyc",
+    "excluded: src/turnkeep/__pycache__/client.cpython-312.pyc",
+    "excluded: src/turnkeep/__pycache__/commits.cpython-312.pyc",
+    "excluded: src/turnkeep/__pycache__/context.cpython-312.pyc",
+    "excluded: src/turnkeep/__pycache__/corrections.cpython-312.pyc",
+    "excluded: src/turnkeep/__pycache__/demo.cpython-312.pyc",
+    "excluded: src/turnkeep/__pycache__/doctor.cpython-312.pyc",
+    "excluded: src/turnkeep/__pycache__/erasure.cpython-312.pyc",
+    "excluded: src/turnkeep/__pycache__/errors.cpython-312.pyc",
+    "excluded: src/turnkeep/__pycache__/events.cpython-312.pyc",
+    "excluded: src/turnkeep/__pycache__/handoff.cpython-312.pyc",
+    "excluded: src/turnkeep/__pycache__/idempotency.cpython-312.pyc",
+    "excluded: src/turnkeep/__pycache__/lineage.cpython-312.pyc",
+    "excluded: src/turnkeep/__pycache__/mcp_server.cpython-312.pyc",
+    "excluded: src/turnkeep/__pycache__/memory.cpython-312.pyc",
+    "excluded: src/turnkeep/__pycache__/portability.cpython-312.pyc",
+    "excluded: src/turnkeep/__pycache__/recovery.cpython-312.pyc",
+    "excluded: src/turnkeep/__pycache__/retention.cpython-312.pyc",
+    "excluded: src/turnkeep/__pycache__/retrieval.cpython-312.pyc",
+    "excluded: src/turnkeep/__pycache__/runs.cpython-312.pyc",
+    "excluded: src/turnkeep/__pycache__/scopes.cpython-312.pyc",
+    "excluded: src/turnkeep/__pycache__/storage.cpython-312.pyc",
+    "excluded: src/turnkeep/__pycache__/store.cpython-312.pyc",
+    "excluded: src/turnkeep/importers/__pycache__/__init__.cpython-312.pyc",
+    "excluded: src/turnkeep/importers/__pycache__/markdown.cpython-312.pyc",
+    "excluded: src/turnkeep/transports/__pycache__/context.cpython-312.pyc",
+    "excluded: src/turnkeep/transports/__pycache__/policy.cpython-312.pyc",
+    "excluded: src/turnkeep/web/__pycache__/__init__.cpython-312.pyc",
+    "excluded: src/turnkeep/web/__pycache__/app.cpython-312.pyc",
+    "excluded: src/turnkeep/web/__pycache__/routes.cpython-312.pyc",
+    "excluded: src/turnkeep.egg-info/PKG-INFO",
+    "excluded: src/turnkeep.egg-info/SOURCES.txt",
+    "excluded: src/turnkeep.egg-info/dependency_links.txt",
+    "excluded: src/turnkeep.egg-info/entry_points.txt",
+    "excluded: src/turnkeep.egg-info/requires.txt",
+    "excluded: src/turnkeep.egg-info/top_level.txt",
+    "excluded: tests/__pycache__/test_offline_install.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/adapters/__pycache__/test_claude_config.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/adapters/__pycache__/test_codex_config.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/baseline/__pycache__/test_seed_parity.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/benchmarks/__pycache__/__init__.cpython-312.pyc",
+    "excluded: tests/benchmarks/__pycache__/test_baseline_parity.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/benchmarks/__pycache__/test_mutations.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/benchmarks/__pycache__/test_replay.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/benchmarks/__pycache__/test_scoring.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/cli/__pycache__/test_exit_codes.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/cli/__pycache__/test_journeys.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/contract/__pycache__/test_schemas.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/core/__pycache__/test_begin_snapshot.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/core/__pycache__/test_briefs.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/core/__pycache__/test_briefs_budget.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/core/__pycache__/test_cause_event_id.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/core/__pycache__/test_conflicts.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/core/__pycache__/test_context_binding.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/core/__pycache__/test_corrections.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/core/__pycache__/test_empty_read.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/core/__pycache__/test_event_atomicity.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/core/__pycache__/test_finish.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/core/__pycache__/test_finish_races.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/core/__pycache__/test_handoff.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/core/__pycache__/test_idempotency.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/core/__pycache__/test_lineage.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/core/__pycache__/test_rebase.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/core/__pycache__/test_remember.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/core/__pycache__/test_resolve.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/core/__pycache__/test_resume.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/core/__pycache__/test_retract.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/core/__pycache__/test_scopes.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/core/__pycache__/test_taint.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/data/__pycache__/__init__.cpython-312.pyc",
+    "excluded: tests/data/__pycache__/test_import_injection.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/data/__pycache__/test_import_injection.cpython-312.pyc",
+    "excluded: tests/data/__pycache__/test_import_trust.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/data/__pycache__/test_import_trust.cpython-312.pyc",
+    "excluded: tests/data/__pycache__/test_markdown_import.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/data/__pycache__/test_markdown_import.cpython-312.pyc",
+    "excluded: tests/data/__pycache__/test_roundtrip.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/data/__pycache__/test_roundtrip.cpython-312.pyc",
+    "excluded: tests/harness/__pycache__/test_runner.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/harness/__pycache__/test_state_recovery.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/integration/__pycache__/test_concurrency.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/integration/__pycache__/test_core_faults.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/mcp/__pycache__/test_conformance.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/mcp/__pycache__/test_lifecycle.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/mcp/__pycache__/test_parallel_clients.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/mcp/__pycache__/test_tools.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/platform/__pycache__/test_doctor.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/platform/__pycache__/test_paths.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/privacy/__pycache__/__init__.cpython-312.pyc",
+    "excluded: tests/privacy/__pycache__/test_erasure.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/privacy/__pycache__/test_erasure.cpython-312.pyc",
+    "excluded: tests/privacy/__pycache__/test_expiry.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/privacy/__pycache__/test_expiry.cpython-312.pyc",
+    "excluded: tests/privacy/__pycache__/test_r10_erasure_rework.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/privacy/__pycache__/test_r11_erasure_rework.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/privacy/__pycache__/test_r13_erasure_rework.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/privacy/__pycache__/test_r14_erasure_rework.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/privacy/__pycache__/test_r15_erasure_rework.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/privacy/__pycache__/test_r16_erasure_rework.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/privacy/__pycache__/test_r17_erasure_rework.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/privacy/__pycache__/test_r18_erasure_rework.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/privacy/__pycache__/test_r19_erasure_rework.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/privacy/__pycache__/test_r20_erasure_rework.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/privacy/__pycache__/test_r21_erasure_rework.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/privacy/__pycache__/test_r3_erasure_rework.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/privacy/__pycache__/test_r4_erasure_rework.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/privacy/__pycache__/test_r5_erasure_rework.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/privacy/__pycache__/test_r6_erasure_rework.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/privacy/__pycache__/test_r7_erasure_rework.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/privacy/__pycache__/test_r7_erasure_rework.cpython-312.pyc",
+    "excluded: tests/privacy/__pycache__/test_r8_erasure_rework.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/privacy/__pycache__/test_r9_erasure_rework.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/privacy/__pycache__/test_residuals.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/privacy/__pycache__/test_residuals.cpython-312.pyc",
+    "excluded: tests/release/__pycache__/test_release_guards.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/release/__pycache__/test_verify_handoff.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/retrieval/__pycache__/test_budget.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/retrieval/__pycache__/test_filters.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/retrieval/__pycache__/test_multilingual.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/sdk/__pycache__/test_client_contract.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/security/__pycache__/test_release_boundary.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/security/__pycache__/test_release_boundary.cpython-312.pyc",
+    "excluded: tests/security/__pycache__/test_transport_binding.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/security/__pycache__/test_untrusted_text.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/storage/__pycache__/test_backup_restore.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/storage/__pycache__/test_constraints.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/storage/__pycache__/test_migrations.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/storage/__pycache__/test_migrations.cpython-312.pyc",
+    "excluded: tests/storage/__pycache__/test_restore_erasure.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/web/__pycache__/test_idempotency_header.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/web/__pycache__/test_local_boundary.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/web/__pycache__/test_routes.cpython-312-pytest-9.2.0.pyc",
+    "excluded: tests/web/__pycache__/test_write_races.cpython-312-pytest-9.2.0.pyc",
+    "excluded: scripts/__pycache__/crash_child.cpython-312.pyc",
+    "excluded: scripts/__pycache__/off_residue_child.cpython-312.pyc",
+    "excluded: scripts/__pycache__/package_handoff.cpython-312.pyc",
+    "excluded: scripts/__pycache__/repro_r20.cpython-312.pyc",
+    "excluded: scripts/__pycache__/run_gate.cpython-312.pyc",
+    "excluded: scripts/__pycache__/verify_release.cpython-312.pyc",
+    "excluded: benchmarks/__pycache__/replay.cpython-312.pyc",
+    "excluded: benchmarks/harness/__pycache__/mutations.cpython-312.pyc",
+    "excluded: benchmarks/harness/__pycache__/scoring.cpython-312.pyc",
+    "excluded: benchmarks/harness/arms/__pycache__/__init__.cpython-312.pyc",
+    "excluded: benchmarks/harness/arms/__pycache__/log.cpython-312.pyc",
+    "excluded: benchmarks/harness/arms/__pycache__/markdown.cpython-312.pyc",
+    "excluded: benchmarks/harness/arms/__pycache__/none.cpython-312.pyc",
+    "excluded: benchmarks/harness/arms/__pycache__/turnkeep.cpython-312.pyc",
+    "excluded: benchmarks/live/__pycache__/agy_driver.cpython-312.pyc",
+    "excluded: benchmarks/live/__pycache__/codex_driver.cpython-312.pyc",
+    "excluded: benchmarks/live/__pycache__/gen_confirmation_suite.cpython-312.pyc",
+    "excluded: benchmarks/live/__pycache__/report.cpython-312.pyc",
+    "excluded: benchmarks/live/__pycache__/run.cpython-312.pyc",
+    "excluded: benchmarks/live/__pycache__/run_live.cpython-312.pyc",
+    "excluded: benchmarks/live/__pycache__/score_live.cpython-312.pyc",
+    "excluded: benchmarks/results/smoke-deterministic/attempts.jsonl",
+    "excluded: benchmarks/results/smoke-deterministic/summary.json",
+    "excluded: requirements/ui.lock",
+    "excluded: ui/dist/assets/index-53zG0Las.js",
+    "excluded: ui/dist/assets/index-53zG0Las.js.map",
+    "excluded: ui/dist/index.html",
+    "excluded: ui/node_modules/.bin/esbuild",
+    "excluded: ui/node_modules/.bin/nanoid",
+    "excluded: ui/node_modules/.bin/playwright",
+    "excluded: ui/node_modules/.bin/playwright-core",
+    "excluded: ui/node_modules/.bin/rollup",
+    "excluded: ui/node_modules/.bin/tsc",
+    "excluded: ui/node_modules/.bin/tsserver",
+    "excluded: ui/node_modules/.bin/vite",
+    "excluded: ui/node_modules/.package-lock.json",
+    "excluded: ui/node_modules/.vite/deps/_metadata.json",
+    "excluded: ui/node_modules/.vite/deps/package.json",
+    "excluded: ui/node_modules/@esbuild/linux-x64/README.md",
+    "excluded: ui/node_modules/@esbuild/linux-x64/bin/esbuild",
+    "excluded: ui/node_modules/@esbuild/linux-x64/package.json",
+    "excluded: ui/node_modules/@playwright/test/LICENSE",
+    "excluded: ui/node_modules/@playwright/test/NOTICE",
+    "excluded: ui/node_modules/@playwright/test/README.md",
+    "excluded: ui/node_modules/@playwright/test/cli.js",
+    "excluded: ui/node_modules/@playwright/test/index.d.ts",
+    "excluded: ui/node_modules/@playwright/test/index.js",
+    "excluded: ui/node_modules/@playwright/test/index.mjs",
+    "excluded: ui/node_modules/@playwright/test/package.json",
+    "excluded: ui/node_modules/@playwright/test/reporter.d.ts",
+    "excluded: ui/node_modules/@playwright/test/reporter.js",
+    "excluded: ui/node_modules/@playwright/test/reporter.mjs",
+    "excluded: ui/node_modules/@rollup/rollup-linux-x64-gnu/README.md",
+    "excluded: ui/node_modules/@rollup/rollup-linux-x64-gnu/package.json",
+    "excluded: ui/node_modules/@rollup/rollup-linux-x64-gnu/rollup.linux-x64-gnu.node",
+    "excluded: ui/node_modules/@rollup/rollup-linux-x64-musl/README.md",
+    "excluded: ui/node_modules/@rollup/rollup-linux-x64-musl/package.json",
+    "excluded: ui/node_modules/@rollup/rollup-linux-x64-musl/rollup.linux-x64-musl.node",
+    "excluded: ui/node_modules/@types/estree/LICENSE",
+    "excluded: ui/node_modules/@types/estree/README.md",
+    "excluded: ui/node_modules/@types/estree/flow.d.ts",
+    "excluded: ui/node_modules/@types/estree/index.d.ts",
+    "excluded: ui/node_modules/@types/estree/package.json",
+    "excluded: ui/node_modules/@types/node/LICENSE",
+    "excluded: ui/node_modules/@types/node/README.md",
+    "excluded: ui/node_modules/@types/node/assert/strict.d.ts",
+    "excluded: ui/node_modules/@types/node/assert.d.ts",
+    "excluded: ui/node_modules/@types/node/async_hooks.d.ts",
+    "excluded: ui/node_modules/@types/node/buffer.buffer.d.ts",
+    "excluded: ui/node_modules/@types/node/buffer.d.ts",
+    "excluded: ui/node_modules/@types/node/child_process.d.ts",
+    "excluded: ui/node_modules/@types/node/cluster.d.ts",
+    "excluded: ui/node_modules/@types/node/console.d.ts",
+    "excluded: ui/node_modules/@types/node/constants.d.ts",
+    "excluded: ui/node_modules/@types/node/crypto.d.ts",
+    "excluded: ui/node_modules/@types/node/dgram.d.ts",
+    "excluded: ui/node_modules/@types/node/diagnostics_channel.d.ts",
+    "excluded: ui/node_modules/@types/node/dns/promises.d.ts",
+    "excluded: ui/node_modules/@types/node/dns.d.ts",
+    "excluded: ui/node_modules/@types/node/domain.d.ts",
+    "excluded: ui/node_modules/@types/node/events.d.ts",
+    "excluded: ui/node_modules/@types/node/ffi.d.ts",
+    "excluded: ui/node_modules/@types/node/fs/promises.d.ts",
+    "excluded: ui/node_modules/@types/node/fs.d.ts",
+    "excluded: ui/node_modules/@types/node/globals.d.ts",
+    "excluded: ui/node_modules/@types/node/globals.typedarray.d.ts",
+    "excluded: ui/node_modules/@types/node/http.d.ts",
+    "excluded: ui/node_modules/@types/node/http2.d.ts",
+    "excluded: ui/node_modules/@types/node/https.d.ts",
+    "excluded: ui/node_modules/@types/node/index.d.ts",
+    "excluded: ui/node_modules/@types/node/inspector/promises.d.ts",
+    "excluded: ui/node_modules/@types/node/inspector.d.ts",
+    "excluded: ui/node_modules/@types/node/inspector.generated.d.ts",
+    "excluded: ui/node_modules/@types/node/module.d.ts",
+    "excluded: ui/node_modules/@types/node/net.d.ts",
+    "excluded: ui/node_modules/@types/node/os.d.ts",
+    "excluded: ui/node_modules/@types/node/package.json",
+    "excluded: ui/node_modules/@types/node/path/posix.d.ts",
+    "excluded: ui/node_modules/@types/node/path/win32.d.ts",
+    "excluded: ui/node_modules/@types/node/path.d.ts",
+    "excluded: ui/node_modules/@types/node/perf_hooks.d.ts",
+    "excluded: ui/node_modules/@types/node/process.d.ts",
+    "excluded: ui/node_modules/@types/node/punycode.d.ts",
+    "excluded: ui/node_modules/@types/node/querystring.d.ts",
+    "excluded: ui/node_modules/@types/node/quic.d.ts",
+    "excluded: ui/node_modules/@types/node/readline/promises.d.ts",
+    "excluded: ui/node_modules/@types/node/readline.d.ts",
+    "excluded: ui/node_modules/@types/node/repl.d.ts",
+    "excluded: ui/node_modules/@types/node/sea.d.ts",
+    "excluded: ui/node_modules/@types/node/sqlite.d.ts",
+    "excluded: ui/node_modules/@types/node/stream/consumers.d.ts",
+    "excluded: ui/node_modules/@types/node/stream/iter.d.ts",
+    "excluded: ui/node_modules/@types/node/stream/promises.d.ts",
+    "excluded: ui/node_modules/@types/node/stream/web.d.ts",
+    "excluded: ui/node_modules/@types/node/stream.d.ts",
+    "excluded: ui/node_modules/@types/node/string_decoder.d.ts",
+    "excluded: ui/node_modules/@types/node/test/reporters.d.ts",
+    "excluded: ui/node_modules/@types/node/test.d.ts",
+    "excluded: ui/node_modules/@types/node/timers/promises.d.ts",
+    "excluded: ui/node_modules/@types/node/timers.d.ts",
+    "excluded: ui/node_modules/@types/node/tls.d.ts",
+    "excluded: ui/node_modules/@types/node/trace_events.d.ts",
+    "excluded: ui/node_modules/@types/node/ts5.6/buffer.buffer.d.ts",
+    "excluded: ui/node_modules/@types/node/ts5.6/compatibility/float16array.d.ts",
+    "excluded: ui/node_modules/@types/node/ts5.6/globals.typedarray.d.ts",
+    "excluded: ui/node_modules/@types/node/ts5.6/index.d.ts",
+    "excluded: ui/node_modules/@types/node/ts5.7/compatibility/float16array.d.ts",
+    "excluded: ui/node_modules/@types/node/ts5.7/index.d.ts",
+    "excluded: ui/node_modules/@types/node/tty.d.ts",
+    "excluded: ui/node_modules/@types/node/url.d.ts",
+    "excluded: ui/node_modules/@types/node/util/types.d.ts",
+    "excluded: ui/node_modules/@types/node/util.d.ts",
+    "excluded: ui/node_modules/@types/node/v8.d.ts",
+    "excluded: ui/node_modules/@types/node/vfs.d.ts",
+    "excluded: ui/node_modules/@types/node/vm.d.ts",
+    "excluded: ui/node_modules/@types/node/wasi.d.ts",
+    "excluded: ui/node_modules/@types/node/web-globals/abortcontroller.d.ts",
+    "excluded: ui/node_modules/@types/node/web-globals/blob.d.ts",
+    "excluded: ui/node_modules/@types/node/web-globals/console.d.ts",
+    "excluded: ui/node_modules/@types/node/web-globals/crypto.d.ts",
+    "excluded: ui/node_modules/@types/node/web-globals/domexception.d.ts",
+    "excluded: ui/node_modules/@types/node/web-globals/encoding.d.ts",
+    "excluded: ui/node_modules/@types/node/web-globals/events.d.ts",
+    "excluded: ui/node_modules/@types/node/web-globals/fetch.d.ts",
+    "excluded: ui/node_modules/@types/node/web-globals/importmeta.d.ts",
+    "excluded: ui/node_modules/@types/node/web-globals/messaging.d.ts",
+    "excluded: ui/node_modules/@types/node/web-globals/navigator.d.ts",
+    "excluded: ui/node_modules/@types/node/web-globals/performance.d.ts",
+    "excluded: ui/node_modules/@types/node/web-globals/storage.d.ts",
+    "excluded: ui/node_modules/@types/node/web-globals/streams.d.ts",
+    "excluded: ui/node_modules/@types/node/web-globals/timers.d.ts",
+    "excluded: ui/node_modules/@types/node/web-globals/url.d.ts",
+    "excluded: ui/node_modules/@types/node/worker_threads.d.ts",
+    "excluded: ui/node_modules/@types/node/zlib/iter.d.ts",
+    "excluded: ui/node_modules/@types/node/zlib.d.ts",
+    "excluded: ui/node_modules/esbuild/LICENSE.md",
+    "excluded: ui/node_modules/esbuild/README.md",
+    "excluded: ui/node_modules/esbuild/bin/esbuild",
+    "excluded: ui/node_modules/esbuild/install.js",
+    "excluded: ui/node_modules/esbuild/lib/main.d.ts",
+    "excluded: ui/node_modules/esbuild/lib/main.js",
+    "excluded: ui/node_modules/esbuild/package.json",
+    "excluded: ui/node_modules/fdir/LICENSE",
+    "excluded: ui/node_modules/fdir/README.md",
+    "excluded: ui/node_modules/fdir/dist/index.cjs",
+    "excluded: ui/node_modules/fdir/dist/index.d.cts",
+    "excluded: ui/node_modules/fdir/dist/index.d.mts",
+    "excluded: ui/node_modules/fdir/dist/index.mjs",
+    "excluded: ui/node_modules/fdir/package.json",
+    "excluded: ui/node_modules/nanoid/LICENSE",
+    "excluded: ui/node_modules/nanoid/README.md",
+    "excluded: ui/node_modules/nanoid/async/index.browser.cjs",
+    "excluded: ui/node_modules/nanoid/async/index.browser.js",
+    "excluded: ui/node_modules/nanoid/async/index.cjs",
+    "excluded: ui/node_modules/nanoid/async/index.d.cts",
+    "excluded: ui/node_modules/nanoid/async/index.d.ts",
+    "excluded: ui/node_modules/nanoid/async/index.js",
+    "excluded: ui/node_modules/nanoid/async/index.native.js",
+    "excluded: ui/node_modules/nanoid/async/package.json",
+    "excluded: ui/node_modules/nanoid/bin/nanoid.cjs",
+    "excluded: ui/node_modules/nanoid/index.browser.cjs",
+    "excluded: ui/node_modules/nanoid/index.browser.js",
+    "excluded: ui/node_modules/nanoid/index.cjs",
+    "excluded: ui/node_modules/nanoid/index.d.cts",
+    "excluded: ui/node_modules/nanoid/index.d.ts",
+    "excluded: ui/node_modules/nanoid/index.js",
+    "excluded: ui/node_modules/nanoid/nanoid.js",
+    "excluded: ui/node_modules/nanoid/non-secure/index.cjs",
+    "excluded: ui/node_modules/nanoid/non-secure/index.d.ts",
+    "excluded: ui/node_modules/nanoid/non-secure/index.js",
+    "excluded: ui/node_modules/nanoid/non-secure/package.json",
+    "excluded: ui/node_modules/nanoid/package.json",
+    "excluded: ui/node_modules/nanoid/url-alphabet/index.cjs",
+    "excluded: ui/node_modules/nanoid/url-alphabet/index.js",
+    "excluded: ui/node_modules/nanoid/url-alphabet/package.json",
+    "excluded: ui/node_modules/picocolors/LICENSE",
+    "excluded: ui/node_modules/picocolors/README.md",
+    "excluded: ui/node_modules/picocolors/package.json",
+    "excluded: ui/node_modules/picocolors/picocolors.browser.js",
+    "excluded: ui/node_modules/picocolors/picocolors.d.ts",
+    "excluded: ui/node_modules/picocolors/picocolors.js",
+    "excluded: ui/node_modules/picocolors/types.d.ts",
+    "excluded: ui/node_modules/picomatch/LICENSE",
+    "excluded: ui/node_modules/picomatch/README.md",
+    "excluded: ui/node_modules/picomatch/index.js",
+    "excluded: ui/node_modules/picomatch/lib/constants.js",
+    "excluded: ui/node_modules/picomatch/lib/parse.js",
+    "excluded: ui/node_modules/picomatch/lib/picomatch.js",
+    "excluded: ui/node_modules/picomatch/lib/scan.js",
+    "excluded: ui/node_modules/picomatch/lib/utils.js",
+    "excluded: ui/node_modules/picomatch/package.json",
+    "excluded: ui/node_modules/picomatch/posix.js",
+    "excluded: ui/node_modules/playwright/LICENSE",
+    "excluded: ui/node_modules/playwright/NOTICE",
+    "excluded: ui/node_modules/playwright/README.md",
+    "excluded: ui/node_modules/playwright/ThirdPartyNotices.txt",
+    "excluded: ui/node_modules/playwright/cli.js",
+    "excluded: ui/node_modules/playwright/index.d.ts",
+    "excluded: ui/node_modules/playwright/index.js",
+    "excluded: ui/node_modules/playwright/index.mjs",
+    "excluded: ui/node_modules/playwright/lib/agents/agentParser.js",
+    "excluded: ui/node_modules/playwright/lib/agents/copilot-setup-steps.yml",
+    "excluded: ui/node_modules/playwright/lib/agents/generateAgents.js",
+    "excluded: ui/node_modules/playwright/lib/agents/playwright-test-coverage.prompt.md",
+    "excluded: ui/node_modules/playwright/lib/agents/playwright-test-generate.prompt.md",
+    "excluded: ui/node_modules/playwright/lib/agents/playwright-test-generator.agent.md",
+    "excluded: ui/node_modules/playwright/lib/agents/playwright-test-heal.prompt.md",
+    "excluded: ui/node_modules/playwright/lib/agents/playwright-test-healer.agent.md",
+    "excluded: ui/node_modules/playwright/lib/agents/playwright-test-plan.prompt.md",
+    "excluded: ui/node_modules/playwright/lib/agents/playwright-test-planner.agent.md",
+    "excluded: ui/node_modules/playwright/lib/cli/reportActions.js",
+    "excluded: ui/node_modules/playwright/lib/cli/testActions.js",
+    "excluded: ui/node_modules/playwright/lib/common/index.js",
+    "excluded: ui/node_modules/playwright/lib/common/index.js.txt",
+    "excluded: ui/node_modules/playwright/lib/errorContext.js",
+    "excluded: ui/node_modules/playwright/lib/globals.js",
+    "excluded: ui/node_modules/playwright/lib/index.js",
+    "excluded: ui/node_modules/playwright/lib/isomorphic.js",
+    "excluded: ui/node_modules/playwright/lib/isomorphic.js.txt",
+    "excluded: ui/node_modules/playwright/lib/loader/loaderProcessEntry.js",
+    "excluded: ui/node_modules/playwright/lib/loader/loaderProcessEntry.js.txt",
+    "excluded: ui/node_modules/playwright/lib/matchers/expect.js",
+    "excluded: ui/node_modules/playwright/lib/matchers/expect.js.LICENSE",
+    "excluded: ui/node_modules/playwright/lib/matchers/expect.js.txt",
+    "excluded: ui/node_modules/playwright/lib/mcp/test/browserBackend.js",
+    "excluded: ui/node_modules/playwright/lib/mcp/test/generatorTools.js",
+    "excluded: ui/node_modules/playwright/lib/mcp/test/plannerTools.js",
+    "excluded: ui/node_modules/playwright/lib/mcp/test/seed.js",
+    "excluded: ui/node_modules/playwright/lib/mcp/test/streams.js",
+    "excluded: ui/node_modules/playwright/lib/mcp/test/testBackend.js",
+    "excluded: ui/node_modules/playwright/lib/mcp/test/testContext.js",
+    "excluded: ui/node_modules/playwright/lib/mcp/test/testTool.js",
+    "excluded: ui/node_modules/playwright/lib/mcp/test/testTools.js",
+    "excluded: ui/node_modules/playwright/lib/package.js",
+    "excluded: ui/node_modules/playwright/lib/program.js",
+    "excluded: ui/node_modules/playwright/lib/runner/index.js",
+    "excluded: ui/node_modules/playwright/lib/runner/index.js.txt",
+    "excluded: ui/node_modules/playwright/lib/transform/babelBundle.js",
+    "excluded: ui/node_modules/playwright/lib/transform/babelBundle.js.LICENSE",
+    "excluded: ui/node_modules/playwright/lib/transform/babelBundle.js.txt",
+    "excluded: ui/node_modules/playwright/lib/transform/esmLoader.js",
+    "excluded: ui/node_modules/playwright/lib/transform/esmLoader.js.LICENSE",
+    "excluded: ui/node_modules/playwright/lib/transform/esmLoader.js.txt",
+    "excluded: ui/node_modules/playwright/lib/util.js",
+    "excluded: ui/node_modules/playwright/lib/worker/workerProcessEntry.js",
+    "excluded: ui/node_modules/playwright/lib/worker/workerProcessEntry.js.txt",
+    "excluded: ui/node_modules/playwright/package.json",
+    "excluded: ui/node_modules/playwright/test.d.ts",
+    "excluded: ui/node_modules/playwright/test.js",
+    "excluded: ui/node_modules/playwright/test.mjs",
+    "excluded: ui/node_modules/playwright/types/test.d.ts",
+    "excluded: ui/node_modules/playwright/types/testReporter.d.ts",
+    "excluded: ui/node_modules/playwright-core/LICENSE",
+    "excluded: ui/node_modules/playwright-core/NOTICE",
+    "excluded: ui/node_modules/playwright-core/README.md",
+    "excluded: ui/node_modules/playwright-core/ThirdPartyNotices.txt",
+    "excluded: ui/node_modules/playwright-core/bin/install_media_pack.ps1",
+    "excluded: ui/node_modules/playwright-core/bin/install_webkit_wsl.ps1",
+    "excluded: ui/node_modules/playwright-core/bin/reinstall_chrome_beta_linux.sh",
+    "excluded: ui/node_modules/playwright-core/bin/reinstall_chrome_beta_mac.sh",
+    "excluded: ui/node_modules/playwright-core/bin/reinstall_chrome_beta_win.ps1",
+    "excluded: ui/node_modules/playwright-core/bin/reinstall_chrome_stable_linux.sh",
+    "excluded: ui/node_modules/playwright-core/bin/reinstall_chrome_stable_mac.sh",
+    "excluded: ui/node_modules/playwright-core/bin/reinstall_chrome_stable_win.ps1",
+    "excluded: ui/node_modules/playwright-core/bin/reinstall_msedge_beta_linux.sh",
+    "excluded: ui/node_modules/playwright-core/bin/reinstall_msedge_beta_mac.sh",
+    "excluded: ui/node_modules/playwright-core/bin/reinstall_msedge_beta_win.ps1",
+    "excluded: ui/node_modules/playwright-core/bin/reinstall_msedge_dev_linux.sh",
+    "excluded: ui/node_modules/playwright-core/bin/reinstall_msedge_dev_mac.sh",
+    "excluded: ui/node_modules/playwright-core/bin/reinstall_msedge_dev_win.ps1",
+    "excluded: ui/node_modules/playwright-core/bin/reinstall_msedge_stable_linux.sh",
+    "excluded: ui/node_modules/playwright-core/bin/reinstall_msedge_stable_mac.sh",
+    "excluded: ui/node_modules/playwright-core/bin/reinstall_msedge_stable_win.ps1",
+    "excluded: ui/node_modules/playwright-core/browsers.json",
+    "excluded: ui/node_modules/playwright-core/cli.js",
+    "excluded: ui/node_modules/playwright-core/index.d.ts",
+    "excluded: ui/node_modules/playwright-core/index.js",
+    "excluded: ui/node_modules/playwright-core/index.mjs",
+    "excluded: ui/node_modules/playwright-core/lib/bootstrap.js",
+    "excluded: ui/node_modules/playwright-core/lib/coreBundle.js",
+    "excluded: ui/node_modules/playwright-core/lib/entry/cliDaemon.js",
+    "excluded: ui/node_modules/playwright-core/lib/entry/dashboardApp.js",
+    "excluded: ui/node_modules/playwright-core/lib/entry/mcp.js",
+    "excluded: ui/node_modules/playwright-core/lib/entry/oopBrowserDownload.js",
+    "excluded: ui/node_modules/playwright-core/lib/package.js",
+    "excluded: ui/node_modules/playwright-core/lib/server/chromium/appIcon.png",
+    "excluded: ui/node_modules/playwright-core/lib/server/electron/loader.js",
+    "excluded: ui/node_modules/playwright-core/lib/serverRegistry.js",
+    "excluded: ui/node_modules/playwright-core/lib/serverRegistry.js.LICENSE",
+    "excluded: ui/node_modules/playwright-core/lib/tools/cli-client/channelSessions.js",
+    "excluded: ui/node_modules/playwright-core/lib/tools/cli-client/cli.js",
+    "excluded: ui/node_modules/playwright-core/lib/tools/cli-client/help.json",
+    "excluded: ui/node_modules/playwright-core/lib/tools/cli-client/minimist.js",
+    "excluded: ui/node_modules/playwright-core/lib/tools/cli-client/output.js",
+    "excluded: ui/node_modules/playwright-core/lib/tools/cli-client/program.js",
+    "excluded: ui/node_modules/playwright-core/lib/tools/cli-client/registry.js",
+    "excluded: ui/node_modules/playwright-core/lib/tools/cli-client/session.js",
+    "excluded: ui/node_modules/playwright-core/lib/tools/dashboard/appIcon.png",
+    "excluded: ui/node_modules/playwright-core/lib/tools/skills/playwright-cli/SKILL.md",
+    "excluded: ui/node_modules/playwright-core/lib/tools/skills/playwright-cli/references/element-attributes.md",
+    "excluded: ui/node_modules/playwright-core/lib/tools/skills/playwright-cli/references/playwright-tests.md",
+    "excluded: ui/node_modules/playwright-core/lib/tools/skills/playwright-cli/references/pr-attachments.md",
+    "excluded: ui/node_modules/playwright-core/lib/tools/skills/playwright-cli/references/request-mocking.md",
+    "excluded: ui/node_modules/playwright-core/lib/tools/skills/playwright-cli/references/running-code.md",
+    "excluded: ui/node_modules/playwright-core/lib/tools/skills/playwright-cli/references/session-management.md",
+    "excluded: ui/node_modules/playwright-core/lib/tools/skills/playwright-cli/references/storage-state.md",
+    "excluded: ui/node_modules/playwright-core/lib/tools/skills/playwright-cli/references/test-generation.md",
+    "excluded: ui/node_modules/playwright-core/lib/tools/skills/playwright-cli/references/tracing.md",
+    "excluded: ui/node_modules/playwright-core/lib/tools/skills/playwright-cli/references/video-recording.md",
+    "excluded: ui/node_modules/playwright-core/lib/tools/skills/playwright-component-testing/SKILL.md",
+    "excluded: ui/node_modules/playwright-core/lib/tools/skills/playwright-component-testing/references/gallery-spec.md",
+    "excluded: ui/node_modules/playwright-core/lib/tools/skills/playwright-component-testing/references/migration.md",
+    "excluded: ui/node_modules/playwright-core/lib/tools/skills/playwright-component-testing/references/react.md",
+    "excluded: ui/node_modules/playwright-core/lib/tools/skills/playwright-component-testing/references/typing.md",
+    "excluded: ui/node_modules/playwright-core/lib/tools/skills/playwright-component-testing/references/vue.md",
+    "excluded: ui/node_modules/playwright-core/lib/tools/skills/playwright-trace/SKILL.md",
+    "excluded: ui/node_modules/playwright-core/lib/tools/utils/extension.js",
+    "excluded: ui/node_modules/playwright-core/lib/tools/utils/socketConnection.js",
+    "excluded: ui/node_modules/playwright-core/lib/utilsBundle.js",
+    "excluded: ui/node_modules/playwright-core/lib/utilsBundle.js.LICENSE",
+    "excluded: ui/node_modules/playwright-core/lib/vite/dashboard/assets/codeMirrorModule--QdMvsKi.css",
+    "excluded: ui/node_modules/playwright-core/lib/vite/dashboard/assets/codeMirrorModule-D5SeAdMv.js",
+    "excluded: ui/node_modules/playwright-core/lib/vite/dashboard/assets/codicon-DCmgc-ay.ttf",
+    "excluded: ui/node_modules/playwright-core/lib/vite/dashboard/assets/firefox-1bWoP6pv.svg",
+    "excluded: ui/node_modules/playwright-core/lib/vite/dashboard/assets/firefox-beta-k3eOH_eK.svg",
+    "excluded: ui/node_modules/playwright-core/lib/vite/dashboard/assets/firefox-nightly-Cp5nfeDT.svg",
+    "excluded: ui/node_modules/playwright-core/lib/vite/dashboard/assets/index-BnQkOdFO.css",
+    "excluded: ui/node_modules/playwright-core/lib/vite/dashboard/assets/index-C_gcIYdA.js",
+    "excluded: ui/node_modules/playwright-core/lib/vite/dashboard/assets/safari-na3_-uQk.svg",
+    "excluded: ui/node_modules/playwright-core/lib/vite/dashboard/index.html",
+    "excluded: ui/node_modules/playwright-core/lib/vite/dashboard/playwright-logo.svg",
+    "excluded: ui/node_modules/playwright-core/lib/vite/htmlReport/index.html",
+    "excluded: ui/node_modules/playwright-core/lib/vite/htmlReport/report.css",
+    "excluded: ui/node_modules/playwright-core/lib/vite/htmlReport/report.js",
+    "excluded: ui/node_modules/playwright-core/lib/vite/recorder/assets/codeMirrorModule--QdMvsKi.css",
+    "excluded: ui/node_modules/playwright-core/lib/vite/recorder/assets/codeMirrorModule-ClnuDfLq.js",
+    "excluded: ui/node_modules/playwright-core/lib/vite/recorder/assets/codicon-DCmgc-ay.ttf",
+    "excluded: ui/node_modules/playwright-core/lib/vite/recorder/assets/index-BZpYJZ-P.css",
+    "excluded: ui/node_modules/playwright-core/lib/vite/recorder/assets/index-BwOPSdeb.js",
+    "excluded: ui/node_modules/playwright-core/lib/vite/recorder/index.html",
+    "excluded: ui/node_modules/playwright-core/lib/vite/recorder/playwright-logo.svg",
+    "excluded: ui/node_modules/playwright-core/lib/vite/traceViewer/assets/codeMirrorModule-DNqxPF-E.js",
+    "excluded: ui/node_modules/playwright-core/lib/vite/traceViewer/assets/defaultSettingsView-BQT9Z6FV.js",
+    "excluded: ui/node_modules/playwright-core/lib/vite/traceViewer/assets/rolldown-runtime-QTnfLwEv.js",
+    "excluded: ui/node_modules/playwright-core/lib/vite/traceViewer/assets/urlMatch-Cgl6axSs.js",
+    "excluded: ui/node_modules/playwright-core/lib/vite/traceViewer/assets/xtermModule-Cv6bi7od.js",
+    "excluded: ui/node_modules/playwright-core/lib/vite/traceViewer/codeMirrorModule.-QdMvsKi.css",
+    "excluded: ui/node_modules/playwright-core/lib/vite/traceViewer/codicon.DCmgc-ay.ttf",
+    "excluded: ui/node_modules/playwright-core/lib/vite/traceViewer/defaultSettingsView.C8BeHuxd.css",
+    "excluded: ui/node_modules/playwright-core/lib/vite/traceViewer/index.B5WWZ7O0.js",
+    "excluded: ui/node_modules/playwright-core/lib/vite/traceViewer/index.B_TqY17P.css",
+    "excluded: ui/node_modules/playwright-core/lib/vite/traceViewer/index.html",
+    "excluded: ui/node_modules/playwright-core/lib/vite/traceViewer/manifest.webmanifest",
+    "excluded: ui/node_modules/playwright-core/lib/vite/traceViewer/playwright-logo.svg",
+    "excluded: ui/node_modules/playwright-core/lib/vite/traceViewer/snapshot.-ChLTbql.js",
+    "excluded: ui/node_modules/playwright-core/lib/vite/traceViewer/snapshot.html",
+    "excluded: ui/node_modules/playwright-core/lib/vite/traceViewer/sw.bundle.js",
+    "excluded: ui/node_modules/playwright-core/lib/vite/traceViewer/uiMode.CyMfwkXJ.css",
+    "excluded: ui/node_modules/playwright-core/lib/vite/traceViewer/uiMode.DuLwZHRf.js",
+    "excluded: ui/node_modules/playwright-core/lib/vite/traceViewer/uiMode.html",
+    "excluded: ui/node_modules/playwright-core/lib/vite/traceViewer/xtermModule.kHJ-D0s7.css",
+    "excluded: ui/node_modules/playwright-core/lib/webp_codec.LICENSE",
+    "excluded: ui/node_modules/playwright-core/lib/webp_codec.wasm",
+    "excluded: ui/node_modules/playwright-core/lib/xdg-open",
+    "excluded: ui/node_modules/playwright-core/package.json",
+    "excluded: ui/node_modules/playwright-core/types/protocol.d.ts",
+    "excluded: ui/node_modules/playwright-core/types/structs.d.ts",
+    "excluded: ui/node_modules/playwright-core/types/types.d.ts",
+    "excluded: ui/node_modules/postcss/LICENSE",
+    "excluded: ui/node_modules/postcss/README.md",
+    "excluded: ui/node_modules/postcss/lib/at-rule.d.ts",
+    "excluded: ui/node_modules/postcss/lib/at-rule.js",
+    "excluded: ui/node_modules/postcss/lib/comment.d.ts",
+    "excluded: ui/node_modules/postcss/lib/comment.js",
+    "excluded: ui/node_modules/postcss/lib/container.d.ts",
+    "excluded: ui/node_modules/postcss/lib/container.js",
+    "excluded: ui/node_modules/postcss/lib/css-syntax-error.d.ts",
+    "excluded: ui/node_modules/postcss/lib/css-syntax-error.js",
+    "excluded: ui/node_modules/postcss/lib/declaration.d.ts",
+    "excluded: ui/node_modules/postcss/lib/declaration.js",
+    "excluded: ui/node_modules/postcss/lib/document.d.ts",
+    "excluded: ui/node_modules/postcss/lib/document.js",
+    "excluded: ui/node_modules/postcss/lib/fromJSON.d.ts",
+    "excluded: ui/node_modules/postcss/lib/fromJSON.js",
+    "excluded: ui/node_modules/postcss/lib/input.d.ts",
+    "excluded: ui/node_modules/postcss/lib/input.js",
+    "excluded: ui/node_modules/postcss/lib/lazy-result.d.ts",
+    "excluded: ui/node_modules/postcss/lib/lazy-result.js",
+    "excluded: ui/node_modules/postcss/lib/list.d.ts",
+    "excluded: ui/node_modules/postcss/lib/list.js",
+    "excluded: ui/node_modules/postcss/lib/map-generator.js",
+    "excluded: ui/node_modules/postcss/lib/no-work-result.d.ts",
+    "excluded: ui/node_modules/postcss/lib/no-work-result.js",
+    "excluded: ui/node_modules/postcss/lib/node.d.ts",
+    "excluded: ui/node_modules/postcss/lib/node.js",
+    "excluded: ui/node_modules/postcss/lib/parse.d.ts",
+    "excluded: ui/node_modules/postcss/lib/parse.js",
+    "excluded: ui/node_modules/postcss/lib/parser.js",
+    "excluded: ui/node_modules/postcss/lib/postcss.d.mts",
+    "excluded: ui/node_modules/postcss/lib/postcss.d.ts",
+    "excluded: ui/node_modules/postcss/lib/postcss.js",
+    "excluded: ui/node_modules/postcss/lib/postcss.mjs",
+    "excluded: ui/node_modules/postcss/lib/previous-map.d.ts",
+    "excluded: ui/node_modules/postcss/lib/previous-map.js",
+    "excluded: ui/node_modules/postcss/lib/processor.d.ts",
+    "excluded: ui/node_modules/postcss/lib/processor.js",
+    "excluded: ui/node_modules/postcss/lib/result.d.ts",
+    "excluded: ui/node_modules/postcss/lib/result.js",
+    "excluded: ui/node_modules/postcss/lib/root.d.ts",
+    "excluded: ui/node_modules/postcss/lib/root.js",
+    "excluded: ui/node_modules/postcss/lib/rule.d.ts",
+    "excluded: ui/node_modules/postcss/lib/rule.js",
+    "excluded: ui/node_modules/postcss/lib/stringifier.d.ts",
+    "excluded: ui/node_modules/postcss/lib/stringifier.js",
+    "excluded: ui/node_modules/postcss/lib/stringify.d.ts",
+    "excluded: ui/node_modules/postcss/lib/stringify.js",
+    "excluded: ui/node_modules/postcss/lib/symbols.js",
+    "excluded: ui/node_modules/postcss/lib/terminal-highlight.js",
+    "excluded: ui/node_modules/postcss/lib/tokenize.js",
+    "excluded: ui/node_modules/postcss/lib/warn-once.js",
+    "excluded: ui/node_modules/postcss/lib/warning.d.ts",
+    "excluded: ui/node_modules/postcss/lib/warning.js",
+    "excluded: ui/node_modules/postcss/package.json",
+    "excluded: ui/node_modules/rollup/LICENSE.md",
+    "excluded: ui/node_modules/rollup/README.md",
+    "excluded: ui/node_modules/rollup/dist/bin/rollup",
+    "excluded: ui/node_modules/rollup/dist/es/getLogFilter.js",
+    "excluded: ui/node_modules/rollup/dist/es/package.json",
+    "excluded: ui/node_modules/rollup/dist/es/parseAst.js",
+    "excluded: ui/node_modules/rollup/dist/es/rollup.js",
+    "excluded: ui/node_modules/rollup/dist/es/shared/node-entry.js",
+    "excluded: ui/node_modules/rollup/dist/es/shared/parseAst.js",
+    "excluded: ui/node_modules/rollup/dist/es/shared/watch.js",
+    "excluded: ui/node_modules/rollup/dist/getLogFilter.d.ts",
+    "excluded: ui/node_modules/rollup/dist/getLogFilter.js",
+    "excluded: ui/node_modules/rollup/dist/loadConfigFile.d.ts",
+    "excluded: ui/node_modules/rollup/dist/loadConfigFile.js",
+    "excluded: ui/node_modules/rollup/dist/native.js",
+    "excluded: ui/node_modules/rollup/dist/parseAst.d.ts",
+    "excluded: ui/node_modules/rollup/dist/parseAst.js",
+    "excluded: ui/node_modules/rollup/dist/rollup.d.ts",
+    "excluded: ui/node_modules/rollup/dist/rollup.js",
+    "excluded: ui/node_modules/rollup/dist/shared/fsevents-importer.js",
+    "excluded: ui/node_modules/rollup/dist/shared/index.js",
+    "excluded: ui/node_modules/rollup/dist/shared/loadConfigFile.js",
+    "excluded: ui/node_modules/rollup/dist/shared/node-entry.js",
+    "excluded: ui/node_modules/rollup/dist/shared/parseAst.js",
+    "excluded: ui/node_modules/rollup/dist/shared/rollup.js",
+    "excluded: ui/node_modules/rollup/dist/shared/watch-cli.js",
+    "excluded: ui/node_modules/rollup/dist/shared/watch.js",
+    "excluded: ui/node_modules/rollup/package.json",
+    "excluded: ui/node_modules/source-map-js/LICENSE",
+    "excluded: ui/node_modules/source-map-js/README.md",
+    "excluded: ui/node_modules/source-map-js/lib/array-set.js",
+    "excluded: ui/node_modules/source-map-js/lib/base64-vlq.js",
+    "excluded: ui/node_modules/source-map-js/lib/base64.js",
+    "excluded: ui/node_modules/source-map-js/lib/binary-search.js",
+    "excluded: ui/node_modules/source-map-js/lib/mapping-list.js",
+    "excluded: ui/node_modules/source-map-js/lib/quick-sort.js",
+    "excluded: ui/node_modules/source-map-js/lib/source-map-consumer.d.ts",
+    "excluded: ui/node_modules/source-map-js/lib/source-map-consumer.js",
+    "excluded: ui/node_modules/source-map-js/lib/source-map-generator.d.ts",
+    "excluded: ui/node_modules/source-map-js/lib/source-map-generator.js",
+    "excluded: ui/node_modules/source-map-js/lib/source-node.d.ts",
+    "excluded: ui/node_modules/source-map-js/lib/source-node.js",
+    "excluded: ui/node_modules/source-map-js/lib/util.js",
+    "excluded: ui/node_modules/source-map-js/package.json",
+    "excluded: ui/node_modules/source-map-js/source-map.d.ts",
+    "excluded: ui/node_modules/source-map-js/source-map.js",
+    "excluded: ui/node_modules/tinyglobby/LICENSE",
+    "excluded: ui/node_modules/tinyglobby/README.md",
+    "excluded: ui/node_modules/tinyglobby/dist/index.cjs",
+    "excluded: ui/node_modules/tinyglobby/dist/index.d.cts",
+    "excluded: ui/node_modules/tinyglobby/dist/index.d.mts",
+    "excluded: ui/node_modules/tinyglobby/dist/index.mjs",
+    "excluded: ui/node_modules/tinyglobby/package.json",
+    "excluded: ui/node_modules/typescript/LICENSE.txt",
+    "excluded: ui/node_modules/typescript/README.md",
+    "excluded: ui/node_modules/typescript/SECURITY.md",
+    "excluded: ui/node_modules/typescript/ThirdPartyNoticeText.txt",
+    "excluded: ui/node_modules/typescript/bin/tsc",
+    "excluded: ui/node_modules/typescript/bin/tsserver",
+    "excluded: ui/node_modules/typescript/lib/_tsc.js",
+    "excluded: ui/node_modules/typescript/lib/_tsserver.js",
+    "excluded: ui/node_modules/typescript/lib/_typingsInstaller.js",
+    "excluded: ui/node_modules/typescript/lib/cs/diagnosticMessages.generated.json",
+    "excluded: ui/node_modules/typescript/lib/de/diagnosticMessages.generated.json",
+    "excluded: ui/node_modules/typescript/lib/es/diagnosticMessages.generated.json",
+    "excluded: ui/node_modules/typescript/lib/fr/diagnosticMessages.generated.json",
+    "excluded: ui/node_modules/typescript/lib/it/diagnosticMessages.generated.json",
+    "excluded: ui/node_modules/typescript/lib/ja/diagnosticMessages.generated.json",
+    "excluded: ui/node_modules/typescript/lib/ko/diagnosticMessages.generated.json",
+    "excluded: ui/node_modules/typescript/lib/lib.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.decorators.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.decorators.legacy.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.dom.asynciterable.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.dom.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.dom.iterable.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2015.collection.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2015.core.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2015.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2015.generator.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2015.iterable.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2015.promise.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2015.proxy.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2015.reflect.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2015.symbol.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2015.symbol.wellknown.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2016.array.include.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2016.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2016.full.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2016.intl.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2017.arraybuffer.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2017.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2017.date.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2017.full.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2017.intl.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2017.object.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2017.sharedmemory.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2017.string.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2017.typedarrays.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2018.asyncgenerator.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2018.asynciterable.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2018.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2018.full.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2018.intl.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2018.promise.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2018.regexp.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2019.array.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2019.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2019.full.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2019.intl.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2019.object.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2019.string.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2019.symbol.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2020.bigint.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2020.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2020.date.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2020.full.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2020.intl.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2020.number.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2020.promise.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2020.sharedmemory.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2020.string.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2020.symbol.wellknown.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2021.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2021.full.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2021.intl.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2021.promise.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2021.string.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2021.weakref.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2022.array.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2022.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2022.error.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2022.full.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2022.intl.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2022.object.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2022.regexp.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2022.string.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2023.array.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2023.collection.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2023.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2023.full.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2023.intl.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2024.arraybuffer.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2024.collection.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2024.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2024.full.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2024.object.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2024.promise.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2024.regexp.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2024.sharedmemory.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es2024.string.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es5.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.es6.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.esnext.array.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.esnext.collection.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.esnext.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.esnext.decorators.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.esnext.disposable.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.esnext.error.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.esnext.float16.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.esnext.full.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.esnext.intl.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.esnext.iterator.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.esnext.promise.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.esnext.sharedmemory.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.scripthost.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.webworker.asynciterable.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.webworker.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.webworker.importscripts.d.ts",
+    "excluded: ui/node_modules/typescript/lib/lib.webworker.iterable.d.ts",
+    "excluded: ui/node_modules/typescript/lib/pl/diagnosticMessages.generated.json",
+    "excluded: ui/node_modules/typescript/lib/pt-br/diagnosticMessages.generated.json",
+    "excluded: ui/node_modules/typescript/lib/ru/diagnosticMessages.generated.json",
+    "excluded: ui/node_modules/typescript/lib/tr/diagnosticMessages.generated.json",
+    "excluded: ui/node_modules/typescript/lib/tsc.js",
+    "excluded: ui/node_modules/typescript/lib/tsserver.js",
+    "excluded: ui/node_modules/typescript/lib/tsserverlibrary.d.ts",
+    "excluded: ui/node_modules/typescript/lib/tsserverlibrary.js",
+    "excluded: ui/node_modules/typescript/lib/typesMap.json",
+    "excluded: ui/node_modules/typescript/lib/typescript.d.ts",
+    "excluded: ui/node_modules/typescript/lib/typescript.js",
+    "excluded: ui/node_modules/typescript/lib/typingsInstaller.js",
+    "excluded: ui/node_modules/typescript/lib/watchGuard.js",
+    "excluded: ui/node_modules/typescript/lib/zh-cn/diagnosticMessages.generated.json",
+    "excluded: ui/node_modules/typescript/lib/zh-tw/diagnosticMessages.generated.json",
+    "excluded: ui/node_modules/typescript/package.json",
+    "excluded: ui/node_modules/undici-types/LICENSE",
+    "excluded: ui/node_modules/undici-types/README.md",
+    "excluded: ui/node_modules/undici-types/agent.d.ts",
+    "excluded: ui/node_modules/undici-types/api.d.ts",
+    "excluded: ui/node_modules/undici-types/balanced-pool.d.ts",
+    "excluded: ui/node_modules/undici-types/cache-interceptor.d.ts",
+    "excluded: ui/node_modules/undici-types/cache.d.ts",
+    "excluded: ui/node_modules/undici-types/client-stats.d.ts",
+    "excluded: ui/node_modules/undici-types/client.d.ts",
+    "excluded: ui/node_modules/undici-types/connector.d.ts",
+    "excluded: ui/node_modules/undici-types/content-type.d.ts",
+    "excluded: ui/node_modules/undici-types/cookies.d.ts",
+    "excluded: ui/node_modules/undici-types/diagnostics-channel.d.ts",
+    "excluded: ui/node_modules/undici-types/dispatcher.d.ts",
+    "excluded: ui/node_modules/undici-types/dispatcher1-wrapper.d.ts",
+    "excluded: ui/node_modules/undici-types/env-http-proxy-agent.d.ts",
+    "excluded: ui/node_modules/undici-types/errors.d.ts",
+    "excluded: ui/node_modules/undici-types/eventsource.d.ts",
+    "excluded: ui/node_modules/undici-types/fetch.d.ts",
+    "excluded: ui/node_modules/undici-types/formdata.d.ts",
+    "excluded: ui/node_modules/undici-types/global-dispatcher.d.ts",
+    "excluded: ui/node_modules/undici-types/global-origin.d.ts",
+    "excluded: ui/node_modules/undici-types/h2c-client.d.ts",
+    "excluded: ui/node_modules/undici-types/handlers.d.ts",
+    "excluded: ui/node_modules/undici-types/header.d.ts",
+    "excluded: ui/node_modules/undici-types/index.d.ts",
+    "excluded: ui/node_modules/undici-types/interceptors.d.ts",
+    "excluded: ui/node_modules/undici-types/mock-agent.d.ts",
+    "excluded: ui/node_modules/undici-types/mock-call-history.d.ts",
+    "excluded: ui/node_modules/undici-types/mock-client.d.ts",
+    "excluded: ui/node_modules/undici-types/mock-errors.d.ts",
+    "excluded: ui/node_modules/undici-types/mock-interceptor.d.ts",
+    "excluded: ui/node_modules/undici-types/mock-pool.d.ts",
+    "excluded: ui/node_modules/undici-types/package.json",
+    "excluded: ui/node_modules/undici-types/patch.d.ts",
+    "excluded: ui/node_modules/undici-types/pool-stats.d.ts",
+    "excluded: ui/node_modules/undici-types/pool.d.ts",
+    "excluded: ui/node_modules/undici-types/proxy-agent.d.ts",
+    "excluded: ui/node_modules/undici-types/readable.d.ts",
+    "excluded: ui/node_modules/undici-types/retry-agent.d.ts",
+    "excluded: ui/node_modules/undici-types/retry-handler.d.ts",
+    "excluded: ui/node_modules/undici-types/round-robin-pool.d.ts",
+    "excluded: ui/node_modules/undici-types/snapshot-agent.d.ts",
+    "excluded: ui/node_modules/undici-types/socks5-proxy-agent.d.ts",
+    "excluded: ui/node_modules/undici-types/util.d.ts",
+    "excluded: ui/node_modules/undici-types/utility.d.ts",
+    "excluded: ui/node_modules/undici-types/webidl.d.ts",
+    "excluded: ui/node_modules/undici-types/websocket.d.ts",
+    "excluded: ui/node_modules/vite/LICENSE.md",
+    "excluded: ui/node_modules/vite/README.md",
+    "excluded: ui/node_modules/vite/bin/openChrome.applescript",
+    "excluded: ui/node_modules/vite/bin/vite.js",
+    "excluded: ui/node_modules/vite/client.d.ts",
+    "excluded: ui/node_modules/vite/dist/client/client.mjs",
+    "excluded: ui/node_modules/vite/dist/client/env.mjs",
+    "excluded: ui/node_modules/vite/dist/node/chunks/dep-3RmXg9uo.js",
+    "excluded: ui/node_modules/vite/dist/node/chunks/dep-CDom9P1j.js",
+    "excluded: ui/node_modules/vite/dist/node/chunks/dep-CkSfqg8D.js",
+    "excluded: ui/node_modules/vite/dist/node/chunks/dep-CvfTChi5.js",
+    "excluded: ui/node_modules/vite/dist/node/chunks/dep-D1ldOf_C.js",
+    "excluded: ui/node_modules/vite/dist/node/cli.js",
+    "excluded: ui/node_modules/vite/dist/node/constants.js",
+    "excluded: ui/node_modules/vite/dist/node/index.d.ts",
+    "excluded: ui/node_modules/vite/dist/node/index.js",
+    "excluded: ui/node_modules/vite/dist/node/module-runner.d.ts",
+    "excluded: ui/node_modules/vite/dist/node/module-runner.js",
+    "excluded: ui/node_modules/vite/dist/node/moduleRunnerTransport.d-DJ_mE5sf.d.ts",
+    "excluded: ui/node_modules/vite/dist/node-cjs/publicUtils.cjs",
+    "excluded: ui/node_modules/vite/index.cjs",
+    "excluded: ui/node_modules/vite/index.d.cts",
+    "excluded: ui/node_modules/vite/misc/false.js",
+    "excluded: ui/node_modules/vite/misc/true.js",
+    "excluded: ui/node_modules/vite/package.json",
+    "excluded: ui/node_modules/vite/types/customEvent.d.ts",
+    "excluded: ui/node_modules/vite/types/hmrPayload.d.ts",
+    "excluded: ui/node_modules/vite/types/hot.d.ts",
+    "excluded: ui/node_modules/vite/types/import-meta.d.ts",
+    "excluded: ui/node_modules/vite/types/importGlob.d.ts",
+    "excluded: ui/node_modules/vite/types/importMeta.d.ts",
+    "excluded: ui/node_modules/vite/types/internal/cssPreprocessorOptions.d.ts",
+    "excluded: ui/node_modules/vite/types/internal/lightningcssOptions.d.ts",
+    "excluded: ui/node_modules/vite/types/metadata.d.ts",
+    "excluded: ui/node_modules/vite/types/package.json",
+    "excluded: ui/test-results/.last-run.json",
+    "excluded: ui/tsconfig.tsbuildinfo",
+    "excluded: release/DELIVERY_MANIFEST.json",
+    "excluded: release/TURNKEEP_RC.zip"
+  ],
+  "excluded_note": "Excluded, always: .venv, .git, __pycache__, *.pyc, node_modules, ui/dist, .pytest_cache, .tmp, test-results, *.db/*.sqlite*, src/turnkeep.egg-info, state/ and evidence/ raw files (machine paths), benchmarks/results/, requirements/ui.lock (empty placeholder, not a lock). A desensitised evidence-summary.json is shipped instead of raw evidence.",
+  "next_actions": [
+    "Drive + GitHub upload of this RC authorised by Sam 2026-11-10 ~09:08 GMT (private repo; no public release). T043 set aside for now; Sam tests Windows/macOS himself after the Drive upload.",
+    "T026 follow-up (optional, disclosed): re-run the Codex forward leg (S1/S2/S3b/S4) once the M365 backend is healthy; record tool-call logs + client versions in evidence/live-clients/.",
+    "T042: complete as run (two clean live runs, finding MIXED); no further runs unless Sam asks.",
+    "T043: real Windows/macOS install + doctor + J01/J05 runs; perf fix (read-set snapshots + indexed recall) then re-measure against the same thresholds (finish p95 500 ms, recall p95 1000 ms).",
+    "Trademark clearance + dependency vulnerability scan (pip-audit / npm audit) before any public release.",
+    "Durable packaging fixes (not blocking OFFLINE_RC): demo.py fixtures via importlib.resources; regenerate or remove requirements/ui.lock. (The pyproject.toml package-data fix is done since the R4 rework, P2-R4-09.)"
+  ],
+  "publication": {
+    "authorised": true,
+    "attempted": true,
+    "reason": "Drive + GitHub upload of this release candidate authorised by Sam 2026-11-10 ~09:08 GMT (private repo turnkeep; no public release). Uploads run as a separate step after packaging; status and links are recorded in state/CONTROL_STATE.json (not shipped in this zip)."
+  }
+}

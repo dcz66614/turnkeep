@@ -1,0 +1,6 @@
+# turnkeep core lock — R0
+# Core is stdlib + SQLite only; no runtime dependencies.
+# Python 3.12.3 / SQLite 3.45.1 on this VM (kit report: 3.12.14 / 3.53.1).
+# Dev: pytest 9.2.0 (installed in .venv via pip, 2026-11-08).
+# MCP/UI groups are intentionally empty until T021/T029 pin from official sources.
+pytest==9.2.0

@@ -1,0 +1,69 @@
+{
+  "demonstration": "SCRIPTED_SIMULATION_NO_MODEL_CALLS",
+  "steps": [
+    "A reads a consistent project snapshot.",
+    "B corrects the requirement; the old plan becomes tainted.",
+    "A's stale result is rejected atomically.",
+    "The changes are inspected and a new run computes a replacement result.",
+    "The replacement commits once; an identical retry returns the original receipt."
+  ],
+  "old_requirement": "3.11",
+  "new_requirement": "3.12",
+  "old_plan_state": "tainted",
+  "impact": [
+    {
+      "record_id": "7168245d7ec84c33bb27f4e922cf6e01",
+      "key": "build.plan",
+      "state": "tainted",
+      "dependency_path": [
+        "25824085723d4f3d9d860d9f9ba01451",
+        "7168245d7ec84c33bb27f4e922cf6e01"
+      ]
+    }
+  ],
+  "rejection": {
+    "code": "STALE_SNAPSHOT",
+    "message": "Snapshot changed; no result was published",
+    "details": {
+      "from_epoch": 2,
+      "to_epoch": 3,
+      "changed_record_ids": [
+        "1a39acb32c154e04a18724aeb6b6588c",
+        "25824085723d4f3d9d860d9f9ba01451",
+        "7168245d7ec84c33bb27f4e922cf6e01"
+      ],
+      "changed_keys": [
+        "build.plan",
+        "build.python_version"
+      ],
+      "changes": [
+        {
+          "epoch": 3,
+          "action": "correct"
+        }
+      ],
+      "why": "Project memory changed after this run read its snapshot; reread changes and recompute affected work."
+    }
+  },
+  "changed_keys": [
+    "build.plan",
+    "build.python_version"
+  ],
+  "receipt": {
+    "run_id": "13f0728f56744b49a75ac76fff7f9a9c",
+    "scope": "demo",
+    "record_id": "3303700b989f424192533e2c95c78190",
+    "request_digest": "3e5cdfb5e1f143c7a074cd09d81c2067e0d8437ba369a28cc7adff858afe54f0",
+    "read_epoch": 3,
+    "commit_epoch": 4,
+    "parent_ids": [
+      "1a39acb32c154e04a18724aeb6b6588c"
+    ],
+    "committed_at": "2026-11-08T18:48:36.017902+00:00",
+    "status_at_commit": "active",
+    "guarantee": "local_sqlite_commit_only",
+    "integrity_hash": "d6a2ec43a25c94f4964885ef8f2c0e1cbf6e1811a587a397a9905e04fc7db8d6"
+  },
+  "idempotent_replay_identical": true,
+  "boundary": "This demonstrates local SQLite correctness, not MCP integration, model quality, or external-action safety."
+}

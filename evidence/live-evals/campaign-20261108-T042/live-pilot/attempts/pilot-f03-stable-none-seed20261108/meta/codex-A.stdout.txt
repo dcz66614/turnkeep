@@ -1,0 +1,1 @@
+已将 `npm run build-legacy` 写入并验证于 `output/build.txt`。

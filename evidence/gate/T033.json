@@ -1,0 +1,49 @@
+{
+  "gate": "run_gate",
+  "selector": "T033",
+  "status": "PASS",
+  "generated": "2026-11-08T19:56:07Z",
+  "python": "3.12.3",
+  "results": [
+    {
+      "task_id": "T033",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "npm",
+            "--prefix",
+            "ui",
+            "run",
+            "test:e2e",
+            "--",
+            "recovery.spec.ts"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 4.707,
+          "stdout_tail": "\n> turnkeep-workbench@0.1.0 test:e2e\n> NODE_PATH=./node_modules playwright test recovery.spec.ts\n\n\nRunning 1 test using 1 worker\n\n  ✓  1 ../tests/ui/recovery.spec.ts:50:1 › recovery shows diff, rebases twice, then quarantines; handoff exports (1.9s)\n\n  1 passed (3.7s)\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/run_journey.py",
+            "--mode",
+            "ui-api",
+            "--journey",
+            "J02",
+            "--no-model"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.595,
+          "stdout_tail": "{\n  \"journey\": \"J02\",\n  \"mode\": \"ui-api\",\n  \"status\": \"PASS\",\n  \"steps\": [\n    \"A remembers the export-format decision\",\n    \"A finishes and writes a brief naming the decision\",\n    \"B reads the same brief (same decisions, same record ids)\",\n    \"B resumes A's run and finishes a verified result\",\n    \"after restart: runs and records recovered from the DB\"\n  ],\n  \"receipt\": {\n    \"run_id\": \"200a902c19654c26a51401ee6ccca92a\",\n    \"scope\": \"demo\",\n    \"record_id\": \"7e7edc18bb10466bb9f7f49bdc76868b\",\n    \"request_digest\": \"66b4783cee354374c441c74c9c1d74c48f445e3de8a90039db1bffdb7fc99541\",\n    \"read_epoch\": 2,\n    \"commit_epoch\": 3,\n    \"parent_ids\": [\n      \"5c96a6f1b6c7471a9dd639facc4a0ff7\",\n      \"f2e68a6dc57746fe9fcf218ba8f0dc70\"\n    ],\n    \"committed_at\": \"2026-11-08T19:56:07.749943+00:00\",\n    \"status_at_commit\": \"active\",\n    \"guarantee\": \"local_sqlite_commit_only\"\n  }\n}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    }
+  ]
+}

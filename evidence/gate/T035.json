@@ -1,0 +1,43 @@
+{
+  "gate": "run_gate",
+  "selector": "T035",
+  "status": "PASS",
+  "generated": "2026-11-08T20:02:33Z",
+  "python": "3.12.3",
+  "results": [
+    {
+      "task_id": "T035",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "npm",
+            "--prefix",
+            "ui",
+            "run",
+            "test:e2e"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 17.269,
+          "stdout_tail": "\n> turnkeep-workbench@0.1.0 test:e2e\n> NODE_PATH=./node_modules playwright test\n\n\nRunning 11 tests using 2 workers\n\n  ✓   1 ../tests/ui/accessibility.spec.ts:48:1 › keyboard-only: connect form and nav work without a mouse (3.3s)\n  ✓   2 ../tests/ui/correction.spec.ts:55:1 › editor corrects with CAS; concurrent update surfaces 409, no silent overwrite (3.4s)\n  ✓   3 ../tests/ui/accessibility.spec.ts:81:1 › narrow viewport: no horizontal overflow, buttons stay reachable (1.8s)\n  ✓   5 ../tests/ui/accessibility.spec.ts:106:1 › every input has a label and every button has an accessible name (537ms)\n  ✓   4 ../tests/ui/correction.spec.ts:79:1 › conflicts view resolves the full candidate set with new evidence (2.5s)\n  ✓   7 ../tests/ui/journeys.spec.ts:55:1 › J01: screen matches DB after a correction (2.1s)\n  ✓   6 ../tests/ui/impact.spec.ts:56:1 › impact view shows old/new, the path, and resume diff (2.5s)\n  ✓   9 ../tests/ui/overview.spec.ts:52:1 › overview shows seeded decision and history lists it (1.6s)\n  ✓  10 ../tests/ui/overview.spec.ts:73:1 › wrong token shows an actionable error, not fake data (1.0s)\n  ✓   8 ../tests/ui/journeys.spec.ts:78:1 › J04: restart recovers runs and records (DB, not localStorage) (3.6s)\n  ✓  11 ../tests/ui/recovery.spec.ts:50:1 › recovery shows diff, rebases twice, then quarantines; handoff exports (2.3s)\n\n  11 passed (15.9s)\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/ui_gate.py",
+            "--production-build"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 19.92,
+          "stdout_tail": "{\n  \"status\": \"PASS\",\n  \"evidence\": \"/home/hatch/workspace/turnkeep-work/evidence/ui/ui-gate.json\"\n}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    }
+  ]
+}

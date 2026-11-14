@@ -1,0 +1,52 @@
+{
+  "task": "T002",
+  "date": "2026-11-08",
+  "decision": "GO_WITH_BOUNDS",
+  "kit_sources": 98,
+  "kit_full_text_papers": 5,
+  "kit_readmes_full": 21,
+  "supplementary_check": {
+    "date": "2026-11-08",
+    "method": "web search, search-result level only",
+    "new_neighbours": [
+      "Turnbook (PyPI turnbook 0.9.46, LongMemEval 88.8% self-reported, NOT reproduced)",
+      "Truenex Memory (PyPI truenex-memory 0.2.1, public alpha)",
+      "project-memory (GitHub haraldalder-vibemogger, Cowork-verified per README)",
+      "localrivet/projectmemory (Go MCP, 2 tools)"
+    ]
+  },
+  "name_check": {
+    "pypi": "NOT_REGISTERED (JSON API 404, 2026-11-08)",
+    "npm": "NOT_REGISTERED (registry 404)",
+    "github_user": "NOT_FOUND (404)",
+    "collision": "turnkeep.app — live short-term-rental turnover product, different domain",
+    "trademark_clearance": "NOT_RUN"
+  },
+  "capability_evidence_table": [
+    {
+      "claim": "core semantics (conflict/CAS/taint/snapshot/finish/idempotency)",
+      "status": "code-verified + run on this VM",
+      "evidence": "evidence/baseline/starter-tests.txt (25/25)"
+    },
+    {
+      "claim": "MCP / HTTP / workbench",
+      "status": "NOT_IMPLEMENTED_IN_STARTER",
+      "evidence": "kit evidence/IMPLEMENTATION_STATUS.md"
+    },
+    {
+      "claim": "Turnbook LongMemEval 88.8%",
+      "status": "unknown (vendor self-report, not reproduced)",
+      "evidence": "search result 2026-11-08"
+    },
+    {
+      "claim": "cross-tool sharing is first",
+      "status": "REFUTED — Turnbook/Truenex/project-memory already do it",
+      "evidence": "docs/COMPETITORS.md"
+    },
+    {
+      "claim": "GitHub stars / retention / acquisition",
+      "status": "NOT_ESTABLISHED",
+      "evidence": "none"
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+{"affected_ids":["fac7e14a807b440380d4d0e47efa368b"],"created_at":"2026-11-08T20:06:53.959956+00:00","event_type":"remember","metadata":{"key":"export.format"},"scope_epoch":1}
+{"affected_ids":["771efe0a9e4040f795bbc781a944d979"],"created_at":"2026-11-08T20:06:53.960841+00:00","event_type":"remember","metadata":{"key":"release.manifest"},"scope_epoch":2}

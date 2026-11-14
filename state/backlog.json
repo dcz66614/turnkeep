@@ -1,0 +1,4484 @@
+{
+  "schema_version": "turnkeep.tasks/v1",
+  "generated_date": "2026-11-08",
+  "status": "IMPLEMENTATION_PLAN_NOT_COMPLETION_REPORT",
+  "task_count": 48,
+  "product_name": "Turnkeep (working name)",
+  "contract": "specs/CORE_CONTRACT.md",
+  "actual_starter_status": "evidence/IMPLEMENTATION_STATUS.md",
+  "max_parallel_workers": 3,
+  "max_repair_attempts": 2,
+  "max_alternative_attempts": 1,
+  "states": [
+    "NOT_STARTED",
+    "READY",
+    "RUNNING",
+    "IMPLEMENTED",
+    "VERIFIED",
+    "BLOCKED_EXTERNAL",
+    "BLOCKED_CORE",
+    "FAILED",
+    "DEFERRED"
+  ],
+  "dependency_rules": {
+    "normal": "Downstream coding may start once required outputs exist and relevant local checks pass; a release claim additionally needs VERIFIED evidence.",
+    "external": "For designated external-gate tasks, implementation and an honest NOT_RUN/BLOCKED_EXTERNAL record satisfy downstream preparation only, never the missing gate.",
+    "hard_failure": "BLOCKED_CORE does not satisfy functional dependencies; independent documentation/research tasks may continue."
+  },
+  "release_profiles": {
+    "offline_rc": {
+      "requires": "All deterministic/core/protocol/UI/data/packaging gates for advertised offline capabilities; no claim of real-host integration or unrun platforms.",
+      "may_contain_not_run": [
+        "T026",
+        "T042",
+        "T043 external platform rows"
+      ]
+    },
+    "integrated_rc": {
+      "requires": "offline_rc plus two different actual MCP client products pass handoff; support matrix only measured platforms."
+    },
+    "value_evaluated": {
+      "requires": "T042 completed under frozen protocol, with truthful positive/negative result; this status does not imply improvement."
+    },
+    "public_candidate": {
+      "requires": "All claimed client/platform/data/security gates; publication itself requires explicit authorization."
+    }
+  },
+  "tasks": [
+    {
+      "id": "T001",
+      "phase": "R0",
+      "title": "冻结输入包并核验实际能力",
+      "owner": "MUSE",
+      "dependencies": [],
+      "owned_paths": [
+        "ops/bootstrap/**",
+        "state/SOURCE_READ_LOG.md",
+        "state/BASELINE_STATUS.json"
+      ],
+      "inputs": [
+        "00_START_HERE.md",
+        "specs/CORE_CONTRACT.md",
+        "starter/README.md",
+        "evidence/IMPLEMENTATION_STATUS.md",
+        "包内实际 manifest"
+      ],
+      "outputs": [
+        "state/SOURCE_READ_LOG.md",
+        "state/BASELINE_STATUS.json",
+        "evidence/baseline/starter-tests.txt",
+        "evidence/baseline/starter-demo.json"
+      ],
+      "implementation_steps": [
+        "将解压包保留为参考输入，记录包文件哈希；仅在新建 turnkeep-work 工作区开发。",
+        "按起始阅读顺序逐份读契约、实际状态、项目书、计划、API和研究汇总；记录路径、SHA256、阅读范围与有影响的矛盾。",
+        "在 starter 目录运行现有 unittest 和脚本模拟 demo，保存真实 exit code、Python/OS版本和完整输出。",
+        "列出当前存在的文件/入口；把 MCP、UI、认证、硬擦除等未实现能力明确登记，不把计划当功能。"
+      ],
+      "acceptance_commands": [
+        "python -m unittest discover -s tests -v  # 仅在输入包 starter/ 运行",
+        "python -m turnkeep demo  # 仅在输入包 starter/ 运行；脚本模拟"
+      ],
+      "acceptance_invariants": [
+        "每个输入都有哈希和阅读状态；若 manifest 不存在则生成本地 inventory 并标明。",
+        "现有测试结果与基线状态逐条一致，不把没有执行的命令记为通过。",
+        "参考包未被修改，工作区与参考包路径不同。"
+      ],
+      "failure_handling": "若缺文件或基线失败，先保存错误和可运行部分；允许修复复制到工作区的种子代码，不能改写参考证据。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T001.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-v"
+          ],
+          "cwd": "INPUT_KIT/starter",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "-m",
+            "turnkeep",
+            "demo"
+          ],
+          "cwd": "INPUT_KIT/starter",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        }
+      ]
+    },
+    {
+      "id": "T002",
+      "phase": "R0",
+      "title": "收束证据、最近邻与名称风险",
+      "owner": "RESEARCH",
+      "dependencies": [
+        "T001"
+      ],
+      "owned_paths": [
+        "docs/DISCOVERY_DECISION.md",
+        "docs/COMPETITORS.md",
+        "docs/NAME_CHECK.md",
+        "scripts/check_discovery.py"
+      ],
+      "inputs": [
+        "research/user_market.md",
+        "research/market_sources.json",
+        "其他论文/竞品阅读账本",
+        "01_PROJECT_BRIEF.md"
+      ],
+      "outputs": [
+        "docs/DISCOVERY_DECISION.md",
+        "docs/COMPETITORS.md",
+        "docs/NAME_CHECK.md",
+        "docs/discovery-scorecard.json"
+      ],
+      "implementation_steps": [
+        "只补查会改变首发范围的事实：官方MCP接口、两客户端配置方式、直接最近邻首发旅程与名称冲突。",
+        "制作 capability/evidence 表，区分文档宣称、代码核验、已运行、未知；保留普通Markdown与原始日志基线。",
+        "明确创新是变更恢复和低门槛体验组合；禁止把PlanFence/Engram/Hy-Memory等已有机制写成首创。",
+        "记录 GO_WITH_BOUNDS；如已有系统已满足全部必需旅程，写ADR选择适配层/工作台组合而不是复制其内核。"
+      ],
+      "acceptance_commands": [
+        "python scripts/check_discovery.py --ledger docs/COMPETITORS.md",
+        "python -m json.tool docs/discovery-scorecard.json"
+      ],
+      "acceptance_invariants": [
+        "每个对外事实有原始URL和检索日期；问题关闭/修复状态不遗漏。",
+        "名称检查只声明查过的GitHub/PyPI/npm范围，不声称商标法律清除。",
+        "研究预算不超过本轮任务预算的10%；结束后不继续无限构思。"
+      ],
+      "failure_handling": "来源不可达标记 UNVERIFIED 并删除对应强主张；命名冲突可换包前缀但保持数据协议版本与产品任务不变。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P1",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T002.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "scripts/check_discovery.py",
+            "--ledger",
+            "docs/COMPETITORS.md"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "-m",
+            "json.tool",
+            "docs/discovery-scorecard.json"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        }
+      ]
+    },
+    {
+      "id": "T003",
+      "phase": "R0",
+      "title": "冻结外部契约、状态机与错误码",
+      "owner": "ARCH",
+      "dependencies": [
+        "T001",
+        "T002"
+      ],
+      "owned_paths": [
+        "specs/**",
+        "src/turnkeep/types.py",
+        "tests/contract/fixtures/**",
+        "scripts/check_contract.py"
+      ],
+      "inputs": [
+        "specs/CORE_CONTRACT.md",
+        "specs/PUBLIC_API.json",
+        "种子核心接口",
+        "specs/ADAPTER_MAPPING.md"
+      ],
+      "outputs": [
+        "specs/public_api.schema.json",
+        "specs/error-codes.md",
+        "specs/state-transitions.json",
+        "tests/contract/fixtures/"
+      ],
+      "implementation_steps": [
+        "把主契约映射为机器可验证请求/响应schema；保持kind/state/source类别与AND parent语义。",
+        "定义remember/correct/retract/begin/finish/resume/recall/brief的成功响应与错误码；为expected_revision和run绑定指定类型。",
+        "冻结终端状态、幂等键+request digest行为、scope_epoch规则和不允许的权限提升字段。",
+        "写最小合法/非法payload fixture；标记原型字段与目标API差异，禁止直接覆盖原型数据库。",
+        "本任务先以stdlib检查JSON语法、引用和覆盖；完整合法/非法payload schema验证由T005建立依赖后执行，不能提前标该验证PASS。"
+      ],
+      "acceptance_commands": [
+        "python -m json.tool specs/public_api.schema.json",
+        "python scripts/check_contract.py --spec specs/public_api.schema.json"
+      ],
+      "acceptance_invariants": [
+        "非法状态转换、缺版本、跨scope父节点、请求身份覆盖都被明确描述。",
+        "不把active等同真理，不把retract等同erase，不把receipt等同外部事务。",
+        "每个P0需求有至少一个规范中的observable acceptance。"
+      ],
+      "failure_handling": "发现契约矛盾由Muse写ADR裁决并更新依赖任务；只允许明确版本化修改，不能在实现里偷偷改变语义。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T003.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "-m",
+            "json.tool",
+            "specs/public_api.schema.json"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/check_contract.py",
+            "--spec",
+            "specs/public_api.schema.json"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        }
+      ]
+    },
+    {
+      "id": "T004",
+      "phase": "R0",
+      "title": "建立可复制的产品工作区和依赖锁",
+      "owner": "BUILD",
+      "dependencies": [
+        "T001",
+        "T003"
+      ],
+      "owned_paths": [
+        "pyproject.toml",
+        "requirements/**",
+        "src/turnkeep/**（种子搬迁仅此任务）",
+        "scripts/bootstrap_product.py",
+        "docs/ENVIRONMENT.md",
+        "tests/baseline/**"
+      ],
+      "inputs": [
+        "starter/turnkeep",
+        "Python>=3.11",
+        "官方依赖文档"
+      ],
+      "outputs": [
+        "pyproject.toml",
+        "锁定的依赖文件",
+        "src/turnkeep/",
+        "docs/ENVIRONMENT.md"
+      ],
+      "implementation_steps": [
+        "创建本地git integration分支，把参考核心复制为src/turnkeep；先保持行为一致，不做功能重写。",
+        "核心保留stdlib+SQLite；dev、mcp、ui作为分组依赖；MCP官方SDK与未来UI依赖实施时从官方源核验后锁定。",
+        "记录Python、SQLite版本和支持矩阵；不强制Docker、云数据库或模型API key。",
+        "提供bootstrap脚本，在受控新目录安装并验证导入；依赖缺失时仍可运行纯核心。"
+      ],
+      "acceptance_commands": [
+        "python -m pip install -e \".[dev]\"",
+        "python -m turnkeep --help",
+        "python -m pytest tests/baseline/test_seed_parity.py -q"
+      ],
+      "acceptance_invariants": [
+        "离线核心安装不发网络请求给模型服务。",
+        "无global配置、HOME或系统Python覆盖；虚拟环境与锁版本可重建。",
+        "迁移前后基线语义一致，新增依赖来源与版本有记录。"
+      ],
+      "failure_handling": "网络/包源受限则输出离线依赖清单和核心模式；mcp/ui标依赖阻塞，不伪造安装成功。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T004.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "-m",
+            "pip",
+            "install",
+            "-e",
+            ".[dev]"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "-m",
+            "turnkeep",
+            "--help"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "tests/baseline/test_seed_parity.py",
+            "-q"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        }
+      ]
+    },
+    {
+      "id": "T005",
+      "phase": "R0",
+      "title": "建立证据运行器与真实状态语义",
+      "owner": "QA",
+      "dependencies": [
+        "T003",
+        "T004"
+      ],
+      "owned_paths": [
+        "scripts/run_gate.py",
+        "scripts/check_*.py",
+        "tests/harness/**",
+        "evidence/schema.json",
+        "evidence/INDEX.json",
+        "tests/contract/test_schemas.py"
+      ],
+      "inputs": [
+        "任务JSON",
+        "冻结schema",
+        "现有参考测试输出"
+      ],
+      "outputs": [
+        "scripts/run_gate.py",
+        "evidence/schema.json",
+        "tests/harness/test_runner.py",
+        "evidence/INDEX.json"
+      ],
+      "implementation_steps": [
+        "实现命令运行、超时、退出码、环境版本、输入哈希、证据路径与PASS/FAIL/NOT_RUN/BLOCKED状态记录。",
+        "run_gate按task或verification_profiles的显式任务数组选检查，只派发execution_role=leaf的argv；aggregate命令仅供Muse顶层调用，绝不重新派发。缺脚本、依赖、凭证不得变成PASS。",
+        "为后续docs/schema/platform/demo检查提供可扩展入口；不写永远返回true的占位测试。",
+        "记录stdout/stderr并脱敏；每次失败保留原始记录，后续成功另追加而不覆盖。",
+        "在R0结束前回填T002/T003/T004的正式机器验证，未通过则R0门槛失败。",
+        "为每条acceptance_command_specs要求execution_role为leaf或aggregate；run_gate的--task/--profile只能标aggregate，--self-test标leaf并运行固定自测语料，不打开backlog、不展开task/profile。",
+        "实现调度深度与重复命令保护；leaf子进程再次请求run_gate --task/--profile时在派发前拒绝。用假执行器覆盖含自身--task、含自身profile、未知profile和非法role的fixture，不能靠测试超时判断防递归成功。",
+        "用fnmatch校验验收argv中的.py/.ts引用属于本任务或依赖祖先的owned_paths；短Playwright选择器须通过显式path_aliases还原，未声明引用阻止任务READY。"
+      ],
+      "acceptance_commands": [
+        "python -m pytest tests/harness/test_runner.py -q",
+        "python scripts/run_gate.py --self-test",
+        "python -m pytest tests/contract/test_schemas.py -q"
+      ],
+      "acceptance_invariants": [
+        "模拟非零退出、超时、missing credential、缺文件四种情况，状态准确。",
+        "证据索引可追溯到commit与命令；不会把SKIP汇总成全通过。",
+        "不保存API key、环境变量全量dump或原始敏感聊天。",
+        "含自身聚合命令的任务只执行其leaf一次；--self-test无需读取任务文件；非法嵌套派发立即失败而不启动新runner。",
+        "core、protocol、live-clients、release四个验证profile范围固定，release只覆盖T001–T046，不选择T047/T048；所有命令角色与路径归属检查通过。"
+      ],
+      "failure_handling": "证据系统不可信时暂停发布门槛评估；修复runner后重跑受到影响的检查，不补写虚假历史。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T005.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "tests/harness/test_runner.py",
+            "-q"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_gate.py",
+            "--self-test"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "tests/contract/test_schemas.py",
+            "-q"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        }
+      ]
+    },
+    {
+      "id": "T006",
+      "phase": "R0",
+      "title": "建立Muse任务状态、worktree和交接协议",
+      "owner": "MUSE",
+      "dependencies": [
+        "T002",
+        "T004",
+        "T005"
+      ],
+      "owned_paths": [
+        "state/**",
+        "ops/worker-contract.json",
+        "scripts/check_state.py"
+      ],
+      "inputs": [
+        "tasks/backlog.json",
+        "本执行计划",
+        "已完成R0证据"
+      ],
+      "outputs": [
+        "state/CONTROL_STATE.json",
+        "state/CURRENT_STATUS.md",
+        "state/TASK_LEDGER.jsonl",
+        "state/BLOCKERS.md",
+        "state/DECISIONS.md",
+        "HANDOFF.md"
+      ],
+      "implementation_steps": [
+        "将本backlog导入机器可读任务状态；最多同时3个worker，每个明确owned_paths与独立worktree。",
+        "设定唯一集成者Muse；公共schema、迁移编号、锁文件只由指定owner串行改。",
+        "写worker回传契约：变更文件、命令、exit code、证据、风险、剩余项；无证据不得VERIFIED。",
+        "设置失败两次修复加一次替代方案上限；每任务结束和上下文压缩前写checkpoint与下一可执行任务。"
+      ],
+      "acceptance_commands": [
+        "python scripts/check_state.py --state state/CONTROL_STATE.json --backlog tasks/backlog.json",
+        "python -m pytest tests/harness/test_state_recovery.py -q"
+      ],
+      "acceptance_invariants": [
+        "新会话只靠HANDOFF/state/specs可恢复当前进度。",
+        "依赖未满足的任务不可标READY；同文件所有权不重叠。",
+        "后台未完成任务与取消记录清晰，不把未await子任务当完成。"
+      ],
+      "failure_handling": "Muse无worktree能力则退为同工作区串行；无子agent能力则按相同任务协议自己执行，不改验收。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T006.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "scripts/check_state.py",
+            "--state",
+            "state/CONTROL_STATE.json",
+            "--backlog",
+            "tasks/backlog.json"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "tests/harness/test_state_recovery.py",
+            "-q"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        }
+      ]
+    },
+    {
+      "id": "T007",
+      "phase": "R1",
+      "title": "实现存储模型、迁移和SQLite运行设置",
+      "owner": "CORE",
+      "dependencies": [
+        "T003",
+        "T004",
+        "T006"
+      ],
+      "owned_paths": [
+        "src/turnkeep/storage.py",
+        "src/turnkeep/migrations/**",
+        "tests/storage/**"
+      ],
+      "inputs": [
+        "冻结数据模型",
+        "参考store.py"
+      ],
+      "outputs": [
+        "产品storage与迁移器",
+        "tests/storage/test_migrations.py",
+        "docs/storage.md"
+      ],
+      "implementation_steps": [
+        "建立memories、sources、edges、scopes、runs、snapshots、events、idempotency等最小表与唯一/外键约束。",
+        "启用WAL、foreign_keys、busy_timeout；事务边界明确，无网络/模型调用持有写事务。",
+        "实现schema_version迁移；升级前一致性备份，禁止直接应用到未识别的starter格式。",
+        "定义文件权限与应用数据路径，避免相对cwd导致多个数据库被误建。"
+      ],
+      "acceptance_commands": [
+        "python -m pytest tests/storage/test_migrations.py tests/storage/test_constraints.py -q",
+        "python scripts/run_gate.py --task T007"
+      ],
+      "acceptance_invariants": [
+        "新建、支持版本升级、拒绝未知未来版本、失败回滚均有fixture。",
+        "迁移失败保留原数据库；不丢source/edge/history。",
+        "外键与唯一约束真实生效，而非仅靠Python判断。"
+      ],
+      "failure_handling": "迁移有数据丢失风险时先停止升级路径，保留新库模式；修复fixture后恢复，不就地重建用户库。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T007.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "tests/storage/test_migrations.py",
+            "tests/storage/test_constraints.py",
+            "-q"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_gate.py",
+            "--task",
+            "T007"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "aggregate"
+        }
+      ]
+    },
+    {
+      "id": "T008",
+      "phase": "R1",
+      "title": "实现项目scope和本地actor绑定",
+      "owner": "CORE",
+      "dependencies": [
+        "T007"
+      ],
+      "owned_paths": [
+        "src/turnkeep/scopes.py",
+        "src/turnkeep/context.py",
+        "tests/core/test_scopes.py",
+        "tests/core/test_context_binding.py"
+      ],
+      "inputs": [
+        "scope/身份契约",
+        "单受信任OS用户首发边界"
+      ],
+      "outputs": [
+        "scope registry",
+        "RequestContext",
+        "scope隔离测试"
+      ],
+      "implementation_steps": [
+        "项目以显式注册ID为权威；规范化路径仅用于发现，处理worktree、符号链接与Windows大小写。",
+        "将actor绑定到CLI/MCP会话配置的RequestContext；请求正文不可重写actor身份。",
+        "所有读写先解析scope；默认项目隔离，跨项目导入/共享必须走显式受控入口。",
+        "文档说明scope不是抵御同一OS用户读DB的安全边界。"
+      ],
+      "acceptance_commands": [
+        "python -m pytest tests/core/test_scopes.py tests/core/test_context_binding.py -q",
+        "python scripts/run_gate.py --task T008"
+      ],
+      "acceptance_invariants": [
+        "两项目同key不同value不冲突也不互相召回。",
+        "恶意actor_id/tenant_id字段不覆盖绑定身份。",
+        "未知scope与跨scope父节点明确拒绝，无默认全局fallback。"
+      ],
+      "failure_handling": "路径自动识别不可靠时要求初始化时指定稳定scope ID，不能猜测并合并两个项目。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T008.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "tests/core/test_scopes.py",
+            "tests/core/test_context_binding.py",
+            "-q"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_gate.py",
+            "--task",
+            "T008"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "aggregate"
+        }
+      ]
+    },
+    {
+      "id": "T009",
+      "phase": "R1",
+      "title": "实现事件和请求幂等基础",
+      "owner": "CORE",
+      "dependencies": [
+        "T007",
+        "T008"
+      ],
+      "owned_paths": [
+        "src/turnkeep/events.py",
+        "src/turnkeep/idempotency.py",
+        "tests/core/test_idempotency.py",
+        "tests/core/test_event_atomicity.py"
+      ],
+      "inputs": [
+        "请求digest规范",
+        "单事务变更规则"
+      ],
+      "outputs": [
+        "event writer",
+        "idempotency guard",
+        "事件审计测试"
+      ],
+      "implementation_steps": [
+        "为变更统一生成event_id、发生时间、actor、scope、operation与相关record IDs；避免事件日志复制敏感payload。",
+        "规范化请求后计算digest，将幂等键限定在绑定actor/scope/operation边界。",
+        "将业务写、事件、epoch递增和幂等结果放在一个事务内；重试返回原已确认结果。",
+        "相同键不同digest返回IDEMPOTENCY_MISMATCH，失败请求不伪造成功回执。"
+      ],
+      "acceptance_commands": [
+        "python -m pytest tests/core/test_idempotency.py tests/core/test_event_atomicity.py -q",
+        "python scripts/run_gate.py --task T009"
+      ],
+      "acceptance_invariants": [
+        "断点重试不能创建第二份成果。",
+        "事务abort不会留下可被误认为commit的成功receipt。",
+        "不同scope复用幂等键不串结果，事件与record数一致。"
+      ],
+      "failure_handling": "摘要规范变更需要版本字段和兼容策略；不得为通过重试测试忽略payload差异。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T009.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "tests/core/test_idempotency.py",
+            "tests/core/test_event_atomicity.py",
+            "-q"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_gate.py",
+            "--task",
+            "T009"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "aggregate"
+        }
+      ]
+    },
+    {
+      "id": "T010",
+      "phase": "R1",
+      "title": "实现显式key记忆写入与冲突",
+      "owner": "CORE",
+      "dependencies": [
+        "T008",
+        "T009"
+      ],
+      "owned_paths": [
+        "src/turnkeep/memory.py",
+        "src/turnkeep/normalization.py",
+        "tests/core/test_remember.py",
+        "tests/core/test_conflicts.py"
+      ],
+      "inputs": [
+        "Memory/source schema",
+        "同key冲突契约"
+      ],
+      "outputs": [
+        "remember实现",
+        "冲突查询",
+        "source去重逻辑"
+      ],
+      "implementation_steps": [
+        "实现同scope/key/规范化value复用；若增加provenance属于内容变更，必须携带expected_revision并CAS追加。规范化仅做声明过的字符串处理，不凭语义相似合并。",
+        "不同value没有correction关系时保留两条记录和conflict group；从默认active视图移出双方。",
+        "集合型值需schema显式声明；默认单值槽不允许用多值隐式逃避冲突。",
+        "外部/imported_text和agent_inference保持来源类别，不自动成为user_statement或授权。",
+        "同key仅剩superseded/retracted/tainted等历史时，新增当前值必须显式replaces_ids与新证据，防止无意复活；不能宣称这能阻止换key/改写文字的语义洗白。"
+      ],
+      "acceptance_commands": [
+        "python -m pytest tests/core/test_remember.py tests/core/test_conflicts.py -q",
+        "python scripts/run_gate.py --task T010"
+      ],
+      "acceptance_invariants": [
+        "相同写入幂等、来源不丢；不同值不last-writer-wins。",
+        "同义词/跨key未知冲突不被虚假宣称已解决。",
+        "返回中包含record state和可追溯source ID。",
+        "重复相同来源为no-op；新增来源版本前进且会改变scope epoch；缺expected_revision不得写入。"
+      ],
+      "failure_handling": "LLM冲突检测不属于P0；若加入只能产生候选，核心确定性路径先验收。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T010.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "tests/core/test_remember.py",
+            "tests/core/test_conflicts.py",
+            "-q"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_gate.py",
+            "--task",
+            "T010"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "aggregate"
+        }
+      ]
+    },
+    {
+      "id": "T011",
+      "phase": "R1",
+      "title": "实现CAS纠错、撤回和完整候选冲突裁决",
+      "owner": "CORE",
+      "dependencies": [
+        "T010"
+      ],
+      "owned_paths": [
+        "src/turnkeep/corrections.py",
+        "tests/core/test_corrections.py",
+        "tests/core/test_retract.py",
+        "tests/core/test_resolve.py"
+      ],
+      "inputs": [
+        "expected_revision与state transition契约"
+      ],
+      "outputs": [
+        "correct/retract实现",
+        "supersedes链",
+        "状态转换测试"
+      ],
+      "implementation_steps": [
+        "correct在BEGIN IMMEDIATE内校验scope、旧revision和可修正状态，建立新记录并把旧记录标superseded。",
+        "retract保留历史和reason，停止默认召回；不可把旧ID的revision回滚重用。",
+        "无效旧版本、已撤回记录或重复状态转换返回固定错误。",
+        "每个成功变更只增加本scope epoch一次，失败全回滚。",
+        "resolve_conflict必须列出当前全部冲突候选及各expected_revision，提供有来源的新值；在一笔事务创建新active记录并将所有候选superseded。遗漏候选/版本变化则整笔拒绝；无充分外部依据就保持隔离，不让模型投票充当事实证明。"
+      ],
+      "acceptance_commands": [
+        "python -m pytest tests/core/test_corrections.py tests/core/test_retract.py tests/core/test_resolve.py -q",
+        "python scripts/run_gate.py --task T011"
+      ],
+      "acceptance_invariants": [
+        "同旧版本的两个并发correction只有一个成功。",
+        "失败请求不写新record/event/epoch。",
+        "logical retract不被描述为payload擦除。"
+      ],
+      "failure_handling": "状态机歧义先改ADR/规范并由独立reviewer确认；不能直接扩展可变更状态以隐藏失败。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T011.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "tests/core/test_corrections.py",
+            "tests/core/test_retract.py",
+            "tests/core/test_resolve.py",
+            "-q"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_gate.py",
+            "--task",
+            "T011"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "aggregate"
+        }
+      ]
+    },
+    {
+      "id": "T012",
+      "phase": "R1",
+      "title": "实现依赖DAG与传递失效",
+      "owner": "CORE",
+      "dependencies": [
+        "T011"
+      ],
+      "owned_paths": [
+        "src/turnkeep/lineage.py",
+        "tests/core/test_lineage.py",
+        "tests/core/test_taint.py"
+      ],
+      "inputs": [
+        "AND parent_ids契约",
+        "状态机"
+      ],
+      "outputs": [
+        "lineage validator",
+        "taint传播",
+        "影响路径输出"
+      ],
+      "implementation_steps": [
+        "验证parent存在、同scope、允许状态；拒绝自环、循环、失效或冲突父记录。",
+        "父节点从active变成任何不可用状态（包括remember造成conflicted）时，遍历全部间接后代并标tainted；使用visited，保留原因。",
+        "保留失效原因与可读路径；默认查询实时校验未完成物化更新的路径。",
+        "大图处理可分批，但不可在分批期间把尚未更新后代当active返回。"
+      ],
+      "acceptance_commands": [
+        "python -m pytest tests/core/test_lineage.py tests/core/test_taint.py -q",
+        "python scripts/run_gate.py --task T012"
+      ],
+      "acceptance_invariants": [
+        "链、菱形、多父、循环、跨scope、缺父与中途失败fixtures全部覆盖。",
+        "任一必要父失效即子失效；不偷偷改成OR支持。",
+        "已失效record不会由缓存或导出当前视图重新冒出。"
+      ],
+      "failure_handling": "传播规模超时先返回明确受影响scope需保守过滤，禁止为了UI快而跳过有效性检查。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T012.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "tests/core/test_lineage.py",
+            "tests/core/test_taint.py",
+            "-q"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_gate.py",
+            "--task",
+            "T012"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "aggregate"
+        }
+      ]
+    },
+    {
+      "id": "T013",
+      "phase": "R1",
+      "title": "实现一致快照begin与服务端run",
+      "owner": "CORE",
+      "dependencies": [
+        "T009",
+        "T012"
+      ],
+      "owned_paths": [
+        "src/turnkeep/runs.py",
+        "tests/core/test_begin_snapshot.py",
+        "tests/core/test_empty_read.py"
+      ],
+      "inputs": [
+        "scope_epoch/MVCC快照契约"
+      ],
+      "outputs": [
+        "begin实现",
+        "服务端snapshot/run持久化",
+        "快照一致性测试"
+      ],
+      "implementation_steps": [
+        "在同一个读事务里读取epoch、当前可用记录与冲突摘要并存储run绑定信息。",
+        "记录task、actor、scope、snapshot record IDs/revisions与初始状态，不信任客户端自造run。",
+        "读完立即结束读事务，让模型推理期间没有写锁。",
+        "对空查询/无返回记忆也记录scope epoch，确保后续新事实会使旧run失效。"
+      ],
+      "acceptance_commands": [
+        "python -m pytest tests/core/test_begin_snapshot.py tests/core/test_empty_read.py -q",
+        "python scripts/run_gate.py --task T013"
+      ],
+      "acceptance_invariants": [
+        "并发写穿插时不会出现新epoch+旧记录或旧epoch+新记录的混合快照。",
+        "持久化后重启可找回run；其他scope更新不影响本run。",
+        "客户端提交scope/epoch伪造不能改变服务端绑定。"
+      ],
+      "failure_handling": "无法提供一致读时返回明确失败，不退回两个无事务SELECT拼接快照。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T013.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "tests/core/test_begin_snapshot.py",
+            "tests/core/test_empty_read.py",
+            "-q"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_gate.py",
+            "--task",
+            "T013"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "aggregate"
+        }
+      ]
+    },
+    {
+      "id": "T014",
+      "phase": "R1",
+      "title": "实现atomic finish与旧快照拒绝",
+      "owner": "CORE",
+      "dependencies": [
+        "T013"
+      ],
+      "owned_paths": [
+        "src/turnkeep/commits.py",
+        "tests/core/test_finish.py",
+        "tests/core/test_finish_races.py"
+      ],
+      "inputs": [
+        "finish五步事务契约",
+        "幂等规范"
+      ],
+      "outputs": [
+        "finish实现",
+        "STALE_SNAPSHOT返回",
+        "原子提交证据"
+      ],
+      "implementation_steps": [
+        "先检索已完成run的幂等key与request digest：相同请求返回原receipt，不同请求拒绝。新提交再在同一BEGIN IMMEDIATE中校验server run、epoch与父记录，写result+event、递增epoch并关闭run。",
+        "epoch不一致时不发布成果，返回changed IDs/keys可得信息；无详细diff时明确粗粒度。",
+        "重复finish使用幂等规则返回原结果；不同payload同key错误；不能重复关闭run写两份。",
+        "对提交点前/中/后故障注入，确认业务记录、事件和回执保持一致。",
+        "MVP把服务端快照内可用记录并入result parent_ids，使用集合并集而非仅信任模型声明；客户端省略父节点不能绕过后续taint。"
+      ],
+      "acceptance_commands": [
+        "python -m pytest tests/core/test_finish.py tests/core/test_finish_races.py -q",
+        "python scripts/run_gate.py --task T014"
+      ],
+      "acceptance_invariants": [
+        "陈旧snapshot任何路径不被接受，包括新增事实导致的empty-read phantom。",
+        "写事务内无LLM/网络调用；同一run最多一个结果。",
+        "不声称外部邮件/部署/交易也获得原子保证。",
+        "故意传空parent_ids仍保留服务端快照依赖，后续父变更能使成果失效。"
+      ],
+      "failure_handling": "此任务失败是核心红线：停止新增集成/UI功能，先修存储/事务或简化实现直到可证明正确。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T014.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "tests/core/test_finish.py",
+            "tests/core/test_finish_races.py",
+            "-q"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_gate.py",
+            "--task",
+            "T014"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "aggregate"
+        }
+      ]
+    },
+    {
+      "id": "T015",
+      "phase": "R1",
+      "title": "实现resume、diff和有界rebase",
+      "owner": "CORE",
+      "dependencies": [
+        "T014"
+      ],
+      "owned_paths": [
+        "src/turnkeep/recovery.py",
+        "tests/core/test_resume.py",
+        "tests/core/test_rebase.py"
+      ],
+      "inputs": [
+        "恢复契约",
+        "R1当前状态"
+      ],
+      "outputs": [
+        "resume/diff",
+        "candidate隔离区",
+        "rebase状态记录"
+      ],
+      "implementation_steps": [
+        "返回旧snapshot到当前的changed_keys、状态变化、失效路径与新候选snapshot。",
+        "区分resume查看与rebase重算；禁止只修改旧run epoch以“修复”提交。",
+        "每任务自动rebase最多两次；持续冲突保存候选成果为不可默认召回状态并转独立任务。",
+        "为无关同scope变更保留误阻断原因，作为后续细粒度改进数据。"
+      ],
+      "acceptance_commands": [
+        "python -m pytest tests/core/test_resume.py tests/core/test_rebase.py -q",
+        "python scripts/run_gate.py --task T015"
+      ],
+      "acceptance_invariants": [
+        "旧result不会因resume自动变为有效。",
+        "两次重试耗尽后可检查候选与下一行动，不无限循环。",
+        "跨scope无关变更不导致失效；同scope保守拒绝被如实报告。"
+      ],
+      "failure_handling": "恢复缺必要上下文时返回needs_recheck及证据缺口；不得编造重算结果。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T015.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "tests/core/test_resume.py",
+            "tests/core/test_rebase.py",
+            "-q"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_gate.py",
+            "--task",
+            "T015"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "aggregate"
+        }
+      ]
+    },
+    {
+      "id": "T016",
+      "phase": "R1",
+      "title": "实现过滤优先的词法检索和预算",
+      "owner": "CORE",
+      "dependencies": [
+        "T012",
+        "T013"
+      ],
+      "owned_paths": [
+        "src/turnkeep/retrieval.py",
+        "src/turnkeep/budget.py",
+        "tests/retrieval/**"
+      ],
+      "inputs": [
+        "有效性契约",
+        "语言/预算要求"
+      ],
+      "outputs": [
+        "recall实现",
+        "预算器",
+        "检索解释"
+      ],
+      "implementation_steps": [
+        "先scope/身份过滤，再有效性过滤，再FTS/词法排序；对中文最小支持加入明确分词策略或词串fallback并测试。",
+        "默认只返active；include_history显式且每条加历史/失效标签。",
+        "实现稳定record ID/revision的排序与分页；预算裁剪不丢来源/冲突标签。",
+        "计数字段明确chars/estimated_tokens/tokenizer，不能把Python len当精确token。"
+      ],
+      "acceptance_commands": [
+        "python -m pytest tests/retrieval/test_filters.py tests/retrieval/test_budget.py tests/retrieval/test_multilingual.py -q",
+        "python scripts/run_gate.py --task T016"
+      ],
+      "acceptance_invariants": [
+        "越scope记录在候选阶段就被排除；高相似失效记录不得泄漏。",
+        "空结果、中文、混合代码符号、长value有确定行为。",
+        "缺embedding key时仍可用，词法fallback有显式标记。"
+      ],
+      "failure_handling": "语义检索效果不确定则不纳入首发默认；保留词法结果和解释，不能隐式把全文塞上下文。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T016.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "tests/retrieval/test_filters.py",
+            "tests/retrieval/test_budget.py",
+            "tests/retrieval/test_multilingual.py",
+            "-q"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_gate.py",
+            "--task",
+            "T016"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "aggregate"
+        }
+      ]
+    },
+    {
+      "id": "T017",
+      "phase": "R1",
+      "title": "实现结构化简报和handoff",
+      "owner": "CORE",
+      "dependencies": [
+        "T015",
+        "T016"
+      ],
+      "owned_paths": [
+        "src/turnkeep/briefs.py",
+        "src/turnkeep/handoff.py",
+        "tests/core/test_briefs.py",
+        "tests/core/test_handoff.py"
+      ],
+      "inputs": [
+        "固定brief字段",
+        "source/parent约束"
+      ],
+      "outputs": [
+        "brief/resume envelope",
+        "handoff JSON/Markdown",
+        "预算边界测试"
+      ],
+      "implementation_steps": [
+        "固定输出目标、当前状态、有效决定、未决问题、最近变更、建议下一步和依据链接。",
+        "区分completed/attempted/verified/blocked；失败路径包含适用条件与版本，不能变永久禁令。",
+        "每条关键结论来自记录ID；缺证据写unknown而非补全故事。",
+        "导出handoff保留scope、snapshot、生成时间与历史标签；内容作为数据提示，不作为系统权限。"
+      ],
+      "acceptance_commands": [
+        "python -m pytest tests/core/test_briefs.py tests/core/test_handoff.py -q",
+        "python scripts/run_gate.py --task T017"
+      ],
+      "acceptance_invariants": [
+        "接班者能够定位源record，不只得到不可审计的一段摘要。",
+        "预算不足仍保留关键冲突和变更说明。",
+        "secret-like合成数据不会进入摘要与默认导出。"
+      ],
+      "failure_handling": "自动摘要不可核验时用确定性模板；LLM润色是可选，不能成为离线核心的硬依赖。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T017.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "tests/core/test_briefs.py",
+            "tests/core/test_handoff.py",
+            "-q"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_gate.py",
+            "--task",
+            "T017"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "aggregate"
+        }
+      ]
+    },
+    {
+      "id": "T018",
+      "phase": "R1",
+      "title": "完成核心并发、故障与负面场景门槛",
+      "owner": "QA",
+      "dependencies": [
+        "T007",
+        "T008",
+        "T009",
+        "T010",
+        "T011",
+        "T012",
+        "T013",
+        "T014",
+        "T015",
+        "T016",
+        "T017"
+      ],
+      "owned_paths": [
+        "tests/integration/test_core_faults.py",
+        "tests/integration/test_concurrency.py",
+        "fixtures/core/**",
+        "evidence/core/"
+      ],
+      "inputs": [
+        "R1全部契约",
+        "已实现核心"
+      ],
+      "outputs": [
+        "固定核心fixture suite",
+        "core-gate.json",
+        "失效与恢复记录"
+      ],
+      "implementation_steps": [
+        "多进程同时remember/correct/finish/retract，不只使用单线程mock；记录accepted/rejected事件可还原。",
+        "在事务关键点kill进程，重启校验完整性、epoch、事件与幂等结果。",
+        "注入越scope、循环父、失效父、伪造run、重放finish、空查询后插入等负面请求。",
+        "审阅失败样本与已知coarse epoch误阻断；只在关键风险已覆盖后停止扩测。"
+      ],
+      "acceptance_commands": [
+        "python -m pytest tests/integration/test_core_faults.py tests/integration/test_concurrency.py -q",
+        "python scripts/run_gate.py --profile core"
+      ],
+      "acceptance_invariants": [
+        "固定严重场景中零静默丢写、零陈旧成果接受、零跨scope默认召回。",
+        "多进程测试有真实SQLite文件与重启，不以mock替代事务证据。",
+        "所有必要场景PASS；NOT_RUN不满足R1门槛。"
+      ],
+      "failure_handling": "任何严重契约失败暂停R2发布路径；允许修复、补最小回归，不继续叠加新功能掩盖问题。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T018.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "tests/integration/test_core_faults.py",
+            "tests/integration/test_concurrency.py",
+            "-q"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_gate.py",
+            "--profile",
+            "core"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "aggregate"
+        }
+      ]
+    },
+    {
+      "id": "T019",
+      "phase": "R2",
+      "title": "完成CLI首个用户旅程",
+      "owner": "ADAPTER",
+      "dependencies": [
+        "T018"
+      ],
+      "owned_paths": [
+        "src/turnkeep/cli.py",
+        "src/turnkeep/__main__.py",
+        "tests/cli/**",
+        "scripts/run_journey.py"
+      ],
+      "inputs": [
+        "核心API",
+        "J01-J05旅程",
+        "产品路径规则"
+      ],
+      "outputs": [
+        "init/remember/recall/begin/finish/resume/changes/doctor命令",
+        "CLI JSON输出",
+        "端到端脚本",
+        "scripts/run_journey.py"
+      ],
+      "implementation_steps": [
+        "设计面向任务的命令和稳定--json输出，默认展示需求变更与下一步，不让用户先理解数据库字段。",
+        "实现初始化、写记忆、开始任务、纠错、旧提交拒绝、resume和新提交的完整流程。",
+        "错误码使用非零exit code并保留结构化诊断；交互提示有--non-interactive等效路径供Muse自动化。",
+        "所有写操作有显式scope/run/revision；不自动选择模糊项目，不修改无关全局配置。",
+        "创建共享scripts/run_journey.py入口并以CLI J01验证；预定义cli/ui-api驱动和旅程参数，后续T031/T033/T036复用该入口，相关界面/API尚不存在时保留未运行状态，不输出伪成功。"
+      ],
+      "acceptance_commands": [
+        "python -m pytest tests/cli/test_journeys.py tests/cli/test_exit_codes.py -q",
+        "python scripts/run_journey.py --mode cli --journey J01 --no-model"
+      ],
+      "acceptance_invariants": [
+        "从干净临时目录可走完J01，不用API key。",
+        "CLI错误与SDK核心一致，STALE_SNAPSHOT显示变化而非泛化失败。",
+        "shell中空格/中文/引号值正确传递，无命令字符串注入。"
+      ],
+      "failure_handling": "非交互流程被提示阻塞时修CLI输入协议；不能用yes管道绕过本应明确的范围选择。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T019.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "tests/cli/test_journeys.py",
+            "tests/cli/test_exit_codes.py",
+            "-q"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_journey.py",
+            "--mode",
+            "cli",
+            "--journey",
+            "J01",
+            "--no-model"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        }
+      ]
+    },
+    {
+      "id": "T020",
+      "phase": "R2",
+      "title": "提供小而稳定的Python SDK",
+      "owner": "ADAPTER",
+      "dependencies": [
+        "T018"
+      ],
+      "owned_paths": [
+        "src/turnkeep/client.py",
+        "examples/python/**",
+        "tests/sdk/**"
+      ],
+      "inputs": [
+        "公共字段schema",
+        "本地服务与核心接口"
+      ],
+      "outputs": [
+        "Python client",
+        "typed errors",
+        "两agent接力example"
+      ],
+      "implementation_steps": [
+        "暴露与核心一致的方法和数据对象，避免为了SDK复制状态机或检索规则。",
+        "本地嵌入模式支持context manager与显式DB/scope；远程模式暂不承诺。",
+        "把错误转换为typed exceptions，携带record IDs、changed keys和可重试分类。",
+        "提供最短两agent脚本，演示旧run被拒后读取diff、重新计算再finish。"
+      ],
+      "acceptance_commands": [
+        "python -m pytest tests/sdk/test_client_contract.py -q",
+        "python examples/python/handoff.py --temp-db"
+      ],
+      "acceptance_invariants": [
+        "SDK与CLI对同一fixture得到同一有效视图和错误状态。",
+        "close/异常路径释放连接，不泄漏长读事务。",
+        "例子标为脚本模拟，不冒充真实模型调用。"
+      ],
+      "failure_handling": "SDK设计扩大到框架时删回最小接口；缺语义一致性先修共同服务层。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T020.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "tests/sdk/test_client_contract.py",
+            "-q"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "examples/python/handoff.py",
+            "--temp-db"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        }
+      ]
+    },
+    {
+      "id": "T021",
+      "phase": "R2",
+      "title": "以官方SDK实现MCP stdio",
+      "owner": "ADAPTER",
+      "dependencies": [
+        "T003",
+        "T018",
+        "T020"
+      ],
+      "owned_paths": [
+        "src/turnkeep/mcp_server.py",
+        "requirements/mcp.lock",
+        "tests/mcp/test_tools.py",
+        "tests/mcp/test_lifecycle.py"
+      ],
+      "inputs": [
+        "MCP官方当前规范与Python SDK",
+        "公共API"
+      ],
+      "outputs": [
+        "MCP server",
+        "工具schema",
+        "SDK版本锁及来源记录"
+      ],
+      "implementation_steps": [
+        "核验MCP官方SDK当前受支持版本并锁定；使用SDK实现stdio生命周期，不手写替代协议。",
+        "工具面先暴露begin/recall/remember/correct/retract/resolve_conflict/resume/finish/brief，实际命名由PUBLIC_API统一。",
+        "stdout只承载协议，日志走stderr；错误转换保留domain error code但不泄漏秘密。",
+        "用单共享应用服务/数据库执行核心逻辑；多个stdio进程依然遵守SQLite事务与busy重试边界。"
+      ],
+      "acceptance_commands": [
+        "python -m pytest tests/mcp/test_tools.py tests/mcp/test_lifecycle.py -q"
+      ],
+      "acceptance_invariants": [
+        "initialize/list_tools/call_tool/shutdown完整；schema与规范一致。",
+        "非法payload不直接落DB；stdout没有欢迎语污染JSON-RPC。",
+        "服务器退出/取消不留下未提交成果。"
+      ],
+      "failure_handling": "SDK依赖不可安装则核心继续可用，MCP记BLOCKED_EXTERNAL；不以自造无验证协议声称兼容。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T021.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "tests/mcp/test_tools.py",
+            "tests/mcp/test_lifecycle.py",
+            "-q"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        }
+      ]
+    },
+    {
+      "id": "T022",
+      "phase": "R2",
+      "title": "统一transport上下文与调用边界",
+      "owner": "ADAPTER",
+      "dependencies": [
+        "T008",
+        "T021"
+      ],
+      "owned_paths": [
+        "src/turnkeep/transports/context.py",
+        "src/turnkeep/transports/policy.py",
+        "tests/security/test_transport_binding.py",
+        "tests/security/test_untrusted_text.py"
+      ],
+      "inputs": [
+        "单OS用户信任模型",
+        "server run绑定",
+        "请求字段优先级"
+      ],
+      "outputs": [
+        "transport binding",
+        "本地scope配置",
+        "boundary tests"
+      ],
+      "implementation_steps": [
+        "每个MCP连接从可信本地配置绑定允许scope与actor标签，请求仅能在该集合内选择；actor标签不是强认证。",
+        "拒绝请求体中冒名user/tenant/actor、跨scoperun和未经注册的source路径。",
+        "工具返回的外部文字和导入内容只进data字段，不拼接成system/developer角色。",
+        "声明工具不能控制绕过Turnkeep直接写文件或其他外部工具的agent；产品承诺限于受控API。"
+      ],
+      "acceptance_commands": [
+        "python -m pytest tests/security/test_transport_binding.py tests/security/test_untrusted_text.py -q",
+        "python scripts/run_gate.py --task T022"
+      ],
+      "acceptance_invariants": [
+        "所有transport共享有效性与scope判断，不能通过MCP旁路。",
+        "构造prompt-injection文字不会改权限、改actor或清空数据。",
+        "文档准确写本地受信OS边界，不标为多租户认证完成。"
+      ],
+      "failure_handling": "若host不能可靠绑定scope，降级为显式指定的单scope server实例；不扩大全局访问解决连接问题。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T022.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "tests/security/test_transport_binding.py",
+            "tests/security/test_untrusted_text.py",
+            "-q"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_gate.py",
+            "--task",
+            "T022"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "aggregate"
+        }
+      ]
+    },
+    {
+      "id": "T023",
+      "phase": "R2",
+      "title": "完成MCP协议、并发和故障验证",
+      "owner": "QA",
+      "dependencies": [
+        "T021",
+        "T022"
+      ],
+      "owned_paths": [
+        "tests/mcp/test_conformance.py",
+        "tests/mcp/test_parallel_clients.py",
+        "scripts/mcp_smoke.py",
+        "evidence/mcp/"
+      ],
+      "inputs": [
+        "锁定SDK",
+        "MCPserver",
+        "核心gate"
+      ],
+      "outputs": [
+        "协议证据",
+        "两个独立transport进程fixture",
+        "错误行为记录"
+      ],
+      "implementation_steps": [
+        "用官方SDK测试client启动两个独立stdio连接，验证共享同DB但各自run/actor正确。",
+        "覆盖重复请求、取消、断开、schema不符、大payload、数据库暂忙与重连。",
+        "在一个client读取后由另一个纠错，再从旧client finish，必须收到陈旧拒绝。",
+        "分清SDK级模拟client与实际Claude/Codex客户端，证据分别存放。",
+        "在本任务创建scripts/mcp_smoke.py，复用官方SDK启动与关闭测试；T021只验其工具和lifecycle测试，不提前调用本任务产物。"
+      ],
+      "acceptance_commands": [
+        "python -m pytest tests/mcp/test_conformance.py tests/mcp/test_parallel_clients.py -q",
+        "python scripts/mcp_smoke.py --server \"python -m turnkeep mcp\"",
+        "python scripts/run_gate.py --profile protocol"
+      ],
+      "acceptance_invariants": [
+        "测试client通过不能把live_client_test标PASS。",
+        "断线重试同请求无重复成果；异常不破坏其他scope。",
+        "协议错误可诊断，核心domain错误保留。"
+      ],
+      "failure_handling": "协议测试失败先修server而不是要求host吞异常；无法区分test/live证据时修证据schema。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T023.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "tests/mcp/test_conformance.py",
+            "tests/mcp/test_parallel_clients.py",
+            "-q"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/mcp_smoke.py",
+            "--server",
+            "python -m turnkeep mcp"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_gate.py",
+            "--profile",
+            "protocol"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "aggregate"
+        }
+      ]
+    },
+    {
+      "id": "T024",
+      "phase": "R2",
+      "title": "实现Claude Code客户端安装与诊断",
+      "owner": "ADAPTER",
+      "dependencies": [
+        "T023",
+        "T019"
+      ],
+      "owned_paths": [
+        "adapters/claude-code/**",
+        "docs/integrations/claude-code.md",
+        "tests/adapters/test_claude_config.py"
+      ],
+      "inputs": [
+        "Claude Code官方MCP配置文档（实施时核验）",
+        "获授权本地项目"
+      ],
+      "outputs": [
+        "项目级配置生成器",
+        "配置diff/备份",
+        "连接诊断recipe"
+      ],
+      "implementation_steps": [
+        "按当前官方文档生成项目级MCP配置，命令使用确定Python解释器路径，避免shell拼接。",
+        "读取并保留已有配置，不覆盖其他servers；优先项目配置，修改全局配置须现有明确授权。",
+        "提供doctor检测解释器、server、scope与真实工具调用，而不只看process alive。",
+        "生成简短工作约定：任务开始begin、需信息时recall、交接finish；调用频率受预算约束。"
+      ],
+      "acceptance_commands": [
+        "python -m pytest tests/adapters/test_claude_config.py -q",
+        "python scripts/check_adapter.py --client claude-code --mode config"
+      ],
+      "acceptance_invariants": [
+        "已有配置的无关键保持；备份可恢复；路径空格/中文可用。",
+        "模板检查与真实运行分别标记。",
+        "没有凭证时不尝试提取其他账户token或绕过host权限。"
+      ],
+      "failure_handling": "客户端未安装/未登录则完成模板和diagnostic并记NOT_RUN；继续其他任务，不反复向用户追问。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T024.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "tests/adapters/test_claude_config.py",
+            "-q"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/check_adapter.py",
+            "--client",
+            "claude-code",
+            "--mode",
+            "config"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        }
+      ]
+    },
+    {
+      "id": "T025",
+      "phase": "R2",
+      "title": "实现Codex CLI客户端安装与诊断",
+      "owner": "ADAPTER",
+      "dependencies": [
+        "T023",
+        "T019"
+      ],
+      "owned_paths": [
+        "adapters/codex/**",
+        "docs/integrations/codex.md",
+        "tests/adapters/test_codex_config.py"
+      ],
+      "inputs": [
+        "Codex官方MCP配置文档（实施时核验）",
+        "已有本地授权"
+      ],
+      "outputs": [
+        "Codex配置生成器",
+        "配置diff/备份",
+        "连接recipe"
+      ],
+      "implementation_steps": [
+        "核验当前Codex MCP入口与配置语法，使用项目级或隔离profile做真实验证。",
+        "保留已有配置、approval/sandbox政策，不将memory说明误作提升权限的指令。",
+        "把server指向与Claude相同项目DB/稳定scope，同时使用不同actor标签。",
+        "doctor验证工具列表与一次有证据的read/write回合，记录客户端版本。"
+      ],
+      "acceptance_commands": [
+        "python -m pytest tests/adapters/test_codex_config.py -q",
+        "python scripts/check_adapter.py --client codex --mode config"
+      ],
+      "acceptance_invariants": [
+        "TOML/JSON实际格式解析正确，字符串逃逸与Windows路径已测。",
+        "两客户端同scope共享、其他scope隔离；现有权限策略不改。",
+        "未安装/未登录/未运行与已通过不可混写。"
+      ],
+      "failure_handling": "接口变化则只改adapter，不改变核心schema；若无法实际执行保留NOT_RUN状态和可直接运行的recipe。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T025.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "tests/adapters/test_codex_config.py",
+            "-q"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/check_adapter.py",
+            "--client",
+            "codex",
+            "--mode",
+            "config"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        }
+      ]
+    },
+    {
+      "id": "T026",
+      "phase": "R2",
+      "title": "完成两个真实客户端跨会话接力",
+      "owner": "QA",
+      "dependencies": [
+        "T024",
+        "T025",
+        "T017"
+      ],
+      "owned_paths": [
+        "scripts/live_client_handoff.py",
+        "fixtures/live-handoff/**",
+        "evidence/live-clients/",
+        "docs/COMPATIBILITY.md"
+      ],
+      "inputs": [
+        "J02真实旅程",
+        "已授权可用客户端/模型凭证",
+        "固定任务fixture"
+      ],
+      "outputs": [
+        "A→B与B→A真实日志",
+        "client-version记录",
+        "live_client_gate.json"
+      ],
+      "implementation_steps": [
+        "用真实Claude Code与Codex CLI各启动独立新会话，禁止把所有上下文手工复制给第二端。",
+        "A完成一个小任务并保存有来源handoff；关闭A，由B通过Turnkeep恢复目标、下一步和证据并完成可验证结果。",
+        "反向重复；再由一端改需求，另一端旧finish拒绝后重读并修复，保存实际tool-call日志。",
+        "如指定端不可用，可按官方文档选择另一真实MCP客户端替换；至少两个不同host产品，不能把两个SDKtest进程当两款产品。"
+      ],
+      "acceptance_commands": [
+        "python scripts/live_client_handoff.py --pair claude-code,codex --fixture export-format --record evidence/live-clients",
+        "python scripts/run_gate.py --profile live-clients"
+      ],
+      "acceptance_invariants": [
+        "至少两个真实host版本、真实工具调用、跨会话结果均有证据才PASS。",
+        "无凭证/host不可用必须NOT_RUN，不允许以mock录像替代。",
+        "低层核心正确但agent不调用工具时记录失败并修接入提示/host支持，而非改成手动粘贴。"
+      ],
+      "failure_handling": "凭证缺失不阻塞离线开发；集成版保持BLOCKED_EXTERNAL。无授权不新增账户、付费或公开上传日志。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands",
+        "two_real_mcp_clients_with_existing_access"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T026.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "scripts/live_client_handoff.py",
+            "--pair",
+            "claude-code,codex",
+            "--fixture",
+            "export-format",
+            "--record",
+            "evidence/live-clients"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 1800,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_gate.py",
+            "--profile",
+            "live-clients"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 1800,
+          "planned_entrypoint": true,
+          "execution_role": "aggregate"
+        }
+      ],
+      "external_gate": true,
+      "offline_completion": "Implementation, fixtures and recipes may be complete while external execution remains NOT_RUN; do not mark external gate PASS."
+    },
+    {
+      "id": "T027",
+      "phase": "R2",
+      "title": "为本地工作台提供受控应用接口",
+      "owner": "ADAPTER",
+      "dependencies": [
+        "T022",
+        "T023"
+      ],
+      "owned_paths": [
+        "src/turnkeep/web/app.py",
+        "src/turnkeep/web/routes.py",
+        "tests/web/**",
+        "requirements/ui.lock"
+      ],
+      "inputs": [
+        "公共API",
+        "loopback应用边界",
+        "前端需求"
+      ],
+      "outputs": [
+        "可选FastAPI/Uvicorn ui extra",
+        "本地API",
+        "OpenAPI snapshot"
+      ],
+      "implementation_steps": [
+        "只为同机工作台提供127.0.0.1服务，默认为随机或明确本地端口；远程多租户REST不在首发。",
+        "生成本机会话token，限制Origin/Host、请求体大小和CORS；GET不变更记忆。",
+        "所有route调用同一核心服务和RequestContext，不复制scope/validity规则；静态资源同源提供。",
+        "错误与CLI/MCP一致，结构化diff数据供UI，不暴露数据库绝对路径或任意文件读取端点。"
+      ],
+      "acceptance_commands": [
+        "python -m pytest tests/web/test_routes.py tests/web/test_local_boundary.py -q",
+        "python scripts/check_openapi.py --snapshot specs/local-app-api.json"
+      ],
+      "acceptance_invariants": [
+        "远程interface默认不监听，任意跨站请求不能写库。",
+        "非法Origin/actor/scope拒绝；静态路径遍历不可读外部文件。",
+        "安装核心不强制ui依赖；HTTP接口不被宣传为团队认证服务。"
+      ],
+      "failure_handling": "端口占用自动选择本地空闲端口并打印诊断；不得退回0.0.0.0或通配CORS。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T027.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "tests/web/test_routes.py",
+            "tests/web/test_local_boundary.py",
+            "-q"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/check_openapi.py",
+            "--snapshot",
+            "specs/local-app-api.json"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        }
+      ]
+    },
+    {
+      "id": "T028",
+      "phase": "R2",
+      "title": "实现跨平台启动、数据路径与doctor",
+      "owner": "BUILD",
+      "dependencies": [
+        "T019",
+        "T021",
+        "T027"
+      ],
+      "owned_paths": [
+        "scripts/install.ps1",
+        "scripts/install.sh",
+        "src/turnkeep/doctor.py",
+        "tests/platform/**",
+        "docs/install.md"
+      ],
+      "inputs": [
+        "Python3.11目标",
+        "Windows/macOS/Linux路径规则",
+        "单服务部署"
+      ],
+      "outputs": [
+        "不要求Docker的安装脚本",
+        "doctor JSON",
+        "启动/停止指令"
+      ],
+      "implementation_steps": [
+        "提供PowerShell与POSIX路径，使用项目venv；不修改执行策略、管理员权限或系统Python。",
+        "Windows使用适当应用数据目录，macOS/Linux使用其标准用户目录；可显式--data-dir。",
+        "doctor报告DB版本/锁、server命令、scope、client配置、最后真实调用和未验证能力。",
+        "路径空格、中文、只读目录、迁移失败、已有端口、缺包都给下一步诊断；卸载不自动删数据。"
+      ],
+      "acceptance_commands": [
+        "python -m pytest tests/platform/test_paths.py tests/platform/test_doctor.py -q",
+        "python -m turnkeep doctor --json"
+      ],
+      "acceptance_invariants": [
+        "每个声称支持的OS最终要真实runner记录，路径mock不替代平台证据。",
+        "无需管理员权限即可完成最小安装与离线demo。",
+        "受限网络时可完成核心；不可用功能清楚标记。"
+      ],
+      "failure_handling": "当前环境没有某OS则先完成脚本及平台待验矩阵，T043执行真实验证；不写三平台已支持。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T028.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "tests/platform/test_paths.py",
+            "tests/platform/test_doctor.py",
+            "-q"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "-m",
+            "turnkeep",
+            "doctor",
+            "--json"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        }
+      ]
+    },
+    {
+      "id": "T029",
+      "phase": "R3",
+      "title": "冻结工作台信息架构与界面状态",
+      "owner": "UX",
+      "dependencies": [
+        "T017",
+        "T027"
+      ],
+      "owned_paths": [
+        "ui/design/**",
+        "ui/src/types.ts",
+        "docs/UX_SPEC.md",
+        "tests/ui/fixtures/**",
+        "ui/package.json",
+        "ui/package-lock.json",
+        "ui/tsconfig.json",
+        "ui/vite.config.ts",
+        "ui/playwright.config.ts"
+      ],
+      "inputs": [
+        "J01-J05",
+        "本地应用API",
+        "首发四个区域"
+      ],
+      "outputs": [
+        "UX_SPEC",
+        "typed view models",
+        "空/加载/错误/冲突/恢复状态fixtures"
+      ],
+      "implementation_steps": [
+        "主界面只显示正在做什么、可依赖的决定、需要重做的工作、最近变更；技术细节按需展开。",
+        "定义项目切换、记录详情、来源、影响路径、候选隔离区与恢复操作的状态。",
+        "统一时间、历史、未验证、脚本模拟标签；active解释为当前可用而非事实保证。",
+        "采用轻量TypeScript+Vite与可访问HTML组件，不引入复杂可视化框架或数据库名词作为主操作。",
+        "创建最小Vite/TypeScript工程并锁依赖，先让类型与fixture编译通过；npm包来源实施时核验。",
+        "建立ui/playwright.config.ts与test:e2e脚本，testDir明确指向../tests/ui；短.spec.ts选择器由命令spec的path_aliases映射到完整工作区路径，供路径归属核验。"
+      ],
+      "acceptance_commands": [
+        "python scripts/check_docs.py --profile ux",
+        "npm --prefix ui run typecheck"
+      ],
+      "acceptance_invariants": [
+        "每个J旅程都映射到具体页面和状态，无无法关闭的modal或技术字段堆叠。",
+        "错误状态提供可操作下一步且不让用户误以为已恢复。",
+        "中文文案可读，英文接口保持稳定。"
+      ],
+      "failure_handling": "API缺字段时提schema变更单由Muse裁定，不用前端猜测关系或伪造进度。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T029.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "scripts/check_docs.py",
+            "--profile",
+            "ux"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "npm",
+            "--prefix",
+            "ui",
+            "run",
+            "typecheck"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        }
+      ]
+    },
+    {
+      "id": "T030",
+      "phase": "R3",
+      "title": "实现项目总览、当前视图和历史",
+      "owner": "UI",
+      "dependencies": [
+        "T029"
+      ],
+      "owned_paths": [
+        "ui/src/views/Overview.ts",
+        "ui/src/views/History.ts",
+        "ui/src/components/**",
+        "tests/ui/overview.spec.ts"
+      ],
+      "inputs": [
+        "UI状态fixture",
+        "本地API"
+      ],
+      "outputs": [
+        "可启动工作台",
+        "项目选择器",
+        "当前/历史视图"
+      ],
+      "implementation_steps": [
+        "实现四区域总览、项目切换与分页；当前有效记录与历史严格分栏/标签。",
+        "来源点击到可检验record/source详情，外部URL使用安全链接，不执行memory中的HTML。",
+        "实现空状态的开始演示/连接工具入口；加载、离线和API失败都显示真实状态。",
+        "界面更新后保留用户选择，避免轮询改变正在查看的历史对象。"
+      ],
+      "acceptance_commands": [
+        "npm --prefix ui run build",
+        "npm --prefix ui run test:e2e -- overview.spec.ts"
+      ],
+      "acceptance_invariants": [
+        "两个scope切换不闪现上一scope内容。",
+        "恶意HTML/Markdown仅安全渲染，无脚本执行。",
+        "历史记录不会显示为当前有效，也不会被默认复制成新指令。"
+      ],
+      "failure_handling": "复杂timeline视觉影响可读性时退为清晰事件列表；保留功能而非为炫目图延长首发。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T030.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "npm",
+            "--prefix",
+            "ui",
+            "run",
+            "build"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "npm",
+            "--prefix",
+            "ui",
+            "run",
+            "test:e2e",
+            "--",
+            "overview.spec.ts"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf",
+          "path_aliases": {
+            "overview.spec.ts": "tests/ui/overview.spec.ts"
+          }
+        }
+      ]
+    },
+    {
+      "id": "T031",
+      "phase": "R3",
+      "title": "实现需求变更影响与重做解释",
+      "owner": "UI",
+      "dependencies": [
+        "T030",
+        "T012",
+        "T015",
+        "T019"
+      ],
+      "owned_paths": [
+        "ui/src/views/Impact.ts",
+        "ui/src/components/ImpactPath.ts",
+        "tests/ui/impact.spec.ts"
+      ],
+      "inputs": [
+        "taint路径数据",
+        "changed_keys",
+        "coarse epoch限制"
+      ],
+      "outputs": [
+        "变更影响页",
+        "重做候选列表",
+        "影响路径展示"
+      ],
+      "implementation_steps": [
+        "显示旧值→新值、来源、受影响record/result和最短解释路径；将未声明依赖标unknown。",
+        "区分已知必要依赖失效与仅因scope_epoch保守拒绝，不能把二者都画成精确因果。",
+        "展示无关项目继续有效；允许查看历史版本但显式提示不作当前依据。",
+        "提供生成新简报的入口，调用resume而非直接改旧result状态。"
+      ],
+      "acceptance_commands": [
+        "npm --prefix ui run test:e2e -- impact.spec.ts",
+        "python scripts/run_journey.py --mode ui-api --journey J03 --no-model"
+      ],
+      "acceptance_invariants": [
+        "修改一个requirement后，间接后代和解释一致；未受影响scope不出现误标。",
+        "无关同scope变更显示保守重检原因，不伪称精细选择性重做。",
+        "UI仅展示后端验证结论，不自己计算授权。"
+      ],
+      "failure_handling": "缺dependency时显示不能确定，不用LLM补齐假边；严重漏失效先停UI并修核心。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T031.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "npm",
+            "--prefix",
+            "ui",
+            "run",
+            "test:e2e",
+            "--",
+            "impact.spec.ts"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf",
+          "path_aliases": {
+            "impact.spec.ts": "tests/ui/impact.spec.ts"
+          }
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_journey.py",
+            "--mode",
+            "ui-api",
+            "--journey",
+            "J03",
+            "--no-model"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        }
+      ]
+    },
+    {
+      "id": "T032",
+      "phase": "R3",
+      "title": "实现纠错、撤回与冲突处理界面",
+      "owner": "UI",
+      "dependencies": [
+        "T030",
+        "T011"
+      ],
+      "owned_paths": [
+        "ui/src/views/RecordEditor.ts",
+        "ui/src/views/Conflicts.ts",
+        "tests/ui/correction.spec.ts"
+      ],
+      "inputs": [
+        "CAS/candidate集合",
+        "完整resolve契约"
+      ],
+      "outputs": [
+        "受控编辑表单",
+        "冲突比较",
+        "操作receipt"
+      ],
+      "implementation_steps": [
+        "表单绑定获取时revision，提交correct/retract/resolve前携带expected版本。",
+        "resolve展示完整当前候选及source，要求有新外部依据；无依据则保留冲突和受影响任务隔离。",
+        "页面打开后他人更新时返回冲突并刷新差异，不自动覆盖。",
+        "操作后显示receipt与后代影响；撤回文案明确保留历史，擦除单独入口后续T038。"
+      ],
+      "acceptance_commands": [
+        "npm --prefix ui run test:e2e -- correction.spec.ts",
+        "python -m pytest tests/web/test_write_races.py -q"
+      ],
+      "acceptance_invariants": [
+        "用户或agent并发修改导致409/domain conflict而非静默丢写。",
+        "候选列表新增时旧resolve整笔拒绝。",
+        "浏览器请求不能通过自填actor提升权限或绕scope。"
+      ],
+      "failure_handling": "没有可靠新证据时不要求人类日常裁判，保存conflict并继续独立任务；自动review不得投票定真。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T032.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "npm",
+            "--prefix",
+            "ui",
+            "run",
+            "test:e2e",
+            "--",
+            "correction.spec.ts"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf",
+          "path_aliases": {
+            "correction.spec.ts": "tests/ui/correction.spec.ts"
+          }
+        },
+        {
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "tests/web/test_write_races.py",
+            "-q"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        }
+      ]
+    },
+    {
+      "id": "T033",
+      "phase": "R3",
+      "title": "实现交接与恢复操作面板",
+      "owner": "UI",
+      "dependencies": [
+        "T031",
+        "T032",
+        "T017",
+        "T019"
+      ],
+      "owned_paths": [
+        "ui/src/views/Handoff.ts",
+        "ui/src/views/Recovery.ts",
+        "tests/ui/recovery.spec.ts"
+      ],
+      "inputs": [
+        "brief envelope",
+        "resume/rebase规则"
+      ],
+      "outputs": [
+        "交接包预览",
+        "下一步说明",
+        "rebase进度/隔离候选页"
+      ],
+      "implementation_steps": [
+        "展示接手任务需要的目标、已完成、证据、失败路径、阻塞和下一步，允许按预算展开。",
+        "resume只显示差异与新候选；重新执行由外部Muse/client完成，工作台不伪造任务已重做。",
+        "记录新run关联旧run、尝试次数和rebase原因；两次后转候选隔离状态。",
+        "提供结构化JSON与Markdown复制/导出，包含scope、状态与来源，不让简报变权限凭证。"
+      ],
+      "acceptance_commands": [
+        "npm --prefix ui run test:e2e -- recovery.spec.ts",
+        "python scripts/run_journey.py --mode ui-api --journey J02 --no-model"
+      ],
+      "acceptance_invariants": [
+        "关闭服务再打开可恢复run与待办，不靠浏览器localStorage作为权威。",
+        "旧candidate不自动进入active召回。",
+        "导出内容与API当前视图一致，并标预算截断/未知项。"
+      ],
+      "failure_handling": "host未完成真实重做时界面显示等待执行或blocked，不用动画终点冒充成功。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T033.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "npm",
+            "--prefix",
+            "ui",
+            "run",
+            "test:e2e",
+            "--",
+            "recovery.spec.ts"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf",
+          "path_aliases": {
+            "recovery.spec.ts": "tests/ui/recovery.spec.ts"
+          }
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_journey.py",
+            "--mode",
+            "ui-api",
+            "--journey",
+            "J02",
+            "--no-model"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        }
+      ]
+    },
+    {
+      "id": "T034",
+      "phase": "R3",
+      "title": "制作零key的完整可回放演示",
+      "owner": "DEMO",
+      "dependencies": [
+        "T019",
+        "T031",
+        "T033"
+      ],
+      "owned_paths": [
+        "examples/demo/**",
+        "fixtures/demo/**",
+        "scripts/record_demo.py",
+        "docs/demo.md"
+      ],
+      "inputs": [
+        "CSV→JSON Lines项目故事",
+        "确定性核心",
+        "J01-J04"
+      ],
+      "outputs": [
+        "离线demo命令",
+        "事件回放文件",
+        "可选录屏与截图"
+      ],
+      "implementation_steps": [
+        "准备小型真实文件导出项目fixture，A读取CSV需求、B改JSON Lines、A旧finish拒绝，再重算通过。",
+        "第二场景做研究结论更正，展示一条来源撤回影响结论，不调用公网或模型。",
+        "脚本每步通过API/CLI驱动真实store；UI录屏显示真实产生的状态，不使用硬编码伪成功画面。",
+        "每个媒体和README标注脚本模拟；使用固定随机种子和临时库，可重复重置。"
+      ],
+      "acceptance_commands": [
+        "python -m turnkeep demo --scenario export-format --no-model",
+        "python scripts/record_demo.py --scenario export-format --verify"
+      ],
+      "acceptance_invariants": [
+        "无API key、无数据库服务、无互联网仍可完成演示（依赖已安装）。",
+        "同一seed事件和结果可比较，故意破坏guard会使demo断言失败。",
+        "脚本模拟和真实client录像文件名/标签分开。"
+      ],
+      "failure_handling": "媒体生成失败不伪造；保留可运行CLI演示和静态截图，先确保完整工作结果。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T034.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "-m",
+            "turnkeep",
+            "demo",
+            "--scenario",
+            "export-format",
+            "--no-model"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/record_demo.py",
+            "--scenario",
+            "export-format",
+            "--verify"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        }
+      ]
+    },
+    {
+      "id": "T035",
+      "phase": "R3",
+      "title": "完成工作台端到端、可访问性与打包",
+      "owner": "QA",
+      "dependencies": [
+        "T030",
+        "T031",
+        "T032",
+        "T033",
+        "T034"
+      ],
+      "owned_paths": [
+        "tests/ui/**（集成部分）",
+        "scripts/ui_gate.py",
+        "evidence/ui/",
+        "ui/vite.config.ts"
+      ],
+      "inputs": [
+        "UI实现",
+        "正式build",
+        "同源服务"
+      ],
+      "outputs": [
+        "UI完整journey证据",
+        "键盘/响应式检查",
+        "静态资源集成"
+      ],
+      "implementation_steps": [
+        "用Playwright从正式build启动完整J01/J03/J04，验证每步DB/API/屏幕状态一致。",
+        "检查窄屏、键盘导航、焦点返回、对比度和长中文/长source URL；避免只验截图美观。",
+        "校验生产静态资源相对路径与同源部署，离线重新启动不访问外部CDN。",
+        "记录空/加载/错误/冲突/服务停止状态；必要缺陷修完后停止重复全量可视检查。"
+      ],
+      "acceptance_commands": [
+        "npm --prefix ui run test:e2e",
+        "python scripts/ui_gate.py --production-build"
+      ],
+      "acceptance_invariants": [
+        "核心操作可键盘完成，信息不溢出覆盖按钮。",
+        "生产build而非devserver完成旅程；API未连通不能显示绿色已连接。",
+        "不把自动无障碍工具通过等同全部人类可用性已验证。"
+      ],
+      "failure_handling": "UI硬阻断未修前不能标R3完成；低风险装饰问题可记录不阻止核心候选，但必须有可用退路CLI。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T035.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "npm",
+            "--prefix",
+            "ui",
+            "run",
+            "test:e2e"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/ui_gate.py",
+            "--production-build"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        }
+      ]
+    },
+    {
+      "id": "T036",
+      "phase": "R4",
+      "title": "实现版本化导出导入和往返一致性",
+      "owner": "DATA",
+      "dependencies": [
+        "T018",
+        "T019"
+      ],
+      "owned_paths": [
+        "src/turnkeep/portability.py",
+        "specs/export.schema.json",
+        "tests/data/test_roundtrip.py",
+        "fixtures/imports/**",
+        "tests/data/test_import_trust.py"
+      ],
+      "inputs": [
+        "scope/source/edge/run模型",
+        "J05"
+      ],
+      "outputs": [
+        "JSONL+manifest导出格式",
+        "dry-run导入",
+        "迁移报告"
+      ],
+      "implementation_steps": [
+        "定义schema_version、origin IDs、scope映射、source/edge引用与内容摘要校验；不把数据库文件作为唯一导出格式。",
+        "默认仅导出选中scope与声明的历史范围，秘密/擦除payload排除；导入先dry-run列冲突和ID重映射。",
+        "imported_text保持不受信任来源；外部传入active/actor/authority不能绕过本地状态校验。",
+        "两次导入同一包幂等，引用保持一致；未知未来格式明确拒绝。"
+      ],
+      "acceptance_commands": [
+        "python -m pytest tests/data/test_roundtrip.py tests/data/test_import_trust.py -q",
+        "python scripts/run_journey.py --mode cli --journey J05 --no-model"
+      ],
+      "acceptance_invariants": [
+        "导出→新库→导出规范化后等价，关键状态/来源/依赖不丢。",
+        "越scope边、缺parent、篡改manifest被拒或隔离，不静默修好。",
+        "包不包含API key、隐藏个人配置或未选择项目。"
+      ],
+      "failure_handling": "未知来源格式先做只读解析与报告；不得直接写权威表或猜测schema。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T036.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "tests/data/test_roundtrip.py",
+            "tests/data/test_import_trust.py",
+            "-q"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_journey.py",
+            "--mode",
+            "cli",
+            "--journey",
+            "J05",
+            "--no-model"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        }
+      ]
+    },
+    {
+      "id": "T037",
+      "phase": "R4",
+      "title": "提供Markdown与原有记忆的保守迁移",
+      "owner": "DATA",
+      "dependencies": [
+        "T036"
+      ],
+      "owned_paths": [
+        "src/turnkeep/importers/**",
+        "docs/migration.md",
+        "tests/data/test_markdown_import.py",
+        "tests/data/test_import_injection.py"
+      ],
+      "inputs": [
+        "AGENTS.md/CLAUDE.md/Markdown样本",
+        "原系统公开导出格式"
+      ],
+      "outputs": [
+        "Markdown importer",
+        "来源映射表",
+        "迁移preview"
+      ],
+      "implementation_steps": [
+        "首发只支持明确列出的格式；每段带文件路径/标题/哈希/读取时间，引用外部内容不执行其中命令。",
+        "解析目标、决定、尝试和待办为候选；不把自然语言词句自动升级为已验证事实。",
+        "生成稳定key建议，重复/相冲突内容保留待裁决；不自动吞并用户已有全局记忆。",
+        "至少一个真实开源系统导出fixture若可合法取得，给adapter能力差异表；其他系统列未验证。"
+      ],
+      "acceptance_commands": [
+        "python -m pytest tests/data/test_markdown_import.py tests/data/test_import_injection.py -q",
+        "python -m turnkeep import --format markdown --dry-run fixtures/imports/example-project"
+      ],
+      "acceptance_invariants": [
+        "dry-run不变更DB；确认范围后的写入只影响选中scope。",
+        "恶意Markdown、绝对路径、symlink和巨大文件有边界。",
+        "不会宣称兼容未实际解析过的所有memory项目。"
+      ],
+      "failure_handling": "上游格式变化时将该adapter标实验性；保留通用JSONL，不靠脆弱屏幕抓取充当稳定导入。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P1",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T037.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "tests/data/test_markdown_import.py",
+            "tests/data/test_import_injection.py",
+            "-q"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "-m",
+            "turnkeep",
+            "import",
+            "--format",
+            "markdown",
+            "--dry-run",
+            "fixtures/imports/example-project"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        }
+      ]
+    },
+    {
+      "id": "T038",
+      "phase": "R4",
+      "title": "实现过期、隐私擦除与残留报告",
+      "owner": "CORE",
+      "dependencies": [
+        "T012",
+        "T016",
+        "T036"
+      ],
+      "owned_paths": [
+        "src/turnkeep/retention.py",
+        "src/turnkeep/erasure.py",
+        "tests/privacy/**",
+        "docs/retention.md"
+      ],
+      "inputs": [
+        "retract/erase边界",
+        "source/cache/backup清单"
+      ],
+      "outputs": [
+        "expired/erased支持",
+        "擦除receipt",
+        "管理范围残留报告"
+      ],
+      "implementation_steps": [
+        "按明确expires_at将记录移出当前视图并传播taint，不以时间衰减概率代替有效性。",
+        "对显式选中记录执行payload擦除，覆盖受控live DB、全文索引、摘要与缓存，并保留不含原文的必要tombstone。",
+        "枚举备份/导出/日志/外部客户端历史边界；能控制的派生副本按策略处理，无法控制或仍保留的部分写residual而非宣称全删。",
+        "SQLite WAL/checkpoint/VACUUM等维护仅在安全可用边界做；明确不能证明SSD/文件系统备份物理不可恢复。"
+      ],
+      "acceptance_commands": [
+        "python -m pytest tests/privacy/test_erasure.py tests/privacy/test_expiry.py tests/privacy/test_residuals.py -q",
+        "python scripts/check_erasure.py --synthetic-fixture"
+      ],
+      "acceptance_invariants": [
+        "合成秘密删除后默认/historical/API/FTS/cache都不返回payload。",
+        "receipt不复制被删除内容或可直接恢复该内容的日志。",
+        "retract、payload erase、外部历史残留三者文案不混淆；失败以PARTIAL/BLOCKED呈现。"
+      ],
+      "failure_handling": "任何受控表仍残留则擦除门槛失败；不以隐藏UI通过测试，不自动删用户控制范围外文件。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T038.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "tests/privacy/test_erasure.py",
+            "tests/privacy/test_expiry.py",
+            "tests/privacy/test_residuals.py",
+            "-q"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/check_erasure.py",
+            "--synthetic-fixture"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        }
+      ]
+    },
+    {
+      "id": "T039",
+      "phase": "R4",
+      "title": "实现一致备份、恢复与灾后诊断",
+      "owner": "DATA",
+      "dependencies": [
+        "T007",
+        "T038"
+      ],
+      "owned_paths": [
+        "src/turnkeep/backup.py",
+        "scripts/restore_check.py",
+        "tests/storage/test_backup_restore.py",
+        "docs/recovery.md"
+      ],
+      "inputs": [
+        "SQLite backup API",
+        "迁移版本",
+        "擦除覆盖策略"
+      ],
+      "outputs": [
+        "backup/restore命令",
+        "备份manifest",
+        "损坏恢复指引"
+      ],
+      "implementation_steps": [
+        "用SQLite一致性backup而非随意复制活跃DB+WAL；记录schema与哈希。",
+        "恢复先到新目录并校验，再明确切换；不自动覆盖现用库。",
+        "恢复后检验scope、events、runs、epoch、taint与回执一致；旧backup可能重新带回已擦除内容需墓碑/保留策略校验。",
+        "模拟磁盘满、只读、损坏、处理中断；给保守恢复和数据损失范围说明。"
+      ],
+      "acceptance_commands": [
+        "python -m pytest tests/storage/test_backup_restore.py tests/storage/test_restore_erasure.py -q",
+        "python scripts/restore_check.py --fixture restart-handoff"
+      ],
+      "acceptance_invariants": [
+        "J04重启和恢复后可用视图/历史一致。",
+        "恢复旧备份不得静默复活已撤回/已擦除记录；有证据缺口则隔离。",
+        "备份不包含不相关配置或凭证。"
+      ],
+      "failure_handling": "恢复验证失败保留原库和恢复副本；不要尝试未经记录的自动修复覆盖唯一数据。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T039.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "tests/storage/test_backup_restore.py",
+            "tests/storage/test_restore_erasure.py",
+            "-q"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/restore_check.py",
+            "--fixture",
+            "restart-handoff"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        }
+      ]
+    },
+    {
+      "id": "T040",
+      "phase": "R4",
+      "title": "建立公平基线与评价运行器",
+      "owner": "EVAL",
+      "dependencies": [
+        "T018",
+        "T005"
+      ],
+      "owned_paths": [
+        "benchmarks/harness/**",
+        "benchmarks/baselines/**",
+        "benchmarks/PROTOCOL.md",
+        "tests/benchmarks/**"
+      ],
+      "inputs": [
+        "docs/EVALUATION_PLAN.md",
+        "用户H1-H5假设",
+        "普通Markdown/原始日志基线"
+      ],
+      "outputs": [
+        "无记忆/Markdown/日志/Turnkeep基线",
+        "预登记指标",
+        "runner"
+      ],
+      "implementation_steps": [
+        "给所有基线相同任务、原始信息、模型设置、工具权限和预算；不剥夺Markdown基线正常搜索/更新能力。",
+        "先冻结任务和评分器，再看实现结果；把调参任务与保留集分开，保存seed与配置。",
+        "指标分契约违规、任务完成、陈旧事实使用、无关拒绝、重做成本、latency和实际token/cost；未取得usage写unknown。",
+        "评估runner读取原始trace生成指标，不允许LLM自行填成功数字；有judge时保留其依据并做确定性检查。"
+      ],
+      "acceptance_commands": [
+        "python -m pytest tests/benchmarks/test_scoring.py tests/benchmarks/test_baseline_parity.py -q",
+        "python benchmarks/harness/run.py --suite smoke --mode deterministic"
+      ],
+      "acceptance_invariants": [
+        "损坏的预设trace能触发失败，评分器不是检查字段存在就通过。",
+        "基线设置和预算相同；失败任务/超时都进入分母。",
+        "脚本模拟指标不标为真实模型性能。"
+      ],
+      "failure_handling": "基线不公平先重做协议，不发布胜率；凭证缺失不影响确定性harness实现。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T040.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "tests/benchmarks/test_scoring.py",
+            "tests/benchmarks/test_baseline_parity.py",
+            "-q"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "benchmarks/harness/run.py",
+            "--suite",
+            "smoke",
+            "--mode",
+            "deterministic"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        }
+      ]
+    },
+    {
+      "id": "T041",
+      "phase": "R4",
+      "title": "实现记忆变更回放与故障场景集",
+      "owner": "EVAL",
+      "dependencies": [
+        "T040",
+        "T015",
+        "T038",
+        "T039"
+      ],
+      "owned_paths": [
+        "benchmarks/scenarios/**",
+        "benchmarks/replay.py",
+        "tests/benchmarks/test_replay.py",
+        "evidence/replay/"
+      ],
+      "inputs": [
+        "固定scope snapshot",
+        "状态/事件序列",
+        "故障模型"
+      ],
+      "outputs": [
+        "变更/撤回/冲突/重启场景",
+        "可回放trace",
+        "scenario manifest"
+      ],
+      "implementation_steps": [
+        "预登记至少24个实质场景，覆盖post-plan修订、空查询后新增、并发纠错、间接taint、删除残留、scope隔离、无关更新误拒绝和restart。",
+        "每个场景包含初态、按顺序的事件、观察点、允许结果与不可接受行为；至少一部分有故意破坏实现的mutation对照。",
+        "回放固定外部事件与工具结果，不声称重放LLM采样必然逐字一致；模型输入/输出作为记录而非重新生成。",
+        "输出按场景的失败解释与恢复次数，使访客可复查哪一条保证成立。"
+      ],
+      "acceptance_commands": [
+        "python benchmarks/replay.py --suite core-change --output evidence/replay",
+        "python -m pytest tests/benchmarks/test_replay.py tests/benchmarks/test_mutations.py -q"
+      ],
+      "acceptance_invariants": [
+        "违规fixture被识别；接受缺陷的评分器不能通过。",
+        "任何比较都保留原始事件、配置和已知限制。",
+        "coarse epoch造成的无关拒绝单独报告，不算模型失败或隐藏。"
+      ],
+      "failure_handling": "场景不足以区分两机制时修改保留为探索性结果；不挑少量有利例子声称全面领先。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T041.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "benchmarks/replay.py",
+            "--suite",
+            "core-change",
+            "--output",
+            "evidence/replay"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "tests/benchmarks/test_replay.py",
+            "tests/benchmarks/test_mutations.py",
+            "-q"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        }
+      ]
+    },
+    {
+      "id": "T042",
+      "phase": "R4",
+      "title": "执行预算内真实模型对照评估",
+      "owner": "EVAL",
+      "dependencies": [
+        "T026",
+        "T040",
+        "T041"
+      ],
+      "owned_paths": [
+        "benchmarks/live/**",
+        "evidence/live-evals/**",
+        "docs/EVALUATION_RESULTS.md"
+      ],
+      "inputs": [
+        "已授权且可用模型/API",
+        "冻结协议",
+        "任务保留集"
+      ],
+      "outputs": [
+        "真实模型日志和usage",
+        "结果表/失败案例",
+        "NOT_RUN缺口表"
+      ],
+      "implementation_steps": [
+        "读取实际可用模型和预算，锁model ID/version、temperature/seed可用性与工具配置；不借用另一个账户秘密。",
+        "先小型配对pilot确认可跑，再按预登记任务/至少3seed或等效重复完成正式测试；顺序随机化。",
+        "比较每种memory策略的任务规格结果、陈旧提交、无谓重做、token和latency；置信区间只在样本与方法足够时报告。",
+        "实际usage无法获得写unknown；无凭证写NOT_RUN并完成可运行命令、fixture与预期数据schema。"
+      ],
+      "acceptance_commands": [
+        "python benchmarks/live/run.py --protocol benchmarks/PROTOCOL.md --budget-file state/eval-budget.json",
+        "python benchmarks/live/report.py --input evidence/live-evals"
+      ],
+      "acceptance_invariants": [
+        "真实结果由trace/测试产出，所有失败纳入；不能把pilot调优结果当保留集。",
+        "不可声称保证省token或全面提升；效果不成立也完整报告。",
+        "模型不可用时状态NOT_RUN，offline RC可以继续，value-validated badge不能通过。"
+      ],
+      "failure_handling": "达到预算/连错上限立即停止live调用，保存部分结果；不自动购买额度或用不同模型补齐而不标变化。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P1",
+      "required_capabilities": [
+        "local_files",
+        "local_commands",
+        "authorized_model_budget"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T042.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "value_evaluated",
+        "comparative_claims"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "benchmarks/live/run.py",
+            "--protocol",
+            "benchmarks/PROTOCOL.md",
+            "--budget-file",
+            "state/eval-budget.json"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 1800,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "benchmarks/live/report.py",
+            "--input",
+            "evidence/live-evals"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 1800,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        }
+      ],
+      "external_gate": true,
+      "offline_completion": "Implementation, fixtures and recipes may be complete while external execution remains NOT_RUN; do not mark external gate PASS.",
+      "dependency_exceptions": {
+        "T026": "implementation_or_documented_external_block"
+      }
+    },
+    {
+      "id": "T043",
+      "phase": "R4",
+      "title": "完成真实平台、兼容性与性能门槛",
+      "owner": "QA",
+      "dependencies": [
+        "T026",
+        "T028",
+        "T035",
+        "T036",
+        "T038",
+        "T039",
+        "T041"
+      ],
+      "owned_paths": [
+        ".github/workflows/test.yml",
+        "scripts/platform_gate.py",
+        "evidence/platforms/**",
+        "docs/COMPATIBILITY.md"
+      ],
+      "inputs": [
+        "干净Windows/macOS/Linux runner或已有授权CI",
+        "安装与旅程"
+      ],
+      "outputs": [
+        "OS实测矩阵",
+        "固定硬件性能报告",
+        "支持范围"
+      ],
+      "implementation_steps": [
+        "在真实Windows/macOS/Linux环境安装正式构建并跑J01/J04/J05；有授权CI则自动运行，否则保留workflow并标平台NOT_RUN。",
+        "记录Python/SQLite/客户端/OS版本，测试空格与中文路径、断网核心、进程重启。",
+        "固定记录规模与硬件测p50/p95检索/提交、冷启动、DB增长和并发busy率；阈值预先登记。",
+        "支持列表只包含真实通过的平台/客户端；不能把Linux容器+path mock算Windows实测。"
+      ],
+      "acceptance_commands": [
+        "python scripts/platform_gate.py --record evidence/platforms/current.json",
+        "python benchmarks/harness/perf.py --dataset fixtures/perf/manifest.json"
+      ],
+      "acceptance_invariants": [
+        "首发声称的每个平台有真实安装证据；缺平台则缩支持范围或阻止全平台标记。",
+        "性能报告有硬件/数据规模/冷暖状态，不写无条件延迟保证。",
+        "严重退化有原因和处理，不通过降低数据量悄悄过门槛。"
+      ],
+      "failure_handling": "外部runner不可用时完成本地全部工作并留下可执行CI；明确OFFLINE_RC而非跨平台正式完成。",
+      "release_blocker": true,
+      "status": "BLOCKED_EXTERNAL",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands",
+        "actual_os_runners"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T043.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "advertised_platform_support",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "scripts/platform_gate.py",
+            "--record",
+            "evidence/platforms/current.json"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 1800,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "benchmarks/harness/perf.py",
+            "--dataset",
+            "fixtures/perf/manifest.json"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 1800,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        }
+      ],
+      "external_gate": true,
+      "offline_completion": "Implementation, fixtures and recipes may be complete while external execution remains NOT_RUN; do not mark external gate PASS.",
+      "dependency_exceptions": {
+        "T026": "implementation_or_documented_external_block"
+      }
+    },
+    {
+      "id": "T044",
+      "phase": "R5",
+      "title": "完成产品文档、示例和诚实发布材料",
+      "owner": "DOCS",
+      "dependencies": [
+        "T034",
+        "T036",
+        "T037",
+        "T039",
+        "T041"
+      ],
+      "owned_paths": [
+        "README.md",
+        "README.zh-CN.md",
+        "docs/**（非规范部分）",
+        "examples/**（文档与已验证示例）",
+        "release/announcement-drafts/**",
+        "scripts/test_documented_commands.py"
+      ],
+      "inputs": [
+        "实际实现/兼容矩阵",
+        "用户/竞品证据",
+        "当前评测状态"
+      ],
+      "outputs": [
+        "中英文README",
+        "安装/迁移/排错/限制",
+        "发布草稿与demo说明"
+      ],
+      "implementation_steps": [
+        "首屏清楚展示接力与变更恢复结果、最小运行命令、无key脚本演示和支持边界。",
+        "每段能力标已验证/实验/计划；列最近邻强项与Turnkeep待验证差异，不捏造对手缺陷。",
+        "文档中的命令全部在干净fixture执行；长教程引用实际截图与版本，缺能力不以todo截图代替。",
+        "准备GitHub release、HN/论坛和issue回应草稿，只存本地，不自动发帖或批量私信。"
+      ],
+      "acceptance_commands": [
+        "python scripts/check_docs.py --profile release",
+        "python scripts/test_documented_commands.py --offline"
+      ],
+      "acceptance_invariants": [
+        "README不写永不遗忘/保证高星/已实测省token等无证据结论。",
+        "下载/安装/回滚/数据导出路径完整且准确。",
+        "文档没有个人路径、真实用户数据、token或隐藏内部日志。"
+      ],
+      "failure_handling": "功能未完成时删对应支持承诺并链接缺口；不可只改文案为完成而不改实现。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P1",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T044.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "scripts/check_docs.py",
+            "--profile",
+            "release"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/test_documented_commands.py",
+            "--offline"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        }
+      ]
+    },
+    {
+      "id": "T045",
+      "phase": "R5",
+      "title": "完成许可、供应链和边界检查",
+      "owner": "RELEASE",
+      "dependencies": [
+        "T004",
+        "T022",
+        "T027",
+        "T038",
+        "T044"
+      ],
+      "owned_paths": [
+        "LICENSE",
+        "NOTICE",
+        "SECURITY.md",
+        "release/SBOM.json",
+        "scripts/release_checks.py",
+        "tests/security/test_release_boundary.py"
+      ],
+      "inputs": [
+        "实际锁文件与引入代码",
+        "来源/许可证记录",
+        "首发威胁边界"
+      ],
+      "outputs": [
+        "许可证清单",
+        "依赖/SBOM",
+        "安全报告与升级策略"
+      ],
+      "implementation_steps": [
+        "核实实际复制的代码/资源许可证与归属；原创代码默认采用项目确定的开源许可证，未授权第三方全文不打包。",
+        "扫描依赖与仓库秘密，核对MCP/本地API auth边界、默认监听地址、日志脱敏和导入路径。",
+        "将风险按严重度与可利用前提记录，修复确定问题；不要以假设风险无限扩展任务。",
+        "SECURITY说明单受信OS用户、非多租户、非外部事务保证，以及报告和数据擦除范围。"
+      ],
+      "acceptance_commands": [
+        "python scripts/release_checks.py --profile license-and-secrets",
+        "python -m pytest tests/security/test_release_boundary.py -q"
+      ],
+      "acceptance_invariants": [
+        "无凭证/个人私有数据/无许可证复制代码；严重已知边界漏洞零未处理。",
+        "第三方声明与许可证吻合，README不把source-available当标准开源。",
+        "扫描结果含工具版本与局限，非扫描成功就宣称生产安全。"
+      ],
+      "failure_handling": "不明许可证移除相关复制实现并写独立实现/接口；严重漏洞阻止发布候选升格但保留可审阅成果。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T045.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "scripts/release_checks.py",
+            "--profile",
+            "license-and-secrets"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "tests/security/test_release_boundary.py",
+            "-q"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        }
+      ]
+    },
+    {
+      "id": "T046",
+      "phase": "R5",
+      "title": "生成可重复构建、CI与候选制品",
+      "owner": "BUILD",
+      "dependencies": [
+        "T035",
+        "T043",
+        "T045"
+      ],
+      "owned_paths": [
+        "scripts/build_release.py",
+        "scripts/verify_release.py",
+        ".github/workflows/release-candidate.yml",
+        "release/artifacts/**"
+      ],
+      "inputs": [
+        "版本与锁文件",
+        "官方构建工具",
+        "支持矩阵"
+      ],
+      "outputs": [
+        "wheel/sdist或已选择制品",
+        "静态UI资源",
+        "SHA256SUMS",
+        "release manifest"
+      ],
+      "implementation_steps": [
+        "从干净checkout按锁文件构建，不把开发缓存、node_modules、DB或真实evidence敏感内容打入包。",
+        "安装构建后的制品跑关键旅程，不用源码editable模式替代发行包验证。",
+        "生成版本、commit、依赖、支持平台、schema兼容与已知缺口manifest和哈希。",
+        "CI仅在已有授权remote/runner执行；无权限则保留完整workflow与本地结果，不创建公开repo。"
+      ],
+      "acceptance_commands": [
+        "python scripts/build_release.py --clean --output release/artifacts",
+        "python scripts/verify_release.py --manifest release/artifacts/manifest.json"
+      ],
+      "acceptance_invariants": [
+        "制品可离线启动核心，包内资源路径正确；安装后版本与manifest一致。",
+        "可复建的命令、依赖和哈希完整；若bit-for-bit不同说明原因不伪称reproducible。",
+        "发布脚本默认只构建不upload，远端动作有显式参数与授权检查。"
+      ],
+      "failure_handling": "构建失败修打包而不是要求用户从源码自行排错；外部发布不可用仍完成本地候选。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T046.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "scripts/build_release.py",
+            "--clean",
+            "--output",
+            "release/artifacts"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/verify_release.py",
+            "--manifest",
+            "release/artifacts/manifest.json"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        }
+      ],
+      "dependency_exceptions": {
+        "T043": "implementation_or_documented_external_block"
+      }
+    },
+    {
+      "id": "T047",
+      "phase": "R5",
+      "title": "独立最终审阅与分级验收",
+      "owner": "REVIEW",
+      "dependencies": [
+        "T018",
+        "T023",
+        "T026",
+        "T035",
+        "T036",
+        "T038",
+        "T039",
+        "T041",
+        "T042",
+        "T043",
+        "T044",
+        "T045",
+        "T046"
+      ],
+      "owned_paths": [
+        "evidence/FINAL_REVIEW.md",
+        "evidence/GATE_MATRIX.json",
+        "release/KNOWN_LIMITATIONS.md"
+      ],
+      "inputs": [
+        "全部任务证据",
+        "冻结契约",
+        "当前发布制品"
+      ],
+      "outputs": [
+        "最终问题列表与修复证据",
+        "gate matrix",
+        "精确ready状态"
+      ],
+      "implementation_steps": [
+        "由未主要实现核心的review角色从用户旅程和反例检查，不只阅读代码作者总结。",
+        "核查每条release claim对应核心/协议/真实client/平台/真实model证据，状态不可互代。",
+        "针对剩余具体风险运行最小复查；发现严重问题回到对应任务，不删除失败记录或放宽门槛。",
+        "分级判定REFERENCE_CORE_READY、OFFLINE_RC_READY、INTEGRATED_RC_READY、VALUE_EVALUATED及公开发布条件。"
+      ],
+      "acceptance_commands": [
+        "python scripts/run_gate.py --profile release --strict-status",
+        "python scripts/verify_release.py --claims README.md --gates evidence/GATE_MATRIX.json"
+      ],
+      "acceptance_invariants": [
+        "所有P0确定性门槛通过；未执行外部门槛明确NOT_RUN且阻止对应徽章。",
+        "已完成/受阻/计划与用户可见文档一致；没有强主张超出证据。",
+        "核心作者与reviewer意见冲突必须以fixture/契约裁决。"
+      ],
+      "failure_handling": "凭证或平台缺失不使离线交付作废，但最终状态降级；重大逻辑缺陷则保留审阅包并标BLOCKED_CORE。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T047.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "offline_rc",
+        "integrated_rc",
+        "public_candidate"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "scripts/run_gate.py",
+            "--profile",
+            "release",
+            "--strict-status"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "aggregate"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/verify_release.py",
+            "--claims",
+            "README.md",
+            "--gates",
+            "evidence/GATE_MATRIX.json"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        }
+      ],
+      "dependency_exceptions": {
+        "T026": "implementation_or_documented_external_block",
+        "T042": "implementation_or_documented_external_block",
+        "T043": "implementation_or_documented_external_block"
+      }
+    },
+    {
+      "id": "T048",
+      "phase": "R5",
+      "title": "完成Muse可交付的本地发布候选与收尾",
+      "owner": "MUSE",
+      "dependencies": [
+        "T047"
+      ],
+      "owned_paths": [
+        "release/FINAL_HANDOFF.md",
+        "release/DELIVERY_MANIFEST.json",
+        "release/TURNKEEP_RC.zip",
+        "state/CONTROL_STATE.json",
+        "HANDOFF.md",
+        "state/CURRENT_STATUS.md",
+        "scripts/package_handoff.py",
+        "scripts/verify_handoff.py"
+      ],
+      "inputs": [
+        "最终gate matrix",
+        "构建制品",
+        "文档与源码",
+        "原始任务目标"
+      ],
+      "outputs": [
+        "源码+制品+文档+证据摘要ZIP",
+        "最终交接",
+        "可直接执行的剩余命令"
+      ],
+      "implementation_steps": [
+        "汇总真正完成的能力、具体限制、未执行外部门槛、下一动作与无凭证可用路径。",
+        "打包源码、锁文件、构建脚本、示例、测试、schema和必要结果；排除虚拟环境、秘密、原始第三方全文和无用缓存。",
+        "核验ZIP可解压、清单/哈希一致，在新目录运行首个旅程；所有产出保存到当前环境允许的持久交付位置。",
+        "如已有明确公开发布授权且所有相关门槛通过，才按批准范围发布；否则停止在完整本地候选和发布草稿，不需要真人参与日常开发。"
+      ],
+      "acceptance_commands": [
+        "python scripts/package_handoff.py --output release/TURNKEEP_RC.zip",
+        "python scripts/verify_handoff.py --archive release/TURNKEEP_RC.zip"
+      ],
+      "acceptance_invariants": [
+        "用户或新Muse会话只需该包即可查看、构建、运行离线旅程并定位缺口。",
+        "不能把NOT_RUN包装成全部完成，也不能因外部门槛缺失只交一句等待确认。",
+        "工作状态与交接同步，临时agent停止，无未记录后台任务。"
+      ],
+      "failure_handling": "若持久保存失败明确报告可用本地路径及失败原因；保留候选，不丢成果。授权外的发布/付费/发消息不执行。",
+      "release_blocker": true,
+      "status": "VERIFIED",
+      "priority": "P0",
+      "required_capabilities": [
+        "local_files",
+        "local_commands"
+      ],
+      "dependency_policy": "implementation_ready; release profiles require their own verified gates",
+      "evidence_path": "evidence/tasks/T048.json",
+      "max_repair_attempts": 2,
+      "max_alternative_attempts": 1,
+      "blocks_profiles": [
+        "delivery_complete"
+      ],
+      "acceptance_command_specs": [
+        {
+          "argv": [
+            "python",
+            "scripts/package_handoff.py",
+            "--output",
+            "release/TURNKEEP_RC.zip"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/verify_handoff.py",
+            "--archive",
+            "release/TURNKEEP_RC.zip"
+          ],
+          "cwd": "PRODUCT_ROOT",
+          "shell": false,
+          "timeout_seconds": 600,
+          "planned_entrypoint": true,
+          "execution_role": "leaf"
+        }
+      ]
+    }
+  ],
+  "verification_profiles": {
+    "core": [
+      "T007",
+      "T008",
+      "T009",
+      "T010",
+      "T011",
+      "T012",
+      "T013",
+      "T014",
+      "T015",
+      "T016",
+      "T017",
+      "T018"
+    ],
+    "protocol": [
+      "T021",
+      "T022",
+      "T023"
+    ],
+    "live-clients": [
+      "T024",
+      "T025",
+      "T026"
+    ],
+    "release": [
+      "T001",
+      "T002",
+      "T003",
+      "T004",
+      "T005",
+      "T006",
+      "T007",
+      "T008",
+      "T009",
+      "T010",
+      "T011",
+      "T012",
+      "T013",
+      "T014",
+      "T015",
+      "T016",
+      "T017",
+      "T018",
+      "T019",
+      "T020",
+      "T021",
+      "T022",
+      "T023",
+      "T024",
+      "T025",
+      "T026",
+      "T027",
+      "T028",
+      "T029",
+      "T030",
+      "T031",
+      "T032",
+      "T033",
+      "T034",
+      "T035",
+      "T036",
+      "T037",
+      "T038",
+      "T039",
+      "T040",
+      "T041",
+      "T042",
+      "T043",
+      "T044",
+      "T045",
+      "T046"
+    ]
+  },
+  "command_execution_contract": {
+    "schema_version": "turnkeep.command-execution/v1",
+    "dispatch_execution_role": "leaf",
+    "aggregate_entrypoints": "Only Muse or another top-level caller invokes aggregate commands; run_gate never dispatches an aggregate command from a task or profile.",
+    "self_test": "run_gate --self-test uses a fixed in-code self-test corpus, reads no backlog, accepts no task/profile selector, and dispatches no nested gate.",
+    "profile_selection": "Use only the explicit verification_profiles task-ID array in topological order. Read prerequisite evidence; do not expand dependencies, descendants, or another profile into new dispatches.",
+    "reentrancy_guard": "Reject nested --task/--profile dispatch before launching a process; use a task-specific inherited dispatch-depth marker and an invocation-local visited command set.",
+    "leaf_constraint": "Leaf checks may use bounded fixture subprocesses but must not redispatch backlog tasks/profiles or call a task/profile aggregate.",
+    "command_identity": "Within one invocation, identify a selected command by task_id, command index, argv, cwd, relevant environment and input hashes; run each selected leaf at most once.",
+    "path_ownership": "For every .py/.ts argv reference, use path_aliases when present, normalize to a product-relative POSIX path, and fnmatch against owned_paths of the task or its transitive dependencies. Missing/ambiguous references fail static validation.",
+    "path_aliases": "Only explicit selector-to-repository-path mappings are allowed; the four Playwright filename selectors resolve to tests/ui/*.spec.ts with testDir ../tests/ui. Alias mapping must not rewrite executable argv.",
+    "status_semantics": "Command/profile PASS requires actual checks. Missing credentials, hosts or runners remain NOT_RUN/BLOCKED_EXTERNAL; profile selection and release_profiles capability claims are distinct.",
+    "aggregate_acceptance": "Muse records required aggregate/profile evidence separately from leaf results; skipping aggregate dispatch inside the runner is not evidence that its coverage passed. T047 invokes release at top level and then verifies its own review outputs.",
+    "leaf_profile_flag": "A --profile argument to a script other than run_gate.py is that script's own leaf-check option, not a verification_profiles dispatch selector."
+  }
+}

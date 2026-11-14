@@ -1,0 +1,116 @@
+driver codex-api: Codex CLI 0.164.0 via official OpenAI API, model gpt-6-luna, reasoning effort low (Sam's OpenAI account, pay-as-you-go)
+[live-pilot] 48 planned, 48 to run, 0 already recorded
+  [1/48] pilot-f01-stable / markdown / seed 20261108: completed=True stale=False steps=3 tokens={'tokens_total': 40822, 'turns': 1, 'input_tokens': 53931, 'cached_input_tokens': 13426, 'cache_write_input_tokens': 40493, 'output_tokens': 317, 'reasoning_output_tokens': 105} (27s elapsed)
+  [2/48] pilot-f01-stable / none / seed 20261108: completed=True stale=False steps=3 tokens={'tokens_total': 27275, 'turns': 1, 'input_tokens': 53697, 'cached_input_tokens': 26688, 'cache_write_input_tokens': 26997, 'output_tokens': 266, 'reasoning_output_tokens': 31} (28s elapsed)
+  [3/48] pilot-f01-stable / log / seed 20261108: completed=True stale=False steps=3 tokens={'tokens_total': 27180, 'turns': 1, 'input_tokens': 53663, 'cached_input_tokens': 26697, 'cache_write_input_tokens': 26954, 'output_tokens': 214, 'reasoning_output_tokens': 0} (59s elapsed)
+  [4/48] pilot-f01-stable / turnkeep / seed 20261108: completed=True stale=False steps=3 tokens={'tokens_total': 42960, 'turns': 1, 'input_tokens': 56413, 'cached_input_tokens': 13906, 'cache_write_input_tokens': 42495, 'output_tokens': 453, 'reasoning_output_tokens': 58} (60s elapsed)
+  [5/48] pilot-f01-changed / markdown / seed 20261108: completed=True stale=False steps=3 tokens={'tokens_total': 27537, 'turns': 1, 'input_tokens': 54137, 'cached_input_tokens': 26882, 'cache_write_input_tokens': 27243, 'output_tokens': 282, 'reasoning_output_tokens': 63} (89s elapsed)
+  [6/48] pilot-f01-changed / none / seed 20261108: completed=False stale=True steps=4 tokens={'tokens_total': 40501, 'turns': 1, 'input_tokens': 67207, 'cached_input_tokens': 27002, 'cache_write_input_tokens': 40190, 'output_tokens': 296, 'reasoning_output_tokens': 59} (95s elapsed)
+  [7/48] pilot-f01-changed / log / seed 20261108: completed=True stale=False steps=3 tokens={'tokens_total': 40967, 'turns': 1, 'input_tokens': 53906, 'cached_input_tokens': 13200, 'cache_write_input_tokens': 40694, 'output_tokens': 261, 'reasoning_output_tokens': 65} (109s elapsed)
+  [8/48] pilot-f01-changed / turnkeep / seed 20261108: completed=True stale=False steps=3 tokens={'tokens_total': 44465, 'turns': 1, 'input_tokens': 57416, 'cached_input_tokens': 13434, 'cache_write_input_tokens': 43970, 'output_tokens': 483, 'reasoning_output_tokens': 54} (117s elapsed)
+  [9/48] pilot-f05-stable / none / seed 20261108: completed=True stale=False steps=2 tokens={'tokens_total': 26976, 'turns': 1, 'input_tokens': 40122, 'cached_input_tokens': 13407, 'cache_write_input_tokens': 26706, 'output_tokens': 261, 'reasoning_output_tokens': 0} (128s elapsed)
+  [10/48] pilot-f05-stable / markdown / seed 20261108: completed=True stale=False steps=3 tokens={'tokens_total': 27276, 'turns': 1, 'input_tokens': 53658, 'cached_input_tokens': 26680, 'cache_write_input_tokens': 26966, 'output_tokens': 298, 'reasoning_output_tokens': 47} (139s elapsed)
+  [11/48] pilot-f05-stable / log / seed 20261108: completed=True stale=False steps=4 tokens={'tokens_total': 41005, 'turns': 1, 'input_tokens': 67320, 'cached_input_tokens': 26681, 'cache_write_input_tokens': 40624, 'output_tokens': 366, 'reasoning_output_tokens': 53} (155s elapsed)
+  [12/48] pilot-f05-stable / turnkeep / seed 20261108: completed=True stale=False steps=3 tokens={'tokens_total': 30311, 'turns': 1, 'input_tokens': 57722, 'cached_input_tokens': 27815, 'cache_write_input_tokens': 29895, 'output_tokens': 404, 'reasoning_output_tokens': 40} (161s elapsed)
+  [13/48] pilot-f05-changed / markdown / seed 20261108: completed=True stale=False steps=3 tokens={'tokens_total': 27356, 'turns': 1, 'input_tokens': 53604, 'cached_input_tokens': 26541, 'cache_write_input_tokens': 27051, 'output_tokens': 293, 'reasoning_output_tokens': 13} (180s elapsed)
+  [14/48] pilot-f05-changed / none / seed 20261108: completed=False stale=True steps=4 tokens={'tokens_total': 41222, 'turns': 1, 'input_tokens': 67802, 'cached_input_tokens': 26962, 'cache_write_input_tokens': 40825, 'output_tokens': 382, 'reasoning_output_tokens': 93} (180s elapsed)
+  [15/48] pilot-f05-changed / log / seed 20261108: completed=True stale=False steps=2 tokens={'tokens_total': 13853, 'turns': 1, 'input_tokens': 40200, 'cached_input_tokens': 26624, 'cache_write_input_tokens': 13567, 'output_tokens': 277, 'reasoning_output_tokens': 34} (197s elapsed)
+  [16/48] pilot-f05-changed / turnkeep / seed 20261108: completed=True stale=False steps=3 tokens={'tokens_total': 28895, 'turns': 1, 'input_tokens': 56058, 'cached_input_tokens': 27592, 'cache_write_input_tokens': 28454, 'output_tokens': 429, 'reasoning_output_tokens': 34} (201s elapsed)
+  [17/48] pilot-f02-stable / none / seed 20261108: completed=True stale=False steps=3 tokens={'tokens_total': 40367, 'turns': 1, 'input_tokens': 53284, 'cached_input_tokens': 13174, 'cache_write_input_tokens': 40098, 'output_tokens': 257, 'reasoning_output_tokens': 13} (215s elapsed)
+  [18/48] pilot-f02-stable / markdown / seed 20261108: completed=True stale=False steps=3 tokens={'tokens_total': 40616, 'turns': 1, 'input_tokens': 53552, 'cached_input_tokens': 13183, 'cache_write_input_tokens': 40357, 'output_tokens': 247, 'reasoning_output_tokens': 0} (219s elapsed)
+  [19/48] pilot-f02-stable / log / seed 20261108: completed=True stale=False steps=3 tokens={'tokens_total': 40678, 'turns': 1, 'input_tokens': 53609, 'cached_input_tokens': 13184, 'cache_write_input_tokens': 40413, 'output_tokens': 253, 'reasoning_output_tokens': 52} (233s elapsed)
+  [20/48] pilot-f02-stable / turnkeep / seed 20261108: completed=True stale=False steps=7 tokens={'tokens_total': 49604, 'turns': 1, 'input_tokens': 120218, 'cached_input_tokens': 71520, 'cache_write_input_tokens': 48674, 'output_tokens': 906, 'reasoning_output_tokens': 201} (253s elapsed)
+  [21/48] pilot-f02-changed / none / seed 20261108: completed=False stale=True steps=3 tokens={'tokens_total': 27232, 'turns': 1, 'input_tokens': 53595, 'cached_input_tokens': 26647, 'cache_write_input_tokens': 26936, 'output_tokens': 284, 'reasoning_output_tokens': 81} (253s elapsed)
+  [22/48] pilot-f02-changed / markdown / seed 20261108: completed=True stale=False steps=3 tokens={'tokens_total': 27497, 'turns': 1, 'input_tokens': 53866, 'cached_input_tokens': 26592, 'cache_write_input_tokens': 27262, 'output_tokens': 223, 'reasoning_output_tokens': 24} (273s elapsed)
+  [23/48] pilot-f02-changed / log / seed 20261108: completed=True stale=False steps=3 tokens={'tokens_total': 27389, 'turns': 1, 'input_tokens': 53684, 'cached_input_tokens': 26585, 'cache_write_input_tokens': 27087, 'output_tokens': 290, 'reasoning_output_tokens': 17} (274s elapsed)
+  [24/48] pilot-f02-changed / turnkeep / seed 20261108: completed=True stale=False steps=5 tokens={'tokens_total': 48665, 'turns': 1, 'input_tokens': 90420, 'cached_input_tokens': 42780, 'cache_write_input_tokens': 47622, 'output_tokens': 1025, 'reasoning_output_tokens': 458} (305s elapsed)
+  [25/48] pilot-f03-stable / none / seed 20261108: completed=True stale=False steps=4 tokens={'tokens_total': 28232, 'turns': 1, 'input_tokens': 67932, 'cached_input_tokens': 40147, 'cache_write_input_tokens': 27770, 'output_tokens': 447, 'reasoning_output_tokens': 186} (311s elapsed)
+  [26/48] pilot-f03-stable / markdown / seed 20261108: completed=True stale=False steps=3 tokens={'tokens_total': 40465, 'turns': 1, 'input_tokens': 53705, 'cached_input_tokens': 13501, 'cache_write_input_tokens': 40192, 'output_tokens': 261, 'reasoning_output_tokens': 40} (325s elapsed)
+  [27/48] pilot-f03-stable / log / seed 20261108: completed=True stale=False steps=2 tokens={'tokens_total': 27187, 'turns': 1, 'input_tokens': 40112, 'cached_input_tokens': 13191, 'cache_write_input_tokens': 26912, 'output_tokens': 266, 'reasoning_output_tokens': 29} (329s elapsed)
+  [28/48] pilot-f03-changed / none / seed 20261108: completed=False stale=True steps=3 tokens={'tokens_total': 40649, 'turns': 1, 'input_tokens': 53692, 'cached_input_tokens': 13380, 'cache_write_input_tokens': 40300, 'output_tokens': 337, 'reasoning_output_tokens': 94} (351s elapsed)
+  [29/48] pilot-f03-stable / turnkeep / seed 20261108: completed=True stale=False steps=7 tokens={'tokens_total': 36716, 'turns': 1, 'input_tokens': 122368, 'cached_input_tokens': 86839, 'cache_write_input_tokens': 35505, 'output_tokens': 1187, 'reasoning_output_tokens': 474} (363s elapsed)
+  [30/48] pilot-f03-changed / markdown / seed 20261108: completed=True stale=False steps=3 tokens={'tokens_total': 40698, 'turns': 1, 'input_tokens': 53663, 'cached_input_tokens': 13190, 'cache_write_input_tokens': 40461, 'output_tokens': 225, 'reasoning_output_tokens': 32} (370s elapsed)
+  [31/48] pilot-f03-changed / log / seed 20261108: completed=True stale=False steps=2 tokens={'tokens_total': 13837, 'turns': 1, 'input_tokens': 40223, 'cached_input_tokens': 26630, 'cache_write_input_tokens': 13584, 'output_tokens': 244, 'reasoning_output_tokens': 57} (381s elapsed)
+  [32/48] pilot-f07-stable / none / seed 20261108: completed=True stale=False steps=4 tokens={'tokens_total': 27397, 'turns': 1, 'input_tokens': 67314, 'cached_input_tokens': 40244, 'cache_write_input_tokens': 27055, 'output_tokens': 327, 'reasoning_output_tokens': 72} (402s elapsed)
+  [33/48] pilot-f03-changed / turnkeep / seed 20261108: completed=True stale=False steps=6 tokens={'tokens_total': 49545, 'turns': 1, 'input_tokens': 108076, 'cached_input_tokens': 59569, 'cache_write_input_tokens': 48486, 'output_tokens': 1038, 'reasoning_output_tokens': 314} (403s elapsed)
+  [34/48] pilot-f07-stable / log / seed 20261108: completed=True stale=False steps=3 tokens={'tokens_total': 27460, 'turns': 1, 'input_tokens': 53795, 'cached_input_tokens': 26606, 'cache_write_input_tokens': 27177, 'output_tokens': 271, 'reasoning_output_tokens': 45} (424s elapsed)
+  [35/48] pilot-f07-stable / markdown / seed 20261108: completed=True stale=False steps=4 tokens={'tokens_total': 41358, 'turns': 1, 'input_tokens': 67601, 'cached_input_tokens': 26595, 'cache_write_input_tokens': 40991, 'output_tokens': 352, 'reasoning_output_tokens': 58} (424s elapsed)
+  [36/48] pilot-f07-changed / none / seed 20261108: completed=False stale=True steps=3 tokens={'tokens_total': 13994, 'turns': 1, 'input_tokens': 53775, 'cached_input_tokens': 40099, 'cache_write_input_tokens': 13664, 'output_tokens': 318, 'reasoning_output_tokens': 88} (442s elapsed)
+  [37/48] pilot-f07-stable / turnkeep / seed 20261108: completed=True stale=False steps=4 tokens={'tokens_total': 44516, 'turns': 1, 'input_tokens': 71511, 'cached_input_tokens': 27562, 'cache_write_input_tokens': 43934, 'output_tokens': 567, 'reasoning_output_tokens': 123} (448s elapsed)
+  [38/48] pilot-f07-changed / markdown / seed 20261108: completed=True stale=False steps=3 tokens={'tokens_total': 40692, 'turns': 1, 'input_tokens': 53821, 'cached_input_tokens': 13379, 'cache_write_input_tokens': 40430, 'output_tokens': 250, 'reasoning_output_tokens': 23} (459s elapsed)
+  [39/48] pilot-f07-changed / log / seed 20261108: completed=True stale=False steps=3 tokens={'tokens_total': 54050, 'turns': 1, 'input_tokens': 53786, 'cached_input_tokens': 0, 'cache_write_input_tokens': 53774, 'output_tokens': 264, 'reasoning_output_tokens': 32} (467s elapsed)
+  [40/48] pilot-f07-changed / turnkeep / seed 20261108: completed=True stale=False steps=3 tokens={'tokens_total': 15593, 'turns': 1, 'input_tokens': 57487, 'cached_input_tokens': 42362, 'cache_write_input_tokens': 15113, 'output_tokens': 468, 'reasoning_output_tokens': 81} (480s elapsed)
+  [41/48] pilot-f10-changed / none / seed 20261108: completed=True stale=False steps=3 tokens={'tokens_total': 27344, 'turns': 1, 'input_tokens': 53641, 'cached_input_tokens': 26546, 'cache_write_input_tokens': 27083, 'output_tokens': 249, 'reasoning_output_tokens': 17} (484s elapsed)
+  [42/48] pilot-f10-changed / markdown / seed 20261108: completed=True stale=False steps=3 tokens={'tokens_total': 27704, 'turns': 1, 'input_tokens': 54096, 'cached_input_tokens': 26817, 'cache_write_input_tokens': 27267, 'output_tokens': 425, 'reasoning_output_tokens': 190} (502s elapsed)
+  [43/48] pilot-f10-changed / log / seed 20261108: completed=True stale=False steps=2 tokens={'tokens_total': 27292, 'turns': 1, 'input_tokens': 40228, 'cached_input_tokens': 13200, 'cache_write_input_tokens': 27019, 'output_tokens': 264, 'reasoning_output_tokens': 37} (502s elapsed)
+  [44/48] pilot-f10-stable / none / seed 20261108: completed=True stale=False steps=3 tokens={'tokens_total': 40749, 'turns': 1, 'input_tokens': 53676, 'cached_input_tokens': 13190, 'cache_write_input_tokens': 40474, 'output_tokens': 263, 'reasoning_output_tokens': 0} (520s elapsed)
+  [45/48] pilot-f10-changed / turnkeep / seed 20261108: completed=True stale=False steps=4 tokens={'tokens_total': 29973, 'turns': 1, 'input_tokens': 73050, 'cached_input_tokens': 43778, 'cache_write_input_tokens': 29257, 'output_tokens': 701, 'reasoning_output_tokens': 178} (530s elapsed)
+  [46/48] pilot-f10-stable / markdown / seed 20261108: completed=True stale=False steps=3 tokens={'tokens_total': 40767, 'turns': 1, 'input_tokens': 53757, 'cached_input_tokens': 13199, 'cache_write_input_tokens': 40546, 'output_tokens': 209, 'reasoning_output_tokens': 10} (538s elapsed)
+  [47/48] pilot-f10-stable / log / seed 20261108: completed=True stale=False steps=3 tokens={'tokens_total': 27445, 'turns': 1, 'input_tokens': 53916, 'cached_input_tokens': 26779, 'cache_write_input_tokens': 27125, 'output_tokens': 308, 'reasoning_output_tokens': 69} (550s elapsed)
+  [48/48] pilot-f10-stable / turnkeep / seed 20261108: completed=True stale=False steps=3 tokens={'tokens_total': 29222, 'turns': 1, 'input_tokens': 56813, 'cached_input_tokens': 27981, 'cache_write_input_tokens': 28820, 'output_tokens': 390, 'reasoning_output_tokens': 0} (558s elapsed)
+{
+  "suite": "live-pilot",
+  "mode": "live",
+  "label": "LIVE_MODEL",
+  "driver": "codex-api",
+  "model": "gpt-6-luna",
+  "note": "Real model (Codex CLI, official OpenAI API, gpt-6-luna, low effort). Scored deterministically from raw traces + deliverable artifacts.",
+  "seed": 20261108,
+  "budget": {
+    "max_seconds": 600,
+    "max_steps": 60,
+    "max_tool_calls": 60
+  },
+  "overall": {
+    "attempts": 48,
+    "completed": 43,
+    "success_rate": 0.8958333333333334,
+    "stale_fact_rate": 0.10416666666666667,
+    "contract_violations": 0,
+    "irrelevant_refusals": 0,
+    "mean_redo_cost_steps": 0.1875
+  },
+  "per_arm": {
+    "none": {
+      "attempts": 12,
+      "completed": 7,
+      "success_rate": 0.5833333333333334,
+      "stale_fact_rate": 0.4166666666666667,
+      "contract_violations": 0,
+      "irrelevant_refusals": 0,
+      "mean_redo_cost_steps": 0.0
+    },
+    "markdown": {
+      "attempts": 12,
+      "completed": 12,
+      "success_rate": 1.0,
+      "stale_fact_rate": 0.0,
+      "contract_violations": 0,
+      "irrelevant_refusals": 0,
+      "mean_redo_cost_steps": 0.0
+    },
+    "log": {
+      "attempts": 12,
+      "completed": 12,
+      "success_rate": 1.0,
+      "stale_fact_rate": 0.0,
+      "contract_violations": 0,
+      "irrelevant_refusals": 0,
+      "mean_redo_cost_steps": 0.0
+    },
+    "turnkeep": {
+      "attempts": 12,
+      "completed": 12,
+      "success_rate": 1.0,
+      "stale_fact_rate": 0.0,
+      "contract_violations": 0,
+      "irrelevant_refusals": 0,
+      "mean_redo_cost_steps": 0.75
+    }
+  },
+  "attempts": 48,
+  "not_run_arms": {
+    "mature-memory": "NOT_RUN: no real Mem0/Hindsight install configured",
+    "nearest-workflow": "NOT_RUN: no real Tigerless/Engram install configured"
+  }
+}

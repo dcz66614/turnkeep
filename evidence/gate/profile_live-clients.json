@@ -1,0 +1,118 @@
+{
+  "gate": "run_gate",
+  "selector": "profile:live-clients",
+  "status": "NOT_RUN",
+  "strict_status": false,
+  "generated": "2026-11-10T09:12:11Z",
+  "python": "3.12.3",
+  "results": [
+    {
+      "task_id": "T024",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/adapters/test_claude_config.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.793,
+          "stdout_tail": "..                                                                       [100%]\n2 passed in 0.04s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/check_adapter.py",
+            "--client",
+            "claude-code",
+            "--mode",
+            "config"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.094,
+          "stdout_tail": "{\n  \"client\": \"claude-code\",\n  \"mode\": \"config\",\n  \"config\": \"PASS\",\n  \"config_path\": \"/home/hatch/workspace/turnkeep-work/adapters/claude-code/.mcp.json\",\n  \"server\": {\n    \"args\": [\n      \"python3\",\n      \"-m\",\n      \"turnkeep\",\n      \"mcp\",\n      \"--scope\",\n      \"claude-code\",\n      \"--db\",\n      \"~/.local/share/turnkeep/turnkeep.sqlite3\"\n    ],\n    \"command\": \"/usr/bin/env\",\n    \"env\": {\n      \"PYTHONPATH\": \"<turnkeep-work>/src\",\n      \"TURNKEEP_PRINCIPAL\": \"claude-code\"\n    },\n    \"type\": \"stdio\"\n  },\n  \"live\": \"NOT_RUN\",\n  \"live_reason\": \"claude CLI not installed on this machine\"\n}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "task_id": "T025",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/adapters/test_codex_config.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.523,
+          "stdout_tail": "..                                                                       [100%]\n2 passed in 0.02s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/check_adapter.py",
+            "--client",
+            "codex",
+            "--mode",
+            "config"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.495,
+          "stdout_tail": "{\n  \"client\": \"codex\",\n  \"mode\": \"config\",\n  \"config\": \"PASS\",\n  \"config_path\": \"/home/hatch/workspace/turnkeep-work/adapters/codex/config.toml\",\n  \"server\": {\n    \"command\": \"/usr/bin/env\",\n    \"args\": [\n      \"python3\",\n      \"-m\",\n      \"turnkeep\",\n      \"mcp\",\n      \"--scope\",\n      \"codex\",\n      \"--db\",\n      \"~/.local/share/turnkeep/turnkeep.sqlite3\"\n    ],\n    \"env\": {\n      \"TURNKEEP_PRINCIPAL\": \"codex\",\n      \"PYTHONPATH\": \"<turnkeep-work>/src\"\n    },\n    \"startup_timeout_sec\": 20\n  },\n  \"live\": \"NOT_RUN\",\n  \"live_reason\": \"turnkeep installed; live session not run\",\n  \"codex_mcp_list\": \"Name      Command                                               Args                                                                                                                                   Env                       Cwd  Status   Auth       \\ndummy     /home/hatch/workspace/turnkeep-work/.venv/bin/python  /tmp/tk_dummy_mcp.py                                                                                                                   -                         -    enabled  Unsupported\\nturnkeep  /home/hatch/workspace/turnkeep-work/.venv/bin/python  -m turnkeep mcp --scope export-format --db /home/hatch/workspace/turnkeep-work/evidence/live-clients/run-20261109-01/handover.sqlite3  TURNKEEP_PRINCIPAL=*****  -    enabled  Unsupported\"\n}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "task_id": "T026",
+      "status": "NOT_RUN",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/live_client_handoff.py",
+            "--pair",
+            "claude-code,codex",
+            "--fixture",
+            "export-format",
+            "--record",
+            "evidence/live-clients"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 2,
+          "duration_s": 0.078,
+          "stdout_tail": "{\n  \"task\": \"T026\",\n  \"journey\": \"J02\",\n  \"pair\": [\n    \"claude-code\",\n    \"codex\"\n  ],\n  \"fixture\": \"/home/hatch/workspace/turnkeep-work/fixtures/live-handoff/export-format.json\",\n  \"clients\": {\n    \"claude-code\": {\n      \"binary\": false,\n      \"turnkeep_installed\": false,\n      \"config_path\": null,\n      \"auth\": null,\n      \"note\": \"claude CLI absent on this machine\"\n    },\n    \"codex\": {\n      \"binary\": true,\n      \"turnkeep_installed\": true,\n      \"config_path\": \"/home/hatch/.codex/config.toml\",\n      \"auth\": true,\n      \"note\": \"auth.json absent — login state unknown, no login attempted\"\n    }\n  },\n  \"status\": \"NOT_RUN\",\n  \"reasons\": [\n    \"claude-code: CLI binary not installed\"\n  ],\n  \"note\": \"Two real host products are required; two SDK test processes are NOT a substitute (backlog invariant). No mock recording was made.\"\n}\n",
+          "stderr_tail": "",
+          "status": "NOT_RUN"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_gate.py",
+            "--profile",
+            "live-clients"
+          ],
+          "status": "DEFERRED_AGGREGATE",
+          "reason": "aggregate command: top-level caller only; not dispatched by run_gate"
+        }
+      ]
+    }
+  ]
+}

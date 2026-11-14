@@ -1,0 +1,28 @@
+{
+  "tool_calls": [
+    {
+      "name": "read_file",
+      "arguments": "{\"Path\": \"/home/hatch/.gemini/antigravity-cli/mcp/turnkeep/recall.json\"}",
+      "output": "1 lines, 305 bytes",
+      "timestamp": null
+    },
+    {
+      "name": "call_mcp_tool",
+      "arguments": "{\"Arguments\": {\"query\": \"\"}, \"ServerName\": \"turnkeep\", \"ToolName\": \"recall\"}",
+      "output": "{\"scope\": \"export-format\", \"records\": [{\"id\": \"27b1a04701194129ac4868fcf11a6629\", \"key\": \"export.checklist.style\", \"kind\": \"decision\", \"state\": \"active\", \"revision\": 1, \"created_at\": \"2026-11-09T18:38:42.977364+00:00\", \"updated_at\": \"2026-11-09T18:38:42.977364+00:00\", \"valid_until\": null, \"cause_event_id\": null, \"scope\": \"export-format\", \"value\": \"one line per check, PASS/FAIL plus first 12 hex chars of sha256\", \"source_refs\": [{\"id\": \"user_statement\", \"type\": \"agent_inference\"}], \"parent_ids\": [], \"supersedes_ids\": [], \"_score\": 0, \"_label\": \"active\", \"_lexical_fallback\": true}, {\"id\": \"35305b66f2c048eebdc9f1c42a4a85bb\", \"key\": \"export.checklist\", \"kind\": \"handoff\", \"state\": \"active\", \"revision\": 1, \"created_at\": \"2026-11-09T18:41:06.624204+00:00\", \"updated_at\": \"2026-11-09T18:41:06.624204+00:00\", \"valid_until\": null, \"cause_event_id\": null, \"scope\": \"export-format\", \"value\": \"README.txt: PASS d8ff92e0fae4\\ndata.csv: PASS 5690d1792840\\nconfig.json: PASS 38a4efe6b473\\n\", \"source_refs\": [{\"id\": \"run:15f79ce0581f4a549d1a2024e41460c2\", \"type\": \"agent_inference\"}], \"parent_ids\": [\"27b1a04701194129ac4868fcf11a6629\"], \"supersedes_ids\": [], \"_score\": 0, \"_label\": \"active\", \"_lexical_fallback\": true}, {\"id\": \"61a727df2efa4aa2bf33f2932679c437\", \"key\": \"export.handoff.2\", \"kind\": \"handoff\", \"state\": \"active\", \"revision\": 1, \"created_at\": \"2026-11-09T18:41:09.281552+00:00\", \"updated_at\": \"2026-11-09T18:41:09.281552+00:00\", \"valid_until\": null, \"cause_event_id\": null, \"scope\": \"export-format\", \"value\": \"{\\\"run_id\\\": \\\"15f79ce0581f4a549d1a2024e41460c2\\\", \\\"next_step\\\": \\\"verify the checklist against the frozen tree\\\", \\\"evidence\\\": [\\\"export.checklist.style\\\", \\\"export.checklist\\\"]}\", \"source_refs\": [{\"id\": \"agent:agy\", \"type\": \"agent_inference\"}], \"parent_ids\": [], \"supersedes_ids\": [], \"_score\": 0, \"_label\": \"active\", \"_lexical_fallback\": true}]}",
+      "timestamp": null
+    }
+  ],
+  "agent_messages": [
+    "There are 3 active records in the scope (`export-format`).\n\nOK\n"
+  ],
+  "max_total_tokens": 24108,
+  "task_duration_ms": 6621,
+  "last_message": "There are 3 active records in the scope (`export-format`).\n\nOK\n",
+  "found": true,
+  "task_completed": true,
+  "stale_rejections": 0,
+  "finish_receipt": false,
+  "conversation_id": "d08bc7ef-2828-4650-89e9-60b34ae3edb4",
+  "error": null
+}

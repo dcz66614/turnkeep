@@ -1,0 +1,35 @@
+# Turnkeep — HANDOFF (R5 complete — final)
+
+Recover from: this file + `state/` + `specs/` alone. No other context needed.
+
+## Where we are
+- R0 VERIFIED 2026-11-08 ~19:00 GMT; R1 VERIFIED ~19:15 GMT; R2 VERIFIED ~19:45 GMT; R3 VERIFIED ~21:15 GMT; R4 complete ~23:00 GMT (T036–T041 VERIFIED, T042 + T043 BLOCKED_EXTERNAL); R5 complete 2026-11-08 ~21:45 GMT (T044–T047 VERIFIED, T048 IMPLEMENTED — coordinator to mark VERIFIED). GPT final review R1 rework complete 2026-11-10 (12 items fixed, full suite 276/276); final review R2 returned FINAL_VERDICT: FAIL 2026-11-10 ~20:47 GMT (2 new P0s + 5 new P1s + P2s), R2 rework complete (pytest 304/304); final review R3 returned FINAL_VERDICT: FAIL (3 new P0s), R3 rework complete 2026-11-11 ~10:17 GMT (pytest 339/339, commit 422984d); final review R4 returned FINAL_VERDICT: FAIL 2026-11-11 ~10:31 GMT (3 new P0s + 3 new P1s + P2s), R4 rework complete (pytest 362/362, 10 items fixed). R5 is the LAST round in this conversation — if it fails, open a new conversation per factory rules; the parent sends R5 via browser right after the rebuild + Drive upload.
+- Completed: T001–T048 except T043 (47 tasks VERIFIED). Blocked, still open: T043 (Windows/macOS NOT_RUN + perf gate FAIL). T026 and T042 are VERIFIED with disclosed limits (see below) — they are no longer NOT_RUN.
+- Grade (T047 independent final review, evidence/FINAL_REVIEW.md, unchanged by the R1 rework): REFERENCE_CORE_READY READY, OFFLINE_RC_READY READY (Linux offline only), INTEGRATED_RC_READY READY (T026, hybrid accepted — see below), VALUE_EVALUATED READY (T042, finding MIXED — see below), public-release conditions NOT MET.
+- T026 — VERIFIED (hybrid substitution accepted by Sam 2026-11-10 ~09:08 GMT): Codex CLI 0.164.0-alpha.9 (bridge, GPT-5.6 Sol) + agy 1.5.3 (gemini-3.8-flash-low); the agy reverse leg is VERIFIED in-DB (smoke PASS, S3+S3c complete, 6 real MCP calls, finish receipt). Disclosed: the Codex forward leg (S1/S2/S3b/S4) was NOT run (M365 empty-answer outage from ~18:31Z); the strict live-clients gate remains NOT_RUN.
+- T042 — VERIFIED (Sam 2026-11-10 ~09:08 GMT): two independent clean live runs, codex-api (GPT-6 Luna low) pilot 43/48, confirmation 354/432 (81.9%); agy pilot 43/48, confirmation 352/432 (81.5%); spend $1.90 for all 480 attempts. Finding MIXED: turnkeep arm 0% stale on both runs, completion below the file arms (codex-api 90.7% vs 97.2%; agy 88.0% vs 99.1%/97.2%) — graded on that basis, no blanket win claim. The release zip ships only a desensitised evidence summary; per-run T042 results are not provable from the zip alone — raw traces live in the source checkout (evidence/live-evals/).
+- Work dir: `~/workspace/turnkeep-work/` (git HEAD HEAD@PACKAGING — stamped at packaging time; authoritative head is `release/DELIVERY_MANIFEST.json` head_sha). Reference kit (read-only): `~/workspace/turnkeep/turnkeep-muse-kit/`.
+- Deliverable: `release/TURNKEEP_RC.zip` (deterministic zip: source + tests + scripts + specs + docs + examples + fixtures + adapters + benchmarks + UI source + release artifacts + desensitised evidence summary + delivery manifest) with `release/DELIVERY_MANIFEST.json` and `release/FINAL_HANDOFF.md`. Verified by `scripts/verify_handoff.py --archive release/TURNKEEP_RC.zip` (exit 0). No public release: no authorisation exists; nothing was uploaded to GitHub/Drive, posted, messaged, logged in to, or paid for.
+
+## What exists
+- Product core on TARGET_SCHEMA v1: storage/scopes/context/events/idempotency/memory/normalization/corrections/lineage/runs/commits/recovery/retrieval/budget/briefs/handoff (stdlib + SQLite only; starter Store kept as parity oracle). Full suite 234/234 pytest at the T047 re-run.
+- CLI (`turnkeep`): J01 journey PASS; SDK (`TurnkeepClient`); MCP server (9 tools, official SDK 2.3.0); transports (scope binding, untrusted-text policy); local HTTP workbench API (loopback only, session token, `turnkeep serve`, 15 paths); doctor (`turnkeep doctor --json`); install.sh + install.ps1.
+- Adapters: Claude Code `.mcp.json` + Codex `config.toml` templates, `scripts/check_adapter.py --mode config` PASS for both; agy reverse leg ran live via MCP (T026, 6 calls, finish receipt); Codex leg used the CLI wrapper and its forward leg was NOT run — strict gate NOT_RUN.
+- UI: Vite 6 + TS workbench (Overview/History/Impact/Editor/Conflicts/Handoff/Recovery), e2e 11/11 on dev and production builds.
+- Data: export/import v1 JSONL + manifest, structured-only Markdown import, expiry, erasure with residual report, online backup/restore/diagnose.
+- Eval: deterministic Gate C smoke (12 scripted attempts) + 25 frozen change-replay scenarios (real core 25/25; false_refusals=2 reported separately).
+- Evidence runner: `scripts/run_gate.py` (exit 0 PASS / 1 FAIL / 2 NOT_RUN); profiles core PASS, protocol PASS, live-clients NOT_RUN, release FAIL (strict: T026/T042 NOT_RUN, T043 perf FAIL — expected, not a product surprise). The strict profile's NOT_RUN refers to the strict gates themselves, not to the T026/T042 tasks, which are VERIFIED on the disclosed basis above.
+- Release: `scripts/build_release.py` + `scripts/verify_release.py` (rebuilt at packaging; manifest commit == HEAD at packaging time; verify exit 0, 13/13 checks), `scripts/package_handoff.py` + `scripts/verify_handoff.py` (T048), `scripts/release_checks.py` (license-and-secrets PASS).
+- State: `state/CONTROL_STATE.json`, `state/CURRENT_STATUS.md`, `state/TASK_LEDGER.jsonl`, `state/BLOCKERS.md`, `state/DECISIONS.md` (D-R5-2 manifest commit lag by design; D-R5-3 --strict-status; D-R5-4 clean-before-delete).
+
+## Hard limits (do not re-litigate; evidence in release/KNOWN_LIMITATIONS.md §1–§17)
+- Perf gate FAIL (frozen record): finish p95 7,760 ms @10k, recall p95 3,183 ms + finish p95 12,288 ms @100k; cold start 159 ms PASS. Coordinator re-measurement (5,116 / 2,875 / 12,631 ms) fails the same 3 thresholds — verdict robust, frozen numbers stay the evidence of record.
+- Receipt = local SQLite commit only; external-action atomicity NOT_SUPPORTED. Retract ≠ erase.
+- Trademark clearance NOT_RUN (turnkeep.app collision); dependency vulnerability scan NOT_RUN; installed-wheel --scenario demos fail (known gap, J01 unaffected).
+- Single trusted OS user; scope is a correctness boundary, not a security boundary.
+
+## Rules that still bind
+- Max 3 workers, independent owned_paths, coordinator alone marks VERIFIED after independent re-run. Max 2 repairs + 1 alternative per failure, then BLOCKERS.md.
+- Budget: additional spend 0. No external publish, no messages, no purchases without Sam's explicit authorisation.
+- NOT_RUN stays NOT_RUN: the strict T026 live-clients gate (Codex forward leg never ran), Windows/macOS (T043), trademark, vuln scan. T026/T042 as tasks are VERIFIED on the disclosed basis above — that does not upgrade the strict gate or the perf gate.
+- No background tasks left running; nothing scheduled. Next session starts from the "Next actions" in release/FINAL_HANDOFF.md §"Next actions" (T026 → T042 → T043 → trademark + vuln scan → public-release decision by Sam only).

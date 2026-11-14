@@ -1,0 +1,44 @@
+{
+  "gate": "run_gate",
+  "selector": "T026",
+  "status": "FAIL",
+  "strict_status": true,
+  "generated": "2026-11-09T01:20:23Z",
+  "python": "3.12.3",
+  "results": [
+    {
+      "task_id": "T026",
+      "status": "NOT_RUN",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/live_client_handoff.py",
+            "--pair",
+            "claude-code,codex",
+            "--fixture",
+            "export-format",
+            "--record",
+            "evidence/live-clients"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 2,
+          "duration_s": 0.209,
+          "stdout_tail": "{\n  \"task\": \"T026\",\n  \"journey\": \"J02\",\n  \"pair\": [\n    \"claude-code\",\n    \"codex\"\n  ],\n  \"fixture\": \"/home/hatch/workspace/turnkeep-work/fixtures/live-handoff/export-format.json\",\n  \"clients\": {\n    \"claude-code\": {\n      \"binary\": false,\n      \"turnkeep_installed\": false,\n      \"config_path\": null,\n      \"auth\": null,\n      \"note\": \"claude CLI absent on this machine\"\n    },\n    \"codex\": {\n      \"binary\": true,\n      \"turnkeep_installed\": false,\n      \"config_path\": null,\n      \"auth\": false,\n      \"note\": \"codex CLI installed; turnkeep not installed in ~/.codex/config.toml; no login attempted\"\n    }\n  },\n  \"status\": \"NOT_RUN\",\n  \"reasons\": [\n    \"claude-code: CLI binary not installed\",\n    \"codex: turnkeep not installed in client config\"\n  ],\n  \"note\": \"Two real host products are required; two SDK test processes are NOT a substitute (backlog invariant). No mock recording was made.\"\n}\n",
+          "stderr_tail": "",
+          "status": "NOT_RUN"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_gate.py",
+            "--profile",
+            "live-clients"
+          ],
+          "status": "DEFERRED_AGGREGATE",
+          "reason": "aggregate command: top-level caller only; not dispatched by run_gate"
+        }
+      ]
+    }
+  ]
+}

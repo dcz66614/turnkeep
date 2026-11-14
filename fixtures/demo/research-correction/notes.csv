@@ -1,0 +1,4 @@
+key,value,kind,source_id,source_type
+study.conclusion,caffeine improves recall,decision,paper:1,imported_text
+study.evidence,n=40 double-blind trial,requirement,paper:1,imported_text
+study.dose,200mg,requirement,paper:1,imported_text

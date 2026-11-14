@@ -1,0 +1,31 @@
+{
+  "states": [
+    "active",
+    "conflicted",
+    "superseded",
+    "retracted",
+    "tainted",
+    "expired",
+    "erased"
+  ],
+  "implemented_in_starter": [
+    "active",
+    "conflicted",
+    "superseded",
+    "retracted",
+    "tainted"
+  ],
+  "product_only": [
+    "expired",
+    "erased"
+  ],
+  "transitions": {
+    "active->conflicted": "remember with different value, no correction relation",
+    "active->superseded": "correct (old) / resolve_conflict (candidates)",
+    "active->tainted": "any parent becomes unavailable (correct/retract/conflict)",
+    "active->retracted": "retract (history kept; NOT erase)",
+    "conflicted->active": "only via resolve_conflict with FULL candidate set; single-candidate resolve rejected (CANDIDATE_SET_CHANGED)",
+    "tainted->active": "NOT by re-read alone; needs new record with explicit replaces_ids / new evidence",
+    "any->erased": "product-only, T038; starter does not implement"
+  }
+}

@@ -1,0 +1,13 @@
+You have a Turnkeep MCP server named "turnkeep" with tools: begin, recall, remember, correct, retract, resolve_conflict, resume, finish, brief. Use ONLY these MCP tools for ALL memory operations — never the turnkeep CLI and never shell commands for memory. Use shell tools only to read/write ordinary files and to compute sha256sum. You MUST do the work with tool calls. Do not just reply in text.
+
+# Handover task, reverse direction — COMPLETION (client A — agy)
+
+An earlier agy session already remembered the decision (key "export.checklist.style"), began a run and wrote export-checklist.md, but was interrupted before finishing. Verify everything from Turnkeep — do not trust this prompt alone.
+
+Steps, in order, all with tool calls:
+1. Recall: turnkeep recall query "export checklist". Also read the brief: turnkeep brief goal "export checklist handover".
+2. Find the open run for task "produce export checklist" and resume it with turnkeep resume; note the CANDIDATE run_id from the resume output.
+3. Verify export-checklist.md against frozen-tree/ by recomputing sha256sum for each file and comparing the 12-hex prefixes.
+4. Finish the CANDIDATE run (from resume — NOT the original run) with key "export.checklist", value = the checklist text, idempotency_key "export-a2-1". Note the receipt.
+5. Remember a handoff record: turnkeep remember key "export.handoff.2", kind "handoff", value = JSON {"run_id": "<candidate run_id>", "next_step": "verify the checklist against the frozen tree", "evidence": ["export.checklist.style", "export.checklist"]}, source_id "agent:agy".
+6. End with a one-line summary including the candidate run_id.

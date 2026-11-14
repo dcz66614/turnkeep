@@ -1,0 +1,1 @@
+Wrote `Python 3.12` to `output/manifest.txt` and verified it.

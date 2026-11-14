@@ -1,0 +1,157 @@
+{
+  "task": "T026",
+  "pair": [
+    "codex",
+    "agy"
+  ],
+  "substitution": "Claude Code substituted by agy (real MCP client) per Sam's 2026-11-09 decision + T026 spec substitution clause; Codex via Copilot bridge (GPT-5.6 Sol).",
+  "clients": {
+    "codex": "codex-cli 0.164.0-alpha.9 via Copilot bridge, model gpt5.6sol",
+    "agy": "agy 1.5.3, model gemini-3.8-flash-low"
+  },
+  "phases": {
+    "smoke-codex": {
+      "client": "codex",
+      "tag": "smoke-codex",
+      "session_id": "01a1c1a6-e3ea-76c1-8e32-ef650a29bf5f",
+      "returncode": 0,
+      "duration_ms": 5916,
+      "tokens_used": 23648,
+      "timed_out": false,
+      "stderr_tail": "cords exist in the scope. Then end your turn with the single word OK on its own line.\n\nwarning: Codex could not find bubblewrap on PATH. Install bubblewrap with your OS package manager. See the sandbox prerequisites: https://developers.openai.com/codex/concepts/sandboxing#prerequisites. Codex will use the bundled bubblewrap in the meantime.\nwarning: Model metadata for `gpt5.6sol` not found. Defaulting to fallback metadata; this can degrade performance and cause issues.\ncodex\n\ntokens used\n23,648\n",
+      "mcp_tool_calls": [],
+      "mcp_call_count": 0,
+      "cli_tool_calls": [],
+      "cli_call_count": 0,
+      "stale_rejections": 0,
+      "last_message": null
+    },
+    "smoke-agy": {
+      "client": "agy",
+      "tag": "smoke-agy",
+      "session_id": "d08bc7ef-2828-4650-89e9-60b34ae3edb4",
+      "returncode": 0,
+      "duration_ms": 12193,
+      "tokens_used": 24108,
+      "timed_out": false,
+      "quota_error": false,
+      "stderr_tail": "",
+      "mcp_tool_calls": [
+        {
+          "name": "call_mcp_tool",
+          "arguments": "{\"Arguments\": {\"query\": \"\"}, \"ServerName\": \"turnkeep\", \"ToolName\": \"recall\"}"
+        }
+      ],
+      "mcp_call_count": 1,
+      "cli_tool_calls": [],
+      "cli_call_count": 0,
+      "stale_rejections": 0,
+      "last_message": "There are 3 active records in the scope (`export-format`).\n\nOK\n"
+    },
+    "S3c": {
+      "client": "agy",
+      "tag": "S3c",
+      "session_id": "3f93d179-c7f1-4ad4-8a5c-83551db798e3",
+      "returncode": 0,
+      "duration_ms": 51250,
+      "tokens_used": 185536,
+      "timed_out": false,
+      "quota_error": false,
+      "stderr_tail": "",
+      "mcp_tool_calls": [
+        {
+          "name": "call_mcp_tool",
+          "arguments": "{\"Arguments\": {\"query\": \"export checklist\"}, \"ServerName\": \"turnkeep\", \"ToolName\": \"recall\"}"
+        },
+        {
+          "name": "call_mcp_tool",
+          "arguments": "{\"Arguments\": {\"goal\": \"export checklist handover\"}, \"ServerName\": \"turnkeep\", \"ToolName\": \"brief\"}"
+        },
+        {
+          "name": "call_mcp_tool",
+          "arguments": "{\"Arguments\": {\"query\": \"\"}, \"ServerName\": \"turnkeep\", \"ToolName\": \"recall\"}"
+        },
+        {
+          "name": "call_mcp_tool",
+          "arguments": "{\"Arguments\": {\"run_id\": \"d6754e77b9de4a428affdc7cb61a346d\"}, \"ServerName\": \"turnkeep\", \"ToolName\": \"resume\"}"
+        },
+        {
+          "name": "call_mcp_tool",
+          "arguments": "{\"Arguments\": {\"idempotency_key\": \"export-a2-1\", \"key\": \"export.checklist\", \"run_id\": \"15f79ce0581f4a549d1a2024e41460c2\", \"value\": \"README.txt: PASS d8ff92e0fae4\\ndata.csv: PASS 5690d1792840\\nconfig.json: PASS 38a4efe6b473\\n\"}, \"ServerName\": \"turnkeep\", \"ToolName\": \"finish\"}"
+        },
+        {
+          "name": "call_mcp_tool",
+          "arguments": "{\"Arguments\": {\"key\": \"export.handoff.2\", \"kind\": \"handoff\", \"source_id\": \"agent:agy\", \"value\": \"{\\\"run_id\\\": \\\"15f79ce0581f4a549d1a2024e41460c2\\\", \\\"next_step\\\": \\\"verify the checklist against the frozen tree\\\", \\\"evidence\\\": [\\\"export.checklist.style\\\", \\\"export.checklist\\\"]}\"}, \"ServerName\": \"turnkeep\", \"ToolName\": \"remember\"}"
+        }
+      ],
+      "mcp_call_count": 6,
+      "cli_tool_calls": [],
+      "cli_call_count": 0,
+      "stale_rejections": 1,
+      "last_message": "Completed handover workflow: resumed interrupted task run, verified [export-checklist.md](file:///home/hatch/workspace/turnkeep-work/evidence/live-clients/run-20261109-01/work/export-checklist.md) SHA-256 prefixes against [frozen-tree/](file:///home/hatch/workspace/turnkeep-work/evidence/live-clients/run-20261109-01/work/frozen-tree/), finished candidate run `15f79ce0581f4a549d1a2024e41460c2`, and recorded handoff `export.handoff.2`.\n"
+    }
+  },
+  "change": null,
+  "db_state": {
+    "records": [
+      {
+        "id": "27b1a04701194129ac4868fcf11a6629",
+        "key": "export.checklist.style",
+        "kind": "decision",
+        "state": "active",
+        "revision": 1,
+        "value_json": "\"one line per check, PASS/FAIL plus first 12 hex chars of sha256\""
+      },
+      {
+        "id": "35305b66f2c048eebdc9f1c42a4a85bb",
+        "key": "export.checklist",
+        "kind": "handoff",
+        "state": "active",
+        "revision": 1,
+        "value_json": "\"README.txt: PASS d8ff92e0fae4\\ndata.csv: PASS 5690d1792840\\nconfig.json: PASS 38a4efe6b473\\n\""
+      },
+      {
+        "id": "61a727df2efa4aa2bf33f2932679c437",
+        "key": "export.handoff.2",
+        "kind": "handoff",
+        "state": "active",
+        "revision": 1,
+        "value_json": "\"{\\\"run_id\\\": \\\"15f79ce0581f4a549d1a2024e41460c2\\\", \\\"next_step\\\": \\\"verify the checklist against the frozen tree\\\", \\\"evidence\\\": [\\\"export.checklist.style\\\", \\\"export.checklist\\\"]}\""
+      }
+    ],
+    "runs": [
+      {
+        "run_id": "d6754e77b9de4a428affdc7cb61a346d",
+        "task": "produce export checklist",
+        "status": "open",
+        "snapshot_epoch": 1
+      },
+      {
+        "run_id": "15f79ce0581f4a549d1a2024e41460c2",
+        "task": "resume-of-d6754e77b9de4a428affdc7cb61a346d",
+        "status": "accepted",
+        "snapshot_epoch": 1
+      }
+    ],
+    "events": [
+      {
+        "scope_epoch": 1,
+        "event_type": "remember",
+        "affected_ids_json": "[\"27b1a04701194129ac4868fcf11a6629\"]"
+      },
+      {
+        "scope_epoch": 2,
+        "event_type": "finish",
+        "affected_ids_json": "[\"35305b66f2c048eebdc9f1c42a4a85bb\"]"
+      },
+      {
+        "scope_epoch": 3,
+        "event_type": "remember",
+        "affected_ids_json": "[\"61a727df2efa4aa2bf33f2932679c437\"]"
+      }
+    ]
+  },
+  "manifest_check": {
+    "exists": false
+  }
+}

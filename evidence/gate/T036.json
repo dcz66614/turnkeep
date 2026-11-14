@@ -1,0 +1,48 @@
+{
+  "gate": "run_gate",
+  "selector": "T036",
+  "status": "PASS",
+  "generated": "2026-11-08T20:08:01Z",
+  "python": "3.12.3",
+  "results": [
+    {
+      "task_id": "T036",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/data/test_roundtrip.py",
+            "tests/data/test_import_trust.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.532,
+          "stdout_tail": ".........                                                                [100%]\n9 passed in 0.10s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/run_journey.py",
+            "--mode",
+            "cli",
+            "--journey",
+            "J05",
+            "--no-model"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 1.11,
+          "stdout_tail": "{\n  \"journey\": \"J05\",\n  \"mode\": \"cli\",\n  \"status\": \"PASS\",\n  \"steps\": [\n    \"export excluded the secret-like record by key only\",\n    \"import wrote 3 records, none quarantined\",\n    \"second import of the same package is a no-op (already_imported)\",\n    \"export -> import -> export is equivalent after normalisation\"\n  ]\n}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    }
+  ]
+}

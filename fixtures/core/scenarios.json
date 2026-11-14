@@ -1,0 +1,14 @@
+{
+  "scenarios": [
+    "concurrent_remember_same_key",
+    "concurrent_correct_one_winner",
+    "cross_scope_recall_and_parent_blocked",
+    "forged_run_finish_blocked",
+    "finish_replay_after_restart",
+    "empty_read_phantom",
+    "coarse_epoch_misblock_recorded",
+    "corrupt_input_rejected",
+    "killed_writer_leaves_no_receipt"
+  ],
+  "note": "Fixed core fixture suite; see tests/integration/ for the runnable checks."
+}

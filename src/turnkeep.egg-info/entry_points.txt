@@ -1,0 +1,2 @@
+[console_scripts]
+turnkeep = turnkeep.__main__:main

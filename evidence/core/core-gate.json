@@ -1,0 +1,20 @@
+{
+  "profile": "core",
+  "status": "PASS",
+  "tasks": [
+    "T007",
+    "T008",
+    "T009",
+    "T010",
+    "T011",
+    "T012",
+    "T013",
+    "T014",
+    "T015",
+    "T016",
+    "T017",
+    "T018"
+  ],
+  "generated": "2026-11-08T19:00:26Z",
+  "note": "Zero silent lost writes, zero stale-result accepts, zero cross-scope default recalls in the fixed scenarios."
+}

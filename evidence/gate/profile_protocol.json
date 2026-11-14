@@ -1,0 +1,110 @@
+{
+  "gate": "run_gate",
+  "selector": "profile:protocol",
+  "status": "PASS",
+  "strict_status": false,
+  "generated": "2026-11-10T09:16:51Z",
+  "python": "3.12.3",
+  "results": [
+    {
+      "task_id": "T021",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/mcp/test_tools.py",
+            "tests/mcp/test_lifecycle.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 13.879,
+          "stdout_tail": "......                                                                   [100%]\n6 passed in 13.33s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "task_id": "T022",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/security/test_transport_binding.py",
+            "tests/security/test_untrusted_text.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.414,
+          "stdout_tail": "..........                                                               [100%]\n10 passed in 0.05s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_gate.py",
+            "--task",
+            "T022"
+          ],
+          "status": "DEFERRED_AGGREGATE",
+          "reason": "aggregate command: top-level caller only; not dispatched by run_gate"
+        }
+      ]
+    },
+    {
+      "task_id": "T023",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/mcp/test_conformance.py",
+            "tests/mcp/test_parallel_clients.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 10.94,
+          "stdout_tail": "......                                                                   [100%]\n6 passed in 10.41s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/mcp_smoke.py",
+            "--server",
+            "python -m turnkeep mcp"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 2.152,
+          "stdout_tail": "{\n  \"server\": \"turnkeep\",\n  \"tools\": [\n    \"begin\",\n    \"recall\",\n    \"remember\",\n    \"correct\",\n    \"retract\",\n    \"resolve_conflict\",\n    \"resume\",\n    \"finish\",\n    \"brief\"\n  ],\n  \"status\": \"PASS\"\n}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_gate.py",
+            "--profile",
+            "protocol"
+          ],
+          "status": "DEFERRED_AGGREGATE",
+          "reason": "aggregate command: top-level caller only; not dispatched by run_gate"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+{"event_count":2,"exported_at":"2026-11-08T20:06:53.963590+00:00","files":{"events.jsonl":"566fd46fa35993861031adf720a13ad8a2fa45f6652e53eef9cc315cc504787d","records.jsonl":"0fd477123883f1fbfd3b216ce9eab03cc05a077bd5f382be9a8916c987e8e06e"},"format":"turnkeep-export","record_count":2,"schema_version":1,"scope_id":"example","tool":"turnkeep 0.1.0"}

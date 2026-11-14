@@ -1,0 +1,47 @@
+{
+  "gate": "run_gate",
+  "selector": "T006",
+  "status": "PASS",
+  "strict_status": true,
+  "generated": "2026-11-09T01:25:39Z",
+  "python": "3.12.3",
+  "results": [
+    {
+      "task_id": "T006",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/check_state.py",
+            "--state",
+            "state/CONTROL_STATE.json",
+            "--backlog",
+            "tasks/backlog.json"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.29,
+          "stdout_tail": "PASS check_state: 45 VERIFIED, 0 active, next: T042: re-test the Copilot backend with a trivial /v1/responses call (must return\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/harness/test_state_recovery.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 2.214,
+          "stdout_tail": ".....                                                                    [100%]\n5 passed in 0.10s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    }
+  ]
+}

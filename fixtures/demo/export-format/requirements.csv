@@ -1,0 +1,4 @@
+key,value,kind,source_id,source_type
+export.format,zip,decision,u:1,user_statement
+export.manifest.name,manifest.json,requirement,u:1,user_statement
+build.python_version,3.11,requirement,u:1,user_statement

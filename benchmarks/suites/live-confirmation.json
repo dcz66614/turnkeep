@@ -1,0 +1,1404 @@
+{
+  "suite": "live-confirmation",
+  "seed": 20261108,
+  "budget": {
+    "max_seconds": 600,
+    "max_steps": 60,
+    "max_tool_calls": 60
+  },
+  "note": "Frozen live confirmation suite (T042). 12 families x 3 variants = 36 tasks; 3 generation seeds (11, 29, 47) per task; 4 live arms (none/markdown/log/turnkeep) = 432 attempts. B3/B4 NOT_RUN (no real installs). Same task shape as the deterministic smoke suite. Changing a task, the scorer or a threshold requires a new suite version.",
+  "tasks": [
+    {
+      "id": "conf-f01-stable",
+      "family": "F01",
+      "variant": "stable",
+      "goal": "Produce the release manifest using the current Python version.",
+      "brief": "You are preparing the release manifest for the Acme web service. The release checklist says the manifest must state the Python version the release was built with. The project brief you were given says the build uses Python 3.11. Write the manifest to output/manifest.txt as exactly one line: 'Python <version>'.",
+      "initial": [
+        {
+          "key": "build.python_version",
+          "kind": "requirement",
+          "value": "3.11"
+        }
+      ],
+      "change": {
+        "key": "build.python_version",
+        "relevant": false,
+        "type": "none"
+      },
+      "change2": null,
+      "expected": {
+        "key": "release.manifest",
+        "value": "Python 3.11"
+      },
+      "must_not_use": [],
+      "minimal_steps": 4,
+      "deliverable": {
+        "file": "output/manifest.txt",
+        "key": "release.manifest"
+      },
+      "context_files": {
+        "pyproject.toml": "[project]\nname = \"acme-web\"\nversion = \"0.3.0\"\n",
+        "release-checklist.md": "# Release checklist\n\n1. Run the test suite.\n2. Write the release manifest to output/manifest.txt.\n3. The manifest states the Python version the release was built with.\n"
+      }
+    },
+    {
+      "id": "conf-f01-changed",
+      "family": "F01",
+      "variant": "changed",
+      "goal": "Produce the release manifest using the current Python version.",
+      "brief": "You are preparing the release manifest for the Acme web service. The release checklist says the manifest must state the Python version the release was built with. The project brief you were given says the build uses Python 3.11. Write the manifest to output/manifest.txt as exactly one line: 'Python <version>'.",
+      "initial": [
+        {
+          "key": "build.python_version",
+          "kind": "requirement",
+          "value": "3.11"
+        }
+      ],
+      "change": {
+        "key": "build.python_version",
+        "relevant": true,
+        "type": "correct",
+        "value": "3.12"
+      },
+      "change2": null,
+      "expected": {
+        "key": "release.manifest",
+        "value": "Python 3.12"
+      },
+      "must_not_use": [
+        "3.11"
+      ],
+      "minimal_steps": 4,
+      "deliverable": {
+        "file": "output/manifest.txt",
+        "key": "release.manifest"
+      },
+      "context_files": {
+        "pyproject.toml": "[project]\nname = \"acme-web\"\nversion = \"0.3.0\"\n",
+        "release-checklist.md": "# Release checklist\n\n1. Run the test suite.\n2. Write the release manifest to output/manifest.txt.\n3. The manifest states the Python version the release was built with.\n"
+      }
+    },
+    {
+      "id": "conf-f01-recovery",
+      "family": "F01",
+      "variant": "recovery",
+      "goal": "Produce the release manifest using the current Python version.",
+      "brief": "You are preparing the release manifest for the Acme web service. The release checklist says the manifest must state the Python version the release was built with. The project brief you were given says the build uses Python 3.11. Write the manifest to output/manifest.txt as exactly one line: 'Python <version>'.",
+      "initial": [
+        {
+          "key": "build.python_version",
+          "kind": "requirement",
+          "value": "3.11"
+        }
+      ],
+      "change": {
+        "key": "build.python_version",
+        "relevant": true,
+        "type": "correct",
+        "value": "3.12"
+      },
+      "change2": {
+        "key": "build.python_version",
+        "relevant": true,
+        "type": "correct",
+        "value": "3.13"
+      },
+      "expected": {
+        "key": "release.manifest",
+        "value": "Python 3.13"
+      },
+      "must_not_use": [
+        "3.11",
+        "3.12"
+      ],
+      "minimal_steps": 4,
+      "deliverable": {
+        "file": "output/manifest.txt",
+        "key": "release.manifest"
+      },
+      "context_files": {
+        "pyproject.toml": "[project]\nname = \"acme-web\"\nversion = \"0.3.0\"\n",
+        "release-checklist.md": "# Release checklist\n\n1. Run the test suite.\n2. Write the release manifest to output/manifest.txt.\n3. The manifest states the Python version the release was built with.\n"
+      }
+    },
+    {
+      "id": "conf-f02-stable",
+      "family": "F02",
+      "variant": "stable",
+      "goal": "Migrate the client to the current user field.",
+      "brief": "You are updating the Acme client to use the current user display field. The integration brief you were given says the field is user.name. Write the field name the client must use to output/field.txt, exactly one line, nothing else.",
+      "initial": [
+        {
+          "key": "api.user_field",
+          "kind": "requirement",
+          "value": "user.name"
+        }
+      ],
+      "change": {
+        "key": "api.user_field",
+        "relevant": false,
+        "type": "none"
+      },
+      "change2": null,
+      "expected": {
+        "key": "api.user_field",
+        "value": "user.name"
+      },
+      "must_not_use": [],
+      "minimal_steps": 4,
+      "deliverable": {
+        "file": "output/field.txt",
+        "key": "api.user_field"
+      },
+      "context_files": {
+        "client-notes.md": "# Client notes\n\nThe client reads the user display field from the API and shows it in the header.\n"
+      }
+    },
+    {
+      "id": "conf-f02-changed",
+      "family": "F02",
+      "variant": "changed",
+      "goal": "Migrate the client to the current user field.",
+      "brief": "You are updating the Acme client to use the current user display field. The integration brief you were given says the field is user.name. Write the field name the client must use to output/field.txt, exactly one line, nothing else.",
+      "initial": [
+        {
+          "key": "api.user_field",
+          "kind": "requirement",
+          "value": "user.name"
+        }
+      ],
+      "change": {
+        "key": "api.user_field",
+        "relevant": true,
+        "type": "correct",
+        "value": "user.display_name"
+      },
+      "change2": null,
+      "expected": {
+        "key": "api.user_field",
+        "value": "user.display_name"
+      },
+      "must_not_use": [
+        "user.name"
+      ],
+      "minimal_steps": 4,
+      "deliverable": {
+        "file": "output/field.txt",
+        "key": "api.user_field"
+      },
+      "context_files": {
+        "client-notes.md": "# Client notes\n\nThe client reads the user display field from the API and shows it in the header.\n"
+      }
+    },
+    {
+      "id": "conf-f02-recovery",
+      "family": "F02",
+      "variant": "recovery",
+      "goal": "Migrate the client to the current user field.",
+      "brief": "You are updating the Acme client to use the current user display field. The integration brief you were given says the field is user.name. Write the field name the client must use to output/field.txt, exactly one line, nothing else.",
+      "initial": [
+        {
+          "key": "api.user_field",
+          "kind": "requirement",
+          "value": "user.name"
+        }
+      ],
+      "change": {
+        "key": "api.user_field",
+        "relevant": true,
+        "type": "correct",
+        "value": "user.display_name"
+      },
+      "change2": {
+        "key": "api.user_field",
+        "relevant": true,
+        "type": "correct",
+        "value": "user.legal_name"
+      },
+      "expected": {
+        "key": "api.user_field",
+        "value": "user.legal_name"
+      },
+      "must_not_use": [
+        "user.name",
+        "user.display_name"
+      ],
+      "minimal_steps": 4,
+      "deliverable": {
+        "file": "output/field.txt",
+        "key": "api.user_field"
+      },
+      "context_files": {
+        "client-notes.md": "# Client notes\n\nThe client reads the user display field from the API and shows it in the header.\n"
+      }
+    },
+    {
+      "id": "conf-f03-stable",
+      "family": "F03",
+      "variant": "stable",
+      "goal": "Record the current build command.",
+      "brief": "You are maintaining the Acme runbook. The runbook must record the build command that currently works. The handover note you were given says the build command is 'npm run build-legacy'. Write the working build command to output/build.txt, exactly one line, nothing else.",
+      "initial": [
+        {
+          "key": "build.command",
+          "kind": "fact",
+          "value": "npm run build-legacy"
+        }
+      ],
+      "change": {
+        "key": "build.command",
+        "relevant": false,
+        "type": "none"
+      },
+      "change2": null,
+      "expected": {
+        "key": "build.command",
+        "value": "npm run build-legacy"
+      },
+      "must_not_use": [],
+      "minimal_steps": 4,
+      "deliverable": {
+        "file": "output/build.txt",
+        "key": "build.command"
+      },
+      "context_files": {
+        "runbook.md": "# Runbook\n\nBuild: see the recorded build command.\nDeploy: after a green build.\n"
+      }
+    },
+    {
+      "id": "conf-f03-changed",
+      "family": "F03",
+      "variant": "changed",
+      "goal": "Record the current build command.",
+      "brief": "You are maintaining the Acme runbook. The runbook must record the build command that currently works. The handover note you were given says the build command is 'npm run build-legacy'. Write the working build command to output/build.txt, exactly one line, nothing else.",
+      "initial": [
+        {
+          "key": "build.command",
+          "kind": "fact",
+          "value": "npm run build-legacy"
+        }
+      ],
+      "change": {
+        "key": "build.command",
+        "relevant": true,
+        "type": "correct",
+        "value": "npm run build"
+      },
+      "change2": null,
+      "expected": {
+        "key": "build.command",
+        "value": "npm run build"
+      },
+      "must_not_use": [
+        "npm run build-legacy"
+      ],
+      "minimal_steps": 4,
+      "deliverable": {
+        "file": "output/build.txt",
+        "key": "build.command"
+      },
+      "context_files": {
+        "runbook.md": "# Runbook\n\nBuild: see the recorded build command.\nDeploy: after a green build.\n"
+      }
+    },
+    {
+      "id": "conf-f03-recovery",
+      "family": "F03",
+      "variant": "recovery",
+      "goal": "Record the current build command.",
+      "brief": "You are maintaining the Acme runbook. The runbook must record the build command that currently works. The handover note you were given says the build command is 'npm run build-legacy'. Write the working build command to output/build.txt, exactly one line, nothing else.",
+      "initial": [
+        {
+          "key": "build.command",
+          "kind": "fact",
+          "value": "npm run build-legacy"
+        }
+      ],
+      "change": {
+        "key": "build.command",
+        "relevant": true,
+        "type": "correct",
+        "value": "npm run build"
+      },
+      "change2": {
+        "key": "build.command",
+        "relevant": true,
+        "type": "correct",
+        "value": "npm run build:prod"
+      },
+      "expected": {
+        "key": "build.command",
+        "value": "npm run build:prod"
+      },
+      "must_not_use": [
+        "npm run build-legacy"
+      ],
+      "minimal_steps": 4,
+      "deliverable": {
+        "file": "output/build.txt",
+        "key": "build.command"
+      },
+      "context_files": {
+        "runbook.md": "# Runbook\n\nBuild: see the recorded build command.\nDeploy: after a green build.\n"
+      }
+    },
+    {
+      "id": "conf-f04-stable",
+      "family": "F04",
+      "variant": "stable",
+      "goal": "Record the API URL the Acme-A service must call.",
+      "brief": "You are configuring the Acme-A service. Two services run in parallel (Acme-A and Acme-B) and they have different API URLs. The brief you were given says Acme-A must call https://api-a.example.com/v1. Write the URL Acme-A must call to output/api-url.txt, exactly one line, nothing else. Do not mix in Acme-B's URL.",
+      "initial": [
+        {
+          "key": "projA.api_url",
+          "kind": "fact",
+          "value": "https://api-a.example.com/v1"
+        },
+        {
+          "key": "projB.api_url",
+          "kind": "fact",
+          "value": "https://api-b.example.com/v1"
+        }
+      ],
+      "change": {
+        "key": "projA.api_url",
+        "relevant": false,
+        "type": "none"
+      },
+      "change2": null,
+      "expected": {
+        "key": "projA.api_url",
+        "value": "https://api-a.example.com/v1"
+      },
+      "must_not_use": [],
+      "minimal_steps": 4,
+      "deliverable": {
+        "file": "output/api-url.txt",
+        "key": "projA.api_url"
+      },
+      "context_files": {
+        "services.md": "# Services\n\nAcme-A and Acme-B run in parallel. Each has its own API URL; never copy one service's URL into the other's config.\n"
+      }
+    },
+    {
+      "id": "conf-f04-changed",
+      "family": "F04",
+      "variant": "changed",
+      "goal": "Record the API URL the Acme-A service must call.",
+      "brief": "You are configuring the Acme-A service. Two services run in parallel (Acme-A and Acme-B) and they have different API URLs. The brief you were given says Acme-A must call https://api-a.example.com/v1. Write the URL Acme-A must call to output/api-url.txt, exactly one line, nothing else. Do not mix in Acme-B's URL.",
+      "initial": [
+        {
+          "key": "projA.api_url",
+          "kind": "fact",
+          "value": "https://api-a.example.com/v1"
+        },
+        {
+          "key": "projB.api_url",
+          "kind": "fact",
+          "value": "https://api-b.example.com/v1"
+        }
+      ],
+      "change": {
+        "key": "projA.api_url",
+        "relevant": true,
+        "type": "correct",
+        "value": "https://api-a.example.com/v2"
+      },
+      "change2": null,
+      "expected": {
+        "key": "projA.api_url",
+        "value": "https://api-a.example.com/v2"
+      },
+      "must_not_use": [
+        "https://api-a.example.com/v1"
+      ],
+      "minimal_steps": 4,
+      "deliverable": {
+        "file": "output/api-url.txt",
+        "key": "projA.api_url"
+      },
+      "context_files": {
+        "services.md": "# Services\n\nAcme-A and Acme-B run in parallel. Each has its own API URL; never copy one service's URL into the other's config.\n"
+      }
+    },
+    {
+      "id": "conf-f04-recovery",
+      "family": "F04",
+      "variant": "recovery",
+      "goal": "Record the API URL the Acme-A service must call.",
+      "brief": "You are configuring the Acme-A service. Two services run in parallel (Acme-A and Acme-B) and they have different API URLs. The brief you were given says Acme-A must call https://api-a.example.com/v1. Write the URL Acme-A must call to output/api-url.txt, exactly one line, nothing else. Do not mix in Acme-B's URL.",
+      "initial": [
+        {
+          "key": "projA.api_url",
+          "kind": "fact",
+          "value": "https://api-a.example.com/v1"
+        },
+        {
+          "key": "projB.api_url",
+          "kind": "fact",
+          "value": "https://api-b.example.com/v1"
+        }
+      ],
+      "change": {
+        "key": "projA.api_url",
+        "relevant": true,
+        "type": "correct",
+        "value": "https://api-a.example.com/v2"
+      },
+      "change2": {
+        "key": "projA.api_url",
+        "relevant": true,
+        "type": "correct",
+        "value": "https://api-a.example.com/v3"
+      },
+      "expected": {
+        "key": "projA.api_url",
+        "value": "https://api-a.example.com/v3"
+      },
+      "must_not_use": [
+        "https://api-a.example.com/v1",
+        "https://api-a.example.com/v2"
+      ],
+      "minimal_steps": 4,
+      "deliverable": {
+        "file": "output/api-url.txt",
+        "key": "projA.api_url"
+      },
+      "context_files": {
+        "services.md": "# Services\n\nAcme-A and Acme-B run in parallel. Each has its own API URL; never copy one service's URL into the other's config.\n"
+      }
+    },
+    {
+      "id": "conf-f05-stable",
+      "family": "F05",
+      "variant": "stable",
+      "goal": "Write the summary citing only live evidence.",
+      "brief": "You are writing the weekly report summary for the Acme web service. The report draft you were given says the deadline is Friday. The summary must state the deadline, or state that it is unknown if the source was retracted. Write the summary to output/summary.txt as exactly one line: 'deadline <value>' or 'deadline unknown — source retracted'.",
+      "initial": [
+        {
+          "key": "report.deadline",
+          "kind": "fact",
+          "value": "Friday"
+        }
+      ],
+      "change": {
+        "key": "report.deadline",
+        "relevant": false,
+        "type": "none"
+      },
+      "change2": null,
+      "expected": {
+        "key": "report.summary",
+        "value": "deadline Friday"
+      },
+      "must_not_use": [],
+      "minimal_steps": 4,
+      "deliverable": {
+        "file": "output/summary.txt",
+        "key": "report.summary"
+      },
+      "context_files": {
+        "report-draft.md": "# Weekly report (draft)\n\nStatus: on track.\n"
+      }
+    },
+    {
+      "id": "conf-f05-changed",
+      "family": "F05",
+      "variant": "changed",
+      "goal": "Write the summary citing only live evidence.",
+      "brief": "You are writing the weekly report summary for the Acme web service. The report draft you were given says the deadline is Friday. The summary must state the deadline, or state that it is unknown if the source was retracted. Write the summary to output/summary.txt as exactly one line: 'deadline <value>' or 'deadline unknown — source retracted'.",
+      "initial": [
+        {
+          "key": "report.deadline",
+          "kind": "fact",
+          "value": "Friday"
+        }
+      ],
+      "change": {
+        "key": "report.deadline",
+        "relevant": true,
+        "type": "retract"
+      },
+      "change2": null,
+      "expected": {
+        "key": "report.summary",
+        "value": "deadline unknown — source retracted"
+      },
+      "must_not_use": [
+        "Friday"
+      ],
+      "minimal_steps": 4,
+      "deliverable": {
+        "file": "output/summary.txt",
+        "key": "report.summary"
+      },
+      "context_files": {
+        "report-draft.md": "# Weekly report (draft)\n\nStatus: on track.\n"
+      }
+    },
+    {
+      "id": "conf-f05-recovery",
+      "family": "F05",
+      "variant": "recovery",
+      "goal": "Write the summary citing only live evidence.",
+      "brief": "You are writing the weekly report summary for the Acme web service. The report draft you were given says the deadline is Friday. The summary must state the deadline, or state that it is unknown if the source was retracted. Write the summary to output/summary.txt as exactly one line: 'deadline <value>' or 'deadline unknown — source retracted'.",
+      "initial": [
+        {
+          "key": "report.deadline",
+          "kind": "fact",
+          "value": "Friday"
+        }
+      ],
+      "change": {
+        "key": "report.deadline",
+        "relevant": true,
+        "type": "retract"
+      },
+      "change2": {
+        "key": "report.deadline",
+        "relevant": true,
+        "type": "correct",
+        "value": "Monday"
+      },
+      "expected": {
+        "key": "report.summary",
+        "value": "deadline Monday"
+      },
+      "must_not_use": [
+        "Friday"
+      ],
+      "minimal_steps": 4,
+      "deliverable": {
+        "file": "output/summary.txt",
+        "key": "report.summary"
+      },
+      "context_files": {
+        "report-draft.md": "# Weekly report (draft)\n\nStatus: on track.\n"
+      }
+    },
+    {
+      "id": "conf-f06-stable",
+      "family": "F06",
+      "variant": "stable",
+      "goal": "Record the delivery format the client asked for.",
+      "brief": "You are preparing the Acme delivery. The client brief you were given says the delivery format is PDF. The content is ready; only the format matters. Write the delivery format to output/format.txt, exactly one line, nothing else.",
+      "initial": [
+        {
+          "key": "delivery.format",
+          "kind": "requirement",
+          "value": "PDF"
+        }
+      ],
+      "change": {
+        "key": "delivery.format",
+        "relevant": false,
+        "type": "none"
+      },
+      "change2": null,
+      "expected": {
+        "key": "delivery.format",
+        "value": "PDF"
+      },
+      "must_not_use": [],
+      "minimal_steps": 4,
+      "deliverable": {
+        "file": "output/format.txt",
+        "key": "delivery.format"
+      },
+      "context_files": {
+        "delivery-notes.md": "# Delivery notes\n\nThe deliverable content is final. The format is whatever the client currently asks for.\n"
+      }
+    },
+    {
+      "id": "conf-f06-changed",
+      "family": "F06",
+      "variant": "changed",
+      "goal": "Record the delivery format the client asked for.",
+      "brief": "You are preparing the Acme delivery. The client brief you were given says the delivery format is PDF. The content is ready; only the format matters. Write the delivery format to output/format.txt, exactly one line, nothing else.",
+      "initial": [
+        {
+          "key": "delivery.format",
+          "kind": "requirement",
+          "value": "PDF"
+        }
+      ],
+      "change": {
+        "key": "delivery.format",
+        "relevant": true,
+        "type": "correct",
+        "value": "Markdown"
+      },
+      "change2": null,
+      "expected": {
+        "key": "delivery.format",
+        "value": "Markdown"
+      },
+      "must_not_use": [
+        "PDF"
+      ],
+      "minimal_steps": 4,
+      "deliverable": {
+        "file": "output/format.txt",
+        "key": "delivery.format"
+      },
+      "context_files": {
+        "delivery-notes.md": "# Delivery notes\n\nThe deliverable content is final. The format is whatever the client currently asks for.\n"
+      }
+    },
+    {
+      "id": "conf-f06-recovery",
+      "family": "F06",
+      "variant": "recovery",
+      "goal": "Record the delivery format the client asked for.",
+      "brief": "You are preparing the Acme delivery. The client brief you were given says the delivery format is PDF. The content is ready; only the format matters. Write the delivery format to output/format.txt, exactly one line, nothing else.",
+      "initial": [
+        {
+          "key": "delivery.format",
+          "kind": "requirement",
+          "value": "PDF"
+        }
+      ],
+      "change": {
+        "key": "delivery.format",
+        "relevant": true,
+        "type": "correct",
+        "value": "Markdown"
+      },
+      "change2": {
+        "key": "delivery.format",
+        "relevant": true,
+        "type": "correct",
+        "value": "HTML"
+      },
+      "expected": {
+        "key": "delivery.format",
+        "value": "HTML"
+      },
+      "must_not_use": [
+        "PDF",
+        "Markdown"
+      ],
+      "minimal_steps": 4,
+      "deliverable": {
+        "file": "output/format.txt",
+        "key": "delivery.format"
+      },
+      "context_files": {
+        "delivery-notes.md": "# Delivery notes\n\nThe deliverable content is final. The format is whatever the client currently asks for.\n"
+      }
+    },
+    {
+      "id": "conf-f07-stable",
+      "family": "F07",
+      "variant": "stable",
+      "goal": "Resume the interrupted release task and produce the manifest.",
+      "brief": "A previous session started the Acme release task and stopped after recording the facts. Resume it. The brief you were given says the release targets Python 3.11. Produce output/manifest.txt as exactly one line 'Python <version>' using the current recorded facts. Do not re-ask for facts that are already recorded.",
+      "initial": [
+        {
+          "key": "build.python_version",
+          "kind": "requirement",
+          "value": "3.11"
+        }
+      ],
+      "change": {
+        "key": "build.python_version",
+        "relevant": false,
+        "type": "none"
+      },
+      "change2": null,
+      "expected": {
+        "key": "release.manifest",
+        "value": "Python 3.11"
+      },
+      "must_not_use": [],
+      "minimal_steps": 4,
+      "deliverable": {
+        "file": "output/manifest.txt",
+        "key": "release.manifest"
+      },
+      "context_files": {
+        "handoff-note.md": "# Handoff note (previous session)\n\nFacts were recorded in the project memory. Resume from the memory; do not re-ask.\n",
+        "pyproject.toml": "[project]\nname = \"acme-web\"\nversion = \"0.3.0\"\n"
+      }
+    },
+    {
+      "id": "conf-f07-changed",
+      "family": "F07",
+      "variant": "changed",
+      "goal": "Resume the interrupted release task and produce the manifest.",
+      "brief": "A previous session started the Acme release task and stopped after recording the facts. Resume it. The brief you were given says the release targets Python 3.11. Produce output/manifest.txt as exactly one line 'Python <version>' using the current recorded facts. Do not re-ask for facts that are already recorded.",
+      "initial": [
+        {
+          "key": "build.python_version",
+          "kind": "requirement",
+          "value": "3.11"
+        }
+      ],
+      "change": {
+        "key": "build.python_version",
+        "relevant": true,
+        "type": "correct",
+        "value": "3.12"
+      },
+      "change2": null,
+      "expected": {
+        "key": "release.manifest",
+        "value": "Python 3.12"
+      },
+      "must_not_use": [
+        "3.11"
+      ],
+      "minimal_steps": 4,
+      "deliverable": {
+        "file": "output/manifest.txt",
+        "key": "release.manifest"
+      },
+      "context_files": {
+        "handoff-note.md": "# Handoff note (previous session)\n\nFacts were recorded in the project memory. Resume from the memory; do not re-ask.\n",
+        "pyproject.toml": "[project]\nname = \"acme-web\"\nversion = \"0.3.0\"\n"
+      }
+    },
+    {
+      "id": "conf-f07-recovery",
+      "family": "F07",
+      "variant": "recovery",
+      "goal": "Resume the interrupted release task and produce the manifest.",
+      "brief": "A previous session started the Acme release task and stopped after recording the facts. Resume it. The brief you were given says the release targets Python 3.11. Produce output/manifest.txt as exactly one line 'Python <version>' using the current recorded facts. Do not re-ask for facts that are already recorded.",
+      "initial": [
+        {
+          "key": "build.python_version",
+          "kind": "requirement",
+          "value": "3.11"
+        }
+      ],
+      "change": {
+        "key": "build.python_version",
+        "relevant": true,
+        "type": "correct",
+        "value": "3.12"
+      },
+      "change2": {
+        "key": "build.python_version",
+        "relevant": true,
+        "type": "correct",
+        "value": "3.13"
+      },
+      "expected": {
+        "key": "release.manifest",
+        "value": "Python 3.13"
+      },
+      "must_not_use": [
+        "3.11",
+        "3.12"
+      ],
+      "minimal_steps": 4,
+      "deliverable": {
+        "file": "output/manifest.txt",
+        "key": "release.manifest"
+      },
+      "context_files": {
+        "handoff-note.md": "# Handoff note (previous session)\n\nFacts were recorded in the project memory. Resume from the memory; do not re-ask.\n",
+        "pyproject.toml": "[project]\nname = \"acme-web\"\nversion = \"0.3.0\"\n"
+      }
+    },
+    {
+      "id": "conf-f08-stable",
+      "family": "F08",
+      "variant": "stable",
+      "goal": "Report the revenue from the authoritative source.",
+      "brief": "You are writing the Acme revenue line. Two sources disagree: sales reports $1.5M, finance reports $1.2M. The finance figure is authoritative. The brief you were given quotes the sales figure, $1.5M. Write the revenue to output/revenue.txt, exactly one line, nothing else.",
+      "initial": [
+        {
+          "key": "report.revenue",
+          "kind": "fact",
+          "value": "$1.5M"
+        },
+        {
+          "key": "report.revenue_authority",
+          "kind": "fact",
+          "value": "finance"
+        }
+      ],
+      "change": {
+        "key": "report.revenue",
+        "relevant": false,
+        "type": "none"
+      },
+      "change2": null,
+      "expected": {
+        "key": "report.revenue",
+        "value": "$1.5M"
+      },
+      "must_not_use": [],
+      "minimal_steps": 4,
+      "deliverable": {
+        "file": "output/revenue.txt",
+        "key": "report.revenue"
+      },
+      "context_files": {
+        "sources.md": "# Revenue sources\n\nSales and finance report different figures. Finance is authoritative for the published revenue line.\n"
+      }
+    },
+    {
+      "id": "conf-f08-changed",
+      "family": "F08",
+      "variant": "changed",
+      "goal": "Report the revenue from the authoritative source.",
+      "brief": "You are writing the Acme revenue line. Two sources disagree: sales reports $1.5M, finance reports $1.2M. The finance figure is authoritative. The brief you were given quotes the sales figure, $1.5M. Write the revenue to output/revenue.txt, exactly one line, nothing else.",
+      "initial": [
+        {
+          "key": "report.revenue",
+          "kind": "fact",
+          "value": "$1.5M"
+        },
+        {
+          "key": "report.revenue_authority",
+          "kind": "fact",
+          "value": "finance"
+        }
+      ],
+      "change": {
+        "key": "report.revenue",
+        "relevant": true,
+        "type": "correct",
+        "value": "$1.2M"
+      },
+      "change2": null,
+      "expected": {
+        "key": "report.revenue",
+        "value": "$1.2M"
+      },
+      "must_not_use": [
+        "$1.5M"
+      ],
+      "minimal_steps": 4,
+      "deliverable": {
+        "file": "output/revenue.txt",
+        "key": "report.revenue"
+      },
+      "context_files": {
+        "sources.md": "# Revenue sources\n\nSales and finance report different figures. Finance is authoritative for the published revenue line.\n"
+      }
+    },
+    {
+      "id": "conf-f08-recovery",
+      "family": "F08",
+      "variant": "recovery",
+      "goal": "Report the revenue from the authoritative source.",
+      "brief": "You are writing the Acme revenue line. Two sources disagree: sales reports $1.5M, finance reports $1.2M. The finance figure is authoritative. The brief you were given quotes the sales figure, $1.5M. Write the revenue to output/revenue.txt, exactly one line, nothing else.",
+      "initial": [
+        {
+          "key": "report.revenue",
+          "kind": "fact",
+          "value": "$1.5M"
+        },
+        {
+          "key": "report.revenue_authority",
+          "kind": "fact",
+          "value": "finance"
+        }
+      ],
+      "change": {
+        "key": "report.revenue",
+        "relevant": true,
+        "type": "correct",
+        "value": "$1.2M"
+      },
+      "change2": {
+        "key": "report.revenue",
+        "relevant": true,
+        "type": "correct",
+        "value": "$1.3M"
+      },
+      "expected": {
+        "key": "report.revenue",
+        "value": "$1.3M"
+      },
+      "must_not_use": [
+        "$1.5M",
+        "$1.2M"
+      ],
+      "minimal_steps": 4,
+      "deliverable": {
+        "file": "output/revenue.txt",
+        "key": "report.revenue"
+      },
+      "context_files": {
+        "sources.md": "# Revenue sources\n\nSales and finance report different figures. Finance is authoritative for the published revenue line.\n"
+      }
+    },
+    {
+      "id": "conf-f09-stable",
+      "family": "F09",
+      "variant": "stable",
+      "goal": "Record the deploy region the user asked for.",
+      "brief": "You are recording the deploy region for Acme. The user said the region is eu-west-2. An earlier agent draft inferred us-east-1, but that was only a guess, never confirmed by the user. Write the deploy region to output/region.txt, exactly one line: the region the USER asked for, never an agent guess.",
+      "initial": [
+        {
+          "key": "deploy.region",
+          "kind": "requirement",
+          "value": "eu-west-2"
+        },
+        {
+          "key": "deploy.region_guess",
+          "kind": "inference",
+          "value": "us-east-1"
+        }
+      ],
+      "change": {
+        "key": "deploy.region_guess",
+        "relevant": false,
+        "type": "none"
+      },
+      "change2": null,
+      "expected": {
+        "key": "deploy.region",
+        "value": "eu-west-2"
+      },
+      "must_not_use": [
+        "us-east-1"
+      ],
+      "minimal_steps": 4,
+      "deliverable": {
+        "file": "output/region.txt",
+        "key": "deploy.region"
+      },
+      "context_files": {
+        "deploy-notes.md": "# Deploy notes\n\nRegion is decided by the user. An agent guess is never authoritative.\n"
+      }
+    },
+    {
+      "id": "conf-f09-changed",
+      "family": "F09",
+      "variant": "changed",
+      "goal": "Record the deploy region the user asked for.",
+      "brief": "You are recording the deploy region for Acme. The user said the region is eu-west-2. An earlier agent draft inferred us-east-1, but that was only a guess, never confirmed by the user. Write the deploy region to output/region.txt, exactly one line: the region the USER asked for, never an agent guess.",
+      "initial": [
+        {
+          "key": "deploy.region",
+          "kind": "requirement",
+          "value": "eu-west-2"
+        },
+        {
+          "key": "deploy.region_guess",
+          "kind": "inference",
+          "value": "us-east-1"
+        }
+      ],
+      "change": {
+        "key": "deploy.region_guess",
+        "relevant": true,
+        "type": "retract"
+      },
+      "change2": null,
+      "expected": {
+        "key": "deploy.region",
+        "value": "eu-west-2"
+      },
+      "must_not_use": [
+        "us-east-1"
+      ],
+      "minimal_steps": 4,
+      "deliverable": {
+        "file": "output/region.txt",
+        "key": "deploy.region"
+      },
+      "context_files": {
+        "deploy-notes.md": "# Deploy notes\n\nRegion is decided by the user. An agent guess is never authoritative.\n"
+      }
+    },
+    {
+      "id": "conf-f09-recovery",
+      "family": "F09",
+      "variant": "recovery",
+      "goal": "Record the deploy region the user asked for.",
+      "brief": "You are recording the deploy region for Acme. The user said the region is eu-west-2. An earlier agent draft inferred us-east-1, but that was only a guess, never confirmed by the user. Write the deploy region to output/region.txt, exactly one line: the region the USER asked for, never an agent guess.",
+      "initial": [
+        {
+          "key": "deploy.region",
+          "kind": "requirement",
+          "value": "eu-west-2"
+        },
+        {
+          "key": "deploy.region_guess",
+          "kind": "inference",
+          "value": "us-east-1"
+        }
+      ],
+      "change": {
+        "key": "deploy.region_guess",
+        "relevant": true,
+        "type": "retract"
+      },
+      "change2": {
+        "key": "deploy.region",
+        "relevant": true,
+        "type": "correct",
+        "value": "eu-central-1"
+      },
+      "expected": {
+        "key": "deploy.region",
+        "value": "eu-central-1"
+      },
+      "must_not_use": [
+        "us-east-1",
+        "eu-west-2"
+      ],
+      "minimal_steps": 4,
+      "deliverable": {
+        "file": "output/region.txt",
+        "key": "deploy.region"
+      },
+      "context_files": {
+        "deploy-notes.md": "# Deploy notes\n\nRegion is decided by the user. An agent guess is never authoritative.\n"
+      }
+    },
+    {
+      "id": "conf-f10-stable",
+      "family": "F10",
+      "variant": "stable",
+      "goal": "Produce the release manifest using the current Python version.",
+      "brief": "You are preparing the release manifest for the Acme web service. The release checklist says the manifest must state the Python version the release was built with. The project brief you were given says the build uses Python 3.12. Write the manifest to output/manifest.txt as exactly one line: 'Python <version>'.",
+      "initial": [
+        {
+          "key": "build.python_version",
+          "kind": "requirement",
+          "value": "3.12"
+        }
+      ],
+      "change": {
+        "key": "unrelated.note",
+        "relevant": false,
+        "type": "none"
+      },
+      "change2": null,
+      "expected": {
+        "key": "release.manifest",
+        "value": "Python 3.12"
+      },
+      "must_not_use": [],
+      "minimal_steps": 4,
+      "deliverable": {
+        "file": "output/manifest.txt",
+        "key": "release.manifest"
+      },
+      "context_files": {
+        "pyproject.toml": "[project]\nname = \"acme-web\"\nversion = \"0.3.0\"\n",
+        "release-checklist.md": "# Release checklist\n\n1. Run the test suite.\n2. Write the release manifest to output/manifest.txt.\n3. The manifest states the Python version the release was built with.\n"
+      }
+    },
+    {
+      "id": "conf-f10-changed",
+      "family": "F10",
+      "variant": "changed",
+      "goal": "Produce the release manifest using the current Python version.",
+      "brief": "You are preparing the release manifest for the Acme web service. The release checklist says the manifest must state the Python version the release was built with. The project brief you were given says the build uses Python 3.12. Write the manifest to output/manifest.txt as exactly one line: 'Python <version>'.",
+      "initial": [
+        {
+          "key": "build.python_version",
+          "kind": "requirement",
+          "value": "3.12"
+        }
+      ],
+      "change": {
+        "key": "unrelated.note",
+        "relevant": false,
+        "type": "correct",
+        "value": "hello"
+      },
+      "change2": null,
+      "expected": {
+        "key": "release.manifest",
+        "value": "Python 3.12"
+      },
+      "must_not_use": [],
+      "minimal_steps": 4,
+      "deliverable": {
+        "file": "output/manifest.txt",
+        "key": "release.manifest"
+      },
+      "context_files": {
+        "pyproject.toml": "[project]\nname = \"acme-web\"\nversion = \"0.3.0\"\n",
+        "release-checklist.md": "# Release checklist\n\n1. Run the test suite.\n2. Write the release manifest to output/manifest.txt.\n3. The manifest states the Python version the release was built with.\n"
+      }
+    },
+    {
+      "id": "conf-f10-recovery",
+      "family": "F10",
+      "variant": "recovery",
+      "goal": "Produce the release manifest using the current Python version.",
+      "brief": "You are preparing the release manifest for the Acme web service. The release checklist says the manifest must state the Python version the release was built with. The project brief you were given says the build uses Python 3.12. Write the manifest to output/manifest.txt as exactly one line: 'Python <version>'.",
+      "initial": [
+        {
+          "key": "build.python_version",
+          "kind": "requirement",
+          "value": "3.12"
+        }
+      ],
+      "change": {
+        "key": "unrelated.note",
+        "relevant": false,
+        "type": "correct",
+        "value": "hello"
+      },
+      "change2": {
+        "key": "unrelated.note2",
+        "relevant": false,
+        "type": "correct",
+        "value": "world"
+      },
+      "expected": {
+        "key": "release.manifest",
+        "value": "Python 3.12"
+      },
+      "must_not_use": [],
+      "minimal_steps": 4,
+      "deliverable": {
+        "file": "output/manifest.txt",
+        "key": "release.manifest"
+      },
+      "context_files": {
+        "pyproject.toml": "[project]\nname = \"acme-web\"\nversion = \"0.3.0\"\n",
+        "release-checklist.md": "# Release checklist\n\n1. Run the test suite.\n2. Write the release manifest to output/manifest.txt.\n3. The manifest states the Python version the release was built with.\n"
+      }
+    },
+    {
+      "id": "conf-f11-stable",
+      "family": "F11",
+      "variant": "stable",
+      "goal": "Write the quote total in the current currency.",
+      "brief": "You are writing the Acme quote. The quote is $100 in the pricing currency. The pricing sheet you were given says the currency is USD, so the quote total is $100 USD. Write the quote total to output/quote.txt, exactly one line: '$100 <currency>'. Recompute it from the current currency; do not copy the old total.",
+      "initial": [
+        {
+          "key": "pricing.currency",
+          "kind": "fact",
+          "value": "USD"
+        },
+        {
+          "key": "quote.total",
+          "kind": "fact",
+          "value": "$100 USD"
+        }
+      ],
+      "change": {
+        "key": "pricing.currency",
+        "relevant": false,
+        "type": "none"
+      },
+      "change2": null,
+      "expected": {
+        "key": "quote.total",
+        "value": "$100 USD"
+      },
+      "must_not_use": [],
+      "minimal_steps": 4,
+      "deliverable": {
+        "file": "output/quote.txt",
+        "key": "quote.total"
+      },
+      "context_files": {
+        "pricing.md": "# Pricing\n\nQuotes are $100 in the current pricing currency. The total must be recomputed when the currency changes.\n"
+      }
+    },
+    {
+      "id": "conf-f11-changed",
+      "family": "F11",
+      "variant": "changed",
+      "goal": "Write the quote total in the current currency.",
+      "brief": "You are writing the Acme quote. The quote is $100 in the pricing currency. The pricing sheet you were given says the currency is USD, so the quote total is $100 USD. Write the quote total to output/quote.txt, exactly one line: '$100 <currency>'. Recompute it from the current currency; do not copy the old total.",
+      "initial": [
+        {
+          "key": "pricing.currency",
+          "kind": "fact",
+          "value": "USD"
+        },
+        {
+          "key": "quote.total",
+          "kind": "fact",
+          "value": "$100 USD"
+        }
+      ],
+      "change": {
+        "key": "pricing.currency",
+        "relevant": true,
+        "type": "correct",
+        "value": "EUR"
+      },
+      "change2": null,
+      "expected": {
+        "key": "quote.total",
+        "value": "$100 EUR"
+      },
+      "must_not_use": [
+        "$100 USD"
+      ],
+      "minimal_steps": 4,
+      "deliverable": {
+        "file": "output/quote.txt",
+        "key": "quote.total"
+      },
+      "context_files": {
+        "pricing.md": "# Pricing\n\nQuotes are $100 in the current pricing currency. The total must be recomputed when the currency changes.\n"
+      }
+    },
+    {
+      "id": "conf-f11-recovery",
+      "family": "F11",
+      "variant": "recovery",
+      "goal": "Write the quote total in the current currency.",
+      "brief": "You are writing the Acme quote. The quote is $100 in the pricing currency. The pricing sheet you were given says the currency is USD, so the quote total is $100 USD. Write the quote total to output/quote.txt, exactly one line: '$100 <currency>'. Recompute it from the current currency; do not copy the old total.",
+      "initial": [
+        {
+          "key": "pricing.currency",
+          "kind": "fact",
+          "value": "USD"
+        },
+        {
+          "key": "quote.total",
+          "kind": "fact",
+          "value": "$100 USD"
+        }
+      ],
+      "change": {
+        "key": "pricing.currency",
+        "relevant": true,
+        "type": "correct",
+        "value": "EUR"
+      },
+      "change2": {
+        "key": "pricing.currency",
+        "relevant": true,
+        "type": "correct",
+        "value": "GBP"
+      },
+      "expected": {
+        "key": "quote.total",
+        "value": "$100 GBP"
+      },
+      "must_not_use": [
+        "$100 USD",
+        "$100 EUR"
+      ],
+      "minimal_steps": 4,
+      "deliverable": {
+        "file": "output/quote.txt",
+        "key": "quote.total"
+      },
+      "context_files": {
+        "pricing.md": "# Pricing\n\nQuotes are $100 in the current pricing currency. The total must be recomputed when the currency changes.\n"
+      }
+    },
+    {
+      "id": "conf-f12-stable",
+      "family": "F12",
+      "variant": "stable",
+      "goal": "Write the deploy plan with the current migration step.",
+      "brief": "You are writing the Acme deploy plan. The plan is: run the database migration, then deploy. The runbook you were given names the migration step migrate-db-v2. Write the plan to output/plan.txt, exactly one line: 'run <migration> then deploy'.",
+      "initial": [
+        {
+          "key": "deploy.plan",
+          "kind": "fact",
+          "value": "run migrate-db-v2 then deploy"
+        }
+      ],
+      "change": {
+        "key": "deploy.plan",
+        "relevant": false,
+        "type": "none"
+      },
+      "change2": null,
+      "expected": {
+        "key": "deploy.plan",
+        "value": "run migrate-db-v2 then deploy"
+      },
+      "must_not_use": [],
+      "minimal_steps": 4,
+      "deliverable": {
+        "file": "output/plan.txt",
+        "key": "deploy.plan"
+      },
+      "context_files": {
+        "runbook.md": "# Runbook\n\nDeploy plan: run the current database migration step, then deploy. The migration step name changes over time; always use the current one.\n"
+      }
+    },
+    {
+      "id": "conf-f12-changed",
+      "family": "F12",
+      "variant": "changed",
+      "goal": "Write the deploy plan with the current migration step.",
+      "brief": "You are writing the Acme deploy plan. The plan is: run the database migration, then deploy. The runbook you were given names the migration step migrate-db-v2. Write the plan to output/plan.txt, exactly one line: 'run <migration> then deploy'.",
+      "initial": [
+        {
+          "key": "deploy.plan",
+          "kind": "fact",
+          "value": "run migrate-db-v2 then deploy"
+        }
+      ],
+      "change": {
+        "key": "deploy.plan",
+        "relevant": true,
+        "type": "correct",
+        "value": "run migrate-db-v3 then deploy"
+      },
+      "change2": null,
+      "expected": {
+        "key": "deploy.plan",
+        "value": "run migrate-db-v3 then deploy"
+      },
+      "must_not_use": [
+        "migrate-db-v2"
+      ],
+      "minimal_steps": 4,
+      "deliverable": {
+        "file": "output/plan.txt",
+        "key": "deploy.plan"
+      },
+      "context_files": {
+        "runbook.md": "# Runbook\n\nDeploy plan: run the current database migration step, then deploy. The migration step name changes over time; always use the current one.\n"
+      }
+    },
+    {
+      "id": "conf-f12-recovery",
+      "family": "F12",
+      "variant": "recovery",
+      "goal": "Write the deploy plan with the current migration step.",
+      "brief": "You are writing the Acme deploy plan. The plan is: run the database migration, then deploy. The runbook you were given names the migration step migrate-db-v2. Write the plan to output/plan.txt, exactly one line: 'run <migration> then deploy'.",
+      "initial": [
+        {
+          "key": "deploy.plan",
+          "kind": "fact",
+          "value": "run migrate-db-v2 then deploy"
+        }
+      ],
+      "change": {
+        "key": "deploy.plan",
+        "relevant": true,
+        "type": "correct",
+        "value": "run migrate-db-v3 then deploy"
+      },
+      "change2": {
+        "key": "deploy.plan",
+        "relevant": true,
+        "type": "correct",
+        "value": "run migrate-db-v4 then deploy"
+      },
+      "expected": {
+        "key": "deploy.plan",
+        "value": "run migrate-db-v4 then deploy"
+      },
+      "must_not_use": [
+        "migrate-db-v2",
+        "migrate-db-v3"
+      ],
+      "minimal_steps": 4,
+      "deliverable": {
+        "file": "output/plan.txt",
+        "key": "deploy.plan"
+      },
+      "context_files": {
+        "runbook.md": "# Runbook\n\nDeploy plan: run the current database migration step, then deploy. The migration step name changes over time; always use the current one.\n"
+      }
+    }
+  ]
+}

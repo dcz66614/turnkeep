@@ -1,0 +1,1647 @@
+{
+  "gate": "run_gate",
+  "selector": "profile:release",
+  "status": "FAIL",
+  "strict_status": true,
+  "generated": "2026-11-08T21:31:19Z",
+  "python": "3.12.3",
+  "results": [
+    {
+      "task_id": "T001",
+      "status": "NOT_RUN",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-v"
+          ],
+          "status": "NOT_RUN",
+          "reason": "cwd missing: /home/hatch/workspace/turnkeep-work/INPUT_KIT/starter"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "turnkeep",
+            "demo"
+          ],
+          "status": "NOT_RUN",
+          "reason": "cwd missing: /home/hatch/workspace/turnkeep-work/INPUT_KIT/starter"
+        }
+      ]
+    },
+    {
+      "task_id": "T002",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/check_discovery.py",
+            "--ledger",
+            "docs/COMPETITORS.md"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.048,
+          "stdout_tail": "PASS check_discovery: ledger+name-check+scorecard consistent, GO_WITH_BOUNDS\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "json.tool",
+            "docs/discovery-scorecard.json"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.049,
+          "stdout_tail": "{\n    \"task\": \"T002\",\n    \"date\": \"2026-11-08\",\n    \"decision\": \"GO_WITH_BOUNDS\",\n    \"kit_sources\": 98,\n    \"kit_full_text_papers\": 5,\n    \"kit_readmes_full\": 21,\n    \"supplementary_check\": {\n        \"date\": \"2026-11-08\",\n        \"method\": \"web search, search-result level only\",\n        \"new_neighbours\": [\n            \"Turnbook (PyPI turnbook 0.9.46, LongMemEval 88.8% self-reported, NOT reproduced)\",\n            \"Truenex Memory (PyPI truenex-memory 0.2.1, public alpha)\",\n            \"project-memory (GitHub haraldalder-vibemogger, Cowork-verified per README)\",\n            \"localrivet/projectmemory (Go MCP, 2 tools)\"\n        ]\n    },\n    \"name_check\": {\n        \"pypi\": \"NOT_REGISTERED (JSON API 404, 2026-11-08)\",\n        \"npm\": \"NOT_REGISTERED (registry 404)\",\n        \"github_user\": \"NOT_FOUND (404)\",\n        \"collision\": \"turnkeep.app \\u2014 live short-term-rental turnover product, different domain\",\n        \"trademark_clearance\": \"NOT_RUN\"\n    },\n    \"capability_evidence_table\": [\n        {\n            \"claim\": \"core semantics (conflict/CAS/taint/snapshot/finish/idempotency)\",\n            \"status\": \"code-verified + run on this VM\",\n            \"evidence\": \"evidence/baseline/starter-tests.txt (25/25)\"\n        },\n        {\n            \"claim\": \"MCP / HTTP / workbench\",\n            \"status\": \"NOT_IMPLEMENTED_IN_STARTER\",\n            \"evidence\": \"kit evidence/IMPLEMENTATION_STATUS.md\"\n        },\n        {\n            \"claim\": \"Turnbook LongMemEval 88.8%\",\n            \"status\": \"unknown (vendor self-report, not reproduced)\",\n            \"evidence\": \"search result 2026-11-08\"\n        },\n        {\n            \"claim\": \"cross-tool sharing is first\",\n            \"status\": \"REFUTED \\u2014 Turnbook/Truenex/project-memory already do it\",\n            \"evidence\": \"docs/COMPETITORS.md\"\n        },\n        {\n            \"claim\": \"GitHub stars / retention / acquisition\",\n            \"status\": \"NOT_ESTABLISHED\",\n            \"evidence\": \"none\"\n        }\n    ]\n}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "task_id": "T003",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "json.tool",
+            "specs/public_api.schema.json"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.061,
+          "stdout_tail": "  ],\n    \"invariants\": [\n        \"remember: no silent overwrite; same normalised value reuses active record, different value -> conflict\",\n        \"correct/retract/resolve: require expected_revision (CAS); version mismatch -> VERSION_CONFLICT\",\n        \"finish: same-transaction snapshot check, idempotent replay by request digest first, then STALE_SNAPSHOT\",\n        \"parent_ids: AND semantics, same scope only, no cycles; omitted parents are server-filled from snapshot read set\",\n        \"actor/user_id in request body NEVER overrides transport-bound principal; actor is a label, not auth\",\n        \"active != truth; retract != erase; receipt = local SQLite commit only, not external atomicity\",\n        \"terminal states are terminal; scope_epoch is coarse (may mis-block unrelated writes in same scope)\"\n    ],\n    \"state_machine\": {\n        \"states\": [\n            \"active\",\n            \"conflicted\",\n            \"superseded\",\n            \"retracted\",\n            \"tainted\",\n            \"expired\",\n            \"erased\"\n        ],\n        \"implemented_in_starter\": [\n            \"active\",\n            \"conflicted\",\n            \"superseded\",\n            \"retracted\",\n            \"tainted\"\n        ],\n        \"product_only\": [\n            \"expired\",\n            \"erased\"\n        ],\n        \"transitions\": {\n            \"active->conflicted\": \"remember with different value, no correction relation\",\n            \"active->superseded\": \"correct (old) / resolve_conflict (candidates)\",\n            \"active->tainted\": \"any parent becomes unavailable (correct/retract/conflict)\",\n            \"active->retracted\": \"retract (history kept; NOT erase)\",\n            \"conflicted->active\": \"only via resolve_conflict with FULL candidate set; single-candidate resolve rejected (CANDIDATE_SET_CHANGED)\",\n            \"tainted->active\": \"NOT by re-read alone; needs new record with explicit replaces_ids / new evidence\",\n            \"any->erased\": \"product-only, T038; starter does not implement\"\n        }\n    }\n}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/check_contract.py",
+            "--spec",
+            "specs/public_api.schema.json"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.073,
+          "stdout_tail": "PASS check_contract: 8 ops, 10 schemas, 15 error codes, state machine OK; recall/resume gap still recorded in schema note\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "task_id": "T004",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pip",
+            "install",
+            "-e",
+            ".[dev]"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 5.65,
+          "stdout_tail": "k\n  Installing build dependencies: started\n  Installing build dependencies: finished with status 'done'\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Getting requirements to build editable: started\n  Getting requirements to build editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nRequirement already satisfied: pytest>=8 in ./.venv/lib/python3.12/site-packages (from turnkeep==0.1.0) (9.2.0)\nRequirement already satisfied: iniconfig>=2 in ./.venv/lib/python3.12/site-packages (from pytest>=8->turnkeep==0.1.0) (2.3.1)\nRequirement already satisfied: packaging>=24 in ./.venv/lib/python3.12/site-packages (from pytest>=8->turnkeep==0.1.0) (26.3)\nRequirement already satisfied: pluggy<2,>=1.6 in ./.venv/lib/python3.12/site-packages (from pytest>=8->turnkeep==0.1.0) (1.7.0)\nRequirement already satisfied: pygments>=2.15 in ./.venv/lib/python3.12/site-packages (from pytest>=8->turnkeep==0.1.0) (2.21.0)\nChecking if build backend supports build_editable: started\nChecking if build backend supports build_editable: finished with status 'done'\nBuilding wheels for collected packages: turnkeep\n  Building editable for turnkeep (pyproject.toml): started\n  Building editable for turnkeep (pyproject.toml): finished with status 'done'\n  Created wheel for turnkeep: filename=turnkeep-0.1.0-0.editable-py3-none-any.whl size=4546 sha256=fb2bd986821fd29c99a807b4e7824d841f6670a68b793286f0243f1fd5bc175a\n  Stored in directory: /tmp/pip-ephem-wheel-cache-dv_je22o/wheels/51/7a/c0/9cee00329879f54baf2f0e5a0dd3aeee3df6532863b54fc8c6\nSuccessfully built turnkeep\nInstalling collected packages: turnkeep\n  Attempting uninstall: turnkeep\n    Found existing installation: turnkeep 0.1.0\n    Uninstalling turnkeep-0.1.0:\n      Successfully uninstalled turnkeep-0.1.0\nSuccessfully installed turnkeep-0.1.0\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "turnkeep",
+            "--help"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.111,
+          "stdout_tail": "usage: turnkeep [-h] [--version] [--db DB] [--json] [--non-interactive]\n                {init,remember,begin,correct,retract,resolve,finish,resume,rebase,recall,brief,inspect,history,expire,sweep-expiry,erase,residuals,export,import,demo,doctor,mcp,serve}\n                ...\n\nTurnkeep local project memory (v0.1)\n\npositional arguments:\n  {init,remember,begin,correct,retract,resolve,finish,resume,rebase,recall,brief,inspect,history,expire,sweep-expiry,erase,residuals,export,import,demo,doctor,mcp,serve}\n\noptions:\n  -h, --help            show this help message and exit\n  --version             show program's version number and exit\n  --db DB               SQLite path (default: per-scope data path)\n  --json                stable JSON output\n  --non-interactive     never prompt (default behaviour)\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/baseline/test_seed_parity.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.881,
+          "stdout_tail": "....                                                                     [100%]\n4 passed in 0.17s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "task_id": "T005",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/harness/test_runner.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.519,
+          "stdout_tail": ".......                                                                  [100%]\n7 passed in 0.15s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/run_gate.py",
+            "--self-test"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.143,
+          "stdout_tail": "PASS self-test: non-zero exit is FAIL\nPASS self-test: missing executable is NOT_RUN\nPASS self-test: depth marker present in leaf env\nPASS self-test: nested --task refused with depth set\nPASS self-test: foreign .py rejected by ownership\nPASS self-test: owned .py accepted\nPASS self-test: visited-set dedup is enforced by run_task (code path)\nPASS self-test: --strict-status flag parses\nPASS run_gate --self-test (7 checks, fixed corpus, no backlog read, no nested dispatch)\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/contract/test_schemas.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.403,
+          "stdout_tail": ".......                                                                  [100%]\n7 passed in 0.03s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "task_id": "T006",
+      "status": "FAIL",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/check_state.py",
+            "--state",
+            "state/CONTROL_STATE.json",
+            "--backlog",
+            "tasks/backlog.json"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 1,
+          "duration_s": 0.078,
+          "stdout_tail": "FAIL check_state:\n - active task T047 status NOT_STARTED is not READY/RUNNING/IMPLEMENTED\n - active task T047 depends on T026 (BLOCKED_EXTERNAL)\n - active task T047 depends on T042 (BLOCKED_EXTERNAL)\n - active task T047 depends on T043 (BLOCKED_EXTERNAL)\n",
+          "stderr_tail": "",
+          "status": "FAIL"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/harness/test_state_recovery.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.401,
+          "stdout_tail": ".....                                                                    [100%]\n5 passed in 0.03s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "task_id": "T007",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/storage/test_migrations.py",
+            "tests/storage/test_constraints.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.454,
+          "stdout_tail": ".........                                                                [100%]\n9 passed in 0.08s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_gate.py",
+            "--task",
+            "T007"
+          ],
+          "status": "DEFERRED_AGGREGATE",
+          "reason": "aggregate command: top-level caller only; not dispatched by run_gate"
+        }
+      ]
+    },
+    {
+      "task_id": "T008",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/core/test_scopes.py",
+            "tests/core/test_context_binding.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.457,
+          "stdout_tail": "........                                                                 [100%]\n8 passed in 0.06s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_gate.py",
+            "--task",
+            "T008"
+          ],
+          "status": "DEFERRED_AGGREGATE",
+          "reason": "aggregate command: top-level caller only; not dispatched by run_gate"
+        }
+      ]
+    },
+    {
+      "task_id": "T009",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/core/test_idempotency.py",
+            "tests/core/test_event_atomicity.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.451,
+          "stdout_tail": "......                                                                   [100%]\n6 passed in 0.06s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_gate.py",
+            "--task",
+            "T009"
+          ],
+          "status": "DEFERRED_AGGREGATE",
+          "reason": "aggregate command: top-level caller only; not dispatched by run_gate"
+        }
+      ]
+    },
+    {
+      "task_id": "T010",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/core/test_remember.py",
+            "tests/core/test_conflicts.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.549,
+          "stdout_tail": ".........                                                                [100%]\n9 passed in 0.09s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_gate.py",
+            "--task",
+            "T010"
+          ],
+          "status": "DEFERRED_AGGREGATE",
+          "reason": "aggregate command: top-level caller only; not dispatched by run_gate"
+        }
+      ]
+    },
+    {
+      "task_id": "T011",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/core/test_corrections.py",
+            "tests/core/test_retract.py",
+            "tests/core/test_resolve.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.467,
+          "stdout_tail": ".........                                                                [100%]\n9 passed in 0.09s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_gate.py",
+            "--task",
+            "T011"
+          ],
+          "status": "DEFERRED_AGGREGATE",
+          "reason": "aggregate command: top-level caller only; not dispatched by run_gate"
+        }
+      ]
+    },
+    {
+      "task_id": "T012",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/core/test_lineage.py",
+            "tests/core/test_taint.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.458,
+          "stdout_tail": "........                                                                 [100%]\n8 passed in 0.08s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_gate.py",
+            "--task",
+            "T012"
+          ],
+          "status": "DEFERRED_AGGREGATE",
+          "reason": "aggregate command: top-level caller only; not dispatched by run_gate"
+        }
+      ]
+    },
+    {
+      "task_id": "T013",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/core/test_begin_snapshot.py",
+            "tests/core/test_empty_read.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.433,
+          "stdout_tail": "....                                                                     [100%]\n4 passed in 0.06s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_gate.py",
+            "--task",
+            "T013"
+          ],
+          "status": "DEFERRED_AGGREGATE",
+          "reason": "aggregate command: top-level caller only; not dispatched by run_gate"
+        }
+      ]
+    },
+    {
+      "task_id": "T014",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/core/test_finish.py",
+            "tests/core/test_finish_races.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.629,
+          "stdout_tail": "......                                                                   [100%]\n6 passed in 0.26s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_gate.py",
+            "--task",
+            "T014"
+          ],
+          "status": "DEFERRED_AGGREGATE",
+          "reason": "aggregate command: top-level caller only; not dispatched by run_gate"
+        }
+      ]
+    },
+    {
+      "task_id": "T015",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/core/test_resume.py",
+            "tests/core/test_rebase.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.432,
+          "stdout_tail": "....                                                                     [100%]\n4 passed in 0.06s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_gate.py",
+            "--task",
+            "T015"
+          ],
+          "status": "DEFERRED_AGGREGATE",
+          "reason": "aggregate command: top-level caller only; not dispatched by run_gate"
+        }
+      ]
+    },
+    {
+      "task_id": "T016",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/retrieval/test_filters.py",
+            "tests/retrieval/test_budget.py",
+            "tests/retrieval/test_multilingual.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.468,
+          "stdout_tail": "...........                                                              [100%]\n11 passed in 0.08s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_gate.py",
+            "--task",
+            "T016"
+          ],
+          "status": "DEFERRED_AGGREGATE",
+          "reason": "aggregate command: top-level caller only; not dispatched by run_gate"
+        }
+      ]
+    },
+    {
+      "task_id": "T017",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/core/test_briefs.py",
+            "tests/core/test_handoff.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.44,
+          "stdout_tail": ".....                                                                    [100%]\n5 passed in 0.06s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_gate.py",
+            "--task",
+            "T017"
+          ],
+          "status": "DEFERRED_AGGREGATE",
+          "reason": "aggregate command: top-level caller only; not dispatched by run_gate"
+        }
+      ]
+    },
+    {
+      "task_id": "T018",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/integration/test_core_faults.py",
+            "tests/integration/test_concurrency.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.923,
+          "stdout_tail": "........                                                                 [100%]\n8 passed in 0.56s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_gate.py",
+            "--profile",
+            "core"
+          ],
+          "status": "DEFERRED_AGGREGATE",
+          "reason": "aggregate command: top-level caller only; not dispatched by run_gate"
+        }
+      ]
+    },
+    {
+      "task_id": "T019",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/cli/test_journeys.py",
+            "tests/cli/test_exit_codes.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 2.218,
+          "stdout_tail": ".....                                                                    [100%]\n5 passed in 1.84s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/run_journey.py",
+            "--mode",
+            "cli",
+            "--journey",
+            "J01",
+            "--no-model"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.969,
+          "stdout_tail": "{\n  \"journey\": \"J01\",\n  \"mode\": \"cli\",\n  \"status\": \"PASS\",\n  \"steps\": [\n    \"remember 74fbb312b4ba459c9c538b2060112615\",\n    \"stale finish rejected with changed_keys\",\n    \"recomputed finish committed; identical replay returned receipt\"\n  ],\n  \"receipt\": {\n    \"run_id\": \"de7a4eaf98b24b6eb92c26b7e7042a80\",\n    \"scope\": \"j01\",\n    \"record_id\": \"5687d359150843dd9992b5fe5a9fa454\",\n    \"request_digest\": \"2c6c8e643dee7e1ef53aed899ff8feb2ec477e5e0e4b4a4d5cb990f03fee08ec\",\n    \"read_epoch\": 2,\n    \"commit_epoch\": 3,\n    \"parent_ids\": [\n      \"135bdeaed64d4974b748cbd4de18aa12\"\n    ],\n    \"committed_at\": \"2026-11-08T21:27:14.870837+00:00\",\n    \"status_at_commit\": \"active\",\n    \"guarantee\": \"local_sqlite_commit_only\"\n  }\n}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "task_id": "T020",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/sdk/test_client_contract.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.587,
+          "stdout_tail": "...                                                                      [100%]\n3 passed in 0.14s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "examples/python/handoff.py",
+            "--temp-db"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.123,
+          "stdout_tail": "SCRIPTED_SIMULATION_NO_MODEL_CALLS: two SDK clients, no model involved.\nA's stale finish rejected: STALE_SNAPSHOT changed_keys=['build.python_version']\nA resumed: changed_keys=['build.python_version']\nA finished: record d3870bebae77439987e38ecc3e8ed779 at epoch 3\nPASS: SDK two-agent handoff\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "task_id": "T021",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/mcp/test_tools.py",
+            "tests/mcp/test_lifecycle.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 15.8,
+          "stdout_tail": "......                                                                   [100%]\n6 passed in 15.24s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "task_id": "T022",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/security/test_transport_binding.py",
+            "tests/security/test_untrusted_text.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.653,
+          "stdout_tail": "..........                                                               [100%]\n10 passed in 0.07s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_gate.py",
+            "--task",
+            "T022"
+          ],
+          "status": "DEFERRED_AGGREGATE",
+          "reason": "aggregate command: top-level caller only; not dispatched by run_gate"
+        }
+      ]
+    },
+    {
+      "task_id": "T023",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/mcp/test_conformance.py",
+            "tests/mcp/test_parallel_clients.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 11.725,
+          "stdout_tail": "......                                                                   [100%]\n6 passed in 10.98s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/mcp_smoke.py",
+            "--server",
+            "python -m turnkeep mcp"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 2.586,
+          "stdout_tail": "{\n  \"server\": \"turnkeep\",\n  \"tools\": [\n    \"begin\",\n    \"recall\",\n    \"remember\",\n    \"correct\",\n    \"retract\",\n    \"resolve_conflict\",\n    \"resume\",\n    \"finish\",\n    \"brief\"\n  ],\n  \"status\": \"PASS\"\n}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_gate.py",
+            "--profile",
+            "protocol"
+          ],
+          "status": "DEFERRED_AGGREGATE",
+          "reason": "aggregate command: top-level caller only; not dispatched by run_gate"
+        }
+      ]
+    },
+    {
+      "task_id": "T024",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/adapters/test_claude_config.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.716,
+          "stdout_tail": "..                                                                       [100%]\n2 passed in 0.04s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/check_adapter.py",
+            "--client",
+            "claude-code",
+            "--mode",
+            "config"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.065,
+          "stdout_tail": "{\n  \"client\": \"claude-code\",\n  \"mode\": \"config\",\n  \"config\": \"PASS\",\n  \"config_path\": \"/home/hatch/workspace/turnkeep-work/adapters/claude-code/.mcp.json\",\n  \"server\": {\n    \"args\": [\n      \"python3\",\n      \"-m\",\n      \"turnkeep\",\n      \"mcp\",\n      \"--scope\",\n      \"claude-code\",\n      \"--db\",\n      \"~/.local/share/turnkeep/turnkeep.sqlite3\"\n    ],\n    \"command\": \"/usr/bin/env\",\n    \"env\": {\n      \"PYTHONPATH\": \"<turnkeep-work>/src\",\n      \"TURNKEEP_PRINCIPAL\": \"claude-code\"\n    },\n    \"type\": \"stdio\"\n  },\n  \"live\": \"NOT_RUN\",\n  \"live_reason\": \"claude CLI not installed on this machine\"\n}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "task_id": "T025",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/adapters/test_codex_config.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.399,
+          "stdout_tail": "..                                                                       [100%]\n2 passed in 0.02s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/check_adapter.py",
+            "--client",
+            "codex",
+            "--mode",
+            "config"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.564,
+          "stdout_tail": "{\n  \"client\": \"codex\",\n  \"mode\": \"config\",\n  \"config\": \"PASS\",\n  \"config_path\": \"/home/hatch/workspace/turnkeep-work/adapters/codex/config.toml\",\n  \"server\": {\n    \"command\": \"/usr/bin/env\",\n    \"args\": [\n      \"python3\",\n      \"-m\",\n      \"turnkeep\",\n      \"mcp\",\n      \"--scope\",\n      \"codex\",\n      \"--db\",\n      \"~/.local/share/turnkeep/turnkeep.sqlite3\"\n    ],\n    \"env\": {\n      \"TURNKEEP_PRINCIPAL\": \"codex\",\n      \"PYTHONPATH\": \"<turnkeep-work>/src\"\n    },\n    \"startup_timeout_sec\": 20\n  },\n  \"live\": \"NOT_RUN\",\n  \"live_reason\": \"codex CLI installed but turnkeep not installed in ~/.codex/config.toml; no login attempted\",\n  \"codex_mcp_list\": \"No MCP servers configured yet. Try `codex mcp add my-tool -- my-command`.\"\n}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "task_id": "T026",
+      "status": "NOT_RUN",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/live_client_handoff.py",
+            "--pair",
+            "claude-code,codex",
+            "--fixture",
+            "export-format",
+            "--record",
+            "evidence/live-clients"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 2,
+          "duration_s": 0.056,
+          "stdout_tail": "{\n  \"task\": \"T026\",\n  \"journey\": \"J02\",\n  \"pair\": [\n    \"claude-code\",\n    \"codex\"\n  ],\n  \"fixture\": \"/home/hatch/workspace/turnkeep-work/fixtures/live-handoff/export-format.json\",\n  \"clients\": {\n    \"claude-code\": {\n      \"binary\": false,\n      \"turnkeep_installed\": false,\n      \"config_path\": null,\n      \"auth\": null,\n      \"note\": \"claude CLI absent on this machine\"\n    },\n    \"codex\": {\n      \"binary\": true,\n      \"turnkeep_installed\": false,\n      \"config_path\": null,\n      \"auth\": false,\n      \"note\": \"codex CLI installed; turnkeep not installed in ~/.codex/config.toml; no login attempted\"\n    }\n  },\n  \"status\": \"NOT_RUN\",\n  \"reasons\": [\n    \"claude-code: CLI binary not installed\",\n    \"codex: turnkeep not installed in client config\"\n  ],\n  \"note\": \"Two real host products are required; two SDK test processes are NOT a substitute (backlog invariant). No mock recording was made.\"\n}\n",
+          "stderr_tail": "",
+          "status": "NOT_RUN"
+        },
+        {
+          "argv": [
+            "python",
+            "scripts/run_gate.py",
+            "--profile",
+            "live-clients"
+          ],
+          "status": "DEFERRED_AGGREGATE",
+          "reason": "aggregate command: top-level caller only; not dispatched by run_gate"
+        }
+      ]
+    },
+    {
+      "task_id": "T027",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/web/test_routes.py",
+            "tests/web/test_local_boundary.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 8.071,
+          "stdout_tail": "................                                                         [100%]\n16 passed in 7.69s\n",
+          "stderr_tail": "----------------------------------------\nException occurred during processing of request from ('127.0.0.1', 58198)\n",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/check_openapi.py",
+            "--snapshot",
+            "specs/local-app-api.json"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.07,
+          "stdout_tail": "PASS: OpenAPI snapshot matches route table (15 paths)\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "task_id": "T028",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/platform/test_paths.py",
+            "tests/platform/test_doctor.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.437,
+          "stdout_tail": ".........                                                                [100%]\n9 passed in 0.06s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "turnkeep",
+            "doctor",
+            "--json"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.085,
+          "stdout_tail": "{\n  \"tool\": \"turnkeep doctor\",\n  \"version\": \"0.1.0\",\n  \"platform\": {\n    \"system\": \"Linux\",\n    \"release\": \"7.0.0-43-generic\",\n    \"machine\": \"x86_64\"\n  },\n  \"python\": {\n    \"status\": \"PASS\",\n    \"version\": \"3.12.3\",\n    \"required\": \">=3.11\"\n  },\n  \"sqlite\": {\n    \"status\": \"PASS\",\n    \"version\": \"3.45.1\"\n  },\n  \"data_dir\": {\n    \"status\": \"PASS\",\n    \"path\": \"/home/hatch/.local/share/turnkeep\",\n    \"writable\": true\n  },\n  \"database\": {\n    \"status\": \"NOT_RUN\",\n    \"path\": null,\n    \"note\": \"no turnkeep database found yet — run `turnkeep init --scope <id>`\"\n  },\n  \"commands\": {\n    \"mcp\": {\n      \"status\": \"PASS\",\n      \"command\": \"python -m turnkeep mcp\",\n      \"note\": \"implemented in src/turnkeep (stdlib only)\"\n    },\n    \"serve\": {\n      \"status\": \"PASS\",\n      \"command\": \"python -m turnkeep serve\",\n      \"note\": \"implemented in src/turnkeep (stdlib only)\"\n    },\n    \"doctor\": {\n      \"status\": \"PASS\",\n      \"command\": \"python -m turnkeep doctor\",\n      \"note\": \"implemented in src/turnkeep (stdlib only)\"\n    }\n  },\n  \"clients\": {\n    \"claude-code\": {\n      \"config_template\": \"/home/hatch/workspace/turnkeep-work/adapters/claude-code/.mcp.json\",\n      \"template_present\": true,\n      \"installed\": false,\n      \"cli_present\": false,\n      \"live\": \"NOT_RUN\",\n      \"live_reason\": \"claude CLI not installed on this machine\"\n    },\n    \"codex\": {\n      \"config_template\": \"/home/hatch/workspace/turnkeep-work/adapters/codex/config.toml\",\n      \"template_present\": true,\n      \"installed\": false,\n      \"cli_present\": true,\n      \"live\": \"NOT_RUN\",\n      \"live_reason\": \"login state unknown; no login attempted\"\n    }\n  },\n  \"platforms\": {\n    \"linux\": {\n      \"status\": \"VERIFIED\",\n      \"note\": \"full test suite on this VM\"\n    },\n    \"macos\": {\n      \"status\": \"NOT_RUN\",\n      \"note\": \"real verification in T043\"\n    },\n    \"windows\": {\n      \"status\": \"NOT_RUN\",\n      \"note\": \"real verification in T043\"\n    }\n  },\n  \"overall\": \"OK\",\n  \"failed_checks\": []\n}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "task_id": "T029",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/check_docs.py",
+            "--profile",
+            "ux"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.057,
+          "stdout_tail": "PASS: UX spec covers J01–J05, 4 areas, 7 states, fixtures + types\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "npm",
+            "--prefix",
+            "ui",
+            "run",
+            "typecheck"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 2.683,
+          "stdout_tail": "\n> turnkeep-workbench@0.1.0 typecheck\n> tsc --noEmit -p tsconfig.json\n\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "task_id": "T030",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "npm",
+            "--prefix",
+            "ui",
+            "run",
+            "build"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 3.607,
+          "stdout_tail": "\n> turnkeep-workbench@0.1.0 build\n> tsc -b && vite build\n\nvite v6.4.5 building for production...\ntransforming...\n✓ 15 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                 1.62 kB │ gzip: 0.80 kB\ndist/assets/index-D92UILy4.js  20.60 kB │ gzip: 6.91 kB │ map: 52.90 kB\n✓ built in 419ms\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "npm",
+            "--prefix",
+            "ui",
+            "run",
+            "test:e2e",
+            "--",
+            "overview.spec.ts"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 5.807,
+          "stdout_tail": "\n> turnkeep-workbench@0.1.0 test:e2e\n> NODE_PATH=./node_modules playwright test overview.spec.ts\n\n\nRunning 2 tests using 1 worker\n\n  ✓  1 ../tests/ui/overview.spec.ts:52:1 › overview shows seeded decision and history lists it (1.6s)\n  ✓  2 ../tests/ui/overview.spec.ts:73:1 › wrong token shows an actionable error, not fake data (780ms)\n\n  2 passed (4.7s)\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "task_id": "T031",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "npm",
+            "--prefix",
+            "ui",
+            "run",
+            "test:e2e",
+            "--",
+            "impact.spec.ts"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 4.596,
+          "stdout_tail": "\n> turnkeep-workbench@0.1.0 test:e2e\n> NODE_PATH=./node_modules playwright test impact.spec.ts\n\n\nRunning 1 test using 1 worker\n\n  ✓  1 ../tests/ui/impact.spec.ts:56:1 › impact view shows old/new, the path, and resume diff (1.6s)\n\n  1 passed (3.5s)\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/run_journey.py",
+            "--mode",
+            "ui-api",
+            "--journey",
+            "J03",
+            "--no-model"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.272,
+          "stdout_tail": "{\n  \"journey\": \"J03\",\n  \"mode\": \"ui-api\",\n  \"status\": \"PASS\",\n  \"steps\": [\n    \"remember 3.11\",\n    \"stale finish rejected with changed_keys\",\n    \"impact path req -> release\",\n    \"resume diff shows the change\",\n    \"recomputed finish committed; identical replay returned receipt\"\n  ],\n  \"receipt\": {\n    \"run_id\": \"b62566c80d6b4c6692fe79d5c55c5d1c\",\n    \"scope\": \"j03\",\n    \"record_id\": \"ce8705b97046493d8567b87de3d311d1\",\n    \"request_digest\": \"9032b131a17729f1bc58114651e8d9af5760293b40765008aa50608c45cc94b5\",\n    \"read_epoch\": 3,\n    \"commit_epoch\": 4,\n    \"parent_ids\": [\n      \"ddd728c95eff492793c8b3f2f9b32373\"\n    ],\n    \"committed_at\": \"2026-11-08T21:28:13.941907+00:00\",\n    \"status_at_commit\": \"active\",\n    \"guarantee\": \"local_sqlite_commit_only\"\n  }\n}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "task_id": "T032",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "npm",
+            "--prefix",
+            "ui",
+            "run",
+            "test:e2e",
+            "--",
+            "correction.spec.ts"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 5.693,
+          "stdout_tail": "\n> turnkeep-workbench@0.1.0 test:e2e\n> NODE_PATH=./node_modules playwright test correction.spec.ts\n\n\nRunning 2 tests using 1 worker\n\n  ✓  1 ../tests/ui/correction.spec.ts:55:1 › editor corrects with CAS; concurrent update surfaces 409, no silent overwrite (1.7s)\n  ✓  2 ../tests/ui/correction.spec.ts:79:1 › conflicts view resolves the full candidate set with new evidence (1.4s)\n\n  2 passed (4.8s)\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/web/test_write_races.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 2.977,
+          "stdout_tail": "....                                                                     [100%]\n4 passed in 2.15s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "task_id": "T033",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "npm",
+            "--prefix",
+            "ui",
+            "run",
+            "test:e2e",
+            "--",
+            "recovery.spec.ts"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 4.416,
+          "stdout_tail": "\n> turnkeep-workbench@0.1.0 test:e2e\n> NODE_PATH=./node_modules playwright test recovery.spec.ts\n\n\nRunning 1 test using 1 worker\n\n  ✓  1 ../tests/ui/recovery.spec.ts:50:1 › recovery shows diff, rebases twice, then quarantines; handoff exports (1.8s)\n\n  1 passed (3.5s)\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/run_journey.py",
+            "--mode",
+            "ui-api",
+            "--journey",
+            "J02",
+            "--no-model"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.484,
+          "stdout_tail": "{\n  \"journey\": \"J02\",\n  \"mode\": \"ui-api\",\n  \"status\": \"PASS\",\n  \"steps\": [\n    \"A remembers the export-format decision\",\n    \"A finishes and writes a brief naming the decision\",\n    \"B reads the same brief (same decisions, same record ids)\",\n    \"B resumes A's run and finishes a verified result\",\n    \"after restart: runs and records recovered from the DB\"\n  ],\n  \"receipt\": {\n    \"run_id\": \"9d76bc18e9db4e9da401e8fad37b8549\",\n    \"scope\": \"demo\",\n    \"record_id\": \"c4ca00e978154a5fab999ab1fc2953d7\",\n    \"request_digest\": \"3bd5204c006831380beb11d24751cdcec4bfa1de28e2bdc41f5f0ef7ed826c83\",\n    \"read_epoch\": 2,\n    \"commit_epoch\": 3,\n    \"parent_ids\": [\n      \"9924b8d4a0d74bf0a6183dff11d89255\",\n      \"bec1b434f27f43649ba714967827c848\"\n    ],\n    \"committed_at\": \"2026-11-08T21:28:27.405163+00:00\",\n    \"status_at_commit\": \"active\",\n    \"guarantee\": \"local_sqlite_commit_only\"\n  }\n}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "task_id": "T034",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "turnkeep",
+            "demo",
+            "--scenario",
+            "export-format",
+            "--no-model"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.105,
+          "stdout_tail": "ifest finish is rejected (STALE_SNAPSHOT).\", \"A resumes, reads the diff, recomputes for tar and commits.\", \"An identical replay returns the original receipt.\"], \"rejection\": {\"code\": \"STALE_SNAPSHOT\", \"message\": \"Project memory changed after this run read its snapshot; reread changes and recompute affected work.\", \"details\": {\"changed_record_ids\": [\"4b7dc739f1b24419a77823b0c321dda6\", \"a28854b2e51c46f0ba30da532ba27be7\", \"fe9a1dcf11db4a608ff979d215d83475\"], \"changed_keys\": [\"export.format\", \"export.manifest.v1\"], \"from_epoch\": 3, \"to_epoch\": 5}}, \"changed_keys\": [\"export.format\"], \"receipt\": {\"run_id\": \"509a9ca037a04831906f8f3f90e12159\", \"scope\": \"demo\", \"record_id\": \"77377f20c1f3490a8a5702b7cb24f638\", \"request_digest\": \"6070591c8444fda02d7f5ea93a114b99f556b1261dd5312214a040bf518fd05f\", \"read_epoch\": 5, \"commit_epoch\": 6, \"parent_ids\": [\"3bd3deebee0b49b6851febc17ec15fb6\", \"4b7dc739f1b24419a77823b0c321dda6\", \"b4e6a01cf8824a4ab0373faf0b406ad6\"], \"committed_at\": \"2026-11-08T21:28:27.625544+00:00\", \"status_at_commit\": \"active\", \"guarantee\": \"local_sqlite_commit_only\"}, \"idempotent_replay_identical\": true, \"boundary\": \"Local SQLite correctness only — not MCP integration, model quality, or external-action safety.\", \"events\": [{\"step\": \"remember\", \"key\": \"export.format\", \"value\": \"zip\", \"state\": \"active\"}, {\"step\": \"remember\", \"key\": \"export.manifest.name\", \"value\": \"manifest.json\", \"state\": \"active\"}, {\"step\": \"remember\", \"key\": \"build.python_version\", \"value\": \"3.11\", \"state\": \"active\"}, {\"step\": \"begin\", \"task\": \"produce export manifest\", \"actor\": \"demo-a\"}, {\"step\": \"correct\", \"key\": \"export.format\", \"value\": \"tar\", \"state\": \"active\", \"actor\": \"demo-b\", \"note\": \"B found the target system only accepts tar\"}, {\"step\": \"stale_finish_rejected\", \"code\": \"STALE_SNAPSHOT\", \"changed_keys\": [\"export.format\", \"export.manifest.v1\"]}, {\"step\": \"resume\", \"changed_keys\": [\"export.format\"]}, {\"step\": \"finish\", \"key\": \"export.manifest\", \"value\": \"manifest for tar\", \"state\": \"active\"}]}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/record_demo.py",
+            "--scenario",
+            "export-format",
+            "--verify"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.077,
+          "stdout_tail": "PASS: replay export-format verified (8 events, chain intact, re-run identical)\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "task_id": "T035",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "npm",
+            "--prefix",
+            "ui",
+            "run",
+            "test:e2e"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 15.202,
+          "stdout_tail": "\n> turnkeep-workbench@0.1.0 test:e2e\n> NODE_PATH=./node_modules playwright test\n\n\nRunning 11 tests using 2 workers\n\n  ✓   1 ../tests/ui/accessibility.spec.ts:48:1 › keyboard-only: connect form and nav work without a mouse (2.7s)\n  ✓   2 ../tests/ui/correction.spec.ts:55:1 › editor corrects with CAS; concurrent update surfaces 409, no silent overwrite (2.7s)\n  ✓   3 ../tests/ui/accessibility.spec.ts:81:1 › narrow viewport: no horizontal overflow, buttons stay reachable (1.5s)\n  ✓   5 ../tests/ui/accessibility.spec.ts:106:1 › every input has a label and every button has an accessible name (411ms)\n  ✓   4 ../tests/ui/correction.spec.ts:79:1 › conflicts view resolves the full candidate set with new evidence (2.1s)\n  ✓   6 ../tests/ui/impact.spec.ts:56:1 › impact view shows old/new, the path, and resume diff (2.3s)\n  ✓   7 ../tests/ui/journeys.spec.ts:55:1 › J01: screen matches DB after a correction (2.2s)\n  ✓   8 ../tests/ui/overview.spec.ts:52:1 › overview shows seeded decision and history lists it (1.7s)\n  ✓  10 ../tests/ui/overview.spec.ts:73:1 › wrong token shows an actionable error, not fake data (1.0s)\n  ✓   9 ../tests/ui/journeys.spec.ts:78:1 › J04: restart recovers runs and records (DB, not localStorage) (3.3s)\n  ✓  11 ../tests/ui/recovery.spec.ts:50:1 › recovery shows diff, rebases twice, then quarantines; handoff exports (2.1s)\n\n  11 passed (14.3s)\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/ui_gate.py",
+            "--production-build"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 17.45,
+          "stdout_tail": "{\n  \"status\": \"PASS\",\n  \"evidence\": \"/home/hatch/workspace/turnkeep-work/evidence/ui/ui-gate.json\"\n}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "task_id": "T036",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/data/test_roundtrip.py",
+            "tests/data/test_import_trust.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.921,
+          "stdout_tail": ".........                                                                [100%]\n9 passed in 0.11s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/run_journey.py",
+            "--mode",
+            "cli",
+            "--journey",
+            "J05",
+            "--no-model"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 1.015,
+          "stdout_tail": "{\n  \"journey\": \"J05\",\n  \"mode\": \"cli\",\n  \"status\": \"PASS\",\n  \"steps\": [\n    \"export excluded the secret-like record by key only\",\n    \"import wrote 3 records, none quarantined\",\n    \"second import of the same package is a no-op (already_imported)\",\n    \"export -> import -> export is equivalent after normalisation\"\n  ]\n}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "task_id": "T037",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/data/test_markdown_import.py",
+            "tests/data/test_import_injection.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.504,
+          "stdout_tail": "............                                                             [100%]\n12 passed in 0.11s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "turnkeep",
+            "import",
+            "--format",
+            "markdown",
+            "--dry-run",
+            "fixtures/imports/example-project"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.106,
+          "stdout_tail": "{\"format\": \"markdown\", \"scope\": \"example-project\", \"dry_run\": true, \"files\": 0, \"skipped_unmapped\": 0, \"written\": [], \"duplicates\": [], \"conflicts\": [], \"excluded_secrets\": []}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "task_id": "T038",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/privacy/test_erasure.py",
+            "tests/privacy/test_expiry.py",
+            "tests/privacy/test_residuals.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.516,
+          "stdout_tail": "........                                                                 [100%]\n8 passed in 0.12s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/check_erasure.py",
+            "--synthetic-fixture"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.089,
+          "stdout_tail": "{\n  \"status\": \"PASS\",\n  \"failures\": []\n}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "task_id": "T039",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/storage/test_backup_restore.py",
+            "tests/storage/test_restore_erasure.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.577,
+          "stdout_tail": ".......                                                                  [100%]\n7 passed in 0.12s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/restore_check.py",
+            "--fixture",
+            "restart-handoff"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.126,
+          "stdout_tail": "{\n  \"status\": \"PASS\",\n  \"failures\": []\n}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "task_id": "T040",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/benchmarks/test_scoring.py",
+            "tests/benchmarks/test_baseline_parity.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.859,
+          "stdout_tail": "..........                                                               [100%]\n10 passed in 0.42s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "benchmarks/harness/run.py",
+            "--suite",
+            "smoke",
+            "--mode",
+            "deterministic"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.118,
+          "stdout_tail": "{\n  \"suite\": \"smoke\",\n  \"mode\": \"deterministic\",\n  \"label\": \"SCRIPTED_SIMULATION_NO_MODEL_CALLS\",\n  \"note\": \"Scripted policies only. These numbers measure the harness and the policies, never real model performance. Gate C (live models) is NOT_RUN.\",\n  \"seed\": 20261108,\n  \"budget\": {\n    \"max_seconds\": 60,\n    \"max_steps\": 20\n  },\n  \"not_run_arms\": {\n    \"mature-memory\": \"NOT_RUN: no real Mem0/Hindsight install configured in this environment\",\n    \"nearest-workflow\": \"NOT_RUN: no real Tigerless/Engram install configured in this environment\"\n  },\n  \"overall\": {\n    \"attempts\": 12,\n    \"completed\": 10,\n    \"success_rate\": 0.8333333333333334,\n    \"stale_fact_rate\": 0.16666666666666666,\n    \"contract_violations\": 0,\n    \"irrelevant_refusals\": 0,\n    \"mean_redo_cost_steps\": 0.5833333333333334\n  },\n  \"per_arm\": {\n    \"none\": {\n      \"attempts\": 3,\n      \"completed\": 1,\n      \"success_rate\": 0.3333333333333333,\n      \"stale_fact_rate\": 0.6666666666666666,\n      \"contract_violations\": 0,\n      \"irrelevant_refusals\": 0,\n      \"mean_redo_cost_steps\": 0.0\n    },\n    \"markdown\": {\n      \"attempts\": 3,\n      \"completed\": 3,\n      \"success_rate\": 1.0,\n      \"stale_fact_rate\": 0.0,\n      \"contract_violations\": 0,\n      \"irrelevant_refusals\": 0,\n      \"mean_redo_cost_steps\": 0.0\n    },\n    \"log\": {\n      \"attempts\": 3,\n      \"completed\": 3,\n      \"success_rate\": 1.0,\n      \"stale_fact_rate\": 0.0,\n      \"contract_violations\": 0,\n      \"irrelevant_refusals\": 0,\n      \"mean_redo_cost_steps\": 0.0\n    },\n    \"turnkeep\": {\n      \"attempts\": 3,\n      \"completed\": 3,\n      \"success_rate\": 1.0,\n      \"stale_fact_rate\": 0.0,\n      \"contract_violations\": 0,\n      \"irrelevant_refusals\": 0,\n      \"mean_redo_cost_steps\": 2.3333333333333335\n    }\n  }\n}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "task_id": "T041",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "benchmarks/replay.py",
+            "--suite",
+            "core-change",
+            "--output",
+            "evidence/replay"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.23,
+          "stdout_tail": "{\n  \"suite\": \"core-change\",\n  \"version\": 1,\n  \"mutation\": \"none\",\n  \"label\": \"SCRIPTED_REPLAY_NO_MODEL_CALLS\",\n  \"scenarios\": 25,\n  \"passed\": 25,\n  \"failed\": 0,\n  \"false_refusals\": 2,\n  \"false_refusal_note\": \"Scenarios flagged false_refusal demonstrate the conservative contract rejecting a finish on an unrelated change; they PASS when the rejection + recompute behave as specified, and are reported separately from model failures.\"\n}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/benchmarks/test_replay.py",
+            "tests/benchmarks/test_mutations.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 1.732,
+          "stdout_tail": "......                                                                   [100%]\n6 passed in 1.34s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "task_id": "T042",
+      "status": "NOT_RUN",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "benchmarks/live/run.py",
+            "--protocol",
+            "benchmarks/PROTOCOL.md",
+            "--budget-file",
+            "state/eval-budget.json"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 2,
+          "duration_s": 0.06,
+          "stdout_tail": "{\n  \"task\": \"T042\",\n  \"status\": \"NOT_RUN\",\n  \"reason\": \"no model selected\",\n  \"details\": {\n    \"budget_file\": \"state/eval-budget.json\",\n    \"authorised_spend_usd\": 0,\n    \"fix\": \"Select a model ID and freeze it in the budget file before any live run.\"\n  },\n  \"note\": \"No live model call was made. No attempts, usage or scores exist. Do not present this as a live result.\"\n}\n",
+          "stderr_tail": "",
+          "status": "NOT_RUN"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "benchmarks/live/report.py",
+            "--input",
+            "evidence/live-evals"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.047,
+          "stdout_tail": "{\n  \"status\": \"NOT_RUN\",\n  \"attempts\": 0,\n  \"gap\": {\n    \"task\": \"T042\",\n    \"status\": \"NOT_RUN\",\n    \"reason\": \"no model selected\",\n    \"details\": {\n      \"budget_file\": \"state/eval-budget.json\",\n      \"authorised_spend_usd\": 0,\n      \"fix\": \"Select a model ID and freeze it in the budget file before any live run.\"\n    },\n    \"note\": \"No live model call was made. No attempts, usage or scores exist. Do not present this as a live result.\"\n  },\n  \"note\": \"No live model results exist yet. Gate C is NOT_RUN until a real model campaign runs under the frozen protocol with an authorised budget.\"\n}\n",
+          "stderr_tail": "",
+          "status": "NOT_RUN"
+        }
+      ]
+    },
+    {
+      "task_id": "T043",
+      "status": "FAIL",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/platform_gate.py",
+            "--record",
+            "evidence/platforms/current.json"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 2.35,
+          "stdout_tail": "{\n  \"status\": \"PASS\",\n  \"failures\": [],\n  \"linux\": {\n    \"status\": \"PASS\",\n    \"checks\": {\n      \"platform\": \"Linux-7.0.0-43-generic-x86_64-with-glibc2.39\",\n      \"python\": \"3.12.3\",\n      \"sqlite\": \"3.45.1\",\n      \"cpu_count\": 4,\n      \"doctor\": {\n        \"exit_code\": 0,\n        \"ok\": true\n      },\n      \"journey_J01\": {\n        \"exit_code\": 0,\n        \"ok\": true\n      },\n      \"journey_J05\": {\n        \"exit_code\": 0,\n        \"ok\": true\n      },\n      \"spaces_and_chinese_path\": {\n        \"ok\": true,\n        \"db\": \"/tmp/tk-platform-n2nu0s32/带空格 的目录/子目录/my db.sqlite3\"\n      },\n      \"ui_production_gate\": \"PASS\"\n    }\n  },\n  \"windows\": {\n    \"status\": \"NOT_RUN\",\n    \"reason\": \"no Windows runner available on this VM; see .github/workflows/test.yml (workflow file is not evidence)\"\n  },\n  \"macos\": {\n    \"status\": \"NOT_RUN\",\n    \"reason\": \"no macOS runner available on this VM; see .github/workflows/test.yml (workflow file is not evidence)\"\n  },\n  \"note\": \"Only Linux has real evidence here. The support list contains only platforms with a passing record.\"\n}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "benchmarks/harness/perf.py",
+            "--dataset",
+            "fixtures/perf/manifest.json"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 1,
+          "duration_s": 115.649,
+          "stdout_tail": "{\n  \"status\": \"FAIL\",\n  \"failures\": [\n    \"finish p95 5115.6ms > 500ms at 10000 records\",\n    \"recall p95 2875.1ms > 1000ms at 100000 records\",\n    \"finish p95 12631.4ms > 500ms at 100000 records\"\n  ],\n  \"hardware\": {\n    \"platform\": \"Linux-7.0.0-43-generic-x86_64-with-glibc2.39\",\n    \"python\": \"3.12.3\",\n    \"cpu_count\": 4,\n    \"memory_total_mb\": 7934,\n    \"filesystem\": \"/\",\n    \"sqlite\": \"3.45.1\"\n  },\n  \"thresholds\": {\n    \"recall_p95_ms_max\": 1000,\n    \"finish_p95_ms_max\": 500,\n    \"cold_start_ms_max\": 3000\n  },\n  \"cold_start_ms\": 75.5,\n  \"concurrency\": {\n    \"writers\": 8,\n    \"won\": 1,\n    \"version_conflicts\": 7,\n    \"busy_errors\": []\n  },\n  \"datasets\": [\n    {\n      \"records\": 1000,\n      \"recall_ms\": {\n        \"p50\": 21.89170749988989,\n        \"p95\": 31.63945899996179,\n        \"max\": 31.63945899996179\n      },\n      \"finish_ms\": {\n        \"p50\": 215.9590215001117,\n        \"p95\": 386.5536980001707,\n        \"max\": 386.5536980001707\n      },\n      \"db_bytes\": 4276224\n    },\n    {\n      \"records\": 10000,\n      \"recall_ms\": {\n        \"p50\": 234.81484600006297,\n        \"p95\": 309.8004579996996,\n        \"max\": 309.8004579996996\n      },\n      \"finish_ms\": {\n        \"p50\": 1821.6023350000796,\n        \"p95\": 5115.618597999855,\n        \"max\": 5115.618597999855\n      },\n      \"db_bytes\": 41132032\n    },\n    {\n      \"records\": 100000,\n      \"recall_ms\": {\n        \"p50\": 2762.8663734999463,\n        \"p95\": 2875.064344999373,\n        \"max\": 2875.064344999373\n      },\n      \"finish_ms\": {\n        \"p50\": 9613.992264999979,\n        \"p95\": 12631.418992000363,\n        \"max\": 12631.418992000363\n      },\n      \"db_bytes\": 150347776\n    }\n  ],\n  \"note\": \"Fixed sizes on this machine; numbers are experiment points, not a promised upper bound.\"\n}\n",
+          "stderr_tail": "",
+          "status": "FAIL"
+        }
+      ]
+    },
+    {
+      "task_id": "T044",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/check_docs.py",
+            "--profile",
+            "release"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.106,
+          "stdout_tail": "PASS: release docs carry honest disclosures, no banned claims, no leaks, drafts marked draft-only\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/test_documented_commands.py",
+            "--offline"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 5.56,
+          "stdout_tail": "] --version is 0.1.0\nok [3] doctor --json (exit 0)\nok [4] doctor: python PASS\nok [5] doctor: sqlite PASS\nok [6] init --scope demo (exit 0)\nok [7] remember 3.11 (exit 0)\nok [8] remember returns active rev 1\nok [9] begin run A (exit 0)\nok [10] begin returns open run\nok [11] correct 3.11 -> 3.12 (exit 0)\nok [12] correct returns new value 3.12\nok [13] stale finish rejected (exit 2)\nok [14] stale finish error is STALE_SNAPSHOT\nok [15] STALE_SNAPSHOT names the changed key\nok [16] resume run A (exit 0)\nok [17] resume diff names the changed key\nok [18] begin run B (exit 0)\nok [19] finish run B (exit 0)\nok [20] receipt guarantee is local_sqlite_commit_only\nok [21] idempotent finish replay (exit 0)\nok [22] idempotent replay returns the original receipt\nok [23] recall --query python (exit 0)\nok [24] recall finds the corrected value\nok [25] brief --goal (exit 0)\nok [26] brief within budget\nok [27] remember 3.13 (conflict) (exit 0)\nok [28] conflicting remember is conflicted\nok [29] recall --history (read candidates) (exit 0)\nok [30] two conflicted candidates to resolve\nok [31] resolve with full candidate set (exit 0)\nok [32] resolve returns active record\nok [33] export --scope demo (exit 0)\nok [34] export writes manifest + records\nok [35] import --dry-run (exit 0)\nok [36] import dry-run writes nothing\nok [37] import package (exit 0)\nok [38] import imports records\nok [39] import --format markdown --dry-run (exit 0)\nok [40] markdown dry-run exit 0\nok [41] demo --scenario export-format --no-model (exit 0)\nok [42] demo export-format is labelled scripted\nok [43] demo --scenario research-correction --no-model (exit 0)\nok [44] demo research-correction is labelled scripted\nok [45] examples/python/handoff.py --temp-db (exit 0)\nok [46] SDK handoff PASS\nok [47] record_demo.py --verify (exit 0)\nok [48] mcp_smoke.py (exit 0)\nok [49] serve --scope demo + GET /api/v1/health (token required) (health ok, 401 without token)\nPASS: test_documented_commands --offline (49 checks, clean temp fixture)\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "task_id": "T045",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/release_checks.py",
+            "--profile",
+            "license-and-secrets"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 1.515,
+          "stdout_tail": "      \"match\": \"sk-live-123456\",\n      \"reason\": \"fake/placeholder marker in matched text\"\n    },\n    {\n      \"file\": \"scripts/release_checks.py\",\n      \"line\": 71,\n      \"kind\": \"sk-live/sk-proj key\",\n      \"match\": \"sk-live-123456\",\n      \"reason\": \"fake/placeholder marker in matched text\"\n    },\n    {\n      \"file\": \"scripts/release_checks.py\",\n      \"line\": 237,\n      \"kind\": \"sk-live/sk-proj key\",\n      \"match\": \"sk-live-123456\",\n      \"reason\": \"fake/placeholder marker in matched text\"\n    },\n    {\n      \"file\": \"scripts/release_checks.py\",\n      \"line\": 238,\n      \"kind\": \"sk-live/sk-proj key\",\n      \"match\": \"sk-live-123456\",\n      \"reason\": \"fake/placeholder marker in matched text\"\n    },\n    {\n      \"file\": \"tests/core/test_briefs.py\",\n      \"line\": 40,\n      \"kind\": \"sk-live/sk-proj key\",\n      \"match\": \"sk-live-123456\",\n      \"reason\": \"fake secret in redaction test\"\n    },\n    {\n      \"file\": \"tests/core/test_briefs.py\",\n      \"line\": 42,\n      \"kind\": \"sk-live/sk-proj key\",\n      \"match\": \"sk-live-123456\",\n      \"reason\": \"fake secret in redaction test\"\n    },\n    {\n      \"file\": \"tests/security/test_release_boundary.py\",\n      \"line\": 111,\n      \"kind\": \"sk-live/sk-proj key\",\n      \"match\": \"sk-live-123456\",\n      \"reason\": \"fake/placeholder marker in matched text\"\n    },\n    {\n      \"file\": \"tests/security/test_release_boundary.py\",\n      \"line\": 112,\n      \"kind\": \"sk-live/sk-proj key\",\n      \"match\": \"sk-live-123456\",\n      \"reason\": \"fake/placeholder marker in matched text\"\n    }\n  ],\n  \"summary\": {\n    \"fail\": 0,\n    \"info\": 464,\n    \"whitelisted\": 22\n  },\n  \"limitations\": [\n    \"Pattern scan only: secrets in unrecognised forms, binary files, or user data written later into a database are not detected.\",\n    \"Unreadable/binary files are skipped, not inspected.\",\n    \"No dependency vulnerability scan (pip-audit / npm audit) is performed by this script; see SECURITY.md.\",\n    \"A PASS here is not a claim of production safety; see SECURITY.md.\"\n  ]\n}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/security/test_release_boundary.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 1.316,
+          "stdout_tail": ".........                                                                [100%]\n9 passed in 0.93s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "task_id": "T046",
+      "status": "FAIL",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/build_release.py",
+            "--clean",
+            "--output",
+            "release/artifacts"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 1,
+          "duration_s": 0.112,
+          "stdout_tail": "",
+          "stderr_tail": "FAIL: tracked files are modified; commit or revert before building a release candidate. The previous output directory was left untouched.\n M benchmarks/results/smoke-deterministic/attempts.jsonl\n M evidence/platforms/current.json\n M evidence/ui/ui-gate.json\n M scripts/build_release.py\n M scripts/run_gate.py\n M src/turnkeep.egg-info/PKG-INFO\n M src/turnkeep.egg-info/SOURCES.txt\n?? evidence/FINAL_REVIEW.md\n?? evidence/GATE_MATRIX.json\n?? evidence/gate/profile_release.json\n?? evidence/tasks/T047.json\n?? release/KNOWN_LIMITATIONS.md\n\n",
+          "status": "FAIL"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/verify_release.py",
+            "--manifest",
+            "release/artifacts/manifest.json"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 1,
+          "duration_s": 5.565,
+          "stdout_tail": "{\n  \"manifest\": \"/home/hatch/workspace/turnkeep-work/release/artifacts/manifest.json\",\n  \"checks\": [\n    \"manifest fields + known gaps present\",\n    \"version matches pyproject.toml (0.1.0)\",\n    \"8 manifest files present with matching sha256; SHA256SUMS agrees\",\n    \"platforms honest: Linux verified, Windows/macOS NOT_RUN\",\n    \"installable artifact: wheel (turnkeep-0.1.0-py3-none-any.whl)\",\n    \"UI tarball extracts; index.html uses relative assets\",\n    \"installed wheel into a clean venv\",\n    \"installed turnkeep --version reports 0.1.0\",\n    \"J01 zero-key demo PASS from the installed artifact\",\n    \"CLI remember/begin/finish round trip PASS from the installed artifact (receipt record_id=50cc5f0c..., commit_epoch=2)\"\n  ],\n  \"failures\": [\n    \"manifest commit 7391e83b76aa50f658d1ee98862b87ccbf1c8096 != current HEAD 24111b9a95471eddb0c8814e351b5f495d629c76 (rebuild before verifying)\"\n  ],\n  \"not_run\": [],\n  \"notes\": [\n    \"export-format scenario does NOT run from the installed wheel (known gap, see manifest known_gaps.demo_fixtures_installed): demo.py resolves fixtures via parents[2], which is lib/python3.12 when installed. Non-gating for J01; durable fix is demo.py via importlib.resources.\"\n  ],\n  \"status\": \"FAIL\"\n}\n",
+          "stderr_tail": "FAIL: manifest commit 7391e83b76aa50f658d1ee98862b87ccbf1c8096 != current HEAD 24111b9a95471eddb0c8814e351b5f495d629c76 (rebuild before verifying)\n",
+          "status": "FAIL"
+        }
+      ]
+    }
+  ]
+}

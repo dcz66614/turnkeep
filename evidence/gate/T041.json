@@ -1,0 +1,47 @@
+{
+  "gate": "run_gate",
+  "selector": "T041",
+  "status": "PASS",
+  "generated": "2026-11-08T20:27:00Z",
+  "python": "3.12.3",
+  "results": [
+    {
+      "task_id": "T041",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "benchmarks/replay.py",
+            "--suite",
+            "core-change",
+            "--output",
+            "evidence/replay"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.234,
+          "stdout_tail": "{\n  \"suite\": \"core-change\",\n  \"version\": 1,\n  \"mutation\": \"none\",\n  \"label\": \"SCRIPTED_REPLAY_NO_MODEL_CALLS\",\n  \"scenarios\": 25,\n  \"passed\": 25,\n  \"failed\": 0,\n  \"false_refusals\": 2,\n  \"false_refusal_note\": \"Scenarios flagged false_refusal demonstrate the conservative contract rejecting a finish on an unrelated change; they PASS when the rejection + recompute behave as specified, and are reported separately from model failures.\"\n}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/benchmarks/test_replay.py",
+            "tests/benchmarks/test_mutations.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 2.573,
+          "stdout_tail": "......                                                                   [100%]\n6 passed in 1.80s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    }
+  ]
+}

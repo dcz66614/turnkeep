@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Turnkeep 工作台</title>
+    <style>
+      body { font-family: system-ui, sans-serif; margin: 2rem auto; max-width: 720px; padding: 0 1rem; }
+      nav a { margin-right: 1rem; }
+      .badge { display: inline-block; padding: 0.1em 0.5em; border: 1px solid #666; border-radius: 1em; font-size: 0.85em; }
+      .badge.active { border-color: #1a7f37; color: #1a7f37; }
+      .badge.conflicted { border-color: #b3261e; color: #b3261e; }
+      .badge.superseded, .badge.retracted { color: #666; }
+      .card { border: 1px solid #ddd; border-radius: 8px; padding: 1rem; margin: 0.5rem 0; }
+      .error { border-color: #b3261e; }
+      label { display: block; margin: 0.5rem 0; }
+      button { cursor: pointer; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Turnkeep 工作台</h1>
+      <nav aria-label="主导航">
+        <a href="#/" data-nav="overview">项目总览</a>
+        <a href="#/current" data-nav="current">当前视图</a>
+        <a href="#/history" data-nav="history">历史</a>
+        <a href="#/impact" data-nav="impact">影响与恢复</a>
+        <a href="#/conflicts" data-nav="conflicts">冲突处理</a>
+        <a href="#/handoff" data-nav="handoff">交接</a>
+        <a href="#/recovery" data-nav="recovery">恢复</a>
+      </nav>
+    </header>
+    <main id="app" aria-live="polite">
+      <p>加载中…</p>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

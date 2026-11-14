@@ -1,0 +1,47 @@
+{
+  "gate": "run_gate",
+  "selector": "T040",
+  "status": "PASS",
+  "generated": "2026-11-08T20:20:48Z",
+  "python": "3.12.3",
+  "results": [
+    {
+      "task_id": "T040",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/benchmarks/test_scoring.py",
+            "tests/benchmarks/test_baseline_parity.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.764,
+          "stdout_tail": "..........                                                               [100%]\n10 passed in 0.37s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "benchmarks/harness/run.py",
+            "--suite",
+            "smoke",
+            "--mode",
+            "deterministic"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.106,
+          "stdout_tail": "{\n  \"suite\": \"smoke\",\n  \"mode\": \"deterministic\",\n  \"label\": \"SCRIPTED_SIMULATION_NO_MODEL_CALLS\",\n  \"note\": \"Scripted policies only. These numbers measure the harness and the policies, never real model performance. Gate C (live models) is NOT_RUN.\",\n  \"seed\": 20261108,\n  \"budget\": {\n    \"max_seconds\": 60,\n    \"max_steps\": 20\n  },\n  \"not_run_arms\": {\n    \"mature-memory\": \"NOT_RUN: no real Mem0/Hindsight install configured in this environment\",\n    \"nearest-workflow\": \"NOT_RUN: no real Tigerless/Engram install configured in this environment\"\n  },\n  \"overall\": {\n    \"attempts\": 12,\n    \"completed\": 10,\n    \"success_rate\": 0.8333333333333334,\n    \"stale_fact_rate\": 0.16666666666666666,\n    \"contract_violations\": 0,\n    \"irrelevant_refusals\": 0,\n    \"mean_redo_cost_steps\": 0.5833333333333334\n  },\n  \"per_arm\": {\n    \"none\": {\n      \"attempts\": 3,\n      \"completed\": 1,\n      \"success_rate\": 0.3333333333333333,\n      \"stale_fact_rate\": 0.6666666666666666,\n      \"contract_violations\": 0,\n      \"irrelevant_refusals\": 0,\n      \"mean_redo_cost_steps\": 0.0\n    },\n    \"markdown\": {\n      \"attempts\": 3,\n      \"completed\": 3,\n      \"success_rate\": 1.0,\n      \"stale_fact_rate\": 0.0,\n      \"contract_violations\": 0,\n      \"irrelevant_refusals\": 0,\n      \"mean_redo_cost_steps\": 0.0\n    },\n    \"log\": {\n      \"attempts\": 3,\n      \"completed\": 3,\n      \"success_rate\": 1.0,\n      \"stale_fact_rate\": 0.0,\n      \"contract_violations\": 0,\n      \"irrelevant_refusals\": 0,\n      \"mean_redo_cost_steps\": 0.0\n    },\n    \"turnkeep\": {\n      \"attempts\": 3,\n      \"completed\": 3,\n      \"success_rate\": 1.0,\n      \"stale_fact_rate\": 0.0,\n      \"contract_violations\": 0,\n      \"irrelevant_refusals\": 0,\n      \"mean_redo_cost_steps\": 2.3333333333333335\n    }\n  }\n}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    }
+  ]
+}

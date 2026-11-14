@@ -1,0 +1,49 @@
+{
+  "gate": "run_gate",
+  "selector": "T031",
+  "status": "PASS",
+  "generated": "2026-11-08T19:42:14Z",
+  "python": "3.12.3",
+  "results": [
+    {
+      "task_id": "T031",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "npm",
+            "--prefix",
+            "ui",
+            "run",
+            "test:e2e",
+            "--",
+            "impact.spec.ts"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 4.721,
+          "stdout_tail": "\n> turnkeep-workbench@0.1.0 test:e2e\n> NODE_PATH=./node_modules playwright test impact.spec.ts\n\n\nRunning 1 test using 1 worker\n\n  ✓  1 ../tests/ui/impact.spec.ts:56:1 › impact view shows old/new, the path, and resume diff (1.7s)\n\n  1 passed (3.6s)\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/run_journey.py",
+            "--mode",
+            "ui-api",
+            "--journey",
+            "J03",
+            "--no-model"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.305,
+          "stdout_tail": "{\n  \"journey\": \"J03\",\n  \"mode\": \"ui-api\",\n  \"status\": \"PASS\",\n  \"steps\": [\n    \"remember 3.11\",\n    \"stale finish rejected with changed_keys\",\n    \"impact path req -> release\",\n    \"resume diff shows the change\",\n    \"recomputed finish committed; identical replay returned receipt\"\n  ],\n  \"receipt\": {\n    \"run_id\": \"2f60b9f520374cecbc6bcdcb778f6143\",\n    \"scope\": \"j03\",\n    \"record_id\": \"187adecf03224ad394fc52b3679f07bb\",\n    \"request_digest\": \"27c771ce698f43a739591602923e508908be085befbd175b6346cd8336568708\",\n    \"read_epoch\": 3,\n    \"commit_epoch\": 4,\n    \"parent_ids\": [\n      \"58eaf954ca2d42b1bc1b418b31f3e17e\"\n    ],\n    \"committed_at\": \"2026-11-08T19:42:14.852985+00:00\",\n    \"status_at_commit\": \"active\",\n    \"guarantee\": \"local_sqlite_commit_only\"\n  }\n}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    }
+  ]
+}

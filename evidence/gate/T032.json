@@ -1,0 +1,47 @@
+{
+  "gate": "run_gate",
+  "selector": "T032",
+  "status": "PASS",
+  "generated": "2026-11-08T19:53:10Z",
+  "python": "3.12.3",
+  "results": [
+    {
+      "task_id": "T032",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "npm",
+            "--prefix",
+            "ui",
+            "run",
+            "test:e2e",
+            "--",
+            "correction.spec.ts"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 5.737,
+          "stdout_tail": "\n> turnkeep-workbench@0.1.0 test:e2e\n> NODE_PATH=./node_modules playwright test correction.spec.ts\n\n\nRunning 2 tests using 1 worker\n\n  ✓  1 ../tests/ui/correction.spec.ts:55:1 › editor corrects with CAS; concurrent update surfaces 409, no silent overwrite (1.6s)\n  ✓  2 ../tests/ui/correction.spec.ts:79:1 › conflicts view resolves the full candidate set with new evidence (1.3s)\n\n  2 passed (4.7s)\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/web/test_write_races.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 3.051,
+          "stdout_tail": "....                                                                     [100%]\n4 passed in 2.12s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,390 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Turnkeep local workbench API",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:{port}",
+      "description": "loopback only"
+    }
+  ],
+  "paths": {
+    "/api/v1/health": {
+      "get": {
+        "operationId": "health",
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "400": {
+            "description": "INVALID_INPUT"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "403": {
+            "description": "FORBIDDEN"
+          },
+          "404": {
+            "description": "NOT_FOUND"
+          },
+          "409": {
+            "description": "conflict (VERSION_CONFLICT / STALE_SNAPSHOT / IDEMPOTENCY_MISMATCH)"
+          }
+        }
+      }
+    },
+    "/api/v1/scopes": {
+      "get": {
+        "operationId": "scopes",
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "400": {
+            "description": "INVALID_INPUT"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "403": {
+            "description": "FORBIDDEN"
+          },
+          "404": {
+            "description": "NOT_FOUND"
+          },
+          "409": {
+            "description": "conflict (VERSION_CONFLICT / STALE_SNAPSHOT / IDEMPOTENCY_MISMATCH)"
+          }
+        }
+      }
+    },
+    "/api/v1/runs": {
+      "get": {
+        "operationId": "runs",
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "400": {
+            "description": "INVALID_INPUT"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "403": {
+            "description": "FORBIDDEN"
+          },
+          "404": {
+            "description": "NOT_FOUND"
+          },
+          "409": {
+            "description": "conflict (VERSION_CONFLICT / STALE_SNAPSHOT / IDEMPOTENCY_MISMATCH)"
+          }
+        }
+      }
+    },
+    "/api/v1/impact": {
+      "get": {
+        "operationId": "impact",
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "400": {
+            "description": "INVALID_INPUT"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "403": {
+            "description": "FORBIDDEN"
+          },
+          "404": {
+            "description": "NOT_FOUND"
+          },
+          "409": {
+            "description": "conflict (VERSION_CONFLICT / STALE_SNAPSHOT / IDEMPOTENCY_MISMATCH)"
+          }
+        }
+      }
+    },
+    "/api/v1/conflicts": {
+      "get": {
+        "operationId": "conflicts",
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "400": {
+            "description": "INVALID_INPUT"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "403": {
+            "description": "FORBIDDEN"
+          },
+          "404": {
+            "description": "NOT_FOUND"
+          },
+          "409": {
+            "description": "conflict (VERSION_CONFLICT / STALE_SNAPSHOT / IDEMPOTENCY_MISMATCH)"
+          }
+        }
+      }
+    },
+    "/api/v1/recall": {
+      "get": {
+        "operationId": "recall",
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "400": {
+            "description": "INVALID_INPUT"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "403": {
+            "description": "FORBIDDEN"
+          },
+          "404": {
+            "description": "NOT_FOUND"
+          },
+          "409": {
+            "description": "conflict (VERSION_CONFLICT / STALE_SNAPSHOT / IDEMPOTENCY_MISMATCH)"
+          }
+        }
+      }
+    },
+    "/api/v1/brief": {
+      "get": {
+        "operationId": "brief",
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "400": {
+            "description": "INVALID_INPUT"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "403": {
+            "description": "FORBIDDEN"
+          },
+          "404": {
+            "description": "NOT_FOUND"
+          },
+          "409": {
+            "description": "conflict (VERSION_CONFLICT / STALE_SNAPSHOT / IDEMPOTENCY_MISMATCH)"
+          }
+        }
+      }
+    },
+    "/api/v1/remember": {
+      "post": {
+        "operationId": "remember",
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "400": {
+            "description": "INVALID_INPUT"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "403": {
+            "description": "FORBIDDEN"
+          },
+          "404": {
+            "description": "NOT_FOUND"
+          },
+          "409": {
+            "description": "conflict (VERSION_CONFLICT / STALE_SNAPSHOT / IDEMPOTENCY_MISMATCH)"
+          }
+        }
+      }
+    },
+    "/api/v1/begin": {
+      "post": {
+        "operationId": "begin",
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "400": {
+            "description": "INVALID_INPUT"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "403": {
+            "description": "FORBIDDEN"
+          },
+          "404": {
+            "description": "NOT_FOUND"
+          },
+          "409": {
+            "description": "conflict (VERSION_CONFLICT / STALE_SNAPSHOT / IDEMPOTENCY_MISMATCH)"
+          }
+        }
+      }
+    },
+    "/api/v1/correct": {
+      "post": {
+        "operationId": "correct",
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "400": {
+            "description": "INVALID_INPUT"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "403": {
+            "description": "FORBIDDEN"
+          },
+          "404": {
+            "description": "NOT_FOUND"
+          },
+          "409": {
+            "description": "conflict (VERSION_CONFLICT / STALE_SNAPSHOT / IDEMPOTENCY_MISMATCH)"
+          }
+        }
+      }
+    },
+    "/api/v1/retract": {
+      "post": {
+        "operationId": "retract",
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "400": {
+            "description": "INVALID_INPUT"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "403": {
+            "description": "FORBIDDEN"
+          },
+          "404": {
+            "description": "NOT_FOUND"
+          },
+          "409": {
+            "description": "conflict (VERSION_CONFLICT / STALE_SNAPSHOT / IDEMPOTENCY_MISMATCH)"
+          }
+        }
+      }
+    },
+    "/api/v1/resolve_conflict": {
+      "post": {
+        "operationId": "resolve_conflict",
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "400": {
+            "description": "INVALID_INPUT"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "403": {
+            "description": "FORBIDDEN"
+          },
+          "404": {
+            "description": "NOT_FOUND"
+          },
+          "409": {
+            "description": "conflict (VERSION_CONFLICT / STALE_SNAPSHOT / IDEMPOTENCY_MISMATCH)"
+          }
+        }
+      }
+    },
+    "/api/v1/finish": {
+      "post": {
+        "operationId": "finish",
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "400": {
+            "description": "INVALID_INPUT"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "403": {
+            "description": "FORBIDDEN"
+          },
+          "404": {
+            "description": "NOT_FOUND"
+          },
+          "409": {
+            "description": "conflict (VERSION_CONFLICT / STALE_SNAPSHOT / IDEMPOTENCY_MISMATCH)"
+          }
+        }
+      }
+    },
+    "/api/v1/resume": {
+      "post": {
+        "operationId": "resume",
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "400": {
+            "description": "INVALID_INPUT"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "403": {
+            "description": "FORBIDDEN"
+          },
+          "404": {
+            "description": "NOT_FOUND"
+          },
+          "409": {
+            "description": "conflict (VERSION_CONFLICT / STALE_SNAPSHOT / IDEMPOTENCY_MISMATCH)"
+          }
+        }
+      }
+    },
+    "/api/v1/rebase": {
+      "post": {
+        "operationId": "rebase",
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "400": {
+            "description": "INVALID_INPUT"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "403": {
+            "description": "FORBIDDEN"
+          },
+          "404": {
+            "description": "NOT_FOUND"
+          },
+          "409": {
+            "description": "conflict (VERSION_CONFLICT / STALE_SNAPSHOT / IDEMPOTENCY_MISMATCH)"
+          }
+        }
+      }
+    }
+  }
+}

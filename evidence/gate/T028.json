@@ -1,0 +1,46 @@
+{
+  "gate": "run_gate",
+  "selector": "T028",
+  "status": "PASS",
+  "generated": "2026-11-08T19:15:07Z",
+  "python": "3.12.3",
+  "results": [
+    {
+      "task_id": "T028",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/platform/test_paths.py",
+            "tests/platform/test_doctor.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.419,
+          "stdout_tail": ".........                                                                [100%]\n9 passed in 0.04s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "turnkeep",
+            "doctor",
+            "--json"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.094,
+          "stdout_tail": "{\n  \"tool\": \"turnkeep doctor\",\n  \"version\": \"0.1.0\",\n  \"platform\": {\n    \"system\": \"Linux\",\n    \"release\": \"7.0.0-43-generic\",\n    \"machine\": \"x86_64\"\n  },\n  \"python\": {\n    \"status\": \"PASS\",\n    \"version\": \"3.12.3\",\n    \"required\": \">=3.11\"\n  },\n  \"sqlite\": {\n    \"status\": \"PASS\",\n    \"version\": \"3.45.1\"\n  },\n  \"data_dir\": {\n    \"status\": \"PASS\",\n    \"path\": \"/home/hatch/.local/share/turnkeep\",\n    \"writable\": true\n  },\n  \"database\": {\n    \"status\": \"NOT_RUN\",\n    \"path\": null,\n    \"note\": \"no turnkeep database found yet — run `turnkeep init --scope <id>`\"\n  },\n  \"commands\": {\n    \"mcp\": {\n      \"status\": \"PASS\",\n      \"command\": \"python -m turnkeep mcp\",\n      \"note\": \"implemented in src/turnkeep (stdlib only)\"\n    },\n    \"serve\": {\n      \"status\": \"PASS\",\n      \"command\": \"python -m turnkeep serve\",\n      \"note\": \"implemented in src/turnkeep (stdlib only)\"\n    },\n    \"doctor\": {\n      \"status\": \"PASS\",\n      \"command\": \"python -m turnkeep doctor\",\n      \"note\": \"implemented in src/turnkeep (stdlib only)\"\n    }\n  },\n  \"clients\": {\n    \"claude-code\": {\n      \"config_template\": \"/home/hatch/workspace/turnkeep-work/adapters/claude-code/.mcp.json\",\n      \"template_present\": true,\n      \"installed\": false,\n      \"cli_present\": false,\n      \"live\": \"NOT_RUN\",\n      \"live_reason\": \"claude CLI not installed on this machine\"\n    },\n    \"codex\": {\n      \"config_template\": \"/home/hatch/workspace/turnkeep-work/adapters/codex/config.toml\",\n      \"template_present\": true,\n      \"installed\": false,\n      \"cli_present\": true,\n      \"live\": \"NOT_RUN\",\n      \"live_reason\": \"login state unknown; no login attempted\"\n    }\n  },\n  \"platforms\": {\n    \"linux\": {\n      \"status\": \"VERIFIED\",\n      \"note\": \"full test suite on this VM\"\n    },\n    \"macos\": {\n      \"status\": \"NOT_RUN\",\n      \"note\": \"real verification in T043\"\n    },\n    \"windows\": {\n      \"status\": \"NOT_RUN\",\n      \"note\": \"real verification in T043\"\n    }\n  },\n  \"overall\": \"OK\",\n  \"failed_checks\": []\n}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    }
+  ]
+}

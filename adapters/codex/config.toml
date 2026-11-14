@@ -1,0 +1,32 @@
+# Codex adapter (T025) — config template. Live verification is NOT_RUN:
+# the `codex` CLI is installed (codex-cli 0.164.0-alpha.9) but its login /
+# auth state is unknown here and no login is attempted (do not log in on
+# Sam's behalf). `codex mcp list` runs without auth and reports
+# "No MCP servers configured yet" — this template has NOT been installed
+# into ~/.codex/config.toml (that is the user's personal config; install
+# it only when Sam asks).
+#
+# Install (user scope, all projects):
+#   codex mcp add turnkeep -- /usr/bin/env python3 -m turnkeep mcp \
+#     --scope codex --db ~/.local/share/turnkeep/turnkeep.sqlite3
+#   # with env: codex mcp add turnkeep --env TURNKEEP_PRINCIPAL=codex \
+#   #   --env PYTHONPATH=<turnkeep-work>/src -- ...
+# or append the table below to ~/.codex/config.toml by hand (replace
+# <turnkeep-work> and ~ with absolute paths; Codex does not expand ~ in
+# args). Project scope: same table in <project>/.codex/config.toml
+# (only read for trusted projects).
+#
+# One server process = one scope + one principal. Same --db as the Claude
+# Code adapter shares the store; each client keeps its own actor label
+# (codex / claude-code) and its own run ids.
+#
+# Doctor: python scripts/check_adapter.py --client codex --mode config
+#   config: PASS when this template parses as TOML with command+args.
+#   live:   NOT_RUN (no login attempted; install + `codex` session needed).
+
+[mcp_servers.turnkeep]
+command = "/usr/bin/env"
+args = ["python3", "-m", "turnkeep", "mcp", "--scope", "codex",
+        "--db", "~/.local/share/turnkeep/turnkeep.sqlite3"]
+env = { TURNKEEP_PRINCIPAL = "codex", PYTHONPATH = "<turnkeep-work>/src" }
+startup_timeout_sec = 20

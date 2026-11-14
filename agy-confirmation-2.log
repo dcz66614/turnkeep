@@ -1,0 +1,306 @@
+driver agy: ~/.local/bin/agy, model gemini-3.8-flash-low
+[live-confirmation] 432 planned, 238 to run, 194 already recorded
+  [195/432] conf-f03-recovery / turnkeep / seed 11: completed=False stale=False steps=0 tokens=unknown (0s elapsed)
+  [196/432] conf-f10-recovery / markdown / seed 11: completed=True stale=False steps=6 tokens={'tokens_total': 69492, 'turns': 2} (31s elapsed)
+  [197/432] conf-f05-recovery / none / seed 11: completed=False stale=True steps=16 tokens={'tokens_total': 156343, 'turns': 2} (59s elapsed)
+  [198/432] conf-f08-changed / turnkeep / seed 47: completed=True stale=False steps=9 tokens={'tokens_total': 106329, 'turns': 1} (61s elapsed)
+  [199/432] conf-f05-stable / none / seed 11: completed=True stale=False steps=20 tokens={'tokens_total': 191238, 'turns': 1} (72s elapsed)
+  [200/432] conf-f09-stable / log / seed 29: completed=True stale=False steps=4 tokens={'tokens_total': 38867, 'turns': 1} (74s elapsed)
+  [201/432] conf-f07-stable / none / seed 47: completed=True stale=False steps=6 tokens={'tokens_total': 52671, 'turns': 1} (81s elapsed)
+  [202/432] conf-f09-stable / turnkeep / seed 29: completed=False stale=False steps=0 tokens=unknown (82s elapsed)
+  [203/432] conf-f07-recovery / turnkeep / seed 11: completed=False stale=False steps=0 tokens=unknown (98s elapsed)
+  [204/432] conf-f03-recovery / none / seed 11: completed=False stale=True steps=7 tokens={'tokens_total': 78529, 'turns': 2} (107s elapsed)
+  [205/432] conf-f07-recovery / log / seed 29: completed=True stale=False steps=5 tokens={'tokens_total': 51658, 'turns': 2} (122s elapsed)
+  [206/432] conf-f12-changed / none / seed 11: completed=False stale=True steps=4 tokens={'tokens_total': 40538, 'turns': 1} (125s elapsed)
+  [207/432] conf-f04-changed / turnkeep / seed 47: completed=False stale=False steps=32 tokens={'tokens_total': 219623, 'turns': 1} (184s elapsed)
+  [208/432] conf-f01-changed / none / seed 47: completed=False stale=True steps=6 tokens={'tokens_total': 70628, 'turns': 1} (208s elapsed)
+  [209/432] conf-f12-recovery / turnkeep / seed 11: completed=False stale=False steps=0 tokens=unknown (250s elapsed)
+  [210/432] conf-f01-recovery / turnkeep / seed 29: completed=False stale=False steps=0 tokens=unknown (270s elapsed)
+  [211/432] conf-f09-stable / markdown / seed 29: completed=True stale=False steps=4 tokens={'tokens_total': 33268, 'turns': 1} (284s elapsed)
+  [212/432] conf-f02-recovery / turnkeep / seed 11: completed=False stale=False steps=0 tokens=unknown (286s elapsed)
+  [213/432] conf-f09-recovery / log / seed 47: completed=True stale=False steps=5 tokens={'tokens_total': 56838, 'turns': 2} (306s elapsed)
+  [214/432] conf-f05-recovery / markdown / seed 29: completed=True stale=False steps=6 tokens={'tokens_total': 67779, 'turns': 2} (314s elapsed)
+  [215/432] conf-f11-recovery / turnkeep / seed 11: completed=False stale=False steps=0 tokens=unknown (316s elapsed)
+  [216/432] conf-f01-changed / log / seed 47: completed=True stale=False steps=3 tokens={'tokens_total': 20515, 'turns': 1} (319s elapsed)
+  [217/432] conf-f06-changed / none / seed 11: completed=False stale=True steps=3 tokens={'tokens_total': 19818, 'turns': 1} (327s elapsed)
+  [218/432] conf-f02-recovery / log / seed 11: completed=True stale=False steps=5 tokens={'tokens_total': 56392, 'turns': 2} (336s elapsed)
+  [219/432] conf-f01-recovery / turnkeep / seed 11: completed=False stale=False steps=0 tokens=unknown (343s elapsed)
+  [220/432] conf-f01-changed / turnkeep / seed 29: completed=True stale=False steps=5 tokens={'tokens_total': 49883, 'turns': 1} (345s elapsed)
+  [221/432] conf-f09-recovery / turnkeep / seed 47: completed=False stale=False steps=0 tokens=unknown (345s elapsed)
+  [222/432] conf-f08-stable / markdown / seed 29: completed=False stale=False steps=4 tokens={'tokens_total': 38864, 'turns': 1} (355s elapsed)
+  [223/432] conf-f09-changed / markdown / seed 47: completed=True stale=False steps=3 tokens={'tokens_total': 30909, 'turns': 1} (356s elapsed)
+  [224/432] conf-f09-changed / log / seed 11: completed=True stale=False steps=3 tokens={'tokens_total': 25708, 'turns': 1} (368s elapsed)
+  [225/432] conf-f01-recovery / none / seed 47: completed=False stale=True steps=8 tokens={'tokens_total': 103801, 'turns': 2} (389s elapsed)
+  [226/432] conf-f09-recovery / log / seed 29: completed=True stale=False steps=6 tokens={'tokens_total': 63251, 'turns': 2} (397s elapsed)
+  [227/432] conf-f11-changed / markdown / seed 11: completed=True stale=False steps=3 tokens={'tokens_total': 25707, 'turns': 1} (410s elapsed)
+  [228/432] conf-f11-recovery / log / seed 47: completed=True stale=False steps=5 tokens={'tokens_total': 56746, 'turns': 2} (412s elapsed)
+  [229/432] conf-f12-recovery / log / seed 11: completed=True stale=False steps=6 tokens={'tokens_total': 60917, 'turns': 2} (434s elapsed)
+  [230/432] conf-f05-stable / log / seed 29: completed=True stale=False steps=3 tokens={'tokens_total': 30731, 'turns': 1} (447s elapsed)
+  [231/432] conf-f05-changed / none / seed 47: completed=False stale=True steps=14 tokens={'tokens_total': 123369, 'turns': 1} (448s elapsed)
+  [232/432] conf-f09-changed / log / seed 29: completed=True stale=False steps=4 tokens={'tokens_total': 29946, 'turns': 1} (467s elapsed)
+  [233/432] conf-f03-recovery / log / seed 11: completed=True stale=False steps=6 tokens={'tokens_total': 68380, 'turns': 2} (474s elapsed)
+  [234/432] conf-f02-stable / turnkeep / seed 47: completed=True stale=False steps=45 tokens={'tokens_total': 274331, 'turns': 1} (486s elapsed)
+  [235/432] conf-f09-recovery / markdown / seed 29: completed=True stale=False steps=5 tokens={'tokens_total': 56862, 'turns': 2} (508s elapsed)
+  [236/432] conf-f06-recovery / turnkeep / seed 11: completed=False stale=False steps=0 tokens=unknown (531s elapsed)
+  [237/432] conf-f08-changed / markdown / seed 29: completed=True stale=False steps=5 tokens={'tokens_total': 41957, 'turns': 1} (548s elapsed)
+  [238/432] conf-f06-changed / log / seed 11: completed=True stale=False steps=3 tokens={'tokens_total': 30674, 'turns': 1} (559s elapsed)
+  [239/432] conf-f04-stable / turnkeep / seed 47: completed=False stale=False steps=40 tokens={'tokens_total': 238501, 'turns': 1} (581s elapsed)
+  [240/432] conf-f11-stable / turnkeep / seed 29: completed=True stale=False steps=37 tokens={'tokens_total': 244173, 'turns': 1} (584s elapsed)
+  [241/432] conf-f03-changed / none / seed 29: completed=False stale=True steps=5 tokens={'tokens_total': 46856, 'turns': 1} (602s elapsed)
+  [242/432] conf-f10-recovery / log / seed 11: completed=True stale=False steps=6 tokens={'tokens_total': 64159, 'turns': 2} (603s elapsed)
+  [243/432] conf-f11-recovery / markdown / seed 29: completed=True stale=False steps=3 tokens={'tokens_total': 47794, 'turns': 2} (633s elapsed)
+  [244/432] conf-f06-stable / log / seed 11: completed=True stale=False steps=3 tokens={'tokens_total': 21001, 'turns': 1} (648s elapsed)
+  [245/432] conf-f03-changed / turnkeep / seed 29: completed=True stale=False steps=35 tokens={'tokens_total': 167915, 'turns': 1} (655s elapsed)
+  [246/432] conf-f04-stable / log / seed 11: completed=True stale=False steps=3 tokens={'tokens_total': 30595, 'turns': 1} (659s elapsed)
+  [247/432] conf-f12-stable / turnkeep / seed 47: completed=False stale=False steps=20 tokens={'tokens_total': 142222, 'turns': 1} (663s elapsed)
+  [248/432] conf-f08-changed / log / seed 11: completed=True stale=False steps=3 tokens={'tokens_total': 30891, 'turns': 1} (667s elapsed)
+  [249/432] conf-f07-recovery / turnkeep / seed 47: completed=False stale=False steps=0 tokens=unknown (688s elapsed)
+  [250/432] conf-f08-stable / log / seed 29: completed=False stale=False steps=5 tokens={'tokens_total': 47041, 'turns': 1} (689s elapsed)
+  [251/432] conf-f12-stable / log / seed 29: completed=True stale=False steps=4 tokens={'tokens_total': 33016, 'turns': 1} (703s elapsed)
+  [252/432] conf-f09-changed / none / seed 29: completed=True stale=False steps=4 tokens={'tokens_total': 38789, 'turns': 1} (711s elapsed)
+  [253/432] conf-f04-stable / markdown / seed 29: completed=True stale=False steps=4 tokens={'tokens_total': 38931, 'turns': 1} (717s elapsed)
+  [254/432] conf-f05-recovery / log / seed 29: completed=True stale=False steps=5 tokens={'tokens_total': 56378, 'turns': 2} (737s elapsed)
+  [255/432] conf-f10-recovery / markdown / seed 47: completed=True stale=False steps=6 tokens={'tokens_total': 68620, 'turns': 2} (744s elapsed)
+  [256/432] conf-f10-changed / markdown / seed 11: completed=True stale=False steps=3 tokens={'tokens_total': 30987, 'turns': 1} (750s elapsed)
+  [257/432] conf-f03-changed / log / seed 29: completed=True stale=False steps=4 tokens={'tokens_total': 39034, 'turns': 1} (764s elapsed)
+  [258/432] conf-f04-recovery / markdown / seed 47: completed=True stale=False steps=5 tokens={'tokens_total': 52247, 'turns': 2} (788s elapsed)
+  [259/432] conf-f07-changed / turnkeep / seed 11: completed=True stale=False steps=7 tokens={'tokens_total': 62915, 'turns': 1} (809s elapsed)
+  [260/432] conf-f11-changed / turnkeep / seed 29: completed=True stale=False steps=24 tokens={'tokens_total': 174825, 'turns': 1} (817s elapsed)
+  [261/432] conf-f11-recovery / turnkeep / seed 47: completed=False stale=False steps=0 tokens=unknown (818s elapsed)
+  [262/432] conf-f12-changed / log / seed 29: completed=True stale=False steps=5 tokens={'tokens_total': 39146, 'turns': 1} (824s elapsed)
+  [263/432] conf-f10-changed / markdown / seed 29: completed=True stale=False steps=3 tokens={'tokens_total': 25465, 'turns': 1} (833s elapsed)
+  [264/432] conf-f09-changed / turnkeep / seed 11: completed=False stale=False steps=0 tokens=unknown (834s elapsed)
+  [265/432] conf-f03-changed / none / seed 47: completed=False stale=True steps=6 tokens={'tokens_total': 55416, 'turns': 1} (844s elapsed)
+  [266/432] conf-f11-changed / none / seed 11: completed=False stale=True steps=5 tokens={'tokens_total': 40920, 'turns': 1} (852s elapsed)
+  [267/432] conf-f05-stable / markdown / seed 47: completed=True stale=False steps=4 tokens={'tokens_total': 38778, 'turns': 1} (859s elapsed)
+  [268/432] conf-f08-changed / markdown / seed 11: completed=True stale=False steps=5 tokens={'tokens_total': 26154, 'turns': 1} (868s elapsed)
+  [269/432] conf-f02-changed / log / seed 29: completed=True stale=False steps=3 tokens={'tokens_total': 20421, 'turns': 1} (871s elapsed)
+  [270/432] conf-f07-stable / log / seed 47: completed=True stale=False steps=4 tokens={'tokens_total': 38963, 'turns': 1} (882s elapsed)
+  [271/432] conf-f06-stable / turnkeep / seed 29: completed=True stale=False steps=25 tokens={'tokens_total': 216149, 'turns': 1} (891s elapsed)
+  [272/432] conf-f11-changed / log / seed 47: completed=True stale=False steps=3 tokens={'tokens_total': 20507, 'turns': 1} (898s elapsed)
+  [273/432] conf-f11-stable / log / seed 29: completed=True stale=False steps=3 tokens={'tokens_total': 26013, 'turns': 1} (909s elapsed)
+  [274/432] conf-f01-changed / turnkeep / seed 11: completed=True stale=False steps=5 tokens={'tokens_total': 60420, 'turns': 1} (914s elapsed)
+  [275/432] conf-f11-recovery / none / seed 47: completed=False stale=True steps=14 tokens={'tokens_total': 180767, 'turns': 2} (924s elapsed)
+  [276/432] conf-f01-recovery / log / seed 29: completed=True stale=False steps=6 tokens={'tokens_total': 55010, 'turns': 2} (935s elapsed)
+  [277/432] conf-f10-recovery / log / seed 29: completed=True stale=False steps=8 tokens={'tokens_total': 75904, 'turns': 2} (946s elapsed)
+  [278/432] conf-f07-recovery / markdown / seed 11: completed=True stale=False steps=6 tokens={'tokens_total': 63890, 'turns': 2} (962s elapsed)
+  [279/432] conf-f04-recovery / none / seed 11: completed=False stale=True steps=6 tokens={'tokens_total': 81022, 'turns': 2} (975s elapsed)
+  [280/432] conf-f08-changed / none / seed 47: completed=True stale=False steps=7 tokens={'tokens_total': 65833, 'turns': 1} (984s elapsed)
+  [281/432] conf-f09-changed / log / seed 47: completed=True stale=False steps=3 tokens={'tokens_total': 30554, 'turns': 1} (987s elapsed)
+  [282/432] conf-f05-stable / turnkeep / seed 11: completed=True stale=False steps=5 tokens={'tokens_total': 53634, 'turns': 1} (1003s elapsed)
+  [283/432] conf-f10-changed / turnkeep / seed 11: completed=True stale=False steps=9 tokens={'tokens_total': 94253, 'turns': 1} (1018s elapsed)
+  [284/432] conf-f09-recovery / log / seed 11: completed=True stale=False steps=6 tokens={'tokens_total': 52359, 'turns': 2} (1032s elapsed)
+  [285/432] conf-f11-stable / log / seed 47: completed=True stale=False steps=5 tokens={'tokens_total': 37100, 'turns': 1} (1036s elapsed)
+  [286/432] conf-f06-changed / markdown / seed 11: completed=True stale=False steps=3 tokens={'tokens_total': 30705, 'turns': 1} (1047s elapsed)
+  [287/432] conf-f05-recovery / turnkeep / seed 47: completed=False stale=False steps=0 tokens=unknown (1052s elapsed)
+  [288/432] conf-f03-stable / turnkeep / seed 29: completed=True stale=False steps=37 tokens={'tokens_total': 247110, 'turns': 1} (1054s elapsed)
+  [289/432] conf-f09-recovery / none / seed 11: completed=False stale=True steps=7 tokens={'tokens_total': 73772, 'turns': 2} (1078s elapsed)
+  [290/432] conf-f02-recovery / none / seed 11: completed=False stale=True steps=6 tokens={'tokens_total': 61783, 'turns': 2} (1080s elapsed)
+  [291/432] conf-f05-changed / log / seed 29: completed=True stale=False steps=3 tokens={'tokens_total': 15077, 'turns': 1} (1089s elapsed)
+  [292/432] conf-f04-changed / markdown / seed 11: completed=True stale=False steps=4 tokens={'tokens_total': 39325, 'turns': 1} (1104s elapsed)
+  [293/432] conf-f01-recovery / log / seed 47: completed=True stale=False steps=6 tokens={'tokens_total': 69318, 'turns': 2} (1129s elapsed)
+  [294/432] conf-f01-changed / log / seed 29: completed=True stale=False steps=4 tokens={'tokens_total': 39334, 'turns': 1} (1144s elapsed)
+  [295/432] conf-f05-recovery / none / seed 47: completed=False stale=True steps=17 tokens={'tokens_total': 194368, 'turns': 2} (1145s elapsed)
+  [296/432] conf-f02-changed / log / seed 11: completed=True stale=False steps=4 tokens={'tokens_total': 34151, 'turns': 1} (1160s elapsed)
+  [297/432] conf-f08-changed / turnkeep / seed 29: completed=True stale=False steps=44 tokens={'tokens_total': 273874, 'turns': 1} (1175s elapsed)
+  [298/432] conf-f01-recovery / none / seed 11: completed=False stale=True steps=8 tokens={'tokens_total': 71331, 'turns': 2} (1190s elapsed)
+  [299/432] conf-f06-recovery / none / seed 47: completed=False stale=True steps=6 tokens={'tokens_total': 80182, 'turns': 2} (1219s elapsed)
+  [300/432] conf-f04-recovery / turnkeep / seed 29: completed=False stale=False steps=0 tokens=unknown (1220s elapsed)
+  [301/432] conf-f04-changed / none / seed 11: completed=False stale=True steps=4 tokens={'tokens_total': 33499, 'turns': 1} (1235s elapsed)
+  [302/432] conf-f09-recovery / markdown / seed 47: completed=True stale=False steps=6 tokens={'tokens_total': 62559, 'turns': 2} (1247s elapsed)
+  [303/432] conf-f07-changed / none / seed 29: completed=False stale=True steps=5 tokens={'tokens_total': 35401, 'turns': 1} (1254s elapsed)
+  [304/432] conf-f11-changed / log / seed 11: completed=True stale=False steps=4 tokens={'tokens_total': 39022, 'turns': 1} (1262s elapsed)
+  [305/432] conf-f03-recovery / markdown / seed 47: completed=True stale=False steps=5 tokens={'tokens_total': 56468, 'turns': 2} (1276s elapsed)
+  [306/432] conf-f06-stable / none / seed 11: completed=True stale=False steps=4 tokens={'tokens_total': 38255, 'turns': 1} (1290s elapsed)
+  [307/432] conf-f04-changed / log / seed 11: completed=True stale=False steps=3 tokens={'tokens_total': 31158, 'turns': 1} (1308s elapsed)
+  [308/432] conf-f01-changed / none / seed 11: completed=False stale=True steps=4 tokens={'tokens_total': 38628, 'turns': 1} (1322s elapsed)
+  [309/432] conf-f01-stable / turnkeep / seed 47: completed=True stale=False steps=8 tokens={'tokens_total': 84676, 'turns': 1} (1350s elapsed)
+  [310/432] conf-f12-stable / turnkeep / seed 11: completed=False stale=False steps=49 tokens={'tokens_total': 312115, 'turns': 1} (1359s elapsed)
+  [311/432] conf-f02-stable / markdown / seed 11: completed=True stale=False steps=3 tokens={'tokens_total': 25042, 'turns': 1} (1371s elapsed)
+  [312/432] conf-f06-changed / turnkeep / seed 29: completed=True stale=False steps=5 tokens={'tokens_total': 49176, 'turns': 1} (1371s elapsed)
+  [313/432] conf-f01-stable / markdown / seed 47: completed=True stale=False steps=5 tokens={'tokens_total': 42072, 'turns': 1} (1389s elapsed)
+  [314/432] conf-f06-recovery / none / seed 29: completed=False stale=True steps=6 tokens={'tokens_total': 66730, 'turns': 2} (1401s elapsed)
+  [315/432] conf-f04-stable / log / seed 47: completed=True stale=False steps=4 tokens={'tokens_total': 39154, 'turns': 1} (1418s elapsed)
+  [316/432] conf-f07-stable / turnkeep / seed 11: completed=True stale=False steps=12 tokens={'tokens_total': 109952, 'turns': 1} (1433s elapsed)
+  [317/432] conf-f04-stable / markdown / seed 47: completed=True stale=False steps=5 tokens={'tokens_total': 41617, 'turns': 1} (1433s elapsed)
+  [318/432] conf-f02-stable / none / seed 29: completed=True stale=False steps=4 tokens={'tokens_total': 33260, 'turns': 1} (1450s elapsed)
+  [319/432] conf-f12-recovery / markdown / seed 47: completed=True stale=False steps=6 tokens={'tokens_total': 57855, 'turns': 2} (1458s elapsed)
+  [320/432] conf-f08-recovery / markdown / seed 11: completed=True stale=False steps=5 tokens={'tokens_total': 46629, 'turns': 2} (1477s elapsed)
+  [321/432] conf-f12-recovery / turnkeep / seed 47: completed=False stale=False steps=0 tokens=unknown (1479s elapsed)
+  [322/432] conf-f05-stable / markdown / seed 29: completed=True stale=False steps=3 tokens={'tokens_total': 20145, 'turns': 1} (1490s elapsed)
+  [323/432] conf-f01-changed / log / seed 11: completed=True stale=False steps=4 tokens={'tokens_total': 28090, 'turns': 1} (1491s elapsed)
+  [324/432] conf-f03-recovery / none / seed 47: completed=False stale=True steps=6 tokens={'tokens_total': 68250, 'turns': 2} (1494s elapsed)
+  [325/432] conf-f07-changed / markdown / seed 47: completed=True stale=False steps=3 tokens={'tokens_total': 24671, 'turns': 1} (1504s elapsed)
+  [326/432] conf-f09-stable / none / seed 47: completed=True stale=False steps=4 tokens={'tokens_total': 38405, 'turns': 1} (1506s elapsed)
+  [327/432] conf-f05-changed / log / seed 47: completed=True stale=False steps=4 tokens={'tokens_total': 33565, 'turns': 1} (1509s elapsed)
+  [328/432] conf-f02-stable / log / seed 47: completed=True stale=False steps=3 tokens={'tokens_total': 25372, 'turns': 1} (1524s elapsed)
+  [329/432] conf-f07-changed / none / seed 47: completed=False stale=True steps=5 tokens={'tokens_total': 46725, 'turns': 1} (1524s elapsed)
+  [330/432] conf-f04-recovery / markdown / seed 29: completed=True stale=False steps=5 tokens={'tokens_total': 59836, 'turns': 2} (1531s elapsed)
+  [331/432] conf-f09-stable / markdown / seed 47: completed=True stale=False steps=3 tokens={'tokens_total': 21000, 'turns': 1} (1536s elapsed)
+  [332/432] conf-f01-recovery / turnkeep / seed 47: completed=False stale=False steps=0 tokens=unknown (1552s elapsed)
+  [333/432] conf-f03-recovery / markdown / seed 11: completed=True stale=False steps=6 tokens={'tokens_total': 68462, 'turns': 2} (1555s elapsed)
+  [334/432] conf-f06-stable / none / seed 29: completed=True stale=False steps=4 tokens={'tokens_total': 33002, 'turns': 1} (1556s elapsed)
+  [335/432] conf-f10-changed / turnkeep / seed 47: completed=True stale=False steps=9 tokens={'tokens_total': 88720, 'turns': 1} (1585s elapsed)
+  [336/432] conf-f05-changed / turnkeep / seed 29: completed=True stale=False steps=10 tokens={'tokens_total': 104374, 'turns': 1} (1589s elapsed)
+  [337/432] conf-f07-recovery / none / seed 29: completed=False stale=True steps=9 tokens={'tokens_total': 103953, 'turns': 2} (1594s elapsed)
+  [338/432] conf-f04-changed / log / seed 29: completed=True stale=False steps=3 tokens={'tokens_total': 25430, 'turns': 1} (1599s elapsed)
+  [339/432] conf-f04-stable / markdown / seed 11: completed=True stale=False steps=3 tokens={'tokens_total': 25800, 'turns': 1} (1603s elapsed)
+  [340/432] conf-f04-changed / markdown / seed 29: completed=True stale=False steps=4 tokens={'tokens_total': 28222, 'turns': 1} (1614s elapsed)
+  [341/432] conf-f09-stable / log / seed 47: completed=True stale=False steps=4 tokens={'tokens_total': 33597, 'turns': 1} (1619s elapsed)
+  [342/432] conf-f01-stable / markdown / seed 11: completed=True stale=False steps=4 tokens={'tokens_total': 34431, 'turns': 1} (1628s elapsed)
+  [343/432] conf-f06-changed / turnkeep / seed 11: completed=True stale=False steps=5 tokens={'tokens_total': 50320, 'turns': 1} (1641s elapsed)
+  [344/432] conf-f07-changed / turnkeep / seed 29: completed=True stale=False steps=5 tokens={'tokens_total': 40661, 'turns': 1} (1649s elapsed)
+  [345/432] conf-f02-changed / markdown / seed 47: completed=True stale=False steps=4 tokens={'tokens_total': 28213, 'turns': 1} (1656s elapsed)
+  [346/432] conf-f07-changed / log / seed 47: completed=True stale=False steps=4 tokens={'tokens_total': 39057, 'turns': 1} (1675s elapsed)
+  [347/432] conf-f08-recovery / turnkeep / seed 11: completed=False stale=False steps=0 tokens=unknown (1683s elapsed)
+  [348/432] conf-f08-changed / log / seed 29: completed=True stale=False steps=5 tokens={'tokens_total': 36125, 'turns': 1} (1690s elapsed)
+  [349/432] conf-f10-recovery / turnkeep / seed 29: completed=True stale=False steps=10 tokens={'tokens_total': 146859, 'turns': 2} (1692s elapsed)
+  [350/432] conf-f02-recovery / markdown / seed 29: completed=True stale=False steps=5 tokens={'tokens_total': 56527, 'turns': 2} (1704s elapsed)
+  [351/432] conf-f08-stable / none / seed 11: completed=False stale=False steps=5 tokens={'tokens_total': 54621, 'turns': 1} (1711s elapsed)
+  [352/432] conf-f05-recovery / markdown / seed 11: completed=True stale=False steps=5 tokens={'tokens_total': 51131, 'turns': 2} (1714s elapsed)
+  [353/432] conf-f05-changed / log / seed 11: completed=True stale=False steps=3 tokens={'tokens_total': 30754, 'turns': 1} (1719s elapsed)
+  [354/432] conf-f03-stable / log / seed 29: completed=True stale=False steps=4 tokens={'tokens_total': 33147, 'turns': 1} (1725s elapsed)
+  [355/432] conf-f06-stable / none / seed 47: completed=True stale=False steps=4 tokens={'tokens_total': 33409, 'turns': 1} (1733s elapsed)
+  [356/432] conf-f11-recovery / none / seed 29: completed=False stale=True steps=6 tokens={'tokens_total': 81420, 'turns': 2} (1741s elapsed)
+  [357/432] conf-f08-stable / log / seed 47: completed=False stale=False steps=3 tokens={'tokens_total': 30814, 'turns': 1} (1745s elapsed)
+  [358/432] conf-f08-recovery / markdown / seed 29: completed=True stale=False steps=6 tokens={'tokens_total': 62526, 'turns': 2} (1754s elapsed)
+  [359/432] conf-f01-stable / log / seed 11: completed=True stale=False steps=4 tokens={'tokens_total': 16927, 'turns': 1} (1760s elapsed)
+  [360/432] conf-f01-changed / markdown / seed 47: completed=True stale=False steps=3 tokens={'tokens_total': 20925, 'turns': 1} (1762s elapsed)
+  [361/432] conf-f04-stable / none / seed 11: completed=True stale=False steps=4 tokens={'tokens_total': 38600, 'turns': 1} (1769s elapsed)
+  [362/432] conf-f10-stable / turnkeep / seed 11: completed=True stale=False steps=6 tokens={'tokens_total': 48855, 'turns': 1} (1782s elapsed)
+  [363/432] conf-f04-changed / none / seed 47: completed=False stale=True steps=4 tokens={'tokens_total': 38589, 'turns': 1} (1785s elapsed)
+  [364/432] conf-f06-recovery / markdown / seed 11: completed=True stale=False steps=5 tokens={'tokens_total': 56308, 'turns': 2} (1786s elapsed)
+  [365/432] conf-f06-changed / markdown / seed 47: completed=True stale=False steps=3 tokens={'tokens_total': 30714, 'turns': 1} (1796s elapsed)
+  [366/432] conf-f02-changed / none / seed 29: completed=False stale=True steps=5 tokens={'tokens_total': 46503, 'turns': 1} (1801s elapsed)
+  [367/432] conf-f04-changed / log / seed 47: completed=True stale=False steps=3 tokens={'tokens_total': 31146, 'turns': 1} (1810s elapsed)
+  [368/432] conf-f08-changed / turnkeep / seed 11: completed=True stale=False steps=7 tokens={'tokens_total': 73464, 'turns': 1} (1813s elapsed)
+  [369/432] conf-f01-stable / none / seed 29: completed=True stale=False steps=4 tokens={'tokens_total': 27723, 'turns': 1} (1876s elapsed)
+  [370/432] conf-f03-stable / markdown / seed 29: completed=True stale=False steps=6 tokens={'tokens_total': 44729, 'turns': 1} (1893s elapsed)
+  [371/432] conf-f11-recovery / none / seed 11: completed=False stale=True steps=8 tokens={'tokens_total': 108563, 'turns': 2} (1967s elapsed)
+  [372/432] conf-f04-recovery / none / seed 47: completed=False stale=True steps=5 tokens={'tokens_total': 41089, 'turns': 2} (2018s elapsed)
+  [373/432] conf-f01-recovery / log / seed 11: completed=True stale=False steps=5 tokens={'tokens_total': 46020, 'turns': 2} (2032s elapsed)
+  [374/432] conf-f10-stable / log / seed 11: completed=True stale=False steps=4 tokens={'tokens_total': 28658, 'turns': 1} (2093s elapsed)
+  [375/432] conf-f12-stable / markdown / seed 47: completed=True stale=False steps=3 tokens={'tokens_total': 30276, 'turns': 1} (2103s elapsed)
+  [376/432] conf-f06-stable / turnkeep / seed 11: completed=False stale=False steps=31 tokens={'tokens_total': 197302, 'turns': 1} (2122s elapsed)
+  [377/432] conf-f10-stable / markdown / seed 11: completed=True stale=False steps=4 tokens={'tokens_total': 28897, 'turns': 1} (2168s elapsed)
+  [378/432] conf-f02-stable / none / seed 47: completed=True stale=False steps=4 tokens={'tokens_total': 38419, 'turns': 1} (2178s elapsed)
+  [379/432] conf-f10-stable / log / seed 29: completed=True stale=False steps=5 tokens={'tokens_total': 36671, 'turns': 1} (2251s elapsed)
+  [380/432] conf-f08-stable / turnkeep / seed 47: completed=True stale=False steps=22 tokens={'tokens_total': 219139, 'turns': 1} (2293s elapsed)
+  [381/432] conf-f02-stable / turnkeep / seed 29: completed=True stale=False steps=49 tokens={'tokens_total': 269173, 'turns': 1} (2353s elapsed)
+  [382/432] conf-f12-recovery / turnkeep / seed 29: completed=False stale=False steps=0 tokens=unknown (2419s elapsed)
+  [383/432] conf-f08-recovery / log / seed 47: completed=True stale=False steps=6 tokens={'tokens_total': 44034, 'turns': 2} (2433s elapsed)
+  [384/432] conf-f02-stable / turnkeep / seed 11: completed=True stale=False steps=20 tokens={'tokens_total': 155160, 'turns': 1} (2462s elapsed)
+  [385/432] conf-f08-stable / log / seed 11: completed=False stale=False steps=4 tokens={'tokens_total': 25504, 'turns': 1} (2489s elapsed)
+  [386/432] conf-f11-stable / markdown / seed 29: completed=True stale=False steps=5 tokens={'tokens_total': 46818, 'turns': 1} (2508s elapsed)
+  [387/432] conf-f07-changed / log / seed 29: completed=True stale=False steps=3 tokens={'tokens_total': 24933, 'turns': 1} (2532s elapsed)
+  [388/432] conf-f02-changed / markdown / seed 11: completed=True stale=False steps=4 tokens={'tokens_total': 33952, 'turns': 1} (2581s elapsed)
+  [389/432] conf-f12-recovery / log / seed 47: completed=True stale=False steps=5 tokens={'tokens_total': 41227, 'turns': 2} (2628s elapsed)
+  [390/432] conf-f08-stable / turnkeep / seed 11: completed=True stale=False steps=22 tokens={'tokens_total': 136522, 'turns': 1} (2702s elapsed)
+  [391/432] conf-f10-recovery / turnkeep / seed 11: completed=True stale=False steps=19 tokens={'tokens_total': 162214, 'turns': 2} (2716s elapsed)
+  [392/432] conf-f10-recovery / none / seed 29: completed=True stale=False steps=6 tokens={'tokens_total': 78353, 'turns': 2} (2776s elapsed)
+  [393/432] conf-f01-stable / log / seed 29: completed=True stale=False steps=4 tokens={'tokens_total': 39170, 'turns': 1} (2790s elapsed)
+  [394/432] conf-f10-stable / log / seed 47: completed=True stale=False steps=3 tokens={'tokens_total': 30914, 'turns': 1} (2861s elapsed)
+  [395/432] conf-f06-recovery / none / seed 11: completed=False stale=True steps=3 tokens={'tokens_total': 26122, 'turns': 3} (2898s elapsed)
+  [396/432] conf-f03-changed / log / seed 47: completed=True stale=False steps=4 tokens={'tokens_total': 34490, 'turns': 2} (2919s elapsed)
+  [397/432] conf-f07-recovery / log / seed 47: completed=True stale=False steps=6 tokens={'tokens_total': 74379, 'turns': 2} (3007s elapsed)
+  [398/432] conf-f06-changed / none / seed 47: completed=False stale=True steps=4 tokens={'tokens_total': 39520, 'turns': 2} (3032s elapsed)
+  [399/432] conf-f07-stable / markdown / seed 29: completed=False stale=False steps=3 tokens={'tokens_total': 17535, 'turns': 2} (3050s elapsed)
+  [400/432] conf-f05-recovery / turnkeep / seed 11: completed=False stale=False steps=0 tokens=unknown (3122s elapsed)
+  [401/432] conf-f03-recovery / turnkeep / seed 29: completed=False stale=False steps=0 tokens=unknown (3144s elapsed)
+  [402/432] conf-f09-stable / markdown / seed 11: completed=False stale=False steps=0 tokens=unknown (3176s elapsed)
+  [403/432] conf-f12-changed / none / seed 47: completed=False stale=True steps=4 tokens={'tokens_total': 38354, 'turns': 1} (3218s elapsed)
+  [404/432] conf-f12-stable / none / seed 47: completed=True stale=False steps=3 tokens={'tokens_total': 31567, 'turns': 2} (3256s elapsed)
+  [405/432] conf-f12-changed / turnkeep / seed 47: completed=True stale=False steps=12 tokens={'tokens_total': 107416, 'turns': 1} (3271s elapsed)
+  [406/432] conf-f10-recovery / markdown / seed 29: completed=True stale=False steps=2 tokens={'tokens_total': 22602, 'turns': 2} (3347s elapsed)
+  [407/432] conf-f12-changed / turnkeep / seed 29: completed=True stale=False steps=5 tokens={'tokens_total': 45139, 'turns': 2} (3391s elapsed)
+  [408/432] conf-f12-changed / turnkeep / seed 11: completed=True stale=False steps=6 tokens={'tokens_total': 64539, 'turns': 2} (3411s elapsed)
+  [409/432] conf-f02-stable / log / seed 29: completed=False stale=False steps=0 tokens=unknown (3515s elapsed)
+  [410/432] conf-f07-changed / turnkeep / seed 47: completed=False stale=False steps=0 tokens=unknown (3534s elapsed)
+  [411/432] conf-f04-recovery / log / seed 11: completed=False stale=False steps=0 tokens=unknown (3595s elapsed)
+  [412/432] conf-f12-stable / turnkeep / seed 29: completed=True stale=False steps=25 tokens={'tokens_total': 202813, 'turns': 1} (3641s elapsed)
+  [413/432] conf-f10-changed / log / seed 29: completed=False stale=False steps=0 tokens=unknown (3719s elapsed)
+  [414/432] conf-f12-recovery / none / seed 47: completed=False stale=True steps=4 tokens={'tokens_total': 38374, 'turns': 2} (3781s elapsed)
+  [415/432] conf-f06-recovery / log / seed 11: completed=True stale=False steps=4 tokens={'tokens_total': 43150, 'turns': 4} (3795s elapsed)
+  [416/432] conf-f06-stable / turnkeep / seed 47: completed=False stale=False steps=0 tokens=unknown (3843s elapsed)
+  [417/432] conf-f01-stable / none / seed 11: completed=True stale=False steps=4 tokens={'tokens_total': 39877, 'turns': 2} (3918s elapsed)
+  [418/432] conf-f02-changed / turnkeep / seed 29: completed=False stale=False steps=3 tokens={'tokens_total': 25044, 'turns': 2} (3925s elapsed)
+  [419/432] conf-f10-recovery / log / seed 47: completed=True stale=False steps=4 tokens={'tokens_total': 36555, 'turns': 3} (4041s elapsed)
+  [420/432] conf-f02-stable / markdown / seed 29: completed=False stale=False steps=0 tokens=unknown (4050s elapsed)
+  [421/432] conf-f07-stable / markdown / seed 11: completed=False stale=False steps=0 tokens=unknown (4166s elapsed)
+  [422/432] conf-f12-recovery / markdown / seed 11: completed=True stale=False steps=2 tokens={'tokens_total': 25564, 'turns': 4} (4174s elapsed)
+  [423/432] conf-f10-changed / turnkeep / seed 29: completed=False stale=False steps=0 tokens=unknown (4175s elapsed)
+  [424/432] conf-f01-stable / turnkeep / seed 29: completed=False stale=False steps=0 tokens=unknown (4299s elapsed)
+  [425/432] conf-f11-recovery / log / seed 29: completed=True stale=False steps=4 tokens={'tokens_total': 49872, 'turns': 3} (4367s elapsed)
+  [426/432] conf-f08-recovery / turnkeep / seed 29: completed=False stale=False steps=0 tokens=unknown (4423s elapsed)
+  [427/432] conf-f06-changed / markdown / seed 29: completed=True stale=False steps=2 tokens={'tokens_total': 22874, 'turns': 1} (4435s elapsed)
+  [428/432] conf-f08-recovery / none / seed 29: completed=False stale=True steps=6 tokens={'tokens_total': 63228, 'turns': 4} (4437s elapsed)
+  [429/432] conf-f05-stable / none / seed 47: completed=False stale=False steps=1 tokens={'tokens_total': 7599, 'turns': 2} (4549s elapsed)
+  [430/432] conf-f04-stable / log / seed 29: completed=False stale=False steps=0 tokens=unknown (4558s elapsed)
+  [431/432] conf-f07-changed / log / seed 11: completed=False stale=False steps=0 tokens=unknown (4560s elapsed)
+  [432/432] conf-f05-changed / turnkeep / seed 47: completed=False stale=False steps=0 tokens=unknown (4673s elapsed)
+{
+  "suite": "live-confirmation",
+  "mode": "live",
+  "label": "LIVE_MODEL",
+  "driver": "agy",
+  "model": "gemini-3.8-flash-low",
+  "note": "Real model (agy CLI, gemini-3.8-flash-low). Scored deterministically from raw traces + deliverable artifacts.",
+  "seed": 20261108,
+  "budget": {
+    "max_seconds": 600,
+    "max_steps": 60,
+    "max_tool_calls": 60
+  },
+  "overall": {
+    "attempts": 432,
+    "completed": 304,
+    "success_rate": 0.7037037037037037,
+    "stale_fact_rate": 0.1388888888888889,
+    "contract_violations": 9,
+    "irrelevant_refusals": 0,
+    "mean_redo_cost_steps": 3.486111111111111
+  },
+  "per_arm": {
+    "none": {
+      "attempts": 108,
+      "completed": 44,
+      "success_rate": 0.4074074074074074,
+      "stale_fact_rate": 0.5555555555555556,
+      "contract_violations": 0,
+      "irrelevant_refusals": 0,
+      "mean_redo_cost_steps": 2.5185185185185186
+    },
+    "markdown": {
+      "attempts": 108,
+      "completed": 103,
+      "success_rate": 0.9537037037037037,
+      "stale_fact_rate": 0.0,
+      "contract_violations": 0,
+      "irrelevant_refusals": 0,
+      "mean_redo_cost_steps": 0.6759259259259259
+    },
+    "log": {
+      "attempts": 108,
+      "completed": 100,
+      "success_rate": 0.9259259259259259,
+      "stale_fact_rate": 0.0,
+      "contract_violations": 0,
+      "irrelevant_refusals": 0,
+      "mean_redo_cost_steps": 0.5648148148148148
+    },
+    "turnkeep": {
+      "attempts": 108,
+      "completed": 57,
+      "success_rate": 0.5277777777777778,
+      "stale_fact_rate": 0.0,
+      "contract_violations": 9,
+      "irrelevant_refusals": 0,
+      "mean_redo_cost_steps": 10.185185185185185
+    }
+  },
+  "attempts": 432,
+  "not_run_arms": {
+    "mature-memory": "NOT_RUN: no real Mem0/Hindsight install configured",
+    "nearest-workflow": "NOT_RUN: no real Tigerless/Engram install configured"
+  }
+}

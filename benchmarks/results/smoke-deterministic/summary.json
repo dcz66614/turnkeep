@@ -1,0 +1,62 @@
+{
+  "suite": "smoke",
+  "mode": "deterministic",
+  "label": "SCRIPTED_SIMULATION_NO_MODEL_CALLS",
+  "note": "Scripted policies only. These numbers measure the harness and the policies, never real model performance. Gate C (live models) is NOT_RUN.",
+  "seed": 20261108,
+  "budget": {
+    "max_seconds": 60,
+    "max_steps": 20
+  },
+  "not_run_arms": {
+    "mature-memory": "NOT_RUN: no real Mem0/Hindsight install configured in this environment",
+    "nearest-workflow": "NOT_RUN: no real Tigerless/Engram install configured in this environment"
+  },
+  "overall": {
+    "attempts": 12,
+    "completed": 10,
+    "success_rate": 0.8333333333333334,
+    "stale_fact_rate": 0.16666666666666666,
+    "contract_violations": 0,
+    "irrelevant_refusals": 0,
+    "mean_redo_cost_steps": 0.5833333333333334
+  },
+  "per_arm": {
+    "none": {
+      "attempts": 3,
+      "completed": 1,
+      "success_rate": 0.3333333333333333,
+      "stale_fact_rate": 0.6666666666666666,
+      "contract_violations": 0,
+      "irrelevant_refusals": 0,
+      "mean_redo_cost_steps": 0.0
+    },
+    "markdown": {
+      "attempts": 3,
+      "completed": 3,
+      "success_rate": 1.0,
+      "stale_fact_rate": 0.0,
+      "contract_violations": 0,
+      "irrelevant_refusals": 0,
+      "mean_redo_cost_steps": 0.0
+    },
+    "log": {
+      "attempts": 3,
+      "completed": 3,
+      "success_rate": 1.0,
+      "stale_fact_rate": 0.0,
+      "contract_violations": 0,
+      "irrelevant_refusals": 0,
+      "mean_redo_cost_steps": 0.0
+    },
+    "turnkeep": {
+      "attempts": 3,
+      "completed": 3,
+      "success_rate": 1.0,
+      "stale_fact_rate": 0.0,
+      "contract_violations": 0,
+      "irrelevant_refusals": 0,
+      "mean_redo_cost_steps": 2.3333333333333335
+    }
+  }
+}

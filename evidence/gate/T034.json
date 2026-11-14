@@ -1,0 +1,47 @@
+{
+  "gate": "run_gate",
+  "selector": "T034",
+  "status": "PASS",
+  "generated": "2026-11-08T19:58:50Z",
+  "python": "3.12.3",
+  "results": [
+    {
+      "task_id": "T034",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "turnkeep",
+            "demo",
+            "--scenario",
+            "export-format",
+            "--no-model"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.1,
+          "stdout_tail": "ifest finish is rejected (STALE_SNAPSHOT).\", \"A resumes, reads the diff, recomputes for tar and commits.\", \"An identical replay returns the original receipt.\"], \"rejection\": {\"code\": \"STALE_SNAPSHOT\", \"message\": \"Project memory changed after this run read its snapshot; reread changes and recompute affected work.\", \"details\": {\"changed_record_ids\": [\"4d3d95a774f94269b426a000b37404a8\", \"6d51908374db4c028d0d787e32095963\", \"994d6ab5c6604d2498d68da6838dcdf8\"], \"changed_keys\": [\"export.format\", \"export.manifest.v1\"], \"from_epoch\": 3, \"to_epoch\": 5}}, \"changed_keys\": [\"export.format\"], \"receipt\": {\"run_id\": \"5299a7fff1bd4a1b8fc9f0ec5470bf3e\", \"scope\": \"demo\", \"record_id\": \"6daf8e1adc1a4e5382a606b3e39aac20\", \"request_digest\": \"7af6810591690bbf0f367867aeddca82d0850c2cdaa196778b0e46f097c7189e\", \"read_epoch\": 5, \"commit_epoch\": 6, \"parent_ids\": [\"0f8cf99826044fd7b1c087ec84e43848\", \"76fdfe1520bc41afb7acef4ef322efdc\", \"994d6ab5c6604d2498d68da6838dcdf8\"], \"committed_at\": \"2026-11-08T19:58:50.865509+00:00\", \"status_at_commit\": \"active\", \"guarantee\": \"local_sqlite_commit_only\"}, \"idempotent_replay_identical\": true, \"boundary\": \"Local SQLite correctness only — not MCP integration, model quality, or external-action safety.\", \"events\": [{\"step\": \"remember\", \"key\": \"export.format\", \"value\": \"zip\", \"state\": \"active\"}, {\"step\": \"remember\", \"key\": \"export.manifest.name\", \"value\": \"manifest.json\", \"state\": \"active\"}, {\"step\": \"remember\", \"key\": \"build.python_version\", \"value\": \"3.11\", \"state\": \"active\"}, {\"step\": \"begin\", \"task\": \"produce export manifest\", \"actor\": \"demo-a\"}, {\"step\": \"correct\", \"key\": \"export.format\", \"value\": \"tar\", \"state\": \"active\", \"actor\": \"demo-b\", \"note\": \"B found the target system only accepts tar\"}, {\"step\": \"stale_finish_rejected\", \"code\": \"STALE_SNAPSHOT\", \"changed_keys\": [\"export.format\", \"export.manifest.v1\"]}, {\"step\": \"resume\", \"changed_keys\": [\"export.format\"]}, {\"step\": \"finish\", \"key\": \"export.manifest\", \"value\": \"manifest for tar\", \"state\": \"active\"}]}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/record_demo.py",
+            "--scenario",
+            "export-format",
+            "--verify"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.076,
+          "stdout_tail": "PASS: replay export-format verified (8 events, chain intact, re-run identical)\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    }
+  ]
+}

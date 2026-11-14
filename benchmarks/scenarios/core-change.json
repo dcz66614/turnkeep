@@ -1,0 +1,1417 @@
+{
+  "scenarios": [
+    {
+      "events": [
+        {
+          "as": "r1",
+          "op": "begin",
+          "task": "prepare release"
+        },
+        {
+          "key": "build.python_version",
+          "op": "correct",
+          "value": "3.12"
+        },
+        {
+          "idempotency_key": "s01-1",
+          "key": "release.manifest",
+          "op": "finish",
+          "run": "r1",
+          "value": "Python 3.12"
+        },
+        {
+          "op": "resume",
+          "run": "r1"
+        },
+        {
+          "as": "r2",
+          "op": "begin",
+          "task": "recompute release"
+        },
+        {
+          "idempotency_key": "s01-2",
+          "key": "release.manifest",
+          "op": "finish",
+          "run": "r2",
+          "value": "Python 3.12"
+        }
+      ],
+      "family": "F01",
+      "id": "S01-post-plan-correct",
+      "initial": [
+        {
+          "key": "build.python_version",
+          "kind": "requirement",
+          "value": "3.11"
+        }
+      ],
+      "observations": [
+        {
+          "after": 2,
+          "check": "event_error",
+          "code": "STALE_SNAPSHOT",
+          "explanation": "finish after a post-plan correction must be rejected",
+          "index": 2
+        },
+        {
+          "after": 5,
+          "check": "event_ok",
+          "explanation": "recomputed finish must be accepted",
+          "index": 5
+        },
+        {
+          "after": 5,
+          "check": "recall_contains",
+          "key": "release.manifest",
+          "value": "Python 3.12"
+        }
+      ],
+      "title": "Post-plan correction rejects the stale finish, resume + recompute succeeds"
+    },
+    {
+      "events": [
+        {
+          "as": "r1",
+          "op": "begin",
+          "task": "write report"
+        },
+        {
+          "key": "report.deadline",
+          "op": "retract"
+        },
+        {
+          "key": "report.summary",
+          "op": "finish",
+          "run": "r1",
+          "value": "deadline Friday"
+        },
+        {
+          "op": "resume",
+          "run": "r1"
+        },
+        {
+          "as": "r2",
+          "op": "begin",
+          "task": "recompute report"
+        },
+        {
+          "key": "report.summary",
+          "op": "finish",
+          "run": "r2",
+          "value": "deadline unknown — source retracted"
+        }
+      ],
+      "family": "F05",
+      "id": "S02-post-plan-retract",
+      "initial": [
+        {
+          "key": "report.deadline",
+          "kind": "fact",
+          "value": "Friday"
+        },
+        {
+          "key": "report.summary",
+          "kind": "decision",
+          "parent_keys": [
+            "report.deadline"
+          ],
+          "value": "deadline Friday"
+        }
+      ],
+      "observations": [
+        {
+          "after": 2,
+          "check": "event_error",
+          "code": "STALE_SNAPSHOT",
+          "explanation": "finish after the parent was retracted must be rejected",
+          "index": 2
+        },
+        {
+          "after": 5,
+          "check": "event_ok",
+          "explanation": "recomputed finish must be accepted",
+          "index": 5
+        },
+        {
+          "after": 5,
+          "check": "recall_contains",
+          "key": "report.summary",
+          "value": "deadline unknown — source retracted"
+        },
+        {
+          "after": 5,
+          "check": "state_is",
+          "key": "report.summary",
+          "state": "active"
+        }
+      ],
+      "title": "Post-plan retraction rejects the stale finish; the recomputed summary cites no dead evidence"
+    },
+    {
+      "events": [
+        {
+          "as": "r1",
+          "op": "begin",
+          "task": "prepare release"
+        },
+        {
+          "key": "build.python_version",
+          "op": "remember",
+          "value": "3.12"
+        },
+        {
+          "key": "release.manifest",
+          "op": "finish",
+          "run": "r1",
+          "value": "Python 3.11"
+        },
+        {
+          "key": "build.python_version",
+          "op": "resolve",
+          "value": "3.12"
+        },
+        {
+          "as": "r2",
+          "op": "begin",
+          "task": "recompute"
+        },
+        {
+          "key": "release.manifest",
+          "op": "finish",
+          "run": "r2",
+          "value": "Python 3.12"
+        }
+      ],
+      "family": "F08",
+      "id": "S03-post-plan-conflict",
+      "initial": [
+        {
+          "key": "build.python_version",
+          "kind": "requirement",
+          "value": "3.11"
+        }
+      ],
+      "observations": [
+        {
+          "after": 2,
+          "check": "event_error",
+          "code": "STALE_SNAPSHOT",
+          "explanation": "a conflicting write after begin must invalidate the snapshot",
+          "index": 2
+        },
+        {
+          "after": 5,
+          "check": "event_ok",
+          "explanation": "after resolve, the recomputed finish must be accepted",
+          "index": 5
+        },
+        {
+          "after": 5,
+          "check": "recall_contains",
+          "key": "release.manifest",
+          "value": "Python 3.12"
+        },
+        {
+          "after": 5,
+          "check": "state_is",
+          "key": "build.python_version",
+          "state": "active"
+        }
+      ],
+      "title": "Post-plan conflict rejects the stale finish; resolve then recompute succeeds"
+    },
+    {
+      "events": [
+        {
+          "as": "r1",
+          "op": "begin",
+          "task": "prepare release"
+        },
+        {
+          "key": "build.python_version",
+          "kind": "requirement",
+          "op": "remember",
+          "value": "3.11"
+        },
+        {
+          "key": "release.manifest",
+          "op": "finish",
+          "run": "r1",
+          "value": "Python 3.11"
+        },
+        {
+          "op": "resume",
+          "run": "r1"
+        },
+        {
+          "as": "r2",
+          "op": "begin",
+          "task": "recompute"
+        },
+        {
+          "key": "release.manifest",
+          "op": "finish",
+          "run": "r2",
+          "value": "Python 3.11"
+        }
+      ],
+      "family": "F07",
+      "id": "S04-empty-query-add",
+      "initial": [],
+      "observations": [
+        {
+          "after": 2,
+          "check": "event_error",
+          "code": "STALE_SNAPSHOT",
+          "explanation": "a fact added after an empty read is a phantom — the finish must be rejected",
+          "index": 2
+        },
+        {
+          "after": 5,
+          "check": "event_ok",
+          "explanation": "recomputed finish must be accepted",
+          "index": 5
+        }
+      ],
+      "title": "Empty read then a new fact: phantom protection rejects the first finish"
+    },
+    {
+      "events": [
+        {
+          "as": "r1",
+          "op": "begin",
+          "task": "prepare release"
+        },
+        {
+          "key": "unrelated.note",
+          "kind": "fact",
+          "op": "remember",
+          "value": "hello"
+        },
+        {
+          "key": "release.manifest",
+          "op": "finish",
+          "run": "r1",
+          "value": "Python 3.12"
+        },
+        {
+          "op": "resume",
+          "run": "r1"
+        },
+        {
+          "as": "r2",
+          "op": "begin",
+          "task": "recompute"
+        },
+        {
+          "key": "release.manifest",
+          "op": "finish",
+          "run": "r2",
+          "value": "Python 3.12"
+        }
+      ],
+      "false_refusal": true,
+      "family": "F10",
+      "id": "S05-empty-query-add-irrelevant",
+      "initial": [],
+      "observations": [
+        {
+          "after": 2,
+          "check": "event_error",
+          "code": "STALE_SNAPSHOT",
+          "explanation": "the conservative contract rejects even on an unrelated key — a false refusal, reported separately, not hidden",
+          "index": 2
+        },
+        {
+          "after": 5,
+          "check": "event_ok",
+          "explanation": "recomputed finish must be accepted",
+          "index": 5
+        }
+      ],
+      "title": "Empty read then an unrelated fact: conservative rejection (false refusal, reported separately)"
+    },
+    {
+      "events": [
+        {
+          "op": "correct",
+          "key": "k",
+          "value": "v2",
+          "expected_revision": 1,
+          "which": "first"
+        },
+        {
+          "op": "correct",
+          "key": "k",
+          "value": "v3",
+          "expected_revision": 1,
+          "which": "first"
+        }
+      ],
+      "family": "F01",
+      "id": "S06-concurrent-correct-one-wins",
+      "initial": [
+        {
+          "key": "k",
+          "kind": "fact",
+          "value": "v1"
+        }
+      ],
+      "observations": [
+        {
+          "after": 0,
+          "check": "event_ok",
+          "explanation": "the first correction with revision 1 wins",
+          "index": 0
+        },
+        {
+          "after": 1,
+          "check": "event_error",
+          "code": "VERSION_CONFLICT",
+          "explanation": "the second correction with the same stale revision must conflict",
+          "index": 1
+        },
+        {
+          "after": 1,
+          "check": "recall_contains",
+          "key": "k",
+          "value": "v2"
+        }
+      ],
+      "title": "Two concurrent corrections on the same revision: one wins, one conflicts"
+    },
+    {
+      "events": [
+        {
+          "key": "k",
+          "op": "retract"
+        },
+        {
+          "key": "k",
+          "op": "correct",
+          "value": "v2"
+        }
+      ],
+      "family": "F01",
+      "id": "S07-correct-after-retract-refused",
+      "initial": [
+        {
+          "key": "k",
+          "kind": "fact",
+          "value": "v1"
+        }
+      ],
+      "observations": [
+        {
+          "after": 1,
+          "check": "event_error",
+          "code": "INVALID_INPUT",
+          "explanation": "only active records can be corrected; a retracted record must not be silently revived",
+          "index": 1
+        },
+        {
+          "after": 1,
+          "check": "state_is",
+          "key": "k",
+          "state": "retracted"
+        }
+      ],
+      "title": "Correcting a retracted record is refused, not a silent revival"
+    },
+    {
+      "events": [
+        {
+          "op": "begin",
+          "task": "task A",
+          "as": "r1"
+        },
+        {
+          "op": "begin",
+          "task": "task B",
+          "as": "r2"
+        },
+        {
+          "op": "finish",
+          "run": "r1",
+          "key": "release",
+          "value": "v1",
+          "idempotency_key": "dup-1"
+        },
+        {
+          "op": "finish",
+          "run": "r2",
+          "key": "release",
+          "value": "v2",
+          "idempotency_key": "dup-1"
+        },
+        {
+          "op": "finish",
+          "run": "r1",
+          "key": "release",
+          "value": "v1",
+          "idempotency_key": "dup-1"
+        }
+      ],
+      "family": "F01",
+      "id": "S08-concurrent-finish-same-key",
+      "initial": [
+        {
+          "key": "build.python_version",
+          "kind": "requirement",
+          "value": "3.12"
+        }
+      ],
+      "observations": [
+        {
+          "after": 2,
+          "check": "event_ok",
+          "explanation": "first finish commits",
+          "index": 2
+        },
+        {
+          "after": 3,
+          "check": "event_error",
+          "code": "IDEMPOTENCY_MISMATCH",
+          "explanation": "a different run with the same key but a different payload must be refused",
+          "index": 3
+        },
+        {
+          "after": 4,
+          "check": "event_ok",
+          "explanation": "replaying the same run with the same key and payload returns the identical receipt",
+          "index": 4
+        }
+      ],
+      "title": "Two runs finishing with the same idempotency key: different payload refused, same payload replayed"
+    },
+    {
+      "events": [
+        {
+          "key": "a",
+          "op": "retract"
+        }
+      ],
+      "family": "F11",
+      "id": "S09-indirect-taint-chain",
+      "initial": [
+        {
+          "key": "a",
+          "kind": "fact",
+          "value": "1"
+        },
+        {
+          "key": "b",
+          "kind": "decision",
+          "parent_keys": [
+            "a"
+          ],
+          "value": "2"
+        },
+        {
+          "key": "c",
+          "kind": "decision",
+          "parent_keys": [
+            "b"
+          ],
+          "value": "3"
+        }
+      ],
+      "observations": [
+        {
+          "after": 0,
+          "check": "usable",
+          "explanation": "the direct child of a retracted record is not usable",
+          "key": "b",
+          "usable": false
+        },
+        {
+          "after": 0,
+          "check": "usable",
+          "explanation": "the indirect descendant is not usable either",
+          "key": "c",
+          "usable": false
+        },
+        {
+          "after": 0,
+          "check": "state_is",
+          "explanation": "the direct child is stored tainted, not merely hidden by recall",
+          "key": "b",
+          "state": "tainted"
+        },
+        {
+          "after": 0,
+          "check": "state_is",
+          "explanation": "the indirect descendant is stored tainted as well",
+          "key": "c",
+          "state": "tainted"
+        },
+        {
+          "after": 0,
+          "check": "recall_excludes_key",
+          "key": "b"
+        },
+        {
+          "after": 0,
+          "check": "recall_excludes_key",
+          "key": "c"
+        }
+      ],
+      "title": "Retracting the root taints the whole chain"
+    },
+    {
+      "events": [
+        {
+          "key": "a",
+          "op": "retract"
+        }
+      ],
+      "family": "F11",
+      "id": "S10-indirect-taint-diamond",
+      "initial": [
+        {
+          "key": "a",
+          "kind": "fact",
+          "value": "1"
+        },
+        {
+          "key": "b",
+          "kind": "decision",
+          "parent_keys": [
+            "a"
+          ],
+          "value": "2"
+        },
+        {
+          "key": "c",
+          "kind": "decision",
+          "parent_keys": [
+            "a"
+          ],
+          "value": "3"
+        },
+        {
+          "key": "d",
+          "kind": "decision",
+          "parent_keys": [
+            "b",
+            "c"
+          ],
+          "value": "4"
+        }
+      ],
+      "observations": [
+        {
+          "after": 0,
+          "check": "usable",
+          "explanation": "both branches are tainted",
+          "key": "b",
+          "usable": false
+        },
+        {
+          "after": 0,
+          "check": "usable",
+          "key": "c",
+          "usable": false
+        },
+        {
+          "after": 0,
+          "check": "usable",
+          "explanation": "the diamond join is tainted through either parent",
+          "key": "d",
+          "usable": false
+        },
+        {
+          "after": 0,
+          "check": "state_is",
+          "explanation": "both branches are stored tainted, not merely hidden by recall",
+          "key": "b",
+          "state": "tainted"
+        },
+        {
+          "after": 0,
+          "check": "state_is",
+          "key": "c",
+          "state": "tainted"
+        },
+        {
+          "after": 0,
+          "check": "state_is",
+          "explanation": "the diamond join is stored tainted as well",
+          "key": "d",
+          "state": "tainted"
+        },
+        {
+          "after": 0,
+          "check": "recall_excludes_key",
+          "key": "d"
+        }
+      ],
+      "title": "Retracting the diamond root taints both branches and the join"
+    },
+    {
+      "events": [
+        {
+          "key": "a",
+          "op": "retract"
+        }
+      ],
+      "family": "F11",
+      "id": "S11-shared-subgraph-taint",
+      "initial": [
+        {
+          "key": "a",
+          "kind": "fact",
+          "value": "1"
+        },
+        {
+          "key": "b",
+          "kind": "decision",
+          "parent_keys": [
+            "a"
+          ],
+          "value": "2"
+        },
+        {
+          "key": "c",
+          "kind": "decision",
+          "parent_keys": [
+            "a"
+          ],
+          "value": "3"
+        },
+        {
+          "key": "d",
+          "kind": "decision",
+          "parent_keys": [
+            "b"
+          ],
+          "value": "4"
+        },
+        {
+          "key": "e",
+          "kind": "fact",
+          "value": "x"
+        }
+      ],
+      "observations": [
+        {
+          "after": 0,
+          "check": "usable",
+          "key": "b",
+          "usable": false
+        },
+        {
+          "after": 0,
+          "check": "usable",
+          "key": "c",
+          "usable": false
+        },
+        {
+          "after": 0,
+          "check": "usable",
+          "explanation": "taint follows the shared parent through the grandchild",
+          "key": "d",
+          "usable": false
+        },
+        {
+          "after": 0,
+          "check": "state_is",
+          "explanation": "both children are stored tainted, not merely hidden by recall",
+          "key": "b",
+          "state": "tainted"
+        },
+        {
+          "after": 0,
+          "check": "state_is",
+          "key": "c",
+          "state": "tainted"
+        },
+        {
+          "after": 0,
+          "check": "state_is",
+          "explanation": "the grandchild is stored tainted as well",
+          "key": "d",
+          "state": "tainted"
+        },
+        {
+          "after": 0,
+          "check": "usable",
+          "explanation": "an unrelated record stays usable",
+          "key": "e",
+          "usable": true
+        },
+        {
+          "after": 0,
+          "check": "recall_contains",
+          "key": "e",
+          "value": "x"
+        },
+        {
+          "after": 0,
+          "check": "recall_excludes_key",
+          "explanation": "the stored taint must also remove children from the default view",
+          "key": "b"
+        },
+        {
+          "after": 0,
+          "check": "recall_excludes_key",
+          "key": "c"
+        },
+        {
+          "after": 0,
+          "check": "recall_excludes_key",
+          "key": "d"
+        }
+      ],
+      "title": "Shared parent taints both children and the grandchild; unrelated records stay usable"
+    },
+    {
+      "events": [
+        {
+          "key": "a",
+          "op": "expire_set",
+          "valid_until": "2026-01-01T00:00:00+00:00"
+        },
+        {
+          "now": "2026-06-01T00:00:00+00:00",
+          "op": "sweep"
+        }
+      ],
+      "family": "F01",
+      "id": "S12-expire-taint",
+      "initial": [
+        {
+          "key": "a",
+          "kind": "fact",
+          "value": "1"
+        },
+        {
+          "key": "b",
+          "kind": "decision",
+          "parent_keys": [
+            "a"
+          ],
+          "value": "2"
+        }
+      ],
+      "observations": [
+        {
+          "after": 1,
+          "check": "state_is",
+          "explanation": "the expired record leaves the active view",
+          "key": "a",
+          "state": "expired"
+        },
+        {
+          "after": 1,
+          "check": "usable",
+          "explanation": "the child of an expired record is tainted",
+          "key": "b",
+          "usable": false
+        }
+      ],
+      "title": "Expiry removes the record from the view and taints its children"
+    },
+    {
+      "events": [
+        {
+          "key": "ci.api_key",
+          "op": "erase",
+          "reason": "rotation"
+        }
+      ],
+      "family": "F05",
+      "id": "S13-erase-payload-gone",
+      "initial": [
+        {
+          "key": "ci.api_key",
+          "kind": "fact",
+          "value": "sk-7f3a9c2e-91bd"
+        }
+      ],
+      "observations": [
+        {
+          "after": 0,
+          "check": "state_is",
+          "explanation": "the erased record keeps a tombstone, not the payload",
+          "key": "ci.api_key",
+          "state": "erased"
+        },
+        {
+          "after": 0,
+          "check": "recall_excludes_key",
+          "key": "ci.api_key"
+        },
+        {
+          "after": 0,
+          "check": "recall_excludes_value",
+          "explanation": "no read path, including history, returns the payload",
+          "value": "sk-7f3a9c2e-91bd"
+        }
+      ],
+      "title": "Erasure removes the payload from every read path"
+    },
+    {
+      "events": [
+        {
+          "key": "ci.api_key",
+          "op": "erase",
+          "reason": "rotation"
+        },
+        {
+          "op": "export_import"
+        }
+      ],
+      "family": "F05",
+      "id": "S14-erase-then-export",
+      "initial": [
+        {
+          "key": "ci.api_key",
+          "kind": "fact",
+          "value": "sk-7f3a9c2e-91bd"
+        },
+        {
+          "key": "keep.me",
+          "kind": "fact",
+          "value": "yes"
+        }
+      ],
+      "observations": [
+        {
+          "after": 1,
+          "check": "state_is",
+          "explanation": "the tombstone survives export/import",
+          "key": "ci.api_key",
+          "state": "erased"
+        },
+        {
+          "after": 1,
+          "check": "recall_excludes_value",
+          "explanation": "the payload does not come back through export/import",
+          "value": "sk-7f3a9c2e-91bd"
+        },
+        {
+          "after": 1,
+          "check": "recall_contains",
+          "key": "keep.me",
+          "value": "yes"
+        }
+      ],
+      "title": "An erased record stays erased through export and import"
+    },
+    {
+      "events": [
+        {
+          "key": "k",
+          "op": "remember",
+          "value": "v-replay"
+        },
+        {
+          "key": "k",
+          "op": "remember",
+          "scope": "other",
+          "value": "v-other"
+        }
+      ],
+      "family": "F04",
+      "id": "S15-scope-isolation-recall",
+      "initial": [],
+      "observations": [
+        {
+          "after": 1,
+          "check": "recall_contains",
+          "key": "k",
+          "scope": "replay",
+          "value": "v-replay"
+        },
+        {
+          "after": 1,
+          "check": "recall_contains",
+          "key": "k",
+          "scope": "other",
+          "value": "v-other"
+        }
+      ],
+      "title": "The same key in two scopes holds two different values"
+    },
+    {
+      "events": [
+        {
+          "key": "a",
+          "op": "remember",
+          "scope": "other",
+          "value": "1"
+        },
+        {
+          "key": "b",
+          "kind": "decision",
+          "op": "remember",
+          "parent_keys": [
+            "a"
+          ],
+          "scope": "other",
+          "value": "2"
+        },
+        {
+          "key": "a",
+          "op": "retract"
+        }
+      ],
+      "family": "F04",
+      "id": "S16-scope-isolation-taint",
+      "initial": [
+        {
+          "key": "a",
+          "kind": "fact",
+          "value": "1"
+        },
+        {
+          "key": "b",
+          "kind": "decision",
+          "parent_keys": [
+            "a"
+          ],
+          "value": "2"
+        }
+      ],
+      "observations": [
+        {
+          "after": 2,
+          "check": "usable",
+          "explanation": "the retracted scope's child is tainted",
+          "key": "b",
+          "usable": false
+        },
+        {
+          "after": 2,
+          "check": "usable",
+          "explanation": "the other scope's child with the same keys is unaffected",
+          "key": "b",
+          "scope": "other",
+          "usable": true
+        }
+      ],
+      "title": "Retraction in one scope does not taint the other scope"
+    },
+    {
+      "events": [
+        {
+          "key": "k",
+          "op": "remember",
+          "scope": "other",
+          "value": "v2"
+        },
+        {
+          "key": "k",
+          "op": "erase",
+          "reason": "rotation"
+        }
+      ],
+      "family": "F04",
+      "id": "S17-scope-isolation-erase",
+      "initial": [
+        {
+          "key": "k",
+          "kind": "fact",
+          "value": "v"
+        }
+      ],
+      "observations": [
+        {
+          "after": 1,
+          "check": "state_is",
+          "explanation": "the erased scope's record is a tombstone",
+          "key": "k",
+          "state": "erased"
+        },
+        {
+          "after": 1,
+          "check": "state_is",
+          "explanation": "the other scope's record with the same key is untouched",
+          "key": "k",
+          "scope": "other",
+          "state": "active"
+        },
+        {
+          "after": 1,
+          "check": "recall_contains",
+          "key": "k",
+          "scope": "other",
+          "value": "v2"
+        }
+      ],
+      "title": "Erasure in one scope leaves the other scope alone"
+    },
+    {
+      "events": [
+        {
+          "as": "r1",
+          "op": "begin",
+          "task": "prepare release"
+        },
+        {
+          "key": "unrelated.note",
+          "kind": "fact",
+          "op": "remember",
+          "value": "hello"
+        },
+        {
+          "key": "release.manifest",
+          "op": "finish",
+          "run": "r1",
+          "value": "Python 3.12"
+        },
+        {
+          "op": "resume",
+          "run": "r1"
+        },
+        {
+          "as": "r2",
+          "op": "begin",
+          "task": "recompute"
+        },
+        {
+          "key": "release.manifest",
+          "op": "finish",
+          "run": "r2",
+          "value": "Python 3.12"
+        }
+      ],
+      "false_refusal": true,
+      "family": "F10",
+      "id": "S18-irrelevant-update-false-refusal",
+      "initial": [
+        {
+          "key": "build.python_version",
+          "kind": "requirement",
+          "value": "3.12"
+        }
+      ],
+      "observations": [
+        {
+          "after": 2,
+          "check": "event_error",
+          "code": "STALE_SNAPSHOT",
+          "explanation": "the conservative contract rejects on an unrelated key — a false refusal, reported separately, not hidden",
+          "index": 2
+        },
+        {
+          "after": 5,
+          "check": "event_ok",
+          "explanation": "recomputed finish must be accepted",
+          "index": 5
+        }
+      ],
+      "title": "An unrelated update rejects the finish (false refusal, reported separately)"
+    },
+    {
+      "events": [
+        {
+          "as": "r1",
+          "op": "begin",
+          "task": "prepare release"
+        },
+        {
+          "key": "other.key",
+          "kind": "fact",
+          "op": "remember",
+          "scope": "other",
+          "value": "x"
+        },
+        {
+          "key": "release.manifest",
+          "op": "finish",
+          "run": "r1",
+          "value": "Python 3.12"
+        }
+      ],
+      "family": "F10",
+      "id": "S19-other-scope-update-no-refusal",
+      "initial": [
+        {
+          "key": "build.python_version",
+          "kind": "requirement",
+          "value": "3.12"
+        }
+      ],
+      "observations": [
+        {
+          "after": 2,
+          "check": "event_ok",
+          "explanation": "an update in another scope must not reject this scope's finish",
+          "index": 2
+        }
+      ],
+      "title": "An update in another scope does not reject the finish"
+    },
+    {
+      "events": [
+        {
+          "as": "r1",
+          "op": "begin",
+          "task": "prepare release"
+        },
+        {
+          "key": "build.python_version",
+          "op": "correct",
+          "value": "3.12"
+        },
+        {
+          "op": "restart"
+        },
+        {
+          "op": "resume",
+          "run": "r1"
+        },
+        {
+          "as": "r2",
+          "op": "begin",
+          "task": "recompute"
+        },
+        {
+          "key": "release.manifest",
+          "op": "finish",
+          "run": "r2",
+          "value": "Python 3.12"
+        }
+      ],
+      "family": "F07",
+      "id": "S20-restart-recovers-run",
+      "initial": [
+        {
+          "key": "build.python_version",
+          "kind": "requirement",
+          "value": "3.11"
+        }
+      ],
+      "observations": [
+        {
+          "after": 5,
+          "check": "event_ok",
+          "explanation": "the run survives restart and can resume and finish",
+          "index": 5
+        },
+        {
+          "after": 5,
+          "check": "recall_contains",
+          "key": "release.manifest",
+          "value": "Python 3.12"
+        }
+      ],
+      "title": "Restart recovers the open run; resume + recompute finishes"
+    },
+    {
+      "events": [
+        {
+          "op": "restart"
+        },
+        {
+          "as": "r1",
+          "op": "begin",
+          "task": "task"
+        },
+        {
+          "key": "out",
+          "op": "finish",
+          "run": "r1",
+          "value": "done"
+        }
+      ],
+      "family": "F07",
+      "id": "S21-restart-recovers-records",
+      "initial": [
+        {
+          "key": "a",
+          "kind": "fact",
+          "value": "1"
+        },
+        {
+          "key": "b",
+          "kind": "decision",
+          "parent_keys": [
+            "a"
+          ],
+          "value": "2"
+        }
+      ],
+      "observations": [
+        {
+          "after": 0,
+          "check": "recall_contains",
+          "explanation": "records survive restart",
+          "key": "a",
+          "value": "1"
+        },
+        {
+          "after": 0,
+          "check": "recall_contains",
+          "key": "b",
+          "value": "2"
+        },
+        {
+          "after": 2,
+          "check": "event_ok",
+          "explanation": "a new run after restart finishes",
+          "index": 2
+        }
+      ],
+      "title": "Restart recovers the records; a new run finishes"
+    },
+    {
+      "events": [
+        {
+          "as": "r1",
+          "op": "begin",
+          "task": "task"
+        },
+        {
+          "idempotency_key": "s22-1",
+          "key": "release",
+          "op": "finish",
+          "run": "r1",
+          "value": "v1"
+        },
+        {
+          "op": "restart"
+        },
+        {
+          "idempotency_key": "s22-1",
+          "key": "release",
+          "op": "finish",
+          "run": "r1",
+          "value": "v1"
+        }
+      ],
+      "family": "F07",
+      "id": "S22-restart-after-finish",
+      "initial": [
+        {
+          "key": "build.python_version",
+          "kind": "requirement",
+          "value": "3.12"
+        }
+      ],
+      "observations": [
+        {
+          "after": 3,
+          "check": "event_ok",
+          "explanation": "replaying the same finish after restart returns the identical receipt, no double commit",
+          "index": 3
+        }
+      ],
+      "title": "Restart after finish: the identical replay returns the receipt"
+    },
+    {
+      "events": [
+        {
+          "key": "k",
+          "op": "remember",
+          "value": "v2"
+        },
+        {
+          "key": "k",
+          "op": "resolve",
+          "value": "v3"
+        }
+      ],
+      "family": "F08",
+      "id": "S23-conflict-resolve",
+      "initial": [
+        {
+          "key": "k",
+          "kind": "fact",
+          "value": "v1"
+        }
+      ],
+      "observations": [
+        {
+          "after": 0,
+          "check": "state_is",
+          "explanation": "two different values for one key are both conflicted",
+          "key": "k",
+          "state": "conflicted"
+        },
+        {
+          "after": 1,
+          "check": "state_is",
+          "explanation": "after resolve the winner is active",
+          "key": "k",
+          "state": "active"
+        },
+        {
+          "after": 1,
+          "check": "recall_contains",
+          "key": "k",
+          "value": "v3"
+        }
+      ],
+      "title": "A conflict is resolved with the full candidate set; the winner is active"
+    },
+    {
+      "events": [
+        {
+          "key": "k",
+          "op": "remember",
+          "value": "v2"
+        },
+        {
+          "key": "k",
+          "op": "resolve_partial",
+          "value": "v3"
+        }
+      ],
+      "family": "F08",
+      "id": "S24-conflict-resolve-incomplete-set-refused",
+      "initial": [
+        {
+          "key": "k",
+          "kind": "fact",
+          "value": "v1"
+        }
+      ],
+      "observations": [
+        {
+          "after": 1,
+          "check": "event_error",
+          "code": "CANDIDATE_SET_CHANGED",
+          "explanation": "resolving with a partial candidate set must be refused",
+          "index": 1
+        },
+        {
+          "after": 1,
+          "check": "state_is",
+          "explanation": "the conflict stays open for adjudication",
+          "key": "k",
+          "state": "conflicted"
+        }
+      ],
+      "title": "Resolving with a partial candidate set is refused"
+    },
+    {
+      "events": [
+        {
+          "op": "export_tamper_import"
+        }
+      ],
+      "family": "F05",
+      "id": "S25-import-tampered-refused",
+      "initial": [
+        {
+          "key": "keep.me",
+          "kind": "fact",
+          "value": "yes"
+        }
+      ],
+      "observations": [
+        {
+          "after": 0,
+          "check": "event_not_ok",
+          "explanation": "a tampered package must be refused, never imported",
+          "index": 0
+        }
+      ],
+      "title": "A tampered export package is refused on import"
+    }
+  ],
+  "version": 1
+}

@@ -1,0 +1,45 @@
+{
+  "gate": "run_gate",
+  "selector": "T038",
+  "status": "PASS",
+  "generated": "2026-11-08T20:14:44Z",
+  "python": "3.12.3",
+  "results": [
+    {
+      "task_id": "T038",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/privacy/test_erasure.py",
+            "tests/privacy/test_expiry.py",
+            "tests/privacy/test_residuals.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.547,
+          "stdout_tail": "........                                                                 [100%]\n8 passed in 0.12s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/check_erasure.py",
+            "--synthetic-fixture"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.083,
+          "stdout_tail": "{\n  \"status\": \"PASS\",\n  \"failures\": []\n}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    }
+  ]
+}

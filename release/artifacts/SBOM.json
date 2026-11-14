@@ -1,0 +1,973 @@
+{
+  "sbom_format": "turnkeep-release-sbom/1",
+  "product": "turnkeep",
+  "product_version": "0.1.0",
+  "license_of_own_code": "MIT",
+  "generated": "2026-11-08",
+  "generated_by": "T045 manual inventory from lock files + installed package metadata (importlib.metadata) + ui/package-lock.json; no versions hand-written",
+  "components": [
+    {
+      "name": "anyio",
+      "version": "4.16.0",
+      "license": "MIT",
+      "ecosystem": "pypi",
+      "scope": "runtime-optional(mcp)",
+      "direct": true,
+      "source": "requirements/mcp.lock"
+    },
+    {
+      "name": "httpx2",
+      "version": "2.16.0",
+      "license": "BSD-3-Clause",
+      "ecosystem": "pypi",
+      "scope": "runtime-optional(mcp)",
+      "direct": true,
+      "source": "requirements/mcp.lock"
+    },
+    {
+      "name": "jsonschema",
+      "version": "4.26.0",
+      "license": "MIT",
+      "ecosystem": "pypi",
+      "scope": "runtime-optional(mcp)",
+      "direct": true,
+      "source": "requirements/mcp.lock"
+    },
+    {
+      "name": "jsonschema-specifications",
+      "version": "2025.9.1",
+      "license": "MIT",
+      "ecosystem": "pypi",
+      "scope": "runtime-optional(mcp)",
+      "direct": true,
+      "source": "requirements/mcp.lock"
+    },
+    {
+      "name": "mcp",
+      "version": "2.3.0",
+      "license": "MIT",
+      "ecosystem": "pypi",
+      "scope": "runtime-optional(mcp)",
+      "direct": true,
+      "source": "requirements/mcp.lock"
+    },
+    {
+      "name": "mcp-types",
+      "version": "2.3.0",
+      "license": "MIT",
+      "ecosystem": "pypi",
+      "scope": "runtime-optional(mcp)",
+      "direct": true,
+      "source": "requirements/mcp.lock"
+    },
+    {
+      "name": "pydantic",
+      "version": "2.14.3",
+      "license": "MIT",
+      "ecosystem": "pypi",
+      "scope": "runtime-optional(mcp)",
+      "direct": true,
+      "source": "requirements/mcp.lock"
+    },
+    {
+      "name": "pydantic_core",
+      "version": "2.50.4",
+      "license": "MIT",
+      "ecosystem": "pypi",
+      "scope": "runtime-optional(mcp)",
+      "direct": true,
+      "source": "requirements/mcp.lock"
+    },
+    {
+      "name": "pytest",
+      "version": "9.2.0",
+      "license": "MIT",
+      "ecosystem": "pypi",
+      "scope": "dev",
+      "direct": true,
+      "source": "requirements/base.lock"
+    },
+    {
+      "name": "sse-starlette",
+      "version": "3.7.0",
+      "license": "BSD-3-Clause",
+      "ecosystem": "pypi",
+      "scope": "runtime-optional(mcp)",
+      "direct": true,
+      "source": "requirements/mcp.lock"
+    },
+    {
+      "name": "starlette",
+      "version": "1.10.0",
+      "license": "BSD-3-Clause",
+      "ecosystem": "pypi",
+      "scope": "runtime-optional(mcp)",
+      "direct": true,
+      "source": "requirements/mcp.lock"
+    },
+    {
+      "name": "uvicorn",
+      "version": "0.54.0",
+      "license": "BSD-3-Clause",
+      "ecosystem": "pypi",
+      "scope": "runtime-optional(mcp)",
+      "direct": true,
+      "source": "requirements/mcp.lock"
+    },
+    {
+      "name": "annotated-types",
+      "version": "0.8.0",
+      "license": "MIT",
+      "ecosystem": "pypi",
+      "scope": "transitive",
+      "direct": false,
+      "source": "installed in .venv as a transitive dependency; NOT pinned in any requirements/*.lock (lock gap, see notes)"
+    },
+    {
+      "name": "attrs",
+      "version": "26.1.0",
+      "license": "MIT",
+      "ecosystem": "pypi",
+      "scope": "transitive",
+      "direct": false,
+      "source": "installed in .venv as a transitive dependency; NOT pinned in any requirements/*.lock (lock gap, see notes)"
+    },
+    {
+      "name": "cffi",
+      "version": "2.1.1",
+      "license": "MIT-0",
+      "ecosystem": "pypi",
+      "scope": "transitive",
+      "direct": false,
+      "source": "installed in .venv as a transitive dependency; NOT pinned in any requirements/*.lock (lock gap, see notes)"
+    },
+    {
+      "name": "click",
+      "version": "8.5.1",
+      "license": "BSD-3-Clause",
+      "ecosystem": "pypi",
+      "scope": "transitive",
+      "direct": false,
+      "source": "installed in .venv as a transitive dependency; NOT pinned in any requirements/*.lock (lock gap, see notes)"
+    },
+    {
+      "name": "cryptography",
+      "version": "50.0.2",
+      "license": "Apache-2.0 OR BSD-3-Clause",
+      "ecosystem": "pypi",
+      "scope": "transitive",
+      "direct": false,
+      "source": "installed in .venv as a transitive dependency; NOT pinned in any requirements/*.lock (lock gap, see notes)"
+    },
+    {
+      "name": "h11",
+      "version": "0.16.0",
+      "license": "MIT",
+      "ecosystem": "pypi",
+      "scope": "transitive",
+      "direct": false,
+      "source": "installed in .venv as a transitive dependency; NOT pinned in any requirements/*.lock (lock gap, see notes)"
+    },
+    {
+      "name": "httpcore2",
+      "version": "2.16.0",
+      "license": "BSD-3-Clause",
+      "ecosystem": "pypi",
+      "scope": "transitive",
+      "direct": false,
+      "source": "installed in .venv as a transitive dependency; NOT pinned in any requirements/*.lock (lock gap, see notes)"
+    },
+    {
+      "name": "idna",
+      "version": "3.20",
+      "license": "BSD-3-Clause",
+      "ecosystem": "pypi",
+      "scope": "transitive",
+      "direct": false,
+      "source": "installed in .venv as a transitive dependency; NOT pinned in any requirements/*.lock (lock gap, see notes)"
+    },
+    {
+      "name": "iniconfig",
+      "version": "2.3.1",
+      "license": "MIT",
+      "ecosystem": "pypi",
+      "scope": "transitive",
+      "direct": false,
+      "source": "installed in .venv as a transitive dependency; NOT pinned in any requirements/*.lock (lock gap, see notes)"
+    },
+    {
+      "name": "opentelemetry-api",
+      "version": "1.45.2",
+      "license": "Apache-2.0",
+      "ecosystem": "pypi",
+      "scope": "transitive",
+      "direct": false,
+      "source": "installed in .venv as a transitive dependency; NOT pinned in any requirements/*.lock (lock gap, see notes)"
+    },
+    {
+      "name": "packaging",
+      "version": "26.3",
+      "license": "Apache-2.0 OR BSD-2-Clause",
+      "ecosystem": "pypi",
+      "scope": "transitive",
+      "direct": false,
+      "source": "installed in .venv as a transitive dependency; NOT pinned in any requirements/*.lock (lock gap, see notes)"
+    },
+    {
+      "name": "pluggy",
+      "version": "1.7.0",
+      "license": "MIT",
+      "ecosystem": "pypi",
+      "scope": "transitive",
+      "direct": false,
+      "source": "installed in .venv as a transitive dependency; NOT pinned in any requirements/*.lock (lock gap, see notes)"
+    },
+    {
+      "name": "pycparser",
+      "version": "3.12",
+      "license": "BSD-3-Clause",
+      "ecosystem": "pypi",
+      "scope": "transitive",
+      "direct": false,
+      "source": "installed in .venv as a transitive dependency; NOT pinned in any requirements/*.lock (lock gap, see notes)"
+    },
+    {
+      "name": "Pygments",
+      "version": "2.21.0",
+      "license": "BSD-2-Clause",
+      "ecosystem": "pypi",
+      "scope": "transitive",
+      "direct": false,
+      "source": "installed in .venv as a transitive dependency; NOT pinned in any requirements/*.lock (lock gap, see notes)"
+    },
+    {
+      "name": "PyJWT",
+      "version": "2.15.1",
+      "license": "MIT",
+      "ecosystem": "pypi",
+      "scope": "transitive",
+      "direct": false,
+      "source": "installed in .venv as a transitive dependency; NOT pinned in any requirements/*.lock (lock gap, see notes)"
+    },
+    {
+      "name": "python-multipart",
+      "version": "0.0.33",
+      "license": "Apache-2.0",
+      "ecosystem": "pypi",
+      "scope": "transitive",
+      "direct": false,
+      "source": "installed in .venv as a transitive dependency; NOT pinned in any requirements/*.lock (lock gap, see notes)"
+    },
+    {
+      "name": "referencing",
+      "version": "0.37.0",
+      "license": "MIT",
+      "ecosystem": "pypi",
+      "scope": "transitive",
+      "direct": false,
+      "source": "installed in .venv as a transitive dependency; NOT pinned in any requirements/*.lock (lock gap, see notes)"
+    },
+    {
+      "name": "rpds-py",
+      "version": "2026.9.1",
+      "license": "MIT",
+      "ecosystem": "pypi",
+      "scope": "transitive",
+      "direct": false,
+      "source": "installed in .venv as a transitive dependency; NOT pinned in any requirements/*.lock (lock gap, see notes)"
+    },
+    {
+      "name": "truststore",
+      "version": "0.10.5",
+      "license": "MIT",
+      "ecosystem": "pypi",
+      "scope": "transitive",
+      "direct": false,
+      "source": "installed in .venv as a transitive dependency; NOT pinned in any requirements/*.lock (lock gap, see notes)"
+    },
+    {
+      "name": "typing-inspection",
+      "version": "0.4.5",
+      "license": "MIT",
+      "ecosystem": "pypi",
+      "scope": "transitive",
+      "direct": false,
+      "source": "installed in .venv as a transitive dependency; NOT pinned in any requirements/*.lock (lock gap, see notes)"
+    },
+    {
+      "name": "typing_extensions",
+      "version": "4.16.0",
+      "license": "PSF-2.0",
+      "ecosystem": "pypi",
+      "scope": "transitive",
+      "direct": false,
+      "source": "installed in .venv as a transitive dependency; NOT pinned in any requirements/*.lock (lock gap, see notes)"
+    },
+    {
+      "name": "@esbuild/aix-ppc64",
+      "version": "0.25.12",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@esbuild/android-arm",
+      "version": "0.25.12",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@esbuild/android-arm64",
+      "version": "0.25.12",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@esbuild/android-x64",
+      "version": "0.25.12",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@esbuild/darwin-arm64",
+      "version": "0.25.12",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@esbuild/darwin-x64",
+      "version": "0.25.12",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@esbuild/freebsd-arm64",
+      "version": "0.25.12",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@esbuild/freebsd-x64",
+      "version": "0.25.12",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@esbuild/linux-arm",
+      "version": "0.25.12",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@esbuild/linux-arm64",
+      "version": "0.25.12",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@esbuild/linux-ia32",
+      "version": "0.25.12",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@esbuild/linux-loong64",
+      "version": "0.25.12",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@esbuild/linux-mips64el",
+      "version": "0.25.12",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@esbuild/linux-ppc64",
+      "version": "0.25.12",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@esbuild/linux-riscv64",
+      "version": "0.25.12",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@esbuild/linux-s390x",
+      "version": "0.25.12",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@esbuild/linux-x64",
+      "version": "0.25.12",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@esbuild/netbsd-arm64",
+      "version": "0.25.12",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@esbuild/netbsd-x64",
+      "version": "0.25.12",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@esbuild/openbsd-arm64",
+      "version": "0.25.12",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@esbuild/openbsd-x64",
+      "version": "0.25.12",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@esbuild/openharmony-arm64",
+      "version": "0.25.12",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@esbuild/sunos-x64",
+      "version": "0.25.12",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@esbuild/win32-arm64",
+      "version": "0.25.12",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@esbuild/win32-ia32",
+      "version": "0.25.12",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@esbuild/win32-x64",
+      "version": "0.25.12",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@playwright/test",
+      "version": "1.65.0",
+      "license": "Apache-2.0",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": true,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@rollup/rollup-android-arm-eabi",
+      "version": "4.68.0",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@rollup/rollup-android-arm64",
+      "version": "4.68.0",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@rollup/rollup-android-x64",
+      "version": "4.68.0",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@rollup/rollup-darwin-arm64",
+      "version": "4.68.0",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@rollup/rollup-darwin-x64",
+      "version": "4.68.0",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@rollup/rollup-freebsd-arm64",
+      "version": "4.68.0",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@rollup/rollup-freebsd-x64",
+      "version": "4.68.0",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@rollup/rollup-linux-arm-gnueabihf",
+      "version": "4.68.0",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@rollup/rollup-linux-arm-musleabihf",
+      "version": "4.68.0",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@rollup/rollup-linux-arm64-gnu",
+      "version": "4.68.0",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@rollup/rollup-linux-arm64-musl",
+      "version": "4.68.0",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@rollup/rollup-linux-loong64-gnu",
+      "version": "4.68.0",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@rollup/rollup-linux-loong64-musl",
+      "version": "4.68.0",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@rollup/rollup-linux-ppc64-gnu",
+      "version": "4.68.0",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@rollup/rollup-linux-ppc64-musl",
+      "version": "4.68.0",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@rollup/rollup-linux-riscv64-gnu",
+      "version": "4.68.0",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@rollup/rollup-linux-riscv64-musl",
+      "version": "4.68.0",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@rollup/rollup-linux-s390x-gnu",
+      "version": "4.68.0",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@rollup/rollup-linux-x64-gnu",
+      "version": "4.68.0",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@rollup/rollup-linux-x64-musl",
+      "version": "4.68.0",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@rollup/rollup-openbsd-x64",
+      "version": "4.68.0",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@rollup/rollup-openharmony-arm64",
+      "version": "4.68.0",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@rollup/rollup-win32-arm64-msvc",
+      "version": "4.68.0",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@rollup/rollup-win32-ia32-msvc",
+      "version": "4.68.0",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@rollup/rollup-win32-x64-gnu",
+      "version": "4.68.0",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@rollup/rollup-win32-x64-msvc",
+      "version": "4.68.0",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@types/estree",
+      "version": "1.0.10",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "@types/node",
+      "version": "26.6.6",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": true,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "esbuild",
+      "version": "0.25.12",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "fdir",
+      "version": "6.5.0",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "fsevents",
+      "version": "2.3.3",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "nanoid",
+      "version": "3.3.20",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "picocolors",
+      "version": "1.1.1",
+      "license": "ISC",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "picomatch",
+      "version": "4.0.7",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "playwright",
+      "version": "1.65.0",
+      "license": "Apache-2.0",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "playwright-core",
+      "version": "1.65.0",
+      "license": "Apache-2.0",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "postcss",
+      "version": "8.5.32",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "rollup",
+      "version": "4.68.0",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "source-map-js",
+      "version": "1.2.2",
+      "license": "BSD-3-Clause",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "tinyglobby",
+      "version": "0.2.17",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "typescript",
+      "version": "5.9.3",
+      "license": "Apache-2.0",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": true,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "undici-types",
+      "version": "8.9.0",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": false,
+      "source": "ui/package-lock.json"
+    },
+    {
+      "name": "vite",
+      "version": "6.4.5",
+      "license": "MIT",
+      "ecosystem": "npm",
+      "scope": "dev(build/test)",
+      "direct": true,
+      "source": "ui/package-lock.json"
+    }
+  ],
+  "system_tools": [
+    {
+      "name": "CPython",
+      "version": "3.12.3",
+      "license": "PSF-2.0",
+      "source": "runtime on this VM; requires-python >=3.11",
+      "note": "bundled SQLite 3.45.1 (public domain)"
+    },
+    {
+      "name": "Node.js",
+      "version": "24.22.1",
+      "license": "MIT",
+      "source": "dev/build only (ui build + Playwright tests)",
+      "note": "not a runtime dependency of the Python core"
+    },
+    {
+      "name": "Graphviz",
+      "version": null,
+      "license": null,
+      "source": "NOT USED",
+      "note": "searched whole tree (code, docs, locks, configs): no reference, no invocation; not part of the candidate artifact"
+    }
+  ],
+  "counts": {
+    "python_components": 33,
+    "node_components": 70,
+    "total": 103
+  },
+  "notes": [
+    "Core runtime is Python stdlib + SQLite only; requirements/base.lock records zero runtime Python dependencies.",
+    "requirements/ui.lock is EMPTY/stale (says T029 pins later) but ui/package-lock.json actually pins 4 direct + 66 transitive Node packages; Node inventory here comes from ui/package-lock.json, not ui.lock. ui.lock must be regenerated or removed by its owner (T004/T029) — recorded as a known gap, not silently fixed here (outside T045 owned_paths).",
+    "pyproject.toml [project.optional-dependencies] mcp=[] and ui=[] are likewise stale: mcp deps are pinned in requirements/mcp.lock and installed in .venv. Same owner follow-up.",
+    "Python transitive packages installed in .venv but absent from every lock file are listed with source 'transitive, not pinned in a lock' — they are real, versioned from installed metadata, not estimates.",
+    "No third-party full text is bundled: docs quote only short competitor taglines with links (docs/comparison.md, docs/COMPETITORS.md); starter seed code is original MIT code from the kit (see NOTICE).",
+    "Licenses are SPDX expressions as recorded in installed package metadata / ui/package-lock.json; where metadata gave only a legacy License field it is reproduced verbatim."
+  ]
+}

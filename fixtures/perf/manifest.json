@@ -1,0 +1,26 @@
+{
+  "cold_start_ms_max": 3000,
+  "concurrent_busy_errors_max": 0,
+  "concurrent_writers": 8,
+  "datasets": [
+    {
+      "records": 1000,
+      "seed": 42,
+      "finish_samples": 10
+    },
+    {
+      "records": 10000,
+      "seed": 1729,
+      "finish_samples": 10
+    },
+    {
+      "records": 100000,
+      "seed": 20261108,
+      "finish_samples": 3
+    }
+  ],
+  "finish_p95_ms_max": 500,
+  "note": "Pre-registered thresholds (T043). Datasets are bulk-loaded via SQL for scale testing (load time is not measured); recall/finish/cold-start/concurrency are measured through the real API. Temp files go to <repo>/.tmp (the big disk), NOT /tmp (512M tmpfs on this VM \u2014 100k begin() snapshots fill it). Hardware is recorded in the report \u2014 numbers are experiment points on this machine, not a promised upper bound.",
+  "recall_p95_ms_max": 1000,
+  "version": 1
+}

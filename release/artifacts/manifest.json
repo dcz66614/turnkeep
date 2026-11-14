@@ -1,0 +1,203 @@
+{
+  "name": "turnkeep",
+  "product": "Turnkeep (working name)",
+  "version": "0.1.0",
+  "contract_version": "0.1",
+  "schema": {
+    "target_schema_version": "v1",
+    "export_schema_version": "v1",
+    "compatible_with": "schema v1 only; no migration path from any other schema version is claimed"
+  },
+  "commit": "c269d06a680bdc2912e0c96e8e92880c67245258",
+  "source_date_epoch": 1794611426,
+  "built_at": "2026-11-13T23:11:01.493253+00:00",
+  "builder": {
+    "python": "3.12.3",
+    "sqlite": "3.45.1",
+    "node": "v24.22.1",
+    "npm": "10.9.4",
+    "platform": "linux"
+  },
+  "tracked_tree_clean": true,
+  "untracked_files_at_build": [],
+  "python_build": "wheel+sdist",
+  "build_logs": [
+    {
+      "run": "a",
+      "ok": true,
+      "detail": {
+        "toolchain": {
+          "present": true,
+          "installed_now": false,
+          "install_log": null
+        }
+      }
+    },
+    {
+      "run": "b",
+      "ok": true,
+      "detail": {
+        "toolchain": {
+          "present": true,
+          "installed_now": false,
+          "install_log": null
+        }
+      }
+    },
+    {
+      "run": "packaging-repair",
+      "detail": [
+        {
+          "run": "a",
+          "wheel_injected": [],
+          "sdist_rewritten": [
+            "turnkeep-0.1.0.tar.gz"
+          ]
+        },
+        {
+          "run": "b",
+          "wheel_injected": [],
+          "sdist_rewritten": [
+            "turnkeep-0.1.0.tar.gz"
+          ]
+        },
+        {
+          "reason": "sdist timestamps normalised to SOURCE_DATE_EPOCH (setuptools stamps generated files + gzip header with wall-clock time); member contents, order and modes unchanged.",
+          "durable_fix_pending": "none for the migration SQL: pyproject.toml now declares the package-data (R4 rework, P2-R4-09); the injection above is a no-op safety net."
+        }
+      ]
+    }
+  ],
+  "packaging_repair": {
+    "injected_package_data": [
+      "turnkeep/migrations/001_initial.sql",
+      "turnkeep/migrations/002_record_provenance.sql",
+      "turnkeep/migrations/003_scope_secrets.sql",
+      "turnkeep/migrations/004_erase_flags.sql",
+      "turnkeep/migrations/005_record_erase_keys.sql",
+      "turnkeep/migrations/006_maintenance_pending.sql",
+      "turnkeep/migrations/007_purge_pending.sql"
+    ],
+    "injected_sdist_only": [
+      "turnkeep-0.1.0/fixtures/demo/export-format/changes.jsonl",
+      "turnkeep-0.1.0/fixtures/demo/export-format/requirements.csv",
+      "turnkeep-0.1.0/fixtures/demo/research-correction/notes.csv",
+      "turnkeep-0.1.0/fixtures/demo/research-correction/retraction.jsonl"
+    ],
+    "reason": "pyproject.toml declares no package-data, so the stock setuptools wheel/sdist omit runtime data files: storage.py reads migrations/001_initial.sql from the installed package dir. The unrepaired wheel installed but every DB init failed (FileNotFoundError); verify_release.py caught this. The build script injects the file into the wheel (RECORD updated) and sdist; contents unchanged. Demo fixtures (fixtures/demo/**) are injected into the sdist only: demo.py resolves them via Path(__file__).parents[2], which is the repo root in source but lib/python3.12 when installed -- a location no wheel layout can populate -- so the installed wheel's export-format / research-correction scenarios stay broken (see known_gaps.demo_fixtures_installed); the default j01 scenario needs no fixtures and passes installed.",
+    "durable_fix_pending": "Make demo.py load fixtures via importlib.resources (demo.py is core-owned). The migration SQL is no longer pending: pyproject.toml declares the package-data since the R4 rework (P2-R4-09), so a wheel rebuilt from the sdist alone now keeps it."
+  },
+  "ui_build": {
+    "tool": "npm --prefix ui run build (tsc + vite build)",
+    "check": {
+      "relative_assets": true,
+      "external_urls": [],
+      "status": "PASS"
+    }
+  },
+  "locks": {
+    "base": {
+      "file": "locks/base.lock",
+      "sha256": "7ca8eda8953e2520d20446e0ad4bd337f16e11e0c62283c46c7db97788029a0e",
+      "note": "Core is stdlib + SQLite only; pytest 9.2.0 is the only dev pin."
+    },
+    "mcp": {
+      "file": "locks/mcp.lock",
+      "sha256": "8ee0370d271cbf54b68aed4719c4bab31c3fb0cb04364fd2d0c09a45e0faa439",
+      "note": "Official MCP Python SDK 2.3.0 (T021)."
+    },
+    "ui": {
+      "file": "locks/package-lock.json",
+      "sha256": "a0a9be414a70245a9a96314d06138125e26be8947dc623aa1b7c18d8da046b13",
+      "note": "UI lock source is ui/package-lock.json. requirements/ui.lock is an intentionally empty R0 placeholder (one comment line) and is NOT a lock file; it was not copied and must not be used as one."
+    }
+  },
+  "platforms": {
+    "linux": {
+      "status": "verified",
+      "detail": "This VM: doctor PASS, J01 + J05 journeys PASS, UI production gate PASS (T043)."
+    },
+    "windows": {
+      "status": "NOT_RUN",
+      "detail": "No Windows runner on this VM; .github/workflows/test.yml exists but no run has executed."
+    },
+    "macos": {
+      "status": "NOT_RUN",
+      "detail": "No macOS runner on this VM; .github/workflows/test.yml exists but no run has executed."
+    }
+  },
+  "known_gaps": {
+    "T026": {
+      "status": "VERIFIED",
+      "detail": "Hybrid substitution accepted by Sam 2026-11-10 ~09:08 GMT: Codex CLI 0.164.0-alpha.9 (bridge, GPT-5.6 Sol) + agy 1.5.3 (gemini-3.8-flash-low); agy reverse leg VERIFIED (6 real MCP calls, finish receipt; commit f9e2786). Disclosed: Codex forward leg not run (M365 outage); strict live-clients gate remains NOT_RUN."
+    },
+    "T042": {
+      "status": "VERIFIED",
+      "detail": "Two independent clean live runs: codex-api (GPT-6 Luna low, official OpenAI API) pilot 43/48, confirmation 354/432 (81.9%); agy pilot 43/48, confirmation 352/432 (81.5%). Spend $1.90 for all 480 attempts. Finding MIXED: turnkeep arm 0% stale, completion below files."
+    },
+    "T043": {
+      "status": "FAIL",
+      "detail": "Performance gate FAIL (3 thresholds): finish p95 7759.9 ms > 500 ms at 10k records; recall p95 3182.9 ms > 1000 ms at 100k records; finish p95 12288.3 ms > 500 ms at 100k records. Causes: begin() full-snapshot O(n), recall() full-table scan O(n). Cold start 159.4 ms PASS. Thresholds not lowered, datasets not shrunk."
+    },
+    "trademark": {
+      "status": "NOT_RUN",
+      "detail": "No trademark clearance claimed. turnkeep.app is a live rental product in a different domain (T002); 'Turnkeep' is a working name only."
+    },
+    "demo_fixtures_installed": {
+      "status": "FAIL",
+      "detail": "README's --scenario export-format / research-correction demos fail from the installed wheel (FileNotFoundError): demo.py resolves fixtures via Path(__file__).parents[2], the repo root in source but lib/python3.12 when installed -- a location no wheel layout can populate. The default j01 scenario (the actual J01 journey) needs no fixtures and passes installed. Durable fix: demo.py via importlib.resources (core-owned, not T046). Fixtures are shipped in the sdist, so a source checkout unpacked from it runs them."
+    }
+  },
+  "reproducibility": {
+    "two_builds_compared": true,
+    "identical": true,
+    "differing_files": [],
+    "reason": "Two wheel/sdist builds from the same commit with SOURCE_DATE_EPOCH pinned to the commit timestamp are bit-for-bit identical (sdist timestamps normalised as documented in _normalize_sdist; wheel needed no normalisation)."
+  },
+  "upload": {
+    "attempted": false,
+    "reason": "Build-only by default; no --upload given. Remote upload requires --upload-target and TURNKEEP_RELEASE_UPLOAD_AUTHORIZED=1, and no upload backend is configured for this candidate."
+  },
+  "files": [
+    {
+      "path": "SBOM.json",
+      "sha256": "736ba5cb9ef8f0fc2a1860b21107bc2c584352e68c425d8634d933a71e42b2ff",
+      "bytes": 27166
+    },
+    {
+      "path": "locks/base.lock",
+      "sha256": "7ca8eda8953e2520d20446e0ad4bd337f16e11e0c62283c46c7db97788029a0e",
+      "bytes": 319
+    },
+    {
+      "path": "locks/mcp.lock",
+      "sha256": "8ee0370d271cbf54b68aed4719c4bab31c3fb0cb04364fd2d0c09a45e0faa439",
+      "bytes": 535
+    },
+    {
+      "path": "locks/package-lock.json",
+      "sha256": "a0a9be414a70245a9a96314d06138125e26be8947dc623aa1b7c18d8da046b13",
+      "bytes": 37456
+    },
+    {
+      "path": "turnkeep-0.1.0-py3-none-any.whl",
+      "sha256": "d378ac057b3aaaca47a96c1b3cd7e1fe0bc7a7bf799caa6ba05118047422b311",
+      "bytes": 177128
+    },
+    {
+      "path": "turnkeep-0.1.0-ui-dist.tar.gz",
+      "sha256": "1eda17802ad9aeae6bccbf3b112ee09a835459c9c7d428a51280e89ecbde34e9",
+      "bytes": 21753
+    },
+    {
+      "path": "turnkeep-0.1.0.tar.gz",
+      "sha256": "02e8f550b8379551461004dc8ef5188eb6f21c8130e18651e1ff2a228edc5a55",
+      "bytes": 161946
+    },
+    {
+      "path": "SHA256SUMS",
+      "sha256": "c0607404722174fb2d49cdef360b5fc3b65042b1b21344342a0876b37370a5c7",
+      "bytes": 611
+    }
+  ]
+}

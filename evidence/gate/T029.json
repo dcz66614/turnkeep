@@ -1,0 +1,44 @@
+{
+  "gate": "run_gate",
+  "selector": "T029",
+  "status": "PASS",
+  "generated": "2026-11-08T19:20:11Z",
+  "python": "3.12.3",
+  "results": [
+    {
+      "task_id": "T029",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/check_docs.py",
+            "--profile",
+            "ux"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.076,
+          "stdout_tail": "PASS: UX spec covers J01–J05, 4 areas, 7 states, fixtures + types\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "npm",
+            "--prefix",
+            "ui",
+            "run",
+            "typecheck"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 4.32,
+          "stdout_tail": "\n> turnkeep-workbench@0.1.0 typecheck\n> tsc --noEmit -p tsconfig.json\n\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    }
+  ]
+}

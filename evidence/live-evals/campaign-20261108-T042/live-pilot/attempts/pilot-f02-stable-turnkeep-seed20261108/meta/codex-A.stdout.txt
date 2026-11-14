@@ -1,0 +1,1 @@
+已将 `user.name` 写入并验证于 `output/field.txt`。

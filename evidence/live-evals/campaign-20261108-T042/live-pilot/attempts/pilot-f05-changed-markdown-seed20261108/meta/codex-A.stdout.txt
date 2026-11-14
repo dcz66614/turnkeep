@@ -1,0 +1,1 @@
+Wrote `deadline unknown — source retracted` to `output/summary.txt` and verified it.

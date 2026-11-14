@@ -1,0 +1,11 @@
+{
+  "scope": "demo",
+  "key": "build.python_version",
+  "value": "3.12",
+  "kind": "fact",
+  "source": {
+    "type": "user_statement",
+    "ref": "user:1"
+  },
+  "parent_ids": []
+}

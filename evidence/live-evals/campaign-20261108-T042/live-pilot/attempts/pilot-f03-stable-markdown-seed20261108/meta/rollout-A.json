@@ -1,0 +1,26 @@
+{
+  "tool_calls": [
+    {
+      "name": "exec_command",
+      "arguments": "{\"cmd\":\"cat decisions.md\"}",
+      "timestamp": "2026-11-09T18:31:20.348Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Chunk ID: 51d3e2\nWall time: 0.0000 seconds\nProcess exited with code 0\nOriginal token count: 37\nOutput:\n# Project decisions (memory)\n\nThe LATEST entry for a key wins.\n- build.command = npm run build-legacy (fact) — recorded 2026-11-08, source: user\n",
+      "timestamp": "2026-11-09T18:31:20.482Z"
+    }
+  ],
+  "agent_messages": [
+    ""
+  ],
+  "max_total_tokens": 24673,
+  "task_duration_ms": 148370,
+  "last_message": null,
+  "found": true,
+  "task_completed": true,
+  "stale_rejections": 0,
+  "finish_receipt": false,
+  "rollout_path": "/home/hatch/.codex/sessions/2026/11/09/rollout-2026-11-09T18-30-00-01a1c193-068b-7293-9a21-a5633ab8f067.jsonl"
+}

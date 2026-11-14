@@ -1,0 +1,2 @@
+{"action":"retract","key":"study.evidence","reason":"withdrawn","source":{"id":"notice:7","type":"imported_text"}}
+{"action":"replace","key":"study.conclusion.v1","new_value":"unknown - evidence retracted","source":{"id":"notice:7","type":"imported_text"}}

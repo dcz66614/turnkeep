@@ -1,0 +1,48 @@
+{
+  "gate": "run_gate",
+  "selector": "T019",
+  "status": "PASS",
+  "generated": "2026-11-08T19:02:27Z",
+  "python": "3.12.3",
+  "results": [
+    {
+      "task_id": "T019",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/cli/test_journeys.py",
+            "tests/cli/test_exit_codes.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 3.169,
+          "stdout_tail": ".....                                                                    [100%]\n5 passed in 2.09s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/run_journey.py",
+            "--mode",
+            "cli",
+            "--journey",
+            "J01",
+            "--no-model"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.944,
+          "stdout_tail": "{\n  \"journey\": \"J01\",\n  \"mode\": \"cli\",\n  \"status\": \"PASS\",\n  \"steps\": [\n    \"remember 96eb7969f8ae43879c105b01ebb3512b\",\n    \"stale finish rejected with changed_keys\",\n    \"recomputed finish committed; identical replay returned receipt\"\n  ],\n  \"receipt\": {\n    \"run_id\": \"06f7f0039a614e8e9c099acf4ebd7ca6\",\n    \"scope\": \"j01\",\n    \"record_id\": \"3f18489815974b69bdb077956ad8f0c0\",\n    \"request_digest\": \"54e10b5a89ea197b2b85fe07c9dc6f9b7c7dcff1dd38427b82137166ffd9ac9a\",\n    \"read_epoch\": 2,\n    \"commit_epoch\": 3,\n    \"parent_ids\": [\n      \"4a4efab3965a44e4b8b5dcce9078ef1a\"\n    ],\n    \"committed_at\": \"2026-11-08T19:02:27.238933+00:00\",\n    \"status_at_commit\": \"active\",\n    \"guarantee\": \"local_sqlite_commit_only\"\n  }\n}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    }
+  ]
+}

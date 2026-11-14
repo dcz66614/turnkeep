@@ -1,0 +1,30 @@
+test_01_normalized_duplicate_is_noop (test_core.CoreTests.test_01_normalized_duplicate_is_noop) ... ok
+test_02_provenance_merge_requires_cas_and_keeps_both_sources (test_core.CoreTests.test_02_provenance_merge_requires_cas_and_keeps_both_sources) ... ok
+test_03_conflict_invalidates_entire_dependency_chain (test_core.CoreTests.test_03_conflict_invalidates_entire_dependency_chain) ... ok
+test_04_conflict_resolution_requires_complete_unchanged_set (test_core.CoreTests.test_04_conflict_resolution_requires_complete_unchanged_set) ... ok
+test_05_two_processes_can_not_correct_same_revision (test_core.CoreTests.test_05_two_processes_can_not_correct_same_revision) ... ok
+test_06_concurrent_distinct_writes_are_not_lost (test_core.CoreTests.test_06_concurrent_distinct_writes_are_not_lost) ... ok
+test_07_missing_or_cross_scope_parent_rolls_back (test_core.CoreTests.test_07_missing_or_cross_scope_parent_rolls_back) ... ok
+test_08_retraction_taints_diamond_once_per_record (test_core.CoreTests.test_08_retraction_taints_diamond_once_per_record) ... ok
+test_09_correction_keeps_supersedes_history (test_core.CoreTests.test_09_correction_keeps_supersedes_history) ... ok
+test_10_client_snapshot_mutation_does_not_change_server_binding (test_core.CoreTests.test_10_client_snapshot_mutation_does_not_change_server_binding) ... ok
+test_11_new_fact_makes_old_even_empty_snapshot_stale (test_core.CoreTests.test_11_new_fact_makes_old_even_empty_snapshot_stale) ... ok
+test_12_other_scope_write_does_not_stale_run_and_run_is_scoped (test_core.CoreTests.test_12_other_scope_write_does_not_stale_run_and_run_is_scoped) ... ok
+test_13_snapshot_epoch_and_rows_stay_consistent_during_writes (test_core.CoreTests.test_13_snapshot_epoch_and_rows_stay_consistent_during_writes) ... ok
+test_14_success_replay_precedes_epoch_and_returns_original_receipt (test_core.CoreTests.test_14_success_replay_precedes_epoch_and_returns_original_receipt) ... ok
+test_15_success_replay_rejects_different_payload (test_core.CoreTests.test_15_success_replay_rejects_different_payload) ... ok
+test_16_reopen_recovers_records_history_and_server_run (test_core.CoreTests.test_16_reopen_recovers_records_history_and_server_run) ... ok
+test_17_backup_restores_snapshot_and_history (test_core.CoreTests.test_17_backup_restores_snapshot_and_history) ... ok
+test_18_self_dependency_is_rejected_atomically (test_core.CoreTests.test_18_self_dependency_is_rejected_atomically) ... ok
+test_19_indirect_cycle_is_rejected (test_core.CoreTests.test_19_indirect_cycle_is_rejected) ... ok
+test_20_corrupt_cycle_fails_closed_and_propagation_terminates (test_core.CoreTests.test_20_corrupt_cycle_fails_closed_and_propagation_terminates) ... ok
+test_21_unavailable_parents_and_bad_finish_parent_publish_nothing (test_core.CoreTests.test_21_unavailable_parents_and_bad_finish_parent_publish_nothing) ... ok
+test_22_inactive_key_requires_explicit_new_replacement (test_core.CoreTests.test_22_inactive_key_requires_explicit_new_replacement) ... ok
+test_23_omitted_parents_cannot_escape_later_taint (test_core.CoreTests.test_23_omitted_parents_cannot_escape_later_taint) ... ok
+test_24_mid_transaction_exception_rolls_back_all_changes (test_core.CoreTests.test_24_mid_transaction_exception_rolls_back_all_changes) ... ok
+test_25_process_crash_before_commit_does_not_publish (test_core.CoreTests.test_25_process_crash_before_commit_does_not_publish) ... ok
+
+----------------------------------------------------------------------
+Ran 25 tests in 1.573s
+
+OK

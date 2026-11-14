@@ -1,0 +1,16 @@
+Metadata-Version: 2.4
+Name: turnkeep
+Version: 0.1.0
+Summary: Local-first multi-agent project working memory + change recovery (Turnkeep, contract v0.1)
+License: MIT
+Requires-Python: >=3.11
+License-File: LICENSE
+License-File: NOTICE
+Provides-Extra: dev
+Requires-Dist: pytest>=8; extra == "dev"
+Requires-Dist: build; extra == "dev"
+Requires-Dist: setuptools; extra == "dev"
+Requires-Dist: wheel; extra == "dev"
+Provides-Extra: mcp
+Provides-Extra: ui
+Dynamic: license-file

@@ -34,8 +34,11 @@ change entirely.
   online backup / restore / diagnosis.
 - **[experimental]** Local HTTP workbench (`turnkeep serve`, loopback only,
   per-process session token) and a browser UI (see `docs/UX_SPEC.md`).
-- **[not run]** Real two-client handover (T026) and live-model evaluation
-  (T042) have not run. Windows / macOS install has not run.
+- **[verified — with disclosed limits]** Real two-client handover (T026)
+  and live-model evaluation (T042) ran with the limits disclosed below
+  (T026: agy leg verified, Codex forward leg NOT run, strict gate
+  NOT_RUN; T042: two clean live runs, finding MIXED, no blanket win
+  claim). Windows / macOS install has not run.
 
 ## 60-second demo — no key, no network, no model
 
@@ -136,11 +139,13 @@ python -m turnkeep mcp --scope demo --db /path/to/turnkeep.sqlite3
 
 Adapter templates: [docs/integrations/claude-code.md](docs/integrations/claude-code.md),
 [docs/integrations/codex.md](docs/integrations/codex.md).
-**Config only, live NOT_RUN**: the templates parse and are checked by
-`scripts/check_adapter.py --mode config`, but no real Claude Code /
-Codex session has run a handover through them (T026). Two SDK test
-processes are protocol evidence, never a substitute for two host
-products.
+**Templates + one live leg (T026):** the templates parse and are checked by
+`scripts/check_adapter.py --mode config`, and the agy reverse leg ran a
+real handover through MCP (6 calls, finish receipt). The Codex leg used
+the CLI wrapper, not the MCP config (Codex exec does not surface MCP
+tools), and its forward leg was NOT run (outage) — so the strict
+two-client gate remains NOT_RUN. Two SDK test processes are protocol
+evidence, never a substitute for two host products.
 
 Local workbench API (loopback only, per-process session token):
 
@@ -194,8 +199,8 @@ delete the data directory (`~/.local/share/turnkeep` on Linux).
 | Expiry / erasure / backup / restore / diagnose | [verified] | erasure verified by scanning every text column |
 | Deterministic eval harness (Gate C smoke) | [verified] | 12 scripted attempts: none 1/3, markdown 3/3, log 3/3, turnkeep 3/3 |
 | Change replay, 25 frozen scenarios | [verified] | real core 25/25; mutations no-taint 21/25, silent-overwrite 22/25 |
-| Real two-client handover (Claude Code ↔ Codex) | [not run] | T026 BLOCKED_EXTERNAL — see below |
-| Live-model evaluation (Gate C) | [not run] | T042 BLOCKED_EXTERNAL — see below |
+| Real two-client handover (Claude Code ↔ Codex) | [verified — with disclosed limits] | T026 hybrid accepted by Sam 2026-11-10; agy reverse leg verified in-DB (6 MCP calls, finish receipt); Codex forward leg NOT run, strict gate NOT_RUN — see below |
+| Live-model evaluation (Gate C) | [verified — finding MIXED] | T042 two clean live runs (codex-api 354/432, agy 352/432); turnkeep 0% stale, completion below the file arms — see below |
 | Windows / macOS install + journeys | [not run] | T043 — see below |
 | Performance at 10k / 100k records | [verified — FAIL] | Gate FAIL, 3 thresholds — see below |
 
@@ -204,13 +209,30 @@ delete the data directory (`~/.local/share/turnkeep` on Linux).
 Read the full list in [docs/KNOWN_LIMITATIONS.md](docs/KNOWN_LIMITATIONS.md).
 The ones that change what you should expect:
 
-- **Real two-client handover — NOT_RUN (T026).** The `claude` CLI is
-  not installed here and no Codex turnkeep entry is installed; no live
-  handover between two real host products has run. Do not claim
-  cross-tool handover is proven.
-- **Live-model evaluation — NOT_RUN (T042).** No model selected, no
-  authorised budget ($0), no endpoint configured. The deterministic
-  smoke numbers above are scripted simulations, not model results.
+- **Real two-client handover — VERIFIED with disclosed limits (T026).**
+  Hybrid substitution accepted by Sam 2026-11-10 ~09:08 GMT: Codex CLI
+  0.164.0-alpha.9 (bridge, GPT-5.6 Sol) + agy 1.5.3
+  (gemini-3.8-flash-low). The agy reverse leg is VERIFIED in-DB (smoke
+  PASS, S3+S3c complete, 6 real MCP calls, finish receipt, 3 records;
+  evidence/live-clients/run-20261109-01/SUMMARY.json). Disclosed: the
+  Codex forward leg (S1/S2/S3b/S4) was NOT run (M365 empty-answer
+  outage from ~18:31Z), and the strict live-clients gate remains
+  NOT_RUN. Do not claim the strict gate ran or that cross-tool handover
+  is fully proven.
+- **Live-model evaluation — VERIFIED, finding MIXED (T042).** Two
+  independent clean live runs: codex-api (GPT-6 Luna low, official
+  OpenAI API) pilot 43/48, confirmation 354/432 (81.9%); agy pilot
+  43/48, confirmation 352/432 (81.5%). Spend $1.90 for all 480
+  attempts. Finding MIXED: the turnkeep arm had 0% stale facts on both
+  runs, but completion below the file arms (codex-api 90.7% vs 97.2%;
+  agy 88.0% vs 99.1%/97.2%) — graded on that basis, no blanket win
+  claim. The contaminated bridge-Codex route is never quoted. The
+  deterministic smoke numbers above are scripted simulations, not model
+  results; the live numbers in this bullet are the model results.
+  Evidence packaging: the release zip ships only a desensitised
+  evidence summary (`evidence-summary.json`) — per-run T042 results
+  cannot be independently confirmed from the zip alone. Raw traces live
+  in the source checkout (`evidence/live-evals/`).
 - **Windows / macOS — NOT_RUN (T043).** Installers and CI workflow
   exist; no run has executed on those platforms.
 - **Performance gate — FAIL (T043).** Measured on Linux
@@ -286,4 +308,5 @@ and the differences still to verify:
 0.1.0 — contract v0.1, OFFLINE_RC scope (Linux offline). Python ≥ 3.11,
 SQLite 3.45.1 on the verification machine (kit report said 3.12.14 /
 3.53.1; this VM is 3.12.3 / 3.45.1 — tests still pass). Test suite:
-225/225 pytest at the R4 close (2026-11-08).
+276/276 pytest at the R1-rework close (2026-11-10, dev checkout on
+this VM only — not a claim about the extracted zip on another machine).

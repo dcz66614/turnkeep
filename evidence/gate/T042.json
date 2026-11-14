@@ -1,0 +1,46 @@
+{
+  "gate": "run_gate",
+  "selector": "T042",
+  "status": "PASS",
+  "strict_status": false,
+  "generated": "2026-11-10T09:12:09Z",
+  "python": "3.12.3",
+  "results": [
+    {
+      "task_id": "T042",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "benchmarks/live/run.py",
+            "--protocol",
+            "benchmarks/PROTOCOL.md",
+            "--budget-file",
+            "state/eval-budget.json"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.102,
+          "stdout_tail": "{\n  \"task\": \"T042\",\n  \"status\": \"LIVE_COMPLETE\",\n  \"model\": \"gpt5.6sol\",\n  \"campaign\": \"/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api\",\n  \"note\": \"A completed live campaign exists; see its manifest and REPORT.md files.\"\n}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "benchmarks/live/report.py",
+            "--input",
+            "evidence/live-evals"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.18,
+          "stdout_tail": "{\n  \"status\": \"HAS_LIVE_RESULTS\",\n  \"attempts\": 987,\n  \"campaigns\": [\n    {\n      \"campaign\": \"campaign-20261108-T042\",\n      \"contaminated\": true,\n      \"live-pilot\": {\n        \"attempts\": 27,\n        \"completed\": 17,\n        \"success_rate\": 0.6296296296296297\n      }\n    },\n    {\n      \"campaign\": \"campaign-20261109-T042-agy\",\n      \"contaminated\": false,\n      \"live-pilot\": {\n        \"attempts\": 48,\n        \"completed\": 43,\n        \"success_rate\": 0.8958333333333334\n      },\n      \"live-confirmation\": {\n        \"attempts\": 432,\n        \"completed\": 352,\n        \"success_rate\": 0.8148148148148148\n      }\n    },\n    {\n      \"campaign\": \"campaign-20261109-T042-codex-api\",\n      \"contaminated\": false,\n      \"live-pilot\": {\n        \"attempts\": 48,\n        \"completed\": 43,\n        \"success_rate\": 0.8958333333333334\n      },\n      \"live-confirmation\": {\n        \"attempts\": 432,\n        \"completed\": 354,\n        \"success_rate\": 0.8194444444444444\n      }\n    }\n  ],\n  \"gap\": {\n    \"task\": \"T042\",\n    \"status\": \"NOT_RUN\",\n    \"reason\": \"live campaign not started by this script\",\n    \"details\": {\n      \"model\": \"gpt5.6sol\",\n      \"authorised_spend_usd\": 0,\n      \"fix\": \"Preconditions are met, but a live campaign requires an explicit go-ahead. Re-run with --live to run the pilot (6 tasks x 2 variants) first, then the frozen confirmation set, per EVALUATION_PLAN §6-§7.\"\n    },\n    \"note\": \"No live model call was made by this invocation. Earlier partial/contaminated campaigns, if any, live under evidence/live-evals/campaign-*/ — see their GAP records; do not present this file as the whole T042 story.\"\n  },\n  \"note\": \"Campaign attempts exist; a campaign marked contaminated must not be quoted as a result — see its GAP record. Gate C stays NOT_RUN until a clean pilot + confirmation complete.\"\n}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    }
+  ]
+}

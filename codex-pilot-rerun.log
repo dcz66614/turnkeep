@@ -1,0 +1,100 @@
+bridge ok: GPT-5.6 Sol, token valid: True
+[live-pilot] 48 planned, 32 to run, 16 already recorded
+  [17/48] pilot-f02-stable / none / seed 20261108: completed=True stale=False steps=9 tokens={'tokens_total': 254317, 'turns': 1} (95s elapsed)
+  [18/48] pilot-f02-stable / markdown / seed 20261108: completed=True stale=False steps=15 tokens={'tokens_total': 424839, 'turns': 1} (119s elapsed)
+  [19/48] pilot-f02-stable / log / seed 20261108: completed=True stale=False steps=3 tokens={'tokens_total': 98659, 'turns': 1} (138s elapsed)
+  [20/48] pilot-f02-stable / turnkeep / seed 20261108: completed=True stale=False steps=7 tokens={'tokens_total': 260481, 'turns': 1} (227s elapsed)
+  [21/48] pilot-f02-changed / none / seed 20261108: completed=False stale=True steps=13 tokens={'tokens_total': 367028, 'turns': 1} (246s elapsed)
+  [22/48] pilot-f02-changed / markdown / seed 20261108: completed=True stale=False steps=9 tokens={'tokens_total': 262941, 'turns': 1} (312s elapsed)
+  [23/48] pilot-f02-changed / log / seed 20261108: completed=False stale=False steps=0 tokens={'tokens_total': 48826, 'turns': 2} (614s elapsed)
+  [24/48] pilot-f03-stable / none / seed 20261108: completed=False stale=False steps=0 tokens={'tokens_total': 48908, 'turns': 2} (816s elapsed)
+  [25/48] pilot-f02-changed / turnkeep / seed 20261108: completed=True stale=False steps=4 tokens={'tokens_total': 182044, 'turns': 2} (892s elapsed)
+  [26/48] pilot-f03-stable / log / seed 20261108: completed=True stale=False steps=3 tokens={'tokens_total': 100996, 'turns': 1} (933s elapsed)
+  [27/48] pilot-f03-stable / turnkeep / seed 20261108: completed=False stale=False steps=0 tokens={'tokens_total': 50696, 'turns': 2} (944s elapsed)
+  [28/48] pilot-f03-changed / none / seed 20261108: completed=False stale=False steps=0 tokens={'tokens_total': 48820, 'turns': 2} (953s elapsed)
+  [29/48] pilot-f03-changed / markdown / seed 20261108: completed=False stale=False steps=0 tokens={'tokens_total': 48920, 'turns': 2} (963s elapsed)
+  [30/48] pilot-f03-stable / markdown / seed 20261108: completed=False stale=False steps=1 tokens={'tokens_total': 73969, 'turns': 2} (971s elapsed)
+  [31/48] pilot-f03-changed / log / seed 20261108: completed=False stale=False steps=0 tokens={'tokens_total': 48902, 'turns': 2} (973s elapsed)
+  [32/48] pilot-f03-changed / turnkeep / seed 20261108: completed=False stale=False steps=0 tokens={'tokens_total': 50714, 'turns': 2} (983s elapsed)
+  [33/48] pilot-f07-stable / none / seed 20261108: completed=False stale=False steps=0 tokens={'tokens_total': 48901, 'turns': 2} (984s elapsed)
+  [34/48] pilot-f07-stable / markdown / seed 20261108: completed=False stale=False steps=0 tokens={'tokens_total': 49001, 'turns': 2} (993s elapsed)
+  [35/48] pilot-f07-stable / log / seed 20261108: completed=False stale=False steps=0 tokens={'tokens_total': 48983, 'turns': 2} (995s elapsed)
+  [36/48] pilot-f07-stable / turnkeep / seed 20261108: completed=False stale=False steps=0 tokens={'tokens_total': 50799, 'turns': 2} (1003s elapsed)
+  [37/48] pilot-f07-changed / none / seed 20261108: completed=False stale=False steps=0 tokens={'tokens_total': 48917, 'turns': 2} (1004s elapsed)
+  [38/48] pilot-f07-changed / markdown / seed 20261108: completed=False stale=False steps=0 tokens={'tokens_total': 49017, 'turns': 2} (1013s elapsed)
+  [39/48] pilot-f07-changed / log / seed 20261108: completed=False stale=False steps=0 tokens={'tokens_total': 48999, 'turns': 2} (1016s elapsed)
+  [40/48] pilot-f07-changed / turnkeep / seed 20261108: completed=False stale=False steps=0 tokens={'tokens_total': 50817, 'turns': 2} (1024s elapsed)
+  [41/48] pilot-f10-changed / none / seed 20261108: completed=False stale=False steps=0 tokens={'tokens_total': 48913, 'turns': 2} (1026s elapsed)
+  [42/48] pilot-f10-changed / markdown / seed 20261108: completed=False stale=False steps=0 tokens={'tokens_total': 49013, 'turns': 2} (1033s elapsed)
+  [43/48] pilot-f10-changed / log / seed 20261108: completed=False stale=False steps=0 tokens={'tokens_total': 48995, 'turns': 2} (1035s elapsed)
+  [44/48] pilot-f10-changed / turnkeep / seed 20261108: completed=False stale=False steps=0 tokens={'tokens_total': 50813, 'turns': 2} (1044s elapsed)
+  [45/48] pilot-f10-stable / none / seed 20261108: completed=False stale=False steps=0 tokens={'tokens_total': 48897, 'turns': 2} (1045s elapsed)
+  [46/48] pilot-f10-stable / markdown / seed 20261108: completed=False stale=False steps=0 tokens={'tokens_total': 48997, 'turns': 2} (1053s elapsed)
+  [47/48] pilot-f10-stable / log / seed 20261108: completed=False stale=False steps=0 tokens={'tokens_total': 48979, 'turns': 2} (1055s elapsed)
+  [48/48] pilot-f10-stable / turnkeep / seed 20261108: completed=False stale=False steps=0 tokens={'tokens_total': 50795, 'turns': 2} (1062s elapsed)
+{
+  "suite": "live-pilot",
+  "mode": "live",
+  "label": "LIVE_MODEL",
+  "driver": "codex",
+  "model": "gpt5.6sol",
+  "note": "Real model (Codex CLI via copilot-codex-bridge, gpt5.6sol). Scored deterministically from raw traces + deliverable artifacts.",
+  "seed": 20261108,
+  "budget": {
+    "max_seconds": 600,
+    "max_steps": 60,
+    "max_tool_calls": 60
+  },
+  "overall": {
+    "attempts": 48,
+    "completed": 17,
+    "success_rate": 0.3541666666666667,
+    "stale_fact_rate": 0.041666666666666664,
+    "contract_violations": 0,
+    "irrelevant_refusals": 0,
+    "mean_redo_cost_steps": 1.5416666666666667
+  },
+  "per_arm": {
+    "none": {
+      "attempts": 12,
+      "completed": 2,
+      "success_rate": 0.16666666666666666,
+      "stale_fact_rate": 0.16666666666666666,
+      "contract_violations": 0,
+      "irrelevant_refusals": 0,
+      "mean_redo_cost_steps": 2.6666666666666665
+    },
+    "markdown": {
+      "attempts": 12,
+      "completed": 5,
+      "success_rate": 0.4166666666666667,
+      "stale_fact_rate": 0.0,
+      "contract_violations": 0,
+      "irrelevant_refusals": 0,
+      "mean_redo_cost_steps": 3.0833333333333335
+    },
+    "log": {
+      "attempts": 12,
+      "completed": 4,
+      "success_rate": 0.3333333333333333,
+      "stale_fact_rate": 0.0,
+      "contract_violations": 0,
+      "irrelevant_refusals": 0,
+      "mean_redo_cost_steps": 0.0
+    },
+    "turnkeep": {
+      "attempts": 12,
+      "completed": 6,
+      "success_rate": 0.5,
+      "stale_fact_rate": 0.0,
+      "contract_violations": 0,
+      "irrelevant_refusals": 0,
+      "mean_redo_cost_steps": 0.4166666666666667
+    }
+  },
+  "attempts": 48,
+  "not_run_arms": {
+    "mature-memory": "NOT_RUN: no real Mem0/Hindsight install configured",
+    "nearest-workflow": "NOT_RUN: no real Tigerless/Engram install configured"
+  }
+}

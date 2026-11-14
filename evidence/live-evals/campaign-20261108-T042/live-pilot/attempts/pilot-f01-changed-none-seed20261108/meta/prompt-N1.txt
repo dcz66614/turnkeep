@@ -1,0 +1,2 @@
+The deliverable file output/manifest.txt is still missing. You have not finished. Write it now with a tool call, verify it with `cat`, then end your turn with a one-line summary.
+You MUST do the work with tool calls (exec_command). Do not just reply in text.

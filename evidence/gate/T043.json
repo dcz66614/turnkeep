@@ -1,0 +1,43 @@
+{
+  "gate": "run_gate",
+  "selector": "T043",
+  "status": "FAIL",
+  "generated": "2026-11-08T20:40:59Z",
+  "python": "3.12.3",
+  "results": [
+    {
+      "task_id": "T043",
+      "status": "FAIL",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/platform_gate.py",
+            "--record",
+            "evidence/platforms/current.json"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 2.331,
+          "stdout_tail": "{\n  \"status\": \"PASS\",\n  \"failures\": [],\n  \"linux\": {\n    \"status\": \"PASS\",\n    \"checks\": {\n      \"platform\": \"Linux-7.0.0-43-generic-x86_64-with-glibc2.39\",\n      \"python\": \"3.12.3\",\n      \"sqlite\": \"3.45.1\",\n      \"cpu_count\": 4,\n      \"doctor\": {\n        \"exit_code\": 0,\n        \"ok\": true\n      },\n      \"journey_J01\": {\n        \"exit_code\": 0,\n        \"ok\": true\n      },\n      \"journey_J05\": {\n        \"exit_code\": 0,\n        \"ok\": true\n      },\n      \"spaces_and_chinese_path\": {\n        \"ok\": true,\n        \"db\": \"/tmp/tk-platform-vtc4t8lz/带空格 的目录/子目录/my db.sqlite3\"\n      },\n      \"ui_production_gate\": \"PASS\"\n    }\n  },\n  \"windows\": {\n    \"status\": \"NOT_RUN\",\n    \"reason\": \"no Windows runner available on this VM; see .github/workflows/test.yml (workflow file is not evidence)\"\n  },\n  \"macos\": {\n    \"status\": \"NOT_RUN\",\n    \"reason\": \"no macOS runner available on this VM; see .github/workflows/test.yml (workflow file is not evidence)\"\n  },\n  \"note\": \"Only Linux has real evidence here. The support list contains only platforms with a passing record.\"\n}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "benchmarks/harness/perf.py",
+            "--dataset",
+            "fixtures/perf/manifest.json"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 1,
+          "duration_s": 123.268,
+          "stdout_tail": "{\n  \"status\": \"FAIL\",\n  \"failures\": [\n    \"finish p95 4435.0ms > 500ms at 10000 records\",\n    \"recall p95 3000.3ms > 1000ms at 100000 records\",\n    \"finish p95 14419.7ms > 500ms at 100000 records\"\n  ],\n  \"hardware\": {\n    \"platform\": \"Linux-7.0.0-43-generic-x86_64-with-glibc2.39\",\n    \"python\": \"3.12.3\",\n    \"cpu_count\": 4,\n    \"memory_total_mb\": 7934,\n    \"filesystem\": \"/\",\n    \"sqlite\": \"3.45.1\"\n  },\n  \"thresholds\": {\n    \"recall_p95_ms_max\": 1000,\n    \"finish_p95_ms_max\": 500,\n    \"cold_start_ms_max\": 3000\n  },\n  \"cold_start_ms\": 139.6,\n  \"concurrency\": {\n    \"writers\": 8,\n    \"won\": 1,\n    \"version_conflicts\": 7,\n    \"busy_errors\": []\n  },\n  \"datasets\": [\n    {\n      \"records\": 1000,\n      \"recall_ms\": {\n        \"p50\": 21.92084150010487,\n        \"p95\": 25.800351000270894,\n        \"max\": 25.800351000270894\n      },\n      \"finish_ms\": {\n        \"p50\": 229.102371999943,\n        \"p95\": 383.3534969999164,\n        \"max\": 383.3534969999164\n      },\n      \"db_bytes\": 4251648\n    },\n    {\n      \"records\": 10000,\n      \"recall_ms\": {\n        \"p50\": 236.755846999813,\n        \"p95\": 260.06189099962285,\n        \"max\": 260.06189099962285\n      },\n      \"finish_ms\": {\n        \"p50\": 2223.2665275000727,\n        \"p95\": 4434.999345000051,\n        \"max\": 4434.999345000051\n      },\n      \"db_bytes\": 40927232\n    },\n    {\n      \"records\": 100000,\n      \"recall_ms\": {\n        \"p50\": 2768.183588999591,\n        \"p95\": 3000.3045440003007,\n        \"max\": 3000.3045440003007\n      },\n      \"finish_ms\": {\n        \"p50\": 11297.166982999897,\n        \"p95\": 14419.678225999633,\n        \"max\": 14419.678225999633\n      },\n      \"db_bytes\": 150335488\n    }\n  ],\n  \"note\": \"Fixed sizes on this machine; numbers are experiment points, not a promised upper bound.\"\n}\n",
+          "stderr_tail": "",
+          "status": "FAIL"
+        }
+      ]
+    }
+  ]
+}

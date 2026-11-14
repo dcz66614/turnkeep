@@ -1,0 +1,6 @@
+CONTAMINATED — M365 Copilot backend outage from 2026-11-09T00:30:57Z.
+32 of 48 pilot attempts are empty-answer artifacts (0 steps), not arm
+measurements. See GAP-OUTAGE-20261109.md. Do not quote the 10/48 summary
+as a pilot result. `benchmarks/live/run.py` refuses LIVE_COMPLETE while
+this marker exists. Remove only after a clean re-run pilot (see the GAP
+record's resume plan).

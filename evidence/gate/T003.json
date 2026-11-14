@@ -1,0 +1,43 @@
+{
+  "gate": "run_gate",
+  "selector": "T003",
+  "status": "PASS",
+  "generated": "2026-11-08T18:52:50Z",
+  "python": "3.12.3",
+  "results": [
+    {
+      "task_id": "T003",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "json.tool",
+            "specs/public_api.schema.json"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.053,
+          "stdout_tail": "  ],\n    \"invariants\": [\n        \"remember: no silent overwrite; same normalised value reuses active record, different value -> conflict\",\n        \"correct/retract/resolve: require expected_revision (CAS); version mismatch -> VERSION_CONFLICT\",\n        \"finish: same-transaction snapshot check, idempotent replay by request digest first, then STALE_SNAPSHOT\",\n        \"parent_ids: AND semantics, same scope only, no cycles; omitted parents are server-filled from snapshot read set\",\n        \"actor/user_id in request body NEVER overrides transport-bound principal; actor is a label, not auth\",\n        \"active != truth; retract != erase; receipt = local SQLite commit only, not external atomicity\",\n        \"terminal states are terminal; scope_epoch is coarse (may mis-block unrelated writes in same scope)\"\n    ],\n    \"state_machine\": {\n        \"states\": [\n            \"active\",\n            \"conflicted\",\n            \"superseded\",\n            \"retracted\",\n            \"tainted\",\n            \"expired\",\n            \"erased\"\n        ],\n        \"implemented_in_starter\": [\n            \"active\",\n            \"conflicted\",\n            \"superseded\",\n            \"retracted\",\n            \"tainted\"\n        ],\n        \"product_only\": [\n            \"expired\",\n            \"erased\"\n        ],\n        \"transitions\": {\n            \"active->conflicted\": \"remember with different value, no correction relation\",\n            \"active->superseded\": \"correct (old) / resolve_conflict (candidates)\",\n            \"active->tainted\": \"any parent becomes unavailable (correct/retract/conflict)\",\n            \"active->retracted\": \"retract (history kept; NOT erase)\",\n            \"conflicted->active\": \"only via resolve_conflict with FULL candidate set; single-candidate resolve rejected (CANDIDATE_SET_CHANGED)\",\n            \"tainted->active\": \"NOT by re-read alone; needs new record with explicit replaces_ids / new evidence\",\n            \"any->erased\": \"product-only, T038; starter does not implement\"\n        }\n    }\n}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/check_contract.py",
+            "--spec",
+            "specs/public_api.schema.json"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.051,
+          "stdout_tail": "PASS check_contract: 8 ops, 10 schemas, 15 error codes, state machine OK; recall/resume gap still recorded in schema note\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    }
+  ]
+}

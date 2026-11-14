@@ -1,0 +1,45 @@
+{
+  "gate": "run_gate",
+  "selector": "T027",
+  "status": "PASS",
+  "generated": "2026-11-08T19:13:59Z",
+  "python": "3.12.3",
+  "results": [
+    {
+      "task_id": "T027",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/web/test_routes.py",
+            "tests/web/test_local_boundary.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 7.161,
+          "stdout_tail": ".............                                                            [100%]\n13 passed in 6.20s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "scripts/check_openapi.py",
+            "--snapshot",
+            "specs/local-app-api.json"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.185,
+          "stdout_tail": "PASS: OpenAPI snapshot matches route table (11 paths)\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    }
+  ]
+}

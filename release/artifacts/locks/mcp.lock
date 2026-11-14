@@ -1,0 +1,16 @@
+# MCP lock (T021) — official MCP Python SDK, pinned 2026-11-08.
+# Source: PyPI, installed in .venv via `pip install mcp` (mcp 2.3.0).
+# FastMCP was renamed to MCPServer in mcp 2.x; this code uses the v2 API
+# (mcp.server.mcpserver.MCPServer). Do NOT pin mcp<2 without also reverting
+# src/turnkeep/mcp_server.py to the v1 API.
+mcp==2.3.0
+mcp-types==2.3.0
+anyio==4.16.0
+httpx2==2.16.0
+jsonschema==4.26.0
+jsonschema-specifications==2025.9.1
+pydantic==2.14.3
+pydantic_core==2.50.4
+sse-starlette==3.7.0
+starlette==1.10.0
+uvicorn==0.54.0

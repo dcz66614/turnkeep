@@ -1,0 +1,13 @@
+{
+  "new_value": "3.12",
+  "source": {
+    "type": "user_statement",
+    "ref": "user:1"
+  },
+  "expected_candidates": [
+    {
+      "id": "only-one-id",
+      "revision": 1
+    }
+  ]
+}

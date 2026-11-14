@@ -1,0 +1,10 @@
+A Turnkeep CLI wrapper ./turnkeep is in the workdir (it runs the real Turnkeep product against the shared handover database). Use ONLY ./turnkeep for ALL memory operations, always with --scope export-format, e.g.:
+  ./turnkeep remember --scope export-format --key <key> --value "<value>" --kind <kind> --source <id:type>
+  ./turnkeep begin --scope export-format --task "<task>"
+  ./turnkeep recall --scope export-format --query "<query>"
+  ./turnkeep brief --scope export-format --goal "<goal>"
+  ./turnkeep resume --scope export-format --run <run-id>
+  ./turnkeep finish --scope export-format --run <run-id> --key <key> --value "<value>" --idempotency-key <key>
+Use shell tools only to read/write ordinary files and to compute sha256sum. You MUST do the work with tool calls. Do not just reply in text.
+
+Smoke test: run ./turnkeep recall --scope export-format --query "" and report how many active records exist in the scope. Then end your turn with the single word OK on its own line.

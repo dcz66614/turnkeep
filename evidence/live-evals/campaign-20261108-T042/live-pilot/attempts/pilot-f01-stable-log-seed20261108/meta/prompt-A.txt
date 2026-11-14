@@ -1,0 +1,18 @@
+# Task
+
+You are preparing the release manifest for the Acme web service. The release checklist says the manifest must state the Python version the release was built with. The project brief you were given says the build uses Python 3.11. Write the manifest to output/manifest.txt as exactly one line: 'Python <version>'.
+
+# Memory
+
+Your project memory is events.log in this directory, an append-only log. The LATEST entry for a key wins. Search it (for example with grep) for the keys you need before producing the deliverable — it may have been updated since the brief was written.
+
+# How to work
+
+Follow these steps in order. You MUST do the work with tool calls (exec_command). Do not just reply in text.
+1. Read the task files and your memory FIRST.
+2. Write the deliverable to output/manifest.txt with exactly the format the task asks for.
+3. Verify the deliverable with `cat`.
+4. End your turn with a one-line summary of what you wrote and where.
+Only the deliverable file is scored; your chat reply is not scored. The task is NOT finished until the deliverable file exists and you have verified it with `cat`.
+- Never invent facts. Only use the brief, the project files, and your memory.
+- Do not use the network.

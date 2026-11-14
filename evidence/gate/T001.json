@@ -1,0 +1,39 @@
+{
+  "gate": "run_gate",
+  "selector": "T001",
+  "status": "FAIL",
+  "strict_status": true,
+  "generated": "2026-11-09T01:24:56Z",
+  "python": "3.12.3",
+  "results": [
+    {
+      "task_id": "T001",
+      "status": "NOT_RUN",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-v"
+          ],
+          "status": "NOT_RUN",
+          "reason": "cwd missing: /home/hatch/workspace/turnkeep-work/INPUT_KIT/starter"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "turnkeep",
+            "demo"
+          ],
+          "status": "NOT_RUN",
+          "reason": "cwd missing: /home/hatch/workspace/turnkeep-work/INPUT_KIT/starter"
+        }
+      ]
+    }
+  ]
+}

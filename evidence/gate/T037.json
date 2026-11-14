@@ -1,0 +1,49 @@
+{
+  "gate": "run_gate",
+  "selector": "T037",
+  "status": "PASS",
+  "generated": "2026-11-08T20:11:51Z",
+  "python": "3.12.3",
+  "results": [
+    {
+      "task_id": "T037",
+      "status": "PASS",
+      "commands": [
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/data/test_markdown_import.py",
+            "tests/data/test_import_injection.py",
+            "-q"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.475,
+          "stdout_tail": "............                                                             [100%]\n12 passed in 0.10s\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "/home/hatch/workspace/turnkeep-work/.venv/bin/python",
+            "-m",
+            "turnkeep",
+            "import",
+            "--format",
+            "markdown",
+            "--dry-run",
+            "fixtures/imports/example-project"
+          ],
+          "cwd": "/home/hatch/workspace/turnkeep-work",
+          "exit_code": 0,
+          "duration_s": 0.088,
+          "stdout_tail": "{\"format\": \"markdown\", \"scope\": \"example-project\", \"dry_run\": true, \"files\": 0, \"skipped_unmapped\": 0, \"written\": [], \"duplicates\": [], \"conflicts\": [], \"excluded_secrets\": []}\n",
+          "stderr_tail": "",
+          "status": "PASS"
+        }
+      ]
+    }
+  ]
+}

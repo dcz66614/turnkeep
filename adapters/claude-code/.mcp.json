@@ -1,0 +1,1 @@
+{"mcpServers":{"turnkeep":{"args":["python3","-m","turnkeep","mcp","--scope","claude-code","--db","~/.local/share/turnkeep/turnkeep.sqlite3"],"command":"/usr/bin/env","env":{"PYTHONPATH":"<turnkeep-work>/src","TURNKEEP_PRINCIPAL":"claude-code"},"type":"stdio"}}}

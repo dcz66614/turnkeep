@@ -1,0 +1,47 @@
+{
+  "generated": "2026-11-08T19:00:00Z",
+  "tasks": {
+    "T001": {
+      "status": "VERIFIED",
+      "evidence": [
+        "evidence/baseline/starter-tests.txt",
+        "evidence/baseline/starter-demo.json",
+        "state/BASELINE_STATUS.json"
+      ]
+    },
+    "T002": {
+      "status": "VERIFIED",
+      "evidence": [
+        "docs/DISCOVERY_DECISION.md",
+        "docs/COMPETITORS.md",
+        "docs/NAME_CHECK.md",
+        "docs/discovery-scorecard.json"
+      ]
+    },
+    "T003": {
+      "status": "VERIFIED",
+      "evidence": [
+        "specs/public_api.schema.json",
+        "specs/error-codes.md",
+        "specs/state-transitions.json"
+      ]
+    },
+    "T004": {
+      "status": "VERIFIED",
+      "evidence": [
+        "pyproject.toml",
+        "requirements/base.lock",
+        "tests/baseline/test_seed_parity.py"
+      ]
+    },
+    "T005": {
+      "status": "VERIFIED",
+      "evidence": [
+        "scripts/run_gate.py",
+        "tests/harness/test_runner.py",
+        "tests/contract/test_schemas.py",
+        "evidence/gate/"
+      ]
+    }
+  }
+}

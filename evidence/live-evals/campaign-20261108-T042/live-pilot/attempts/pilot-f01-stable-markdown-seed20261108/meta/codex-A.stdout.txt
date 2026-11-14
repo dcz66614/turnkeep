@@ -1,0 +1,1 @@
+已写入并验证 `output/manifest.txt`，内容为 `Python 3.11`。

@@ -1,0 +1,26 @@
+{
+  "contract": "turnkeep.worker/v1",
+  "integrator": "Muse (coordinator only)",
+  "max_parallel_workers": 3,
+  "rule": "One worker per task; independent file ranges (owned_paths); never two workers on the contract, lockfile or same migration file at once. Interface change: update contract + consumer list first.",
+  "worker_result": {
+    "schema": "templates/task_result.schema.json (kit)",
+    "statuses": [
+      "IMPLEMENTED",
+      "BLOCKED_EXTERNAL",
+      "BLOCKED_CORE",
+      "FAILED",
+      "DEFERRED"
+    ],
+    "note": "Only the coordinator marks backlog VERIFIED after independent re-run of acceptance commands."
+  },
+  "failure_policy": "max 2 targeted repairs + 1 explained alternative per failure, then BLOCKERS.md and move to an unblocked task. No deleting tests, no lowering bars, no fake output.",
+  "evidence": "every command: argv, exit_code, evidence file; missing credential/host/runner = NOT_RUN, never PASS.",
+  "worktrees": "git worktree per worker when available; fallback: serial execution in the same worktree (this VM: serial R0, see state/DECISIONS.md).",
+  "budget": {
+    "additional_spend_authorized": 0,
+    "units": "USD",
+    "model_routes": "free models only; WorkBuddy deepseek-v4.1-flash first, hy4free second; Qoder Qwen3.8-Flash first, Efficient fallback, never Auto, Sonus only when top-tier quality genuinely needed (shared Pro Trial pool, most expensive); Codex shelved; no model key needed for core/offline tests."
+  },
+  "no_external": "No GitHub/Drive publish, no messages, no purchases without Sam's explicit authorisation."
+}

@@ -1,0 +1,9 @@
+{"event_count":8,"label":"SCRIPTED_SIMULATION_NO_MODEL_CALLS","scenario":"export-format","seed":"turnkeep-demo-seed-1"}
+{"digest":"62824ed09acbeafb754734fd270386c4ff51b64244cedb562ddb204b25b84fdc","event":{"key":"export.format","state":"active","step":"remember","value":"zip"}}
+{"digest":"e986f234f4d4ffd1eae5bd78a316ffb9ab4c68041d7d1c6a6260af90722d650a","event":{"key":"export.manifest.name","state":"active","step":"remember","value":"manifest.json"}}
+{"digest":"e01f885b8be2e924d36413e2d3a92421d681e8f251624c9e8cb72e8c8e9872dd","event":{"key":"build.python_version","state":"active","step":"remember","value":"3.11"}}
+{"digest":"82fb9185877db82223931b882879daadfd3e3a9ed9d754c1161ae86a569147f2","event":{"actor":"demo-a","step":"begin","task":"produce export manifest"}}
+{"digest":"6f10b3bc8017be28c3c727234a0f476c243e76e0ad348d70f3368a8cb0b44cd9","event":{"actor":"demo-b","key":"export.format","note":"B found the target system only accepts tar","state":"active","step":"correct","value":"tar"}}
+{"digest":"20e329c7dd4ed459359eb30897386fbfa49dea6e7ff7cb41e25de4e5d0f80ad3","event":{"changed_keys":["export.format","export.manifest.v1"],"code":"STALE_SNAPSHOT","step":"stale_finish_rejected"}}
+{"digest":"d7f07f4a362f7754ca714f3fad6a80326ffe1e3b22d63074ea53fa021719d749","event":{"changed_keys":["export.format"],"step":"resume"}}
+{"digest":"66e598c0cc812d087fecf3acbd5fbd8dfd07384973bbb301c22e73236dcc3367","event":{"key":"export.manifest","state":"active","step":"finish","value":"manifest for tar"}}

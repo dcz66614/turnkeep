@@ -1,0 +1,46 @@
+{
+  "task": "T001",
+  "generated": "2026-11-08T18:52:00Z",
+  "kit": "/home/hatch/workspace/turnkeep/turnkeep-muse-kit",
+  "kit_zip": "Turnkeep_Muse_Kit_2026-11-08.zip (1.1M, 66 files)",
+  "kit_sha256_verified": "65/65 OK (sha256sum -c SHA256SUMS, re-run 2026-11-08 ~18:48 GMT)",
+  "verify_package": "PASS (tools/verify_package.py, re-run 2026-11-08 ~18:48 GMT)",
+  "read_log": "state/SOURCE_READ_LOG.md (all 66 files, 3 groups, segmented; docx/png binaries metadata only)",
+  "environment": {
+    "python": "3.12.3",
+    "sqlite": "3.45.1",
+    "node": "v24.22.1",
+    "os": "Linux x86_64 (cloud VM)"
+  },
+  "env_difference": "Kit evidence claims Python 3.12.14 / SQLite 3.53.1; this VM is 3.12.3 / 3.45.1. Tests still pass; recorded as env difference, not failure.",
+  "starter_rerun_this_vm": {
+    "unittest": "25/25 OK in 1.573s (python -m unittest discover -s tests -v, exit 0)",
+    "demo": "SCRIPTED_SIMULATION_NO_MODEL_CALLS, exit 0, STALE_SNAPSHOT rejection + idempotent replay true",
+    "evidence": [
+      "evidence/baseline/starter-tests.txt",
+      "evidence/baseline/starter-demo.json"
+    ]
+  },
+  "work_dir": "/home/hatch/workspace/turnkeep-work",
+  "kit_unmodified": true,
+  "not_implemented_in_starter": [
+    "MCP server",
+    "local HTTP",
+    "workbench UI",
+    "product import/export + migration chain",
+    "hard erase (privacy)"
+  ],
+  "not_run": [
+    "real Claude Code / Codex handover",
+    "model task evaluation",
+    "Windows/macOS install"
+  ],
+  "not_supported": [
+    "external-action atomicity: receipt = local SQLite commit only"
+  ],
+  "not_established": [
+    "user retention",
+    "GitHub stars",
+    "acquisition value"
+  ]
+}

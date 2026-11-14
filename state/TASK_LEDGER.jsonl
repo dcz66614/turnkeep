@@ -1,0 +1,18 @@
+{"task": "T001", "status": "VERIFIED", "at": "2026-11-08T19:00:00Z", "evidence": "evidence/tasks/T001.json"}
+{"task": "T002", "status": "VERIFIED", "at": "2026-11-08T19:00:00Z", "evidence": "evidence/tasks/T002.json"}
+{"task": "T003", "status": "VERIFIED", "at": "2026-11-08T19:00:00Z", "evidence": "evidence/tasks/T003.json"}
+{"task": "T004", "status": "VERIFIED", "at": "2026-11-08T19:00:00Z", "evidence": "evidence/tasks/T004.json"}
+{"task": "T005", "status": "VERIFIED", "at": "2026-11-08T19:00:00Z", "evidence": "evidence/tasks/T005.json"}
+{"task": "T006", "status": "READY", "at": "2026-11-08T19:00:00Z", "evidence": "evidence/tasks/T006.json (pending check_state)"}
+{"task": "T007", "status": "VERIFIED", "at": "2026-11-08T19:15:00Z", "evidence": "evidence/tasks/T007.json"}
+{"task": "T008", "status": "VERIFIED", "at": "2026-11-08T19:15:00Z", "evidence": "evidence/tasks/T008.json"}
+{"task": "T009", "status": "VERIFIED", "at": "2026-11-08T19:15:00Z", "evidence": "evidence/tasks/T009.json"}
+{"task": "T010", "status": "VERIFIED", "at": "2026-11-08T19:15:00Z", "evidence": "evidence/tasks/T010.json"}
+{"task": "T011", "status": "VERIFIED", "at": "2026-11-08T19:15:00Z", "evidence": "evidence/tasks/T011.json"}
+{"task": "T012", "status": "VERIFIED", "at": "2026-11-08T19:15:00Z", "evidence": "evidence/tasks/T012.json"}
+{"task": "T013", "status": "VERIFIED", "at": "2026-11-08T19:15:00Z", "evidence": "evidence/tasks/T013.json"}
+{"task": "T014", "status": "VERIFIED", "at": "2026-11-08T19:15:00Z", "evidence": "evidence/tasks/T014.json"}
+{"task": "T015", "status": "VERIFIED", "at": "2026-11-08T19:15:00Z", "evidence": "evidence/tasks/T015.json"}
+{"task": "T016", "status": "VERIFIED", "at": "2026-11-08T19:15:00Z", "evidence": "evidence/tasks/T016.json"}
+{"task": "T017", "status": "VERIFIED", "at": "2026-11-08T19:15:00Z", "evidence": "evidence/tasks/T017.json"}
+{"task": "T018", "status": "VERIFIED", "at": "2026-11-08T19:15:00Z", "evidence": "evidence/tasks/T018.json"}

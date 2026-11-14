@@ -1,0 +1,14 @@
+{
+  "tool_calls": [],
+  "agent_messages": [
+    ""
+  ],
+  "max_total_tokens": 25185,
+  "task_duration_ms": 180976,
+  "last_message": null,
+  "found": true,
+  "task_completed": true,
+  "stale_rejections": 0,
+  "finish_receipt": false,
+  "rollout_path": "/home/hatch/.codex/sessions/2026/11/09/rollout-2026-11-09T18-21-37-01a1c18b-588a-7692-9513-1296c7fbaf91.jsonl"
+}

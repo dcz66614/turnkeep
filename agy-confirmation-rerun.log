@@ -1,0 +1,93 @@
+rerun launcher started 2026-11-09T04:53:28Z
+quota probe 1: OK 2026-11-09T04:53:42Z
+driver agy: ~/.local/bin/agy, model gemini-3.8-flash-low
+[live-confirmation] 432 planned, 22 to run, 410 already recorded
+  [411/432] conf-f04-recovery / log / seed 11: completed=True stale=False steps=6 tokens={'tokens_total': 75097, 'turns': 2} (28s elapsed)
+  [412/432] conf-f02-stable / log / seed 29: completed=True stale=False steps=4 tokens={'tokens_total': 38591, 'turns': 1} (41s elapsed)
+  [413/432] conf-f07-changed / turnkeep / seed 47: completed=True stale=False steps=6 tokens={'tokens_total': 72107, 'turns': 1} (66s elapsed)
+  [414/432] conf-f06-recovery / log / seed 11: completed=True stale=False steps=5 tokens={'tokens_total': 56190, 'turns': 2} (87s elapsed)
+  [415/432] conf-f10-changed / log / seed 29: completed=True stale=False steps=4 tokens={'tokens_total': 38351, 'turns': 1} (102s elapsed)
+  [416/432] conf-f12-changed / turnkeep / seed 29: completed=True stale=False steps=39 tokens={'tokens_total': 184501, 'turns': 1} (107s elapsed)
+  [417/432] conf-f12-recovery / none / seed 47: completed=False stale=True steps=6 tokens={'tokens_total': 74930, 'turns': 2} (126s elapsed)
+  [418/432] conf-f06-stable / turnkeep / seed 47: completed=True stale=False steps=8 tokens={'tokens_total': 86854, 'turns': 1} (130s elapsed)
+  [419/432] conf-f10-recovery / log / seed 47: completed=True stale=False steps=8 tokens={'tokens_total': 93198, 'turns': 2} (164s elapsed)
+  [420/432] conf-f12-recovery / markdown / seed 11: completed=True stale=False steps=4 tokens={'tokens_total': 64471, 'turns': 2} (189s elapsed)
+  [421/432] conf-f02-stable / markdown / seed 29: completed=True stale=False steps=4 tokens={'tokens_total': 38543, 'turns': 1} (201s elapsed)
+  [422/432] conf-f05-recovery / turnkeep / seed 11: completed=True stale=False steps=67 tokens={'tokens_total': 435684, 'turns': 2} (207s elapsed)
+  [423/432] conf-f07-stable / markdown / seed 11: completed=True stale=False steps=3 tokens={'tokens_total': 30913, 'turns': 1} (215s elapsed)
+  [424/432] conf-f10-changed / turnkeep / seed 29: completed=True stale=False steps=6 tokens={'tokens_total': 73411, 'turns': 1} (227s elapsed)
+  [425/432] conf-f02-changed / turnkeep / seed 29: completed=True stale=False steps=42 tokens={'tokens_total': 236749, 'turns': 1} (232s elapsed)
+  [426/432] conf-f01-stable / turnkeep / seed 29: completed=True stale=False steps=5 tokens={'tokens_total': 39773, 'turns': 1} (244s elapsed)
+  [427/432] conf-f08-recovery / none / seed 29: completed=False stale=True steps=7 tokens={'tokens_total': 90197, 'turns': 2} (245s elapsed)
+  [428/432] conf-f04-stable / log / seed 29: completed=True stale=False steps=3 tokens={'tokens_total': 30575, 'turns': 1} (259s elapsed)
+  [429/432] conf-f07-changed / log / seed 11: completed=True stale=False steps=4 tokens={'tokens_total': 39017, 'turns': 1} (271s elapsed)
+  [430/432] conf-f05-stable / none / seed 47: completed=True stale=False steps=13 tokens={'tokens_total': 155320, 'turns': 1} (281s elapsed)
+  [431/432] conf-f05-changed / turnkeep / seed 47: completed=True stale=False steps=9 tokens={'tokens_total': 90355, 'turns': 1} (296s elapsed)
+  [432/432] conf-f08-recovery / turnkeep / seed 29: completed=True stale=False steps=55 tokens={'tokens_total': 374355, 'turns': 2} (417s elapsed)
+{
+  "suite": "live-confirmation",
+  "mode": "live",
+  "label": "LIVE_MODEL",
+  "driver": "agy",
+  "model": "gemini-3.8-flash-low",
+  "note": "Real model (agy CLI, gemini-3.8-flash-low). Scored deterministically from raw traces + deliverable artifacts.",
+  "seed": 20261108,
+  "budget": {
+    "max_seconds": 600,
+    "max_steps": 60,
+    "max_tool_calls": 60
+  },
+  "overall": {
+    "attempts": 432,
+    "completed": 352,
+    "success_rate": 0.8148148148148148,
+    "stale_fact_rate": 0.1388888888888889,
+    "contract_violations": 18,
+    "irrelevant_refusals": 0,
+    "mean_redo_cost_steps": 6.414351851851852
+  },
+  "per_arm": {
+    "none": {
+      "attempts": 108,
+      "completed": 45,
+      "success_rate": 0.4166666666666667,
+      "stale_fact_rate": 0.5555555555555556,
+      "contract_violations": 0,
+      "irrelevant_refusals": 0,
+      "mean_redo_cost_steps": 2.6481481481481484
+    },
+    "markdown": {
+      "attempts": 108,
+      "completed": 107,
+      "success_rate": 0.9907407407407407,
+      "stale_fact_rate": 0.0,
+      "contract_violations": 0,
+      "irrelevant_refusals": 0,
+      "mean_redo_cost_steps": 0.6944444444444444
+    },
+    "log": {
+      "attempts": 108,
+      "completed": 105,
+      "success_rate": 0.9722222222222222,
+      "stale_fact_rate": 0.0,
+      "contract_violations": 0,
+      "irrelevant_refusals": 0,
+      "mean_redo_cost_steps": 0.6296296296296297
+    },
+    "turnkeep": {
+      "attempts": 108,
+      "completed": 95,
+      "success_rate": 0.8796296296296297,
+      "stale_fact_rate": 0.0,
+      "contract_violations": 18,
+      "irrelevant_refusals": 0,
+      "mean_redo_cost_steps": 21.685185185185187
+    }
+  },
+  "attempts": 432,
+  "not_run_arms": {
+    "mature-memory": "NOT_RUN: no real Mem0/Hindsight install configured",
+    "nearest-workflow": "NOT_RUN: no real Tigerless/Engram install configured"
+  }
+}
+rerun rc=0 2026-11-09T05:00:40Z

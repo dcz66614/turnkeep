@@ -1,0 +1,8 @@
+{"event_count":7,"label":"SCRIPTED_SIMULATION_NO_MODEL_CALLS","scenario":"research-correction","seed":"turnkeep-demo-seed-1"}
+{"digest":"10a3f529f9a00460c2d9e7dbfc550d5ee16f3dae78e85bf05680526ebe27aca3","event":{"key":"study.conclusion","state":"active","step":"remember","value":"caffeine improves recall"}}
+{"digest":"27f76ca6c9633a2fe0e4e0ed58a9d5ca65976d5f4efa6ff4d80fedaaf9c51fff","event":{"key":"study.evidence","state":"active","step":"remember","value":"n=40 double-blind trial"}}
+{"digest":"1f574ac73e5a47b8665afb33aa6f0c0fb1322c2914ebdfcffa12db4539c0e81f","event":{"key":"study.dose","state":"active","step":"remember","value":"200mg"}}
+{"digest":"039bc2ba76652260f3423d1e47083e7ca31924c4ed294be89a8ad26f757a4085","event":{"key":"study.conclusion.v1","state":"active","step":"remember","value":"caffeine improves recall"}}
+{"digest":"79c019fd986845bb5adc7cf37a79a125110747dc64f1d88544d105fb443b0fda","event":{"key":"study.evidence","reason":"paper retracted by the publisher: data fabrication","state":"retracted","step":"retract"}}
+{"digest":"e8596bf1299afe3637c423a90f13e8de5f95c9f191165a09458c9e77ab45e299","event":{"conclusion_usable_before":false,"key":"study.conclusion.v1","state":"active","step":"replace","value":"unknown - evidence retracted"}}
+{"digest":"7d5efefebb761e1dbfdd380a4d31393529c825ec23d6aa3ebfd1825965f6fb3b","event":{"key":"study.conclusion.v1","state":"active","step":"final","value":"unknown - evidence retracted"}}

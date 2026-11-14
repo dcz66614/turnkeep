@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "turnkeep"
+version = "0.1.0"
+description = "Local-first multi-agent project working memory + change recovery (Turnkeep, contract v0.1)"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "build", "setuptools", "wheel"]  # build toolchain: tests/release/test_release_guards.py rebuilds the sdist/wheel via `python -m build --no-isolation`, which needs the setuptools backend + wheel in the env itself (a plain venv has neither — build alone fails with "Backend 'setuptools.build_meta' is not available"); mirrors .github/workflows/release-candidate.yml's explicit `pip install build setuptools wheel`
+mcp = []  # T021: pin official MCP SDK from official source, then lock; intentionally empty in R0
+ui = []   # T029+: pin from official source, then lock; intentionally empty in R0
+
+[project.scripts]
+turnkeep = "turnkeep.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+# Build reproducibility (P2-R4-09): the runtime reads migrations/*.sql
+# from the installed package dir, so the SQL must ship in the wheel AND
+# the sdist. Declared here (R4 rework; the build script used to inject
+# them post-hoc because pyproject declared no package-data — a plain
+# `python -m build` from the sdist then produced a wheel without them).
+# build_release.py's injection is kept as a safety net: it is a no-op
+# when the files are already present. Touching this T004-owned file is
+# justified because build reproducibility is a release property, not a
+# workspace preference.
+[tool.setuptools.package-data]
+turnkeep = ["migrations/*.sql"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
