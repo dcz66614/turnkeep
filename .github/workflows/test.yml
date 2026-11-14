@@ -3,6 +3,11 @@ name: test
 # T043: CI for Linux / macOS / Windows. A workflow file is not evidence of a
 # run — the platform matrix (docs/COMPATIBILITY.md) only lists platforms
 # with a passing record in evidence/platforms/.
+#
+# Steps are split per OS family (if: runner.os): Windows steps run under
+# PowerShell (the runner default) with .venv\Scripts\python.exe; other
+# steps use .venv/bin/python. No `||` fallbacks — a backslash path is
+# mangled by bash. Core tests and journeys need no network model.
 on:
   push:
     branches: [main]
@@ -20,15 +25,43 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install (no network model needed for core tests)
+      - name: Install (Linux/macOS)
+        if: runner.os != 'Windows'
         run: |
           python -m venv .venv
-          .venv/bin/python -m pip install -e ".[dev]" || .venv\Scripts\python -m pip install -e ".[dev]"
-      - name: Core tests
-        run: .venv/bin/python -m pytest tests/ -q || .venv\Scripts\python -m pytest tests/ -q
-      - name: Journeys (offline, no model)
+          .venv/bin/python -m pip install -e ".[dev]"
+          # mcp is intentionally empty in pyproject (R0; T021 pins the
+          # official MCP SDK later). CI installs the dev-venv version
+          # explicitly so tests/mcp can import it on a clean checkout.
+          .venv/bin/python -m pip install "mcp==2.3.0"
+      - name: Install (Windows)
+        if: runner.os == 'Windows'
         run: |
-          .venv/bin/python scripts/run_journey.py --mode cli --journey J01 --no-model || .venv\Scripts\python scripts/run_journey.py --mode cli --journey J01 --no-model
-          .venv/bin/python scripts/run_journey.py --mode cli --journey J05 --no-model || .venv\Scripts\python scripts/run_journey.py --mode cli --journey J05 --no-model
-      - name: Replay suite
-        run: .venv/bin/python benchmarks/replay.py --suite core-change --output evidence/replay || .venv\Scripts\python benchmarks/replay.py --suite core-change --output evidence/replay
+          python -m venv .venv
+          .venv\Scripts\python.exe -m pip install -e ".[dev]"
+          # mcp is intentionally empty in pyproject (R0; T021 pins the
+          # official MCP SDK later). CI installs the dev-venv version
+          # explicitly so tests/mcp can import it on a clean checkout.
+          .venv\Scripts\python.exe -m pip install "mcp==2.3.0"
+      - name: Core tests (Linux/macOS)
+        if: runner.os != 'Windows'
+        run: .venv/bin/python -m pytest tests/ -q
+      - name: Core tests (Windows)
+        if: runner.os == 'Windows'
+        run: .venv\Scripts\python.exe -m pytest tests/ -q
+      - name: Journeys (Linux/macOS)
+        if: runner.os != 'Windows'
+        run: |
+          .venv/bin/python scripts/run_journey.py --mode cli --journey J01 --no-model
+          .venv/bin/python scripts/run_journey.py --mode cli --journey J05 --no-model
+      - name: Journeys (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          .venv\Scripts\python.exe scripts/run_journey.py --mode cli --journey J01 --no-model
+          .venv\Scripts\python.exe scripts/run_journey.py --mode cli --journey J05 --no-model
+      - name: Replay suite (Linux/macOS)
+        if: runner.os != 'Windows'
+        run: .venv/bin/python benchmarks/replay.py --suite core-change --output evidence/replay
+      - name: Replay suite (Windows)
+        if: runner.os == 'Windows'
+        run: .venv\Scripts\python.exe benchmarks/replay.py --suite core-change --output evidence/replay

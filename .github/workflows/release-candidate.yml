@@ -47,6 +47,18 @@ jobs:
           python -m venv .venv
           .venv/bin/python -m pip install -e ".[dev]"
           .venv/bin/python -m pip install build setuptools wheel
+          # The UI build needs ui/node_modules, which is gitignored: a
+          # fresh checkout has none, so install from the tracked
+          # lockfile (without this the build fails at `tsc: not found`
+          # after passing the dirty-tree check).
+          npm --prefix ui ci
+      # `pip install -e ".[dev]"` regenerates the tracked
+      # src/turnkeep.egg-info/SOURCES.txt, dirtying the tree; the build
+      # refuses a dirty tracked tree by design, so restore it first
+      # (same `git checkout -- src/turnkeep.egg-info` the build script
+      # itself uses for its own side effects).
+      - name: Restore tracked egg-info after editable install
+        run: git checkout -- src/turnkeep.egg-info
       - name: Build release candidate
         run: .venv/bin/python scripts/build_release.py --clean --output release/artifacts
       - name: Verify release candidate
