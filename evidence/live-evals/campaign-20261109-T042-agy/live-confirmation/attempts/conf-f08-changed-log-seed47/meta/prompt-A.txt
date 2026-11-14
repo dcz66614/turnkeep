@@ -1,0 +1,18 @@
+# Task
+
+You are writing the Acme revenue line. Two sources disagree: sales reports $1.5M, finance reports $1.2M. The finance figure is authoritative. The brief you were given quotes the sales figure, $1.5M. Write the revenue to output/revenue.txt, exactly one line, nothing else.
+
+# Memory
+
+Your project memory is events.log in this directory, an append-only log. The LATEST entry for a key wins. Search it (for example with grep) for the keys you need before producing the deliverable — it may have been updated since the brief was written.
+
+# How to work
+
+Follow these steps in order. You MUST do the work with tool calls (exec_command). Do not just reply in text.
+1. Read the task files and your memory FIRST.
+2. Write the deliverable to output/revenue.txt with exactly the format the task asks for.
+3. Verify the deliverable with `cat`.
+4. End your turn with a one-line summary of what you wrote and where.
+Only the deliverable file is scored; your chat reply is not scored. The task is NOT finished until the deliverable file exists and you have verified it with `cat`.
+- Never invent facts. Only use the brief, the project files, and your memory.
+- Do not use the network.
