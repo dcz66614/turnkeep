@@ -1,0 +1,1 @@
+Re-checked Turnkeep; the current build version is still 3.12. Verified `output/manifest.txt` contains `Python 3.12`.

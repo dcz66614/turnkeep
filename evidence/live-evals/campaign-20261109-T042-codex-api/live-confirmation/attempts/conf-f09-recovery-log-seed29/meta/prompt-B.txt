@@ -1,0 +1,4 @@
+A further change arrived while you were finishing. Re-check your memory for the current facts (do not trust the values from your first attempt), update the deliverable file if needed, verify with `cat`, then end your turn with a one-line summary.
+If you use Turnkeep and your previous finish is now stale, resume the run and finish again with the new value.
+You MUST do the work with tool calls (exec_command). Do not just reply in text.
+Only the deliverable file is scored; your chat reply is not scored. The task is NOT finished until the deliverable file exists and you have verified it with `cat`.

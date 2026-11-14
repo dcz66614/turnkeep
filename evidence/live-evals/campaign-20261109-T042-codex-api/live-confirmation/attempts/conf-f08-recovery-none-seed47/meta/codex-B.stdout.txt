@@ -1,0 +1,1 @@
+Re-checked the available files; finance remains authoritative. Verified `output/revenue.txt` contains `$1.2M`.

@@ -1,0 +1,1 @@
+Wrote `$100 EUR` to `output/quote.txt`.

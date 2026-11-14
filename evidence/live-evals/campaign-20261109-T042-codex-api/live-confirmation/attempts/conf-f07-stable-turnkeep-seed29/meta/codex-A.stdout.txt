@@ -1,0 +1,1 @@
+Wrote and verified [output/manifest.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f07-stable-turnkeep-seed29/work/output/manifest.txt) with `Python 3.11`, and recorded it in Turnkeep.

@@ -1,0 +1,113 @@
+{
+  "tool_calls": [
+    {
+      "name": "exec_command",
+      "arguments": "pwd && rg --files -g 'AGENTS.md' -g 'README*' -g 'turnkeep' -g 'tk.sqlite3' -g '*'",
+      "timestamp": "2026-11-09T23:52:07.975Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.3 seconds\nOutput:\n/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f08-changed-turnkeep-seed47/work\nturnkeep\ntk.sqlite3.pre-v1.bak\ntk.sqlite3\nsources.md\n",
+      "timestamp": "2026-11-09T23:52:08.319Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "cat sources.md && ./turnkeep recall --scope bench --query revenue && ./turnkeep brief --scope bench --goal \\\"Write the Acme revenue line\\\" && ./turnkeep begin --scope bench --task \\\"Write the Acme revenue line\\\"",
+      "timestamp": "2026-11-09T23:52:10.044Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.8 seconds\nOutput:\n# Revenue sources\n\nSales and finance report different figures. Finance is authoritative for the published revenue line.\n{\n  \"scope\": \"bench\",\n  \"records\": [\n    {\n      \"id\": \"7c4c11663c884dfe8325d24a278d3317\",\n      \"key\": \"report.revenue_authority\",\n      \"kind\": \"fact\",\n      \"state\": \"active\",\n      \"revision\": 1,\n      \"created_at\": \"2026-11-09T23:52:04.375570+00:00\",\n      \"updated_at\": \"2026-11-09T23:52:04.375570+00:00\",\n      \"valid_until\": null,\n      \"cause_event_id\": null,\n      \"scope\": \"bench\",\n      \"value\": \"finance\",\n      \"source_refs\": [\n        {\n          \"id\": \"u:1\",\n          \"type\": \"user_statement\"\n        }\n      ],\n      \"parent_ids\": [],\n      \"supersedes_ids\": [],\n      \"_score\": 1,\n      \"_label\": \"active\",\n      \"_lexical_fallback\": true\n    },\n    {\n      \"id\": \"ef1c2ee57b664d4bb8c81dfee2d199af\",\n      \"key\": \"report.revenue\",\n      \"kind\": \"fact\",\n      \"state\": \"active\",\n      \"revision\": 1,\n      \"created_at\": \"2026-11-09T23:52:04.452695+00:00\",\n      \"updated_at\": \"2026-11-09T23:52:04.452695+00:00\",\n      \"valid_until\": null,\n      \"cause_event_id\": null,\n      \"scope\": \"bench\",\n      \"value\": \"$1.2M\",\n      \"source_refs\": [\n        {\n          \"id\": \"u:1\",\n          \"type\": \"user_statement\"\n        }\n      ],\n      \"parent_ids\": [],\n      \"supersedes_ids\": [\n        \"295795ce5afb43d49559c9d6cee4fcff\"\n      ],\n      \"_score\": 1,\n      \"_label\": \"active\",\n      \"_lexical_fallback\": true\n    }\n  ]\n}\n{\n  \"scope\": \"bench\",\n  \"goal\": \"Write the Acme revenue line\",\n  \"epoch\": 3,\n  \"current_status\": \"2 active records\",\n  \"valid_decisions\": [],\n  \"open_questions\": [],\n  \"attempts\": [],\n  \"recent_changes\": [\n    {\n      \"epoch\": 3,\n      \"event\": \"correct\",\n      \"affected_ids\": [\n        \"295795ce5afb43d49559c9d6cee4fcff\",\n        \"ef1c2ee57b664d4bb8c81dfee2d199af\"\n      ],\n      \"at\": \"2026-11-09T23:52:04.452960+00:00\"\n    },\n    {\n      \"epoch\": 2,\n      \"event\": \"remember\",\n      \"affected_",
+      "timestamp": "2026-11-09T23:52:10.809Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "mkdir -p output && printf '%s\\\\n' '$1.2M' > output/revenue.txt && cat output/revenue.txt",
+      "timestamp": "2026-11-09T23:52:12.385Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.2 seconds\nOutput:\n$1.2M\n",
+      "timestamp": "2026-11-09T23:52:12.595Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "./turnkeep finish --scope bench --run 83289c7cc1644d72b09138afc7aa712a --key report.revenue --value '$1.2M' --idempotency-key conf-f08-changed-1",
+      "timestamp": "2026-11-09T23:52:13.907Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.3 seconds\nOutput:\nTraceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/home/hatch/workspace/turnkeep-work/src/turnkeep/__main__.py\", line 7, in <module>\n    raise SystemExit(main())\n                     ^^^^^^\n  File \"/home/hatch/workspace/turnkeep-work/src/turnkeep/cli.py\", line 216, in main\n    out = _com.finish(db, args.scope, args.run, {\"key\": args.key, \"value\": args.value},\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/hatch/workspace/turnkeep-work/src/turnkeep/commits.py\", line 103, in finish\n    result_id = insert_record(db, scope_id, result[\"key\"], _json(result[\"value\"]),\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/hatch/workspace/turnkeep-work/src/turnkeep/storage.py\", line 387, in insert_record\n    db.execute(\"INSERT INTO memories(id, scope_id, key, value_json, kind, state, revision, created_at, updated_at) \"\nsqlite3.IntegrityError: UNIQUE constraint failed: memories.scope_id, memories.key\n",
+      "timestamp": "2026-11-09T23:52:14.197Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "./turnkeep finish --help && ./turnkeep --help",
+      "timestamp": "2026-11-09T23:52:16.380Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.7 seconds\nOutput:\nusage: turnkeep finish [-h] --scope SCOPE --run RUN --key KEY --value VALUE\n                       [--parent PARENT] [--idempotency-key IDEMPOTENCY_KEY]\n\noptions:\n  -h, --help            show this help message and exit\n  --scope SCOPE\n  --run RUN\n  --key KEY\n  --value VALUE\n  --parent PARENT\n  --idempotency-key IDEMPOTENCY_KEY\nusage: turnkeep [-h] [--version] [--db DB] [--json] [--non-interactive]\n                {init,remember,begin,correct,retract,resolve,finish,resume,rebase,recall,brief,inspect,history,expire,sweep-expiry,erase,residuals,export,import,demo,doctor,mcp,serve}\n                ...\n\nTurnkeep local project memory (v0.1)\n\npositional arguments:\n  {init,remember,begin,correct,retract,resolve,finish,resume,rebase,recall,brief,inspect,history,expire,sweep-expiry,erase,residuals,export,import,demo,doctor,mcp,serve}\n\noptions:\n  -h, --help            show this help message and exit\n  --version             show program's version number and exit\n  --db DB               SQLite path (default: per-scope data path)\n  --json                stable JSON output\n  --non-interactive     never prompt (default behaviour)\n",
+      "timestamp": "2026-11-09T23:52:17.081Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "./turnkeep inspect --help && ./turnkeep history --help && ./turnkeep history --scope bench --limit 10",
+      "timestamp": "2026-11-09T23:52:18.984Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.6 seconds\nOutput:\nusage: turnkeep inspect [-h] --scope SCOPE [--history]\n\noptions:\n  -h, --help     show this help message and exit\n  --scope SCOPE\n  --history\nusage: turnkeep history [-h] --scope SCOPE\n\noptions:\n  -h, --help     show this help message and exit\n  --scope SCOPE\nusage: turnkeep [-h] [--version] [--db DB] [--json] [--non-interactive]\n                {init,remember,begin,correct,retract,resolve,finish,resume,rebase,recall,brief,inspect,history,expire,sweep-expiry,erase,residuals,export,import,demo,doctor,mcp,serve}\n                ...\nturnkeep: error: unrecognized arguments: --limit 10\n",
+      "timestamp": "2026-11-09T23:52:19.624Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "./turnkeep history --scope bench && ./turnkeep inspect --scope bench --history",
+      "timestamp": "2026-11-09T23:52:20.744Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.5 seconds\nOutput:\n{\n  \"scope\": \"bench\",\n  \"events\": [\n    {\n      \"id\": \"9112e05f225d46d8bf1c280f4228ed91\",\n      \"scope_id\": \"bench\",\n      \"scope_epoch\": 1,\n      \"event_type\": \"remember\",\n      \"actor_binding\": \"cli:local\",\n      \"created_at\": \"2026-11-09T23:52:04.342903+00:00\",\n      \"affected_ids\": [\n        \"295795ce5afb43d49559c9d6cee4fcff\"\n      ],\n      \"metadata\": {\n        \"key\": \"report.revenue\"\n      }\n    },\n    {\n      \"id\": \"1a8c02b2ea7c40c68b4ff4e33fd39a16\",\n      \"scope_id\": \"bench\",\n      \"scope_epoch\": 2,\n      \"event_type\": \"remember\",\n      \"actor_binding\": \"cli:local\",\n      \"created_at\": \"2026-11-09T23:52:04.375771+00:00\",\n      \"affected_ids\": [\n        \"7c4c11663c884dfe8325d24a278d3317\"\n      ],\n      \"metadata\": {\n        \"key\": \"report.revenue_authority\"\n      }\n    },\n    {\n      \"id\": \"11bb5331ae89444fa45244001aae2a64\",\n      \"scope_id\": \"bench\",\n      \"scope_epoch\": 3,\n      \"event_type\": \"correct\",\n      \"actor_binding\": \"cli:local\",\n      \"created_at\": \"2026-11-09T23:52:04.452960+00:00\",\n      \"affected_ids\": [\n        \"295795ce5afb43d49559c9d6cee4fcff\",\n        \"ef1c2ee57b664d4bb8c81dfee2d199af\"\n      ],\n      \"metadata\": {\n        \"key\": \"report.revenue\"\n      }\n    }\n  ]\n}\n{\n  \"scope\": \"bench\",\n  \"records\": [\n    {\n      \"id\": \"295795ce5afb43d49559c9d6cee4fcff\",\n      \"key\": \"report.revenue\",\n      \"kind\": \"fact\",\n      \"state\": \"superseded\",\n      \"revision\": 2,\n      \"created_at\": \"2026-11-09T23:52:04.342579+00:00\",\n      \"updated_at\": \"2026-11-09T23:52:04.452533+00:00\",\n      \"valid_until\": null,\n      \"cause_event_id\": null,\n      \"scope\": \"bench\",\n      \"value\": \"$1.5M\",\n      \"source_refs\": [\n        {\n          \"id\": \"u:1\",\n          \"type\": \"user_statement\"\n        }\n      ],\n      \"parent_ids\": [],\n      \"supersedes_ids\": []\n    },\n    {\n      \"id\": \"ef1c2ee57b664d4bb8c81dfee2d199af\",\n      \"key\": \"report.revenue\",\n      \"kind\": \"fact\",\n      \"state\": \"active\",\n      \"revision\": 1,\n      \"crea",
+      "timestamp": "2026-11-09T23:52:21.309Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "sed -n '1,220p' /home/hatch/workspace/turnkeep-work/src/turnkeep/commits.py && sed -n '150,260p' /home/hatch/workspace/turnkeep-work/src/turnkeep/cli.py",
+      "timestamp": "2026-11-09T23:52:22.910Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.2 seconds\nOutput:\n\"\"\"Atomic finish + stale-snapshot rejection (T014). Contract §6, five steps,\nin ONE BEGIN IMMEDIATE transaction:\n\n1. Idempotency FIRST: if this run already succeeded, same request digest ->\n   return the original receipt; different digest -> IDEMPOTENCY_MISMATCH.\n   (Replay precedence over closed-state and epoch checks.)\n2. Read the server-bound run + scope; confirm it can still commit.\n3. Check current epoch == run's read epoch, else STALE_SNAPSHOT with\n   changed_keys / changed_record_ids / why (coarse-grain: epoch diff).\n4. Confirm all declared parents are still usable and in-scope.\n5. Write result + event + idempotency row, bump epoch, close run, store receipt.\n\n- The server merges its snapshot read-set into the result's parent_ids\n  (union with client-declared parents): omitting parents cannot dodge later\n  taint. An empty client parent list still inherits the snapshot set.\n- No LLM / network call inside the write transaction.\n- One run yields at most one result; external actions are NOT atomic with\n  the receipt (contract §7 — never claimed).\n\"\"\"\nfrom __future__ import annotations\nimport json\nfrom .errors import TurnkeepError\nfrom .storage import (transaction, ensure_scope, scope_epoch, row_or_404,\n                      dump_record, insert_record, publish_event, _json,\n                      _text, _ids, _sources, _now, usable)\nfrom .idempotency import request_digest, check as idem_check, store as idem_store\nfrom .runs import get_run\nfrom .memory import active_records\n\n\ndef _changed_since(db, scope_id, run):\n    snap_ids = {r[\"id\"] for r in run[\"snapshot\"][\"records\"]}\n    now = db.execute(\"SELECT id, key, state, revision FROM memories WHERE scope_id=?\",\n                     (scope_id,)).fetchall()\n    changed_ids, changed_keys = [], []\n    now_map = {r[\"id\"]: r for r in now}\n    for r in now:\n        old = next((s for s in run[\"snapshot\"][\"records\"] if s[\"id\"] == r[\"id\"]), None)\n        if old is None or old[\"revis",
+      "timestamp": "2026-11-09T23:52:23.130Z"
+    }
+  ],
+  "agent_messages": [
+    "I’ll read the project instructions and Turnkeep memory first, then write and verify the one-line deliverable and record it with a receipt.",
+    "The current memory confirms finance is authoritative and the active revenue value is `$1.2M`. I’m writing that value as the sole line now.",
+    "The file is verified. `finish` failed with a database uniqueness error because `report.revenue` already exists in memory; I’m checking the command’s supported behavior so I can record the receipt correctly without changing the revenue line.",
+    "Wrote and verified `$1.2M` in `output/revenue.txt`; Turnkeep could not record the receipt because `report.revenue` already exists in the database."
+  ],
+  "max_total_tokens": 146300,
+  "task_duration_ms": 22599,
+  "last_message": "Wrote and verified `$1.2M` in `output/revenue.txt`; Turnkeep could not record the receipt because `report.revenue` already exists in the database.",
+  "found": true,
+  "task_completed": true,
+  "stale_rejections": 1,
+  "finish_receipt": true,
+  "usage_split": {
+    "input_tokens": 144950,
+    "cached_input_tokens": 124126,
+    "cache_write_input_tokens": 20797,
+    "output_tokens": 1350,
+    "reasoning_output_tokens": 638
+  },
+  "rollout_path": "/home/hatch/.codex/sessions/2026/11/09/rollout-2026-11-09T23-52-04-01a1c2b9-e307-78f3-9d97-f6d2fef0130f.jsonl"
+}

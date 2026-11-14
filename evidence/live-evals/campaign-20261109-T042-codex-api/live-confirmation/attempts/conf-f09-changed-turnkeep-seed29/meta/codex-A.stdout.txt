@@ -1,0 +1,1 @@
+Wrote `eu-west-2` to [output/region.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f09-changed-turnkeep-seed29/work/output/region.txt) and recorded it with a Turnkeep receipt.

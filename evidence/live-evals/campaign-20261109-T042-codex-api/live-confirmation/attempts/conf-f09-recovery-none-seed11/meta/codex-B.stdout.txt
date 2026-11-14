@@ -1,0 +1,1 @@
+Re-checked the task notes: the confirmed region is still `eu-west-2`. Verified `output/region.txt` with `cat`.

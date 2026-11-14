@@ -1,0 +1,68 @@
+{
+  "tool_calls": [
+    {
+      "name": "exec_command",
+      "arguments": "pwd && rg --files -g '!tk.sqlite3' -g '!output/**' | head -80 && ./turnkeep recall --scope bench --query deploy.region && ./turnkeep brief --scope bench --goal \\\"Record Acme deploy region\\\"",
+      "timestamp": "2026-11-09T23:55:16.637Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.5 seconds\nOutput:\n/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f09-recovery-turnkeep-seed47/work\nturnkeep\ntk.sqlite3.pre-v1.bak\ndeploy-notes.md\n{\n  \"scope\": \"bench\",\n  \"records\": [\n    {\n      \"id\": \"27b5f8aec7ab4f8c8542e7b986c32ad1\",\n      \"key\": \"deploy.region\",\n      \"kind\": \"requirement\",\n      \"state\": \"active\",\n      \"revision\": 1,\n      \"created_at\": \"2026-11-09T23:55:13.530924+00:00\",\n      \"updated_at\": \"2026-11-09T23:55:13.530924+00:00\",\n      \"valid_until\": null,\n      \"cause_event_id\": null,\n      \"scope\": \"bench\",\n      \"value\": \"eu-west-2\",\n      \"source_refs\": [\n        {\n          \"id\": \"u:1\",\n          \"type\": \"user_statement\"\n        }\n      ],\n      \"parent_ids\": [],\n      \"supersedes_ids\": [],\n      \"_score\": 2,\n      \"_label\": \"active\",\n      \"_lexical_fallback\": true\n    }\n  ]\n}\n{\n  \"scope\": \"bench\",\n  \"goal\": \"Record Acme deploy region\",\n  \"epoch\": 3,\n  \"current_status\": \"1 active records\",\n  \"valid_decisions\": [],\n  \"open_questions\": [],\n  \"attempts\": [],\n  \"recent_changes\": [\n    {\n      \"epoch\": 3,\n      \"event\": \"retract\",\n      \"affected_ids\": [\n        \"4f0a5f77456f4a809d487202e949fb62\"\n      ],\n      \"at\": \"2026-11-09T23:55:13.593700+00:00\"\n    },\n    {\n      \"epoch\": 2,\n      \"event\": \"remember\",\n      \"affected_ids\": [\n        \"4f0a5f77456f4a809d487202e949fb62\"\n      ],\n      \"at\": \"2026-11-09T23:55:13.552243+00:00\"\n    },\n    {\n      \"epoch\": 1,\n      \"event\": \"remember\",\n      \"affected_ids\": [\n        \"27b5f8aec7ab4f8c8542e7b986c32ad1\"\n      ],\n      \"at\": \"2026-11-09T23:55:13.531246+00:00\"\n    }\n  ],\n  \"suggested_next_steps\": [\n    \"Continue from the latest active records\"\n  ],\n  \"records\": [\n    {\n      \"must_keep\": false,\n      \"text\": \"deploy.region: \\\"eu-west-2\\\" [27b5f8aec7ab4f8c8542e7b986c32ad1]\"\n    }\n  ],\n  \"dropped_record_count\": 0,\n  \"chars_used\": 61,\n  \"max_chars\": 4000,\n  \"estimated_tokens\": 16,\n  \"budget_overrun\": ",
+      "timestamp": "2026-11-09T23:55:17.182Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "cat deploy-notes.md && ./turnkeep begin --scope bench --task \\\"Record Acme deploy region\\\"",
+      "timestamp": "2026-11-09T23:55:18.158Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.5 seconds\nOutput:\n# Deploy notes\n\nRegion is decided by the user. An agent guess is never authoritative.\n{\n  \"run_id\": \"2b6ddc3d6f174ddd87fbddd2c6965384\",\n  \"scope\": \"bench\",\n  \"task\": \"Record Acme deploy region\",\n  \"read_epoch\": 3,\n  \"records\": [\n    {\n      \"id\": \"27b5f8aec7ab4f8c8542e7b986c32ad1\",\n      \"key\": \"deploy.region\",\n      \"kind\": \"requirement\",\n      \"state\": \"active\",\n      \"revision\": 1,\n      \"created_at\": \"2026-11-09T23:55:13.530924+00:00\",\n      \"updated_at\": \"2026-11-09T23:55:13.530924+00:00\",\n      \"valid_until\": null,\n      \"cause_event_id\": null,\n      \"scope\": \"bench\",\n      \"value\": \"eu-west-2\",\n      \"source_refs\": [\n        {\n          \"id\": \"u:1\",\n          \"type\": \"user_statement\"\n        }\n      ],\n      \"parent_ids\": [],\n      \"supersedes_ids\": []\n    }\n  ],\n  \"conflicts\": [],\n  \"status\": \"open\"\n}\n",
+      "timestamp": "2026-11-09T23:55:18.672Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "mkdir -p output && printf 'eu-west-2\\\\n' > output/region.txt && cat output/region.txt && ./turnkeep finish --scope bench --run 2b6ddc3d6f174ddd87fbddd2c6965384 --key deploy.region --value \\\"eu-west-2\\\" --idempotency-key conf-f09-recovery-1",
+      "timestamp": "2026-11-09T23:55:20.325Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.3 seconds\nOutput:\neu-west-2\nTraceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/home/hatch/workspace/turnkeep-work/src/turnkeep/__main__.py\", line 7, in <module>\n    raise SystemExit(main())\n                     ^^^^^^\n  File \"/home/hatch/workspace/turnkeep-work/src/turnkeep/cli.py\", line 216, in main\n    out = _com.finish(db, args.scope, args.run, {\"key\": args.key, \"value\": args.value},\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/hatch/workspace/turnkeep-work/src/turnkeep/commits.py\", line 103, in finish\n    result_id = insert_record(db, scope_id, result[\"key\"], _json(result[\"value\"]),\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/hatch/workspace/turnkeep-work/src/turnkeep/storage.py\", line 387, in insert_record\n    db.execute(\"INSERT INTO memories(id, scope_id, key, value_json, kind, state, revision, created_at, updated_at) \"\nsqlite3.IntegrityError: UNIQUE constraint failed: memories.scope_id, memories.key\n",
+      "timestamp": "2026-11-09T23:55:20.588Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "./turnkeep --help && sed -n '1,180p' /home/hatch/workspace/turnkeep-work/src/turnkeep/commits.py",
+      "timestamp": "2026-11-09T23:55:22.259Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.3 seconds\nOutput:\nusage: turnkeep [-h] [--version] [--db DB] [--json] [--non-interactive]\n                {init,remember,begin,correct,retract,resolve,finish,resume,rebase,recall,brief,inspect,history,expire,sweep-expiry,erase,residuals,export,import,demo,doctor,mcp,serve}\n                ...\n\nTurnkeep local project memory (v0.1)\n\npositional arguments:\n  {init,remember,begin,correct,retract,resolve,finish,resume,rebase,recall,brief,inspect,history,expire,sweep-expiry,erase,residuals,export,import,demo,doctor,mcp,serve}\n\noptions:\n  -h, --help            show this help message and exit\n  --version             show program's version number and exit\n  --db DB               SQLite path (default: per-scope data path)\n  --json                stable JSON output\n  --non-interactive     never prompt (default behaviour)\n\"\"\"Atomic finish + stale-snapshot rejection (T014). Contract §6, five steps,\nin ONE BEGIN IMMEDIATE transaction:\n\n1. Idempotency FIRST: if this run already succeeded, same request digest ->\n   return the original receipt; different digest -> IDEMPOTENCY_MISMATCH.\n   (Replay precedence over closed-state and epoch checks.)\n2. Read the server-bound run + scope; confirm it can still commit.\n3. Check current epoch == run's read epoch, else STALE_SNAPSHOT with\n   changed_keys / changed_record_ids / why (coarse-grain: epoch diff).\n4. Confirm all declared parents are still usable and in-scope.\n5. Write result + event + idempotency row, bump epoch, close run, store receipt.\n\n- The server merges its snapshot read-set into the result's parent_ids\n  (union with client-declared parents): omitting parents cannot dodge later\n  taint. An empty client parent list still inherits the snapshot set.\n- No LLM / network call inside the write transaction.\n- One run yields at most one result; external actions are NOT atomic with\n  the receipt (contract §7 — never claimed).\n\"\"\"\nfrom __future__ import annotations\nimport json\nfrom .errors import TurnkeepError\n",
+      "timestamp": "2026-11-09T23:55:22.522Z"
+    }
+  ],
+  "agent_messages": [
+    "I’ll check the project files and Turnkeep memory first, then write and verify the requested region file and record the receipt.",
+    "Turnkeep confirms `deploy.region` is `eu-west-2` from a user statement; the notes also say agent guesses are not authoritative. I’m writing that value now and will record it with the run receipt.",
+    "Wrote `eu-west-2` to `output/region.txt` and verified it with `cat`; Turnkeep `finish` failed because `deploy.region` already exists in memory under its unique key."
+  ],
+  "max_total_tokens": 75174,
+  "task_duration_ms": 10665,
+  "last_message": "Wrote `eu-west-2` to `output/region.txt` and verified it with `cat`; Turnkeep `finish` failed because `deploy.region` already exists in memory under its unique key.",
+  "found": true,
+  "task_completed": true,
+  "stale_rejections": 1,
+  "finish_receipt": true,
+  "usage_split": {
+    "input_tokens": 74446,
+    "cached_input_tokens": 57431,
+    "cache_write_input_tokens": 17000,
+    "output_tokens": 728,
+    "reasoning_output_tokens": 250
+  },
+  "rollout_path": "/home/hatch/.codex/sessions/2026/11/09/rollout-2026-11-09T23-55-13-01a1c2bc-c60d-7a02-b1dc-919e3ed28632.jsonl"
+}

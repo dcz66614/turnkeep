@@ -1,0 +1,1 @@
+Re-checked the available facts; `output/region.txt` already contains the confirmed region `eu-west-2`. Verified with `cat`.

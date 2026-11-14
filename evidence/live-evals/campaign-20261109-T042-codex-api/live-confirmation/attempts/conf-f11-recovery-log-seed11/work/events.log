@@ -1,0 +1,4 @@
+2026-11-08T10:00:00Z remember pricing.currency = USD (fact)
+2026-11-08T10:00:00Z remember quote.total = $100 USD (fact)
+2026-11-08T11:00:00Z correct pricing.currency = EUR
+2026-11-08T11:00:00Z correct pricing.currency = GBP

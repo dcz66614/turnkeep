@@ -1,0 +1,1 @@
+Updated [output/manifest.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f07-recovery-turnkeep-seed11/work/output/manifest.txt) to `Python 3.13`, verified it with `cat`, and recorded the updated value in Turnkeep.

@@ -1,0 +1,613 @@
+OpenAI Codex v0.164.0-alpha.9
+--------
+workdir: /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f08-stable-turnkeep-seed11/work
+model: gpt-6-luna
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: low
+reasoning summaries: none
+session id: 01a1c2cc-5618-7482-861b-221d17d7dbcc
+--------
+user
+# Task
+
+You are writing the Acme revenue line. Two sources disagree: sales reports $1.5M, finance reports $1.2M. The finance figure is authoritative. The brief you were given quotes the sales figure, $1.5M. Write the revenue to output/revenue.txt, exactly one line, nothing else.
+
+# Memory
+
+Your project memory is the Turnkeep database tk.sqlite3 in this directory. Use the ./turnkeep command to consult it BEFORE producing the deliverable — it may have been updated since the brief was written.
+Commands (run them in this directory, each needs --scope bench):
+  ./turnkeep recall --scope bench --query <key>   — show the current value of a fact
+  ./turnkeep brief --scope bench --goal "<goal>"  — show the current brief
+  ./turnkeep begin --scope bench --task "<goal>"  — start a run (prints a run id)
+  ./turnkeep finish --scope bench --run <run-id> --key <deliverable-key> --value "<value>" --idempotency-key <task-id>-1  — record the deliverable with a receipt
+  If finish is rejected with STALE_SNAPSHOT, run ./turnkeep resume --scope bench --run <run-id>, then re-check with recall and finish again.
+  Always record the deliverable with finish (with a receipt) after writing the deliverable file.
+Exact finish command for this task (copy it, filling in <run-id> and <value>):
+  ./turnkeep finish --scope bench --run <run-id> --key report.revenue --value "<value>" --idempotency-key conf-f08-stable-1
+
+
+# How to work
+
+Follow these steps in order. You MUST do the work with tool calls (exec_command). Do not just reply in text.
+1. Read the task files and your memory FIRST.
+2. Write the deliverable to output/revenue.txt with exactly the format the task asks for.
+3. Verify the deliverable with `cat`.
+4. End your turn with a one-line summary of what you wrote and where.
+Only the deliverable file is scored; your chat reply is not scored. The task is NOT finished until the deliverable file exists and you have verified it with `cat`.
+- Never invent facts. Only use the brief, the project files, and your memory.
+- Do not use the network.
+
+warning: Codex could not find bubblewrap on PATH. Install bubblewrap with your OS package manager. See the sandbox prerequisites: https://developers.openai.com/codex/concepts/sandboxing#prerequisites. Codex will use the bundled bubblewrap in the meantime.
+codex
+I’ll check the task files and Turnkeep memory first, then write and verify the single-line deliverable and record it with a receipt.
+exec
+/bin/bash -lc "pwd && rg --files -g '"'!tk.sqlite3'"' -g '"'!turnkeep'"' && ./turnkeep brief --scope bench --goal \"Acme revenue\" && ./turnkeep recall --scope bench --query revenue" in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f08-stable-turnkeep-seed11/work
+ succeeded in 104ms:
+/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f08-stable-turnkeep-seed11/work
+tk.sqlite3.pre-v1.bak
+sources.md
+{
+  "scope": "bench",
+  "goal": "Acme revenue",
+  "epoch": 2,
+  "current_status": "2 active records",
+  "valid_decisions": [],
+  "open_questions": [],
+  "attempts": [],
+  "recent_changes": [
+    {
+      "epoch": 2,
+      "event": "remember",
+      "affected_ids": [
+        "000beb317a10457fb576af626f1262ae"
+      ],
+      "at": "2026-11-10T00:12:13.590392+00:00"
+    },
+    {
+      "epoch": 1,
+      "event": "remember",
+      "affected_ids": [
+        "917f35df46314386ab8f3a07d9abe47a"
+      ],
+      "at": "2026-11-10T00:12:13.568214+00:00"
+    }
+  ],
+  "suggested_next_steps": [
+    "Continue from the latest active records"
+  ],
+  "records": [
+    {
+      "must_keep": false,
+      "text": "report.revenue: \"$1.5M\" [917f35df46314386ab8f3a07d9abe47a]"
+    },
+    {
+      "must_keep": false,
+      "text": "report.revenue_authority: \"finance\" [000beb317a10457fb576af626f1262ae]"
+    }
+  ],
+  "dropped_record_count": 0,
+  "chars_used": 128,
+  "max_chars": 4000,
+  "estimated_tokens": 33,
+  "budget_overrun": false
+}
+{
+  "scope": "bench",
+  "records": [
+    {
+      "id": "917f35df46314386ab8f3a07d9abe47a",
+      "key": "report.revenue",
+      "kind": "fact",
+      "state": "active",
+      "revision": 1,
+      "created_at": "2026-11-10T00:12:13.567827+00:00",
+      "updated_at": "2026-11-10T00:12:13.567827+00:00",
+      "valid_until": null,
+      "cause_event_id": null,
+      "scope": "bench",
+      "value": "$1.5M",
+      "source_refs": [
+        {
+          "id": "u:1",
+          "type": "user_statement"
+        }
+      ],
+      "parent_ids": [],
+      "supersedes_ids": [],
+      "_score": 1,
+      "_label": "active",
+      "_lexical_fallback": true
+    },
+    {
+      "id": "000beb317a10457fb576af626f1262ae",
+      "key": "report.revenue_authority",
+      "kind": "fact",
+      "state": "active",
+      "revision": 1,
+      "created_at": "2026-11-10T00:12:13.590208+00:00",
+      "updated_at": "2026-11-10T00:12:13.590208+00:00",
+      "valid_until": null,
+      "cause_event_id": null,
+      "scope": "bench",
+      "value": "finance",
+      "source_refs": [
+        {
+          "id": "u:1",
+          "type": "user_statement"
+        }
+      ],
+      "parent_ids": [],
+      "supersedes_ids": [],
+      "_score": 1,
+      "_label": "active",
+      "_lexical_fallback": true
+    }
+  ]
+}
+
+exec
+/bin/bash -lc 'cat sources.md && ./turnkeep begin --scope bench --task "Write Acme revenue to output/revenue.txt" ' in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f08-stable-turnkeep-seed11/work
+ succeeded in 75ms:
+# Revenue sources
+
+Sales and finance report different figures. Finance is authoritative for the published revenue line.
+{
+  "run_id": "8b24fbc1bb034df9a527ebd31c618035",
+  "scope": "bench",
+  "task": "Write Acme revenue to output/revenue.txt",
+  "read_epoch": 2,
+  "records": [
+    {
+      "id": "917f35df46314386ab8f3a07d9abe47a",
+      "key": "report.revenue",
+      "kind": "fact",
+      "state": "active",
+      "revision": 1,
+      "created_at": "2026-11-10T00:12:13.567827+00:00",
+      "updated_at": "2026-11-10T00:12:13.567827+00:00",
+      "valid_until": null,
+      "cause_event_id": null,
+      "scope": "bench",
+      "value": "$1.5M",
+      "source_refs": [
+        {
+          "id": "u:1",
+          "type": "user_statement"
+        }
+      ],
+      "parent_ids": [],
+      "supersedes_ids": []
+    },
+    {
+      "id": "000beb317a10457fb576af626f1262ae",
+      "key": "report.revenue_authority",
+      "kind": "fact",
+      "state": "active",
+      "revision": 1,
+      "created_at": "2026-11-10T00:12:13.590208+00:00",
+      "updated_at": "2026-11-10T00:12:13.590208+00:00",
+      "valid_until": null,
+      "cause_event_id": null,
+      "scope": "bench",
+      "value": "finance",
+      "source_refs": [
+        {
+          "id": "u:1",
+          "type": "user_statement"
+        }
+      ],
+      "parent_ids": [],
+      "supersedes_ids": []
+    }
+  ],
+  "conflicts": [],
+  "status": "open"
+}
+
+codex
+The memory has the sales figure and says finance is authoritative; the task brief supplies finance’s figure as $1.2M. I’m using that authoritative figure for the line.
+exec
+/bin/bash -lc "mkdir -p output && printf '%s\\n' '"'$1.2M'"' > output/revenue.txt && cat output/revenue.txt && ./turnkeep finish --scope bench --run 8b24fbc1bb034df9a527ebd31c618035 --key report.revenue --value \""'$1.2M" --idempotency-key conf-f08-stable-1' in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f08-stable-turnkeep-seed11/work
+ exited 1 in 59ms:
+$1.2M
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/hatch/workspace/turnkeep-work/src/turnkeep/__main__.py", line 7, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/hatch/workspace/turnkeep-work/src/turnkeep/cli.py", line 216, in main
+    out = _com.finish(db, args.scope, args.run, {"key": args.key, "value": args.value},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hatch/workspace/turnkeep-work/src/turnkeep/commits.py", line 103, in finish
+    result_id = insert_record(db, scope_id, result["key"], _json(result["value"]),
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hatch/workspace/turnkeep-work/src/turnkeep/storage.py", line 387, in insert_record
+    db.execute("INSERT INTO memories(id, scope_id, key, value_json, kind, state, revision, created_at, updated_at) "
+sqlite3.IntegrityError: UNIQUE constraint failed: memories.scope_id, memories.key
+
+exec
+/bin/bash -lc './turnkeep --help && ./turnkeep' in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f08-stable-turnkeep-seed11/work
+ exited 2 in 83ms:
+usage: turnkeep [-h] [--version] [--db DB] [--json] [--non-interactive]
+                {init,remember,begin,correct,retract,resolve,finish,resume,rebase,recall,brief,inspect,history,expire,sweep-expiry,erase,residuals,export,import,demo,doctor,mcp,serve}
+                ...
+
+Turnkeep local project memory (v0.1)
+
+positional arguments:
+  {init,remember,begin,correct,retract,resolve,finish,resume,rebase,recall,brief,inspect,history,expire,sweep-expiry,erase,residuals,export,import,demo,doctor,mcp,serve}
+
+options:
+  -h, --help            show this help message and exit
+  --version             show program's version number and exit
+  --db DB               SQLite path (default: per-scope data path)
+  --json                stable JSON output
+  --non-interactive     never prompt (default behaviour)
+usage: turnkeep [-h] [--version] [--db DB] [--json] [--non-interactive]
+                {init,remember,begin,correct,retract,resolve,finish,resume,rebase,recall,brief,inspect,history,expire,sweep-expiry,erase,residuals,export,import,demo,doctor,mcp,serve}
+                ...
+turnkeep: error: the following arguments are required: command
+
+exec
+/bin/bash -lc './turnkeep finish --help && ./turnkeep correct --help && ./turnkeep resolve --help' in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f08-stable-turnkeep-seed11/work
+ succeeded in 169ms:
+usage: turnkeep finish [-h] --scope SCOPE --run RUN --key KEY --value VALUE
+                       [--parent PARENT] [--idempotency-key IDEMPOTENCY_KEY]
+
+options:
+  -h, --help            show this help message and exit
+  --scope SCOPE
+  --run RUN
+  --key KEY
+  --value VALUE
+  --parent PARENT
+  --idempotency-key IDEMPOTENCY_KEY
+usage: turnkeep correct [-h] --scope SCOPE --id ID --expected-revision
+                        EXPECTED_REVISION --value VALUE [--source SOURCE]
+
+options:
+  -h, --help            show this help message and exit
+  --scope SCOPE
+  --id ID
+  --expected-revision EXPECTED_REVISION
+  --value VALUE
+  --source SOURCE
+usage: turnkeep resolve [-h] --scope SCOPE --key KEY --value VALUE
+                        [--candidate CANDIDATE] [--source SOURCE]
+
+options:
+  -h, --help            show this help message and exit
+  --scope SCOPE
+  --key KEY
+  --value VALUE
+  --candidate CANDIDATE
+  --source SOURCE
+
+exec
+/bin/bash -lc "./turnkeep correct --scope bench --id 917f35df46314386ab8f3a07d9abe47a --expected-revision 1 --value '\""'$1.2M"'"' --source 'task brief: finance figure is authoritative' && ./turnkeep resume --scope bench --run 8b24fbc1bb034df9a527ebd31c618035" in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f08-stable-turnkeep-seed11/work
+ exited 2 in 0ms:
+{
+  "error": {
+    "code": "INVALID_SOURCE",
+    "message": "Source type must describe how the information was obtained",
+    "details": {}
+  }
+}
+
+exec
+/bin/bash -lc 'rg -n "INVALID_SOURCE|Source type must describe|def correct|source_type" /home/hatch/workspace/turnkeep-work/src/turnkeep' in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f08-stable-turnkeep-seed11/work
+ succeeded in 0ms:
+/home/hatch/workspace/turnkeep-work/src/turnkeep/client.py:64:    def correct(self, record_id, expected_revision, new_value, *, source_refs, parent_ids=()):
+/home/hatch/workspace/turnkeep-work/src/turnkeep/storage.py:85:        raise TurnkeepError("INVALID_SOURCE", "At least one typed source reference is required")
+/home/hatch/workspace/turnkeep-work/src/turnkeep/storage.py:89:            raise TurnkeepError("INVALID_SOURCE", "Source type must describe how the information was obtained")
+/home/hatch/workspace/turnkeep-work/src/turnkeep/storage.py:262:        "SELECT s.id, s.source_type AS type FROM memory_sources ms "
+/home/hatch/workspace/turnkeep-work/src/turnkeep/storage.py:292:            "INSERT OR IGNORE INTO sources(id, scope_id, source_type, source_ref, content_digest, observed_at) "
+/home/hatch/workspace/turnkeep-work/src/turnkeep/migrations/001_initial.sql:39:  source_type TEXT NOT NULL CHECK(source_type IN ('user_statement','tool_observation','agent_inference','imported_text')),
+/home/hatch/workspace/turnkeep-work/src/turnkeep/corrections.py:26:def correct(db, scope_id, old_id, expected_revision, new_value, *, source_refs,
+/home/hatch/workspace/turnkeep-work/src/turnkeep/demo.py:50:                     source_refs=[{"id": row["source_id"], "type": row["source_type"]}])
+/home/hatch/workspace/turnkeep-work/src/turnkeep/demo.py:114:                     source_refs=[{"id": row["source_id"], "type": row["source_type"]}])
+/home/hatch/workspace/turnkeep-work/src/turnkeep/store.py:128:        raise TurnkeepError("INVALID_SOURCE", "At least one typed source reference is required")
+/home/hatch/workspace/turnkeep-work/src/turnkeep/store.py:132:            raise TurnkeepError("INVALID_SOURCE", "Source type must describe how the information was obtained")
+/home/hatch/workspace/turnkeep-work/src/turnkeep/store.py:363:    def correct(self, scope, old_id, expected_revision, new_value, *, source_refs, parent_ids=None):
+/home/hatch/workspace/turnkeep-work/src/turnkeep/mcp_server.py:73:    def _src(source_id="mcp:1", source_type="agent_inference"):
+/home/hatch/workspace/turnkeep-work/src/turnkeep/mcp_server.py:74:        return [{"id": source_id, "type": source_type}]
+/home/hatch/workspace/turnkeep-work/src/turnkeep/mcp_server.py:95:                 source_type: str = "agent_inference", parent_ids: str = "") -> str:
+/home/hatch/workspace/turnkeep-work/src/turnkeep/mcp_server.py:100:                                                  source_refs=_src(source_id, source_type),
+/home/hatch/workspace/turnkeep-work/src/turnkeep/mcp_server.py:106:    def correct(record_id: str, expected_revision: int, new_value: str) -> str:
+
+exec
+/bin/bash -lc "rg -n \"args.source|add_argument\\(.*source|def cmd_correct\" /home/hatch/workspace/turnkeep-work/src/turnkeep/cli.py && sed -n '70,100p' /home/hatch/workspace/turnkeep-work/src/turnkeep/storage.py" in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f08-stable-turnkeep-seed11/work
+ succeeded in 0ms:
+93:    p.add_argument("--source", action="append", default=[]); p.add_argument("--parent", action="append", default=[])
+98:    p.add_argument("--source", action="append", default=[])
+103:    p.add_argument("--source", action="append", default=[])
+197:                                source_refs=[_parse_source(s) for s in args.source] or [{"id": "cli:1", "type": "user_statement"}],
+204:                                source_refs=[_parse_source(s) for s in args.source] or [{"id": "cli:1", "type": "user_statement"}],
+213:                                         source_refs=[_parse_source(s) for s in args.source] or [{"id": "cli:1", "type": "user_statement"}],
+
+def _text(value, field):
+    if not isinstance(value, str) or not value.strip():
+        raise TurnkeepError("INVALID_INPUT", f"{field} must be a nonempty string")
+    return unicodedata.normalize("NFC", value)
+
+
+def _ids(values):
+    if not isinstance(values, (list, tuple, set)):
+        raise TurnkeepError("INVALID_INPUT", "IDs must be a list, tuple, or set")
+    return sorted({_text(v, "id") for v in values})
+
+
+def _sources(values):
+    if not isinstance(values, (list, tuple)) or not values:
+        raise TurnkeepError("INVALID_SOURCE", "At least one typed source reference is required")
+    unique = {}
+    for source in values:
+        if not isinstance(source, dict) or source.get("type") not in SOURCE_TYPES:
+            raise TurnkeepError("INVALID_SOURCE", "Source type must describe how the information was obtained")
+        _text(source.get("id"), "source id")
+        encoded = _json(source)
+        unique[encoded] = json.loads(encoded)
+    return [unique[k] for k in sorted(unique)]
+
+
+def _digest(value):
+    return hashlib.sha256(_json(value).encode("utf-8")).hexdigest()
+
+
+def default_data_dir(system=None):
+
+exec
+/bin/bash -lc "sed -n '25,42p' /home/hatch/workspace/turnkeep-work/src/turnkeep/cli.py" in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f08-stable-turnkeep-seed11/work
+ succeeded in 0ms:
+(or plain text otherwise). --non-interactive is the default behaviour:
+the CLI never prompts; ambiguous scope is an error, never a guess.
+Values with spaces / Chinese / quotes pass through argv unchanged (no
+shell string building anywhere).
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+from pathlib import Path
+
+from . import __version__
+from .context import bind_context
+from .errors import TurnkeepError
+from .storage import open_db, data_path, scope_epoch
+
+
+
+exec
+/bin/bash -lc "rg -n \"def _parse_source\" /home/hatch/workspace/turnkeep-work/src/turnkeep/cli.py && sed -n '132,145p' /home/hatch/workspace/turnkeep-work/src/turnkeep/cli.py" in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f08-stable-turnkeep-seed11/work
+ succeeded in 0ms:
+43:def _parse_source(spec):
+    p.add_argument("--json", action="store_true", default=argparse.SUPPRESS)
+    p = sub.add_parser("mcp"); p.add_argument("--scope"); p.add_argument("--db", default=argparse.SUPPRESS)
+    p = sub.add_parser("serve"); p.add_argument("--scope", required=True)
+    p.add_argument("--port", type=int, default=0); p.add_argument("--db", default=argparse.SUPPRESS)
+    p.add_argument("--principal", default="web:local", help="actor label bound to this server (one scope + one principal)")
+
+    args = parser.parse_args(argv)
+    as_json = getattr(args, "json", False)
+    try:
+        if args.command == "doctor":
+            from .doctor import run_doctor
+            _emit(run_doctor(args.data_dir), as_json)
+            return 0
+        if args.command == "demo":
+
+exec
+/bin/bash -lc "sed -n '43,53p' /home/hatch/workspace/turnkeep-work/src/turnkeep/cli.py" in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f08-stable-turnkeep-seed11/work
+ succeeded in 0ms:
+def _parse_source(spec):
+    if ":" not in spec:
+        raise TurnkeepError("INVALID_INPUT", f"source must be id:type, got {spec!r}")
+    sid, stype = spec.rsplit(":", 1)
+    return {"id": sid, "type": stype}
+
+
+def _parse_candidate(spec):
+    if ":" not in spec:
+        raise TurnkeepError("INVALID_INPUT", f"candidate must be id:revision, got {spec!r}")
+    rid, rev = spec.rsplit(":", 1)
+
+exec
+/bin/bash -lc "./turnkeep correct --scope bench --id 917f35df46314386ab8f3a07d9abe47a --expected-revision 1 --value '\""'$1.2M"'"' --source task-brief:user_statement && ./turnkeep resume --scope bench --run 8b24fbc1bb034df9a527ebd31c618035 && ./turnkeep finish --scope bench --run 8b24fbc1bb034df9a527ebd31c618035 --key report.revenue --value '\""'$1.2M"'"' --idempotency-key conf-f08-stable-1" in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f08-stable-turnkeep-seed11/work
+ exited 2 in 438ms:
+{
+  "id": "02e77eeb3c644cbfb6de6572f5693f88",
+  "key": "report.revenue",
+  "kind": "fact",
+  "state": "active",
+  "revision": 1,
+  "created_at": "2026-11-10T00:12:36.520024+00:00",
+  "updated_at": "2026-11-10T00:12:36.520024+00:00",
+  "valid_until": null,
+  "cause_event_id": null,
+  "scope": "bench",
+  "value": "\"$1.2M\"",
+  "source_refs": [
+    {
+      "id": "task-brief",
+      "type": "user_statement"
+    }
+  ],
+  "parent_ids": [],
+  "supersedes_ids": [
+    "917f35df46314386ab8f3a07d9abe47a"
+  ]
+}
+{
+  "run_id": "8b24fbc1bb034df9a527ebd31c618035",
+  "scope": "bench",
+  "from_epoch": 2,
+  "to_epoch": 3,
+  "changed": [
+    {
+      "id": "917f35df46314386ab8f3a07d9abe47a",
+      "key": "report.revenue",
+      "from_state": "active",
+      "to_state": "superseded",
+      "from_revision": 1,
+      "to_revision": 2
+    }
+  ],
+  "added": [
+    {
+      "id": "02e77eeb3c644cbfb6de6572f5693f88",
+      "key": "report.revenue"
+    }
+  ],
+  "removed": [],
+  "changed_keys": [
+    "report.revenue"
+  ],
+  "changed_record_ids": [
+    "02e77eeb3c644cbfb6de6572f5693f88",
+    "917f35df46314386ab8f3a07d9abe47a"
+  ],
+  "candidate_snapshot": {
+    "run_id": "11f9b3cdc28f485ba047b36b2348a339",
+    "read_epoch": 3,
+    "record_ids": [
+      "02e77eeb3c644cbfb6de6572f5693f88",
+      "000beb317a10457fb576af626f1262ae"
+    ]
+  },
+  "old_result_still_valid": false
+}
+{
+  "error": {
+    "code": "STALE_SNAPSHOT",
+    "message": "Project memory changed after this run read its snapshot; reread changes and recompute affected work.",
+    "details": {
+      "changed_record_ids": [
+        "02e77eeb3c644cbfb6de6572f5693f88",
+        "917f35df46314386ab8f3a07d9abe47a"
+      ],
+      "changed_keys": [
+        "report.revenue"
+      ],
+      "from_epoch": 2,
+      "to_epoch": 3
+    }
+  }
+}
+
+exec
+/bin/bash -lc "./turnkeep correct --scope bench --id 02e77eeb3c644cbfb6de6572f5693f88 --expected-revision 1 --value '"'$1.2M'"' --source task-brief:user_statement && ./turnkeep begin --scope bench --task \"Write Acme revenue to output/revenue.txt\" " in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f08-stable-turnkeep-seed11/work
+ succeeded in 292ms:
+{
+  "id": "0bec2b374d774bbc9e541187dd5ab148",
+  "key": "report.revenue",
+  "kind": "fact",
+  "state": "active",
+  "revision": 1,
+  "created_at": "2026-11-10T00:12:41.098955+00:00",
+  "updated_at": "2026-11-10T00:12:41.098955+00:00",
+  "valid_until": null,
+  "cause_event_id": null,
+  "scope": "bench",
+  "value": "$1.2M",
+  "source_refs": [
+    {
+      "id": "task-brief",
+      "type": "user_statement"
+    }
+  ],
+  "parent_ids": [],
+  "supersedes_ids": [
+    "02e77eeb3c644cbfb6de6572f5693f88"
+  ]
+}
+{
+  "run_id": "b9a7ad5b50ce4ca5bc91c532530f996b",
+  "scope": "bench",
+  "task": "Write Acme revenue to output/revenue.txt",
+  "read_epoch": 4,
+  "records": [
+    {
+      "id": "0bec2b374d774bbc9e541187dd5ab148",
+      "key": "report.revenue",
+      "kind": "fact",
+      "state": "active",
+      "revision": 1,
+      "created_at": "2026-11-10T00:12:41.098955+00:00",
+      "updated_at": "2026-11-10T00:12:41.098955+00:00",
+      "valid_until": null,
+      "cause_event_id": null,
+      "scope": "bench",
+      "value": "$1.2M",
+      "source_refs": [
+        {
+          "id": "task-brief",
+          "type": "user_statement"
+        }
+      ],
+      "parent_ids": [],
+      "supersedes_ids": [
+        "02e77eeb3c644cbfb6de6572f5693f88"
+      ]
+    },
+    {
+      "id": "000beb317a10457fb576af626f1262ae",
+      "key": "report.revenue_authority",
+      "kind": "fact",
+      "state": "active",
+      "revision": 1,
+      "created_at": "2026-11-10T00:12:13.590208+00:00",
+      "updated_at": "2026-11-10T00:12:13.590208+00:00",
+      "valid_until": null,
+      "cause_event_id": null,
+      "scope": "bench",
+      "value": "finance",
+      "source_refs": [
+        {
+          "id": "u:1",
+          "type": "user_statement"
+        }
+      ],
+      "parent_ids": [],
+      "supersedes_ids": []
+    }
+  ],
+  "conflicts": [],
+  "status": "open"
+}
+
+exec
+/bin/bash -lc "./turnkeep finish --scope bench --run b9a7ad5b50ce4ca5bc91c532530f996b --key report.revenue --value '"'$1.2M'"' --idempotency-key conf-f08-stable-1 && cat output/revenue.txt" in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f08-stable-turnkeep-seed11/work
+ exited 1 in 48ms:
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/hatch/workspace/turnkeep-work/src/turnkeep/__main__.py", line 7, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/hatch/workspace/turnkeep-work/src/turnkeep/cli.py", line 216, in main
+    out = _com.finish(db, args.scope, args.run, {"key": args.key, "value": args.value},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hatch/workspace/turnkeep-work/src/turnkeep/commits.py", line 103, in finish
+    result_id = insert_record(db, scope_id, result["key"], _json(result["value"]),
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hatch/workspace/turnkeep-work/src/turnkeep/storage.py", line 387, in insert_record
+    db.execute("INSERT INTO memories(id, scope_id, key, value_json, kind, state, revision, created_at, updated_at) "
+sqlite3.IntegrityError: UNIQUE constraint failed: memories.scope_id, memories.key
+
+exec
+/bin/bash -lc 'cat output/revenue.txt && ./turnkeep history --scope bench --key report.revenue' in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f08-stable-turnkeep-seed11/work
+ exited 2 in 0ms:
+$1.2M
+usage: turnkeep [-h] [--version] [--db DB] [--json] [--non-interactive]
+                {init,remember,begin,correct,retract,resolve,finish,resume,rebase,recall,brief,inspect,history,expire,sweep-expiry,erase,residuals,export,import,demo,doctor,mcp,serve}
+                ...
+turnkeep: error: unrecognized arguments: --key report.revenue
+
+codex
+Wrote and verified `$1.2M` in [output/revenue.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f08-stable-turnkeep-seed11/work/output/revenue.txt). Turnkeep `finish` could not record the receipt because `report.revenue` already exists and the command rejects duplicate keys.
+tokens used
+23,281

@@ -1,0 +1,1 @@
+Re-checked the available project facts and verified `output/manifest.txt` contains `Python 3.11`.

@@ -1,0 +1,1 @@
+Wrote and verified `$1.2M` in `output/revenue.txt`. Turnkeep could not record the receipt: `finish` failed because `report.revenue` already exists and violates its unique-key constraint.

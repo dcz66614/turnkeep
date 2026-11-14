@@ -1,0 +1,12 @@
+{
+  "turnkeep_ids": {
+    "pricing.currency": {
+      "id": "5cdd3be1be8b4cc8b9cec4664a01e029",
+      "revision": 1
+    },
+    "quote.total": {
+      "id": "8de662647ddc43dfa22ddf1bbc9dcef3",
+      "revision": 1
+    }
+  }
+}

@@ -1,0 +1,473 @@
+OpenAI Codex v0.164.0-alpha.9
+--------
+workdir: /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f08-stable-turnkeep-seed29/work
+model: gpt-6-luna
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: low
+reasoning summaries: none
+session id: 01a1c2a2-ded3-7d91-9211-be63cc2d1d4b
+--------
+user
+# Task
+
+You are writing the Acme revenue line. Two sources disagree: sales reports $1.5M, finance reports $1.2M. The finance figure is authoritative. The brief you were given quotes the sales figure, $1.5M. Write the revenue to output/revenue.txt, exactly one line, nothing else.
+
+# Memory
+
+Your project memory is the Turnkeep database tk.sqlite3 in this directory. Use the ./turnkeep command to consult it BEFORE producing the deliverable — it may have been updated since the brief was written.
+Commands (run them in this directory, each needs --scope bench):
+  ./turnkeep recall --scope bench --query <key>   — show the current value of a fact
+  ./turnkeep brief --scope bench --goal "<goal>"  — show the current brief
+  ./turnkeep begin --scope bench --task "<goal>"  — start a run (prints a run id)
+  ./turnkeep finish --scope bench --run <run-id> --key <deliverable-key> --value "<value>" --idempotency-key <task-id>-1  — record the deliverable with a receipt
+  If finish is rejected with STALE_SNAPSHOT, run ./turnkeep resume --scope bench --run <run-id>, then re-check with recall and finish again.
+  Always record the deliverable with finish (with a receipt) after writing the deliverable file.
+Exact finish command for this task (copy it, filling in <run-id> and <value>):
+  ./turnkeep finish --scope bench --run <run-id> --key report.revenue --value "<value>" --idempotency-key conf-f08-stable-1
+
+
+# How to work
+
+Follow these steps in order. You MUST do the work with tool calls (exec_command). Do not just reply in text.
+1. Read the task files and your memory FIRST.
+2. Write the deliverable to output/revenue.txt with exactly the format the task asks for.
+3. Verify the deliverable with `cat`.
+4. End your turn with a one-line summary of what you wrote and where.
+Only the deliverable file is scored; your chat reply is not scored. The task is NOT finished until the deliverable file exists and you have verified it with `cat`.
+- Never invent facts. Only use the brief, the project files, and your memory.
+- Do not use the network.
+
+warning: Codex could not find bubblewrap on PATH. Install bubblewrap with your OS package manager. See the sandbox prerequisites: https://developers.openai.com/codex/concepts/sandboxing#prerequisites. Codex will use the bundled bubblewrap in the meantime.
+2026-11-09T23:26:56.775299Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: WebSocket protocol error: No "Connection: upgrade" header, url: wss://api.openai.com/v1/responses
+2026-11-09T23:26:58.109219Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: WebSocket protocol error: No "Connection: upgrade" header, url: wss://api.openai.com/v1/responses
+2026-11-09T23:26:58.703099Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: WebSocket protocol error: No "Connection: upgrade" header, url: wss://api.openai.com/v1/responses
+ERROR: Reconnecting... 2/5
+2026-11-09T23:26:59.745170Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: WebSocket protocol error: No "Connection: upgrade" header, url: wss://api.openai.com/v1/responses
+ERROR: Reconnecting... 3/5
+2026-11-09T23:27:00.964281Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: WebSocket protocol error: No "Connection: upgrade" header, url: wss://api.openai.com/v1/responses
+ERROR: Reconnecting... 4/5
+2026-11-09T23:27:03.152519Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: WebSocket protocol error: No "Connection: upgrade" header, url: wss://api.openai.com/v1/responses
+ERROR: Reconnecting... 5/5
+2026-11-09T23:27:06.887360Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: WebSocket protocol error: No "Connection: upgrade" header, url: wss://api.openai.com/v1/responses
+warning: Falling back from WebSockets to HTTPS transport. stream disconnected before completion: WebSocket protocol error: No "Connection: upgrade" header
+codex
+I’ll inspect the task files and Turnkeep memory first, then write and verify the single-line deliverable and record it with a receipt.
+exec
+/bin/bash -lc "pwd && rg --files -g '"'!tk.sqlite3'"' -g '"'!turnkeep'"' . && ./turnkeep brief --scope bench --goal \"Acme revenue line\" && ./turnkeep recall --scope bench --query revenue" in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f08-stable-turnkeep-seed29/work
+ succeeded in 107ms:
+/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f08-stable-turnkeep-seed29/work
+./tk.sqlite3.pre-v1.bak
+./sources.md
+{
+  "scope": "bench",
+  "goal": "Acme revenue line",
+  "epoch": 2,
+  "current_status": "2 active records",
+  "valid_decisions": [],
+  "open_questions": [],
+  "attempts": [],
+  "recent_changes": [
+    {
+      "epoch": 2,
+      "event": "remember",
+      "affected_ids": [
+        "75df78f1cf5c429d81a1b2eaa7981750"
+      ],
+      "at": "2026-11-09T23:26:55.909431+00:00"
+    },
+    {
+      "epoch": 1,
+      "event": "remember",
+      "affected_ids": [
+        "24da1ffc73c94ae69f1f991b50d6249c"
+      ],
+      "at": "2026-11-09T23:26:55.888436+00:00"
+    }
+  ],
+  "suggested_next_steps": [
+    "Continue from the latest active records"
+  ],
+  "records": [
+    {
+      "must_keep": false,
+      "text": "report.revenue: \"$1.5M\" [24da1ffc73c94ae69f1f991b50d6249c]"
+    },
+    {
+      "must_keep": false,
+      "text": "report.revenue_authority: \"finance\" [75df78f1cf5c429d81a1b2eaa7981750]"
+    }
+  ],
+  "dropped_record_count": 0,
+  "chars_used": 128,
+  "max_chars": 4000,
+  "estimated_tokens": 33,
+  "budget_overrun": false
+}
+{
+  "scope": "bench",
+  "records": [
+    {
+      "id": "24da1ffc73c94ae69f1f991b50d6249c",
+      "key": "report.revenue",
+      "kind": "fact",
+      "state": "active",
+      "revision": 1,
+      "created_at": "2026-11-09T23:26:55.888137+00:00",
+      "updated_at": "2026-11-09T23:26:55.888137+00:00",
+      "valid_until": null,
+      "cause_event_id": null,
+      "scope": "bench",
+      "value": "$1.5M",
+      "source_refs": [
+        {
+          "id": "u:1",
+          "type": "user_statement"
+        }
+      ],
+      "parent_ids": [],
+      "supersedes_ids": [],
+      "_score": 1,
+      "_label": "active",
+      "_lexical_fallback": true
+    },
+    {
+      "id": "75df78f1cf5c429d81a1b2eaa7981750",
+      "key": "report.revenue_authority",
+      "kind": "fact",
+      "state": "active",
+      "revision": 1,
+      "created_at": "2026-11-09T23:26:55.909253+00:00",
+      "updated_at": "2026-11-09T23:26:55.909253+00:00",
+      "valid_until": null,
+      "cause_event_id": null,
+      "scope": "bench",
+      "value": "finance",
+      "source_refs": [
+        {
+          "id": "u:1",
+          "type": "user_statement"
+        }
+      ],
+      "parent_ids": [],
+      "supersedes_ids": [],
+      "_score": 1,
+      "_label": "active",
+      "_lexical_fallback": true
+    }
+  ]
+}
+
+exec
+/bin/bash -lc 'cat sources.md && ./turnkeep begin --scope bench --task "Acme revenue line"' in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f08-stable-turnkeep-seed29/work
+ succeeded in 72ms:
+# Revenue sources
+
+Sales and finance report different figures. Finance is authoritative for the published revenue line.
+{
+  "run_id": "c0b59a5177a449ae976d763b7c8075c4",
+  "scope": "bench",
+  "task": "Acme revenue line",
+  "read_epoch": 2,
+  "records": [
+    {
+      "id": "24da1ffc73c94ae69f1f991b50d6249c",
+      "key": "report.revenue",
+      "kind": "fact",
+      "state": "active",
+      "revision": 1,
+      "created_at": "2026-11-09T23:26:55.888137+00:00",
+      "updated_at": "2026-11-09T23:26:55.888137+00:00",
+      "valid_until": null,
+      "cause_event_id": null,
+      "scope": "bench",
+      "value": "$1.5M",
+      "source_refs": [
+        {
+          "id": "u:1",
+          "type": "user_statement"
+        }
+      ],
+      "parent_ids": [],
+      "supersedes_ids": []
+    },
+    {
+      "id": "75df78f1cf5c429d81a1b2eaa7981750",
+      "key": "report.revenue_authority",
+      "kind": "fact",
+      "state": "active",
+      "revision": 1,
+      "created_at": "2026-11-09T23:26:55.909253+00:00",
+      "updated_at": "2026-11-09T23:26:55.909253+00:00",
+      "valid_until": null,
+      "cause_event_id": null,
+      "scope": "bench",
+      "value": "finance",
+      "source_refs": [
+        {
+          "id": "u:1",
+          "type": "user_statement"
+        }
+      ],
+      "parent_ids": [],
+      "supersedes_ids": []
+    }
+  ],
+  "conflicts": [],
+  "status": "open"
+}
+
+codex
+Turnkeep’s current revenue entry is still $1.5M, while its authority entry says finance. The task specifies finance’s authoritative figure as $1.2M, so I’m writing that value and recording it against this run.
+exec
+/bin/bash -lc "mkdir -p output && printf '%s\\n' '"'$1.2M'"' > output/revenue.txt && cat output/revenue.txt && ./turnkeep finish --scope bench --run c0b59a5177a449ae976d763b7c8075c4 --key report.revenue --value '"'$1.2M'"' --idempotency-key conf-f08-stable-1" in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f08-stable-turnkeep-seed29/work
+ exited 1 in 18ms:
+$1.2M
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/hatch/workspace/turnkeep-work/src/turnkeep/__main__.py", line 7, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/hatch/workspace/turnkeep-work/src/turnkeep/cli.py", line 216, in main
+    out = _com.finish(db, args.scope, args.run, {"key": args.key, "value": args.value},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hatch/workspace/turnkeep-work/src/turnkeep/commits.py", line 103, in finish
+    result_id = insert_record(db, scope_id, result["key"], _json(result["value"]),
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hatch/workspace/turnkeep-work/src/turnkeep/storage.py", line 387, in insert_record
+    db.execute("INSERT INTO memories(id, scope_id, key, value_json, kind, state, revision, created_at, updated_at) "
+sqlite3.IntegrityError: UNIQUE constraint failed: memories.scope_id, memories.key
+
+codex
+The file is written and `cat` confirms `$1.2M`. `finish` failed because Turnkeep already has an active `report.revenue` record and hit a unique-key constraint; I’m checking the available command behavior so I can complete the required receipt without changing the deliverable.
+exec
+/bin/bash -lc './turnkeep finish --help && ./turnkeep --help && ./turnkeep recall --scope bench --query report.revenue' in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f08-stable-turnkeep-seed29/work
+ succeeded in 235ms:
+usage: turnkeep finish [-h] --scope SCOPE --run RUN --key KEY --value VALUE
+                       [--parent PARENT] [--idempotency-key IDEMPOTENCY_KEY]
+
+options:
+  -h, --help            show this help message and exit
+  --scope SCOPE
+  --run RUN
+  --key KEY
+  --value VALUE
+  --parent PARENT
+  --idempotency-key IDEMPOTENCY_KEY
+usage: turnkeep [-h] [--version] [--db DB] [--json] [--non-interactive]
+                {init,remember,begin,correct,retract,resolve,finish,resume,rebase,recall,brief,inspect,history,expire,sweep-expiry,erase,residuals,export,import,demo,doctor,mcp,serve}
+                ...
+
+Turnkeep local project memory (v0.1)
+
+positional arguments:
+  {init,remember,begin,correct,retract,resolve,finish,resume,rebase,recall,brief,inspect,history,expire,sweep-expiry,erase,residuals,export,import,demo,doctor,mcp,serve}
+
+options:
+  -h, --help            show this help message and exit
+  --version             show program's version number and exit
+  --db DB               SQLite path (default: per-scope data path)
+  --json                stable JSON output
+  --non-interactive     never prompt (default behaviour)
+{
+  "scope": "bench",
+  "records": [
+    {
+      "id": "24da1ffc73c94ae69f1f991b50d6249c",
+      "key": "report.revenue",
+      "kind": "fact",
+      "state": "active",
+      "revision": 1,
+      "created_at": "2026-11-09T23:26:55.888137+00:00",
+      "updated_at": "2026-11-09T23:26:55.888137+00:00",
+      "valid_until": null,
+      "cause_event_id": null,
+      "scope": "bench",
+      "value": "$1.5M",
+      "source_refs": [
+        {
+          "id": "u:1",
+          "type": "user_statement"
+        }
+      ],
+      "parent_ids": [],
+      "supersedes_ids": [],
+      "_score": 2,
+      "_label": "active",
+      "_lexical_fallback": true
+    },
+    {
+      "id": "75df78f1cf5c429d81a1b2eaa7981750",
+      "key": "report.revenue_authority",
+      "kind": "fact",
+      "state": "active",
+      "revision": 1,
+      "created_at": "2026-11-09T23:26:55.909253+00:00",
+      "updated_at": "2026-11-09T23:26:55.909253+00:00",
+      "valid_until": null,
+      "cause_event_id": null,
+      "scope": "bench",
+      "value": "finance",
+      "source_refs": [
+        {
+          "id": "u:1",
+          "type": "user_statement"
+        }
+      ],
+      "parent_ids": [],
+      "supersedes_ids": [],
+      "_score": 2,
+      "_label": "active",
+      "_lexical_fallback": true
+    }
+  ]
+}
+
+exec
+/bin/bash -lc "sed -n '1,220p' /home/hatch/workspace/turnkeep-work/src/turnkeep/commits.py && ./turnkeep correct --help && ./turnkeep resolve --help" in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f08-stable-turnkeep-seed29/work
+ succeeded in 164ms:
+"""Atomic finish + stale-snapshot rejection (T014). Contract §6, five steps,
+in ONE BEGIN IMMEDIATE transaction:
+
+1. Idempotency FIRST: if this run already succeeded, same request digest ->
+   return the original receipt; different digest -> IDEMPOTENCY_MISMATCH.
+   (Replay precedence over closed-state and epoch checks.)
+2. Read the server-bound run + scope; confirm it can still commit.
+3. Check current epoch == run's read epoch, else STALE_SNAPSHOT with
+   changed_keys / changed_record_ids / why (coarse-grain: epoch diff).
+4. Confirm all declared parents are still usable and in-scope.
+5. Write result + event + idempotency row, bump epoch, close run, store receipt.
+
+- The server merges its snapshot read-set into the result's parent_ids
+  (union with client-declared parents): omitting parents cannot dodge later
+  taint. An empty client parent list still inherits the snapshot set.
+- No LLM / network call inside the write transaction.
+- One run yields at most one result; external actions are NOT atomic with
+  the receipt (contract §7 — never claimed).
+"""
+from __future__ import annotations
+import json
+from .errors import TurnkeepError
+from .storage import (transaction, ensure_scope, scope_epoch, row_or_404,
+                      dump_record, insert_record, publish_event, _json,
+                      _text, _ids, _sources, _now, usable)
+from .idempotency import request_digest, check as idem_check, store as idem_store
+from .runs import get_run
+from .memory import active_records
+
+
+def _changed_since(db, scope_id, run):
+    snap_ids = {r["id"] for r in run["snapshot"]["records"]}
+    now = db.execute("SELECT id, key, state, revision FROM memories WHERE scope_id=?",
+                     (scope_id,)).fetchall()
+    changed_ids, changed_keys = [], []
+    now_map = {r["id"]: r for r in now}
+    for r in now:
+        old = next((s for s in run["snapshot"]["records"] if s["id"] == r["id"]), None)
+        if old is None or old["revision"] != r["revision"] or old["state"] != r["state"]:
+            changed_ids.append(r["id"])
+            if r["key"] not in changed_keys:
+                changed_keys.append(r["key"])
+    for s in run["snapshot"]["records"]:
+        if s["id"] not in now_map:
+            changed_ids.append(s["id"])
+    return sorted(set(changed_ids)), sorted(changed_keys)
+
+
+def finish(db, scope_id, run_id, result, *, parent_ids=(), idempotency_key="",
+           actor_binding="local"):
+    scope_id = _text(scope_id, "scope")
+    if not isinstance(result, dict) or "key" not in result or "value" not in result:
+        raise TurnkeepError("INVALID_INPUT", "finish result needs {key, value}")
+    parents = _ids(parent_ids)
+    with transaction(db, write=True):
+        ensure_scope(db, scope_id)
+        run = get_run(db, scope_id, run_id)
+        digest = request_digest("finish", scope_id, actor_binding,
+                                {"run_id": run_id, "result": result})
+        # Same key, different request -> refuse before any work, even on a
+        # run that has not succeeded yet.
+        if idempotency_key:
+            prior = idem_check(db, scope_id, actor_binding, "finish", idempotency_key, digest)
+            if prior is not None:
+                return prior
+        # 1. Idempotent replay precedes closed/epoch checks.
+        if run["status"] == "accepted" and run.get("receipt"):
+            stored = idem_check(db, scope_id, actor_binding, "finish",
+                                idempotency_key or run_id, digest)
+            if stored is not None:
+                return stored
+            # accepted but no idempotency row under this key: same digest via
+            # run-bound digest check
+            if run.get("request_digest") == digest:
+                return run["receipt"]
+            raise TurnkeepError("IDEMPOTENCY_MISMATCH",
+                                "Run already accepted with a different request")
+        if run["status"] != "open":
+            raise TurnkeepError("INVALID_INPUT", f"Run is {run['status']}, cannot finish")
+        # 3. Epoch check (before any write).
+        current_epoch = scope_epoch(db, scope_id)
+        if current_epoch != run["snapshot_epoch"]:
+            changed_ids, changed_keys = _changed_since(db, scope_id, run)
+            raise TurnkeepError("STALE_SNAPSHOT",
+                                "Project memory changed after this run read its snapshot; reread changes and recompute affected work.",
+                                changed_record_ids=changed_ids, changed_keys=changed_keys,
+                                from_epoch=run["snapshot_epoch"], to_epoch=current_epoch)
+        # 4. Declared parents must still be usable + in scope.
+        for p in parents:
+            if not usable(db, scope_id, p):
+                raise TurnkeepError("INVALID_PARENT",
+                                    "Declared parent is missing or unavailable", parent_id=p)
+        # Server read-set is merged in: the client cannot omit snapshot parents.
+        snapshot_ids = [r["id"] for r in run["snapshot"]["records"]]
+        all_parents = sorted(set(parents) | set(snapshot_ids))
+        for p in all_parents:
+            if not usable(db, scope_id, p):
+                raise TurnkeepError("INVALID_PARENT",
+                                    "Snapshot parent is no longer usable", parent_id=p)
+        # 5. Write result + event + receipt + idempotency, in this tx.
+        changes = {}
+        sources = [{"id": f"run:{run_id}", "type": "agent_inference"}]
+        result_id = insert_record(db, scope_id, result["key"], _json(result["value"]),
+                                  result.get("kind", "handoff"), sources, all_parents,
+                                  changes, state="active")
+        receipt = {"run_id": run_id, "scope": scope_id, "record_id": result_id,
+                   "request_digest": digest, "read_epoch": run["snapshot_epoch"],
+                   "commit_epoch": current_epoch + 1, "parent_ids": all_parents,
+                   "committed_at": _now(), "status_at_commit": "active",
+                   "guarantee": "local_sqlite_commit_only"}
+        db.execute("UPDATE runs SET status='accepted', accepted_at=?, result_memory_id=?, "
+                   "request_digest=?, receipt_json=? WHERE scope_id=? AND id=?",
+                   (receipt["committed_at"], result_id, digest, _json(receipt), scope_id, run_id))
+        publish_event(db, scope_id, "finish", actor_binding, changes,
+                      metadata={"key": result["key"], "run_id": run_id})
+        if idempotency_key:
+            idem_store(db, scope_id, actor_binding, "finish", idempotency_key, digest, receipt)
+        return receipt
+usage: turnkeep correct [-h] --scope SCOPE --id ID --expected-revision
+                        EXPECTED_REVISION --value VALUE [--source SOURCE]
+
+options:
+  -h, --help            show this help message and exit
+  --scope SCOPE
+  --id ID
+  --expected-revision EXPECTED_REVISION
+  --value VALUE
+  --source SOURCE
+usage: turnkeep resolve [-h] --scope SCOPE --key KEY --value VALUE
+                        [--candidate CANDIDATE] [--source SOURCE]
+
+options:
+  -h, --help            show this help message and exit
+  --scope SCOPE
+  --key KEY
+  --value VALUE
+  --candidate CANDIDATE
+  --source SOURCE
+
+codex
+Wrote and verified `$1.2M` in `output/revenue.txt`. Turnkeep could not record the receipt: `finish` failed because `report.revenue` already exists and violates its unique-key constraint.
+tokens used
+36,092

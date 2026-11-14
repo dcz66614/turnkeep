@@ -1,0 +1,12 @@
+{
+  "turnkeep_ids": {
+    "report.revenue": {
+      "id": "1c7f15582de54f369405b30d2f48f330",
+      "revision": 1
+    },
+    "report.revenue_authority": {
+      "id": "ec2fc15b46eb4c9a89597db2454bf3d3",
+      "revision": 1
+    }
+  }
+}

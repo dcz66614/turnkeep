@@ -1,0 +1,3 @@
+2026-11-08T10:00:00Z remember report.revenue = $1.5M (fact)
+2026-11-08T10:00:00Z remember report.revenue_authority = finance (fact)
+2026-11-08T11:00:00Z correct report.revenue = $1.2M

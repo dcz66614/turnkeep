@@ -1,0 +1,1 @@
+Wrote and verified `Python 3.12` in [output/manifest.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f10-changed-turnkeep-seed47/work/output/manifest.txt). Turnkeep recorded the deliverable with a receipt.

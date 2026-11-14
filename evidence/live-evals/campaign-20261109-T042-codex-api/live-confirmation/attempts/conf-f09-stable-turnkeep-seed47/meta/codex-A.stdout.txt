@@ -1,0 +1,1 @@
+Wrote and verified `eu-west-2` in [output/region.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f09-stable-turnkeep-seed47/work/output/region.txt). Turnkeep’s `finish` could not record the receipt: `deploy.region` already exists, and the command failed with a duplicate-key constraint.

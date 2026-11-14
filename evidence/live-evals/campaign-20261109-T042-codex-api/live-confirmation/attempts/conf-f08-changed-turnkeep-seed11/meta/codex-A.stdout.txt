@@ -1,0 +1,1 @@
+Wrote and verified `$1.2M` in [output/revenue.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f08-changed-turnkeep-seed11/work/output/revenue.txt). Turnkeep `finish` failed with a unique-key constraint because `report.revenue` already exists, so no receipt was recorded.

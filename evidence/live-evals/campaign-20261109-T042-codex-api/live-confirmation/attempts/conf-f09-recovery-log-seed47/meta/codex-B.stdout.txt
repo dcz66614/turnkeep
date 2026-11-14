@@ -1,0 +1,1 @@
+Updated `output/region.txt` to `eu-central-1` and verified it.

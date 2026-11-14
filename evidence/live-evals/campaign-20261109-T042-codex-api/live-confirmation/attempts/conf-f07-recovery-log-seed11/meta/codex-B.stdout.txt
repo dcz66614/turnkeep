@@ -1,0 +1,1 @@
+Updated and verified [output/manifest.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f07-recovery-log-seed11/work/output/manifest.txt) with `Python 3.13`.

@@ -1,0 +1,1 @@
+Updated and verified `output/manifest.txt` as `Python 3.13`; recorded it with Turnkeep.

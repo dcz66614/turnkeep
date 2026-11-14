@@ -1,0 +1,1 @@
+Updated and verified [output/revenue.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f08-recovery-turnkeep-seed29/work/output/revenue.txt) with `$1.3M`; Turnkeep `finish` still failed with a unique-key constraint.

@@ -1,0 +1,1 @@
+Re-checked `decisions.md`; the latest Python version remains 3.12. Verified [output/manifest.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f10-recovery-markdown-seed11/work/output/manifest.txt) contains `Python 3.12`.

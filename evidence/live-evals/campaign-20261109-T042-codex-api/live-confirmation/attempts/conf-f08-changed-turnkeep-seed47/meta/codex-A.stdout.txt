@@ -1,0 +1,1 @@
+Wrote and verified `$1.2M` in `output/revenue.txt`; Turnkeep could not record the receipt because `report.revenue` already exists in the database.

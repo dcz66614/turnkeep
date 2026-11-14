@@ -1,0 +1,1 @@
+Re-checked `events.log`; it still specifies Python 3.12. Verified `output/manifest.txt` contains `Python 3.12`.
