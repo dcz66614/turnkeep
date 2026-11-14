@@ -1,0 +1,1 @@
+Wrote `npm run build-legacy` to [output/build.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-pilot/attempts/pilot-f03-stable-turnkeep-seed20261108/work/output/build.txt) and verified it with `cat`. Turnkeep’s required `finish` call failed because `build.command` already exists.

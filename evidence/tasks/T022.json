@@ -1,0 +1,49 @@
+{
+  "task_id": "T022",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": null,
+  "base_revision": "0.1",
+  "changed_files": [
+    "src/turnkeep/transports/context.py",
+    "src/turnkeep/transports/policy.py",
+    "tests/security/test_transport_binding.py",
+    "tests/security/test_untrusted_text.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/security/test_transport_binding.py",
+        "tests/security/test_untrusted_text.py",
+        "-q"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "tests/security/test_transport_binding.py"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/run_gate.py",
+        "--task",
+        "T022"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/gate/T022.json"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "pytest security 10/10 (scope binding, body actor/tenant override FORBIDDEN, cross-scope run FORBIDDEN, path-like source rejected, injection text classified data_only and stored without authority)",
+      "run_gate --task T022 PASS"
+    ],
+    "failed": [],
+    "not_run": []
+  },
+  "risks": [],
+  "next_actions": []
+}

@@ -1,0 +1,81 @@
+{
+  "task_id": "T036",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": null,
+  "base_revision": "0.1",
+  "changed_files": [
+    "src/turnkeep/portability.py",
+    "specs/export.schema.json",
+    "src/turnkeep/cli.py",
+    "scripts/run_journey.py",
+    "tests/data/test_roundtrip.py",
+    "tests/data/test_import_trust.py",
+    "fixtures/imports/example-project/manifest.json",
+    "fixtures/imports/example-project/records.jsonl",
+    "fixtures/imports/example-project/events.jsonl",
+    "fixtures/imports/tampered/manifest.json",
+    "fixtures/imports/tampered/records.jsonl",
+    "fixtures/imports/tampered/events.jsonl",
+    "fixtures/imports/future-version/manifest.json",
+    "fixtures/imports/future-version/records.jsonl",
+    "fixtures/imports/future-version/events.jsonl"
+  ],
+  "commands": [
+    {
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/data/test_roundtrip.py",
+        "tests/data/test_import_trust.py",
+        "-q"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "tests/data/"
+    },
+    {
+      "argv": [
+        "python3",
+        "scripts/run_journey.py",
+        "--mode",
+        "cli",
+        "--journey",
+        "J05",
+        "--no-model"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "scripts/run_journey.py"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/run_gate.py",
+        "--task",
+        "T036"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/gate/T036.json"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "pytest tests/data 9/9 PASS (roundtrip equivalence, second-import no-op, dry-run writes nothing, fixture import)",
+      "run_journey --mode cli --journey J05 PASS (export excludes secret-like record by key only, import 3 records none quarantined, second import already_imported, export->import->export equivalent)",
+      "run_gate --task T036 PASS"
+    ],
+    "failed": [],
+    "not_run": []
+  },
+  "risks": [
+    "3 repairs: CLI import resolves target scope from the manifest when --scope is omitted (bind_context required a scope); import_batches PK collided across scopes (id now hashes scope+digest); replacements.reason NOT NULL was silently dropped by INSERT OR IGNORE (now reason='import'); quarantined parent edges dropped at write time (FK) with the child tainted, not faked",
+    "Export excludes secret-like values by a keyword pattern (same list as briefs.redact) — a value that looks like a secret but is not one is also excluded and listed; that is the fail-closed choice",
+    "Events are exported for audit but NOT replayed on import (one import event is written instead); roundtrip equivalence is defined on records/states/sources/dependencies, not raw event rows"
+  ],
+  "next_actions": [
+    "R4 T037 (Markdown migration)"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "failures": [],
+  "linux": {
+    "status": "PASS",
+    "checks": {
+      "platform": "Linux-7.0.0-43-generic-x86_64-with-glibc2.39",
+      "python": "3.12.3",
+      "sqlite": "3.45.1",
+      "cpu_count": 4,
+      "doctor": {
+        "exit_code": 0,
+        "ok": true
+      },
+      "journey_J01": {
+        "exit_code": 0,
+        "ok": true
+      },
+      "journey_J05": {
+        "exit_code": 0,
+        "ok": true
+      },
+      "spaces_and_chinese_path": {
+        "ok": true,
+        "db": "/tmp/tk-platform-dsec4k3b/带空格 的目录/子目录/my db.sqlite3"
+      },
+      "ui_production_gate": "PASS"
+    }
+  },
+  "windows": {
+    "status": "NOT_RUN",
+    "reason": "no Windows runner available on this VM; see .github/workflows/test.yml (workflow file is not evidence)"
+  },
+  "macos": {
+    "status": "NOT_RUN",
+    "reason": "no macOS runner available on this VM; see .github/workflows/test.yml (workflow file is not evidence)"
+  },
+  "note": "Only Linux has real evidence here. The support list contains only platforms with a passing record."
+}

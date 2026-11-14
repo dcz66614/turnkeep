@@ -1,0 +1,68 @@
+{
+  "task_id": "T023",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": null,
+  "base_revision": "0.1",
+  "changed_files": [
+    "evidence/mcp/smoke.json",
+    "scripts/mcp_smoke.py",
+    "src/turnkeep/storage.py",
+    "tests/mcp/test_conformance.py",
+    "tests/mcp/test_parallel_clients.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/mcp/test_conformance.py",
+        "tests/mcp/test_parallel_clients.py",
+        "-q"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "tests/mcp/test_conformance.py"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/mcp_smoke.py",
+        "--server",
+        "python -m turnkeep mcp"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/mcp/smoke.json"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/run_gate.py",
+        "--profile",
+        "protocol"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/gate/profile_protocol.json"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "pytest MCP conformance+parallel 6/6 (duplicate finish no double result, schema mismatch is_error, 200k payload, reconnect, two-client stale finish rejected, shared records)",
+      "mcp_smoke PASS (9 tools, remember/recall roundtrip)",
+      "run_gate --profile protocol PASS (T021+T022+T023)"
+    ],
+    "failed": [],
+    "not_run": []
+  },
+  "risks": [
+    "1 repair: concurrent first-open migration race (two MCP servers, same DB) — migrate() now serialises with BEGIN IMMEDIATE and re-checks version in-tx; storage tests re-run 11/11",
+    "1 repair: mcp_smoke resolves 'python' to sys.executable (bare 'python' is not on PATH here)"
+  ],
+  "next_actions": [
+    "T024 Claude Code adapter",
+    "T025 Codex adapter"
+  ]
+}

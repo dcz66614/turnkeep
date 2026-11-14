@@ -1,0 +1,72 @@
+{
+  "task_id": "T029",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": null,
+  "base_revision": "0.1",
+  "changed_files": [
+    "docs/UX_SPEC.md",
+    "scripts/check_docs.py",
+    "tests/ui/fixtures/overview.json",
+    "tests/ui/fixtures/states.json",
+    "ui/design/information-architecture.md",
+    "ui/package.json",
+    "ui/package-lock.json",
+    "ui/playwright.config.ts",
+    "ui/src/types.ts",
+    "ui/tsconfig.json",
+    "ui/vite.config.ts"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "scripts/check_docs.py",
+        "--profile",
+        "ux"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "docs/UX_SPEC.md"
+    },
+    {
+      "argv": [
+        "npm",
+        "--prefix",
+        "ui",
+        "run",
+        "typecheck"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "ui/tsconfig.json"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/run_gate.py",
+        "--task",
+        "T029"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/gate/T029.json"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "check_docs --profile ux PASS (J01–J05, 4 areas, 7 states, fixtures + types)",
+      "npm run typecheck PASS (typescript 5.6 + vite 6 + @playwright/test 1.49 + @types/node installed via npm, 20 packages; package-lock.json frozen)",
+      "run_gate --task T029 PASS"
+    ],
+    "failed": [],
+    "not_run": []
+  },
+  "risks": [
+    "1 repair: tsconfig referenced @types/node which was not installed — added @types/node devDependency; typecheck re-run PASS",
+    "npm registry reachable on this VM (install took 11s); package versions pinned in package-lock.json"
+  ],
+  "next_actions": [
+    "T030 Overview + History views"
+  ]
+}

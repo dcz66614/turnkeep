@@ -1,0 +1,50 @@
+{
+  "task_id": "T011",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": null,
+  "base_revision": "0.1",
+  "changed_files": [
+    "src/turnkeep/corrections.py",
+    "tests/core/test_corrections.py",
+    "tests/core/test_resolve.py",
+    "tests/core/test_retract.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/core/test_corrections.py",
+        "tests/core/test_retract.py",
+        "tests/core/test_resolve.py",
+        "-q"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "tests/core/test_corrections.py"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/run_gate.py",
+        "--task",
+        "T011"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/gate/T011.json"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "pytest corrections+retract+resolve 9/9 (CAS wrong-revision no side effects, conflicted->CONFLICT_REQUIRES_RESOLVE, partial/stale candidate set CANDIDATE_SET_CHANGED, retract keeps payload — NOT erase)",
+      "run_gate --task T011 PASS"
+    ],
+    "failed": [],
+    "not_run": []
+  },
+  "risks": [],
+  "next_actions": []
+}

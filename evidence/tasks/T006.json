@@ -1,0 +1,61 @@
+{
+  "task_id": "T006",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": null,
+  "base_revision": "0.1",
+  "changed_files": [
+    "HANDOFF.md",
+    "ops/worker-contract.json",
+    "scripts/check_state.py",
+    "state/BLOCKERS.md",
+    "state/CHECKPOINT.md",
+    "state/CONTROL_STATE.json",
+    "state/CURRENT_STATUS.md",
+    "state/DECISIONS.md",
+    "state/TASK_LEDGER.jsonl",
+    "tasks/backlog.json",
+    "tests/harness/test_state_recovery.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "scripts/check_state.py",
+        "--state",
+        "state/CONTROL_STATE.json",
+        "--backlog",
+        "tasks/backlog.json"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "state/CONTROL_STATE.json"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/harness/test_state_recovery.py",
+        "-q"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "tests/harness/test_state_recovery.py"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "check_state PASS (6 VERIFIED match state, evidence files present, next_action set)",
+      "pytest test_state_recovery 5/5 passed (run below)"
+    ],
+    "failed": [],
+    "not_run": []
+  },
+  "risks": [
+    "R0 was executed serially by the coordinator (linear chain, no model calls needed) — worker protocol documented for R1+; see DECISIONS D-R0-2"
+  ],
+  "next_actions": [
+    "R1 T007 storage model"
+  ]
+}

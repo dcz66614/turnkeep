@@ -1,0 +1,1 @@
+已将 `Python 3.11` 写入 `output/manifest.txt`，并使用 `cat` 验证。

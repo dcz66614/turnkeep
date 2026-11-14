@@ -1,0 +1,66 @@
+{
+  "task_id": "T003",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": null,
+  "base_revision": "0.1",
+  "changed_files": [
+    "scripts/check_contract.py",
+    "specs/ADAPTER_MAPPING.md",
+    "specs/CORE_CONTRACT.md",
+    "specs/PUBLIC_API.json",
+    "specs/TARGET_SCHEMA.sql",
+    "specs/error-codes.md",
+    "specs/public_api.schema.json",
+    "specs/state-transitions.json",
+    "src/turnkeep/types.py",
+    "tests/contract/fixtures/correct_missing_revision.json",
+    "tests/contract/fixtures/finish_valid.json",
+    "tests/contract/fixtures/remember_missing_key.json",
+    "tests/contract/fixtures/remember_valid.json",
+    "tests/contract/fixtures/resolve_partial_candidates.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "json.tool",
+        "specs/public_api.schema.json"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "specs/public_api.schema.json"
+    },
+    {
+      "argv": [
+        "python3",
+        "scripts/check_contract.py",
+        "--spec",
+        "specs/public_api.schema.json"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "specs/error-codes.md"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "check_contract PASS",
+      "public_api.schema.json valid JSON, ops/schemas match PUBLIC_API.json, 15 error codes",
+      "state machine frozen (7 states, starter implements 5, expired/erased product-only)",
+      "recall/resume/brief HTTP-path gap recorded in schema note, not papered over"
+    ],
+    "failed": [],
+    "not_run": [
+      "full legal/illegal payload schema validation deferred to T005 (per backlog step 5 — recorded, not claimed PASS here)"
+    ]
+  },
+  "risks": [
+    "PUBLIC_API has no recall/resume/brief paths vs T021's 9 MCP tools — must close in T021"
+  ],
+  "next_actions": [
+    "T004 workspace + lock",
+    "T005 evidence runner (then re-run T003 payload validation)"
+  ]
+}

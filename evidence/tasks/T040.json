@@ -1,0 +1,82 @@
+{
+  "task_id": "T040",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": null,
+  "base_revision": "0.1",
+  "changed_files": [
+    "benchmarks/PROTOCOL.md",
+    "benchmarks/suites/smoke.json",
+    "benchmarks/baselines/README.md",
+    "benchmarks/harness/scoring.py",
+    "benchmarks/harness/run.py",
+    "benchmarks/harness/arms/__init__.py",
+    "benchmarks/harness/arms/none.py",
+    "benchmarks/harness/arms/markdown.py",
+    "benchmarks/harness/arms/log.py",
+    "benchmarks/harness/arms/turnkeep.py",
+    "benchmarks/results/smoke-deterministic/attempts.jsonl",
+    "benchmarks/results/smoke-deterministic/summary.json",
+    "tests/benchmarks/test_scoring.py",
+    "tests/benchmarks/test_baseline_parity.py",
+    "conftest.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/benchmarks/test_scoring.py",
+        "tests/benchmarks/test_baseline_parity.py",
+        "-q"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "tests/benchmarks/"
+    },
+    {
+      "argv": [
+        "python3",
+        "benchmarks/harness/run.py",
+        "--suite",
+        "smoke",
+        "--mode",
+        "deterministic"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "benchmarks/results/smoke-deterministic/summary.json"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/run_gate.py",
+        "--task",
+        "T040"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/gate/T040.json"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "pytest tests/benchmarks 10/10 PASS (scorer overrides claimed success on stale facts, corrupt traces fail, redo cost + unknown tokens, irrelevant refusal, failures in denominator, markdown arm keeps grep+update, missing arms NOT_RUN not failures)",
+      "run.py --suite smoke --mode deterministic exit 0: 12 attempts, none 1/3, markdown 3/3, log 3/3, turnkeep 3/3, labelled SCRIPTED_SIMULATION_NO_MODEL_CALLS",
+      "run_gate --task T040 PASS"
+    ],
+    "failed": [],
+    "not_run": [
+      "Gate C live-model evaluation: no model credentials/budget in this task; the runner has no live mode by design. Mature-memory (Mem0/Hindsight) and nearest-workflow (Tigerless/Engram) arms NOT_RUN — no real installs configured."
+    ]
+  },
+  "risks": [
+    "2 repairs: the turnkeep arm caught SDKError but the client re-raises domain TurnkeepError unchanged (now caught); the Markdown/log retraction check used startswith('RETRACTED') but retraction lines carry a date prefix (now 'RETRACTED' in line) — found by the harness itself",
+    "tests/benchmarks/__init__.py was created and then removed: it made pytest import the test module as top-level 'benchmarks', shadowing the repo benchmarks/ package. Root conftest.py now inserts the repo root into sys.path instead",
+    "The smoke suite is a 3-task harness smoke test, not a superiority claim; all arms tie at 3/3 except none at 1/3. A confirmation suite needs the live-model budget first (EVALUATION_PLAN §6)"
+  ],
+  "next_actions": [
+    "R4 T041 (change replay + fault scenarios)"
+  ]
+}

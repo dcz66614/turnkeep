@@ -1,0 +1,1 @@
+Re-checked the available facts; the current currency is USD. Verified `output/quote.txt` contains `$100 USD`.

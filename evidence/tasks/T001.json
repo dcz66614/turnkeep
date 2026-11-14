@@ -1,0 +1,71 @@
+{
+  "task_id": "T001",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": null,
+  "base_revision": "0.1",
+  "changed_files": [
+    "evidence/baseline/starter-demo.json",
+    "evidence/baseline/starter-demo.txt",
+    "evidence/baseline/starter-tests.txt",
+    "ops/bootstrap/README.md",
+    "state/BASELINE_STATUS.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep/turnkeep-muse-kit/starter",
+      "exit_code": 0,
+      "evidence": "evidence/baseline/starter-tests.txt"
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "turnkeep",
+        "demo"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep/turnkeep-muse-kit/starter",
+      "exit_code": 0,
+      "evidence": "evidence/baseline/starter-demo.json"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/verify_package.py"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep/turnkeep-muse-kit",
+      "exit_code": 0,
+      "evidence": "state/SOURCE_READ_LOG.md"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "starter unittest 25/25 OK on this VM",
+      "starter demo SCRIPTED_SIMULATION_NO_MODEL_CALLS exit 0",
+      "SHA256SUMS 65/65 OK",
+      "verify_package PASS",
+      "kit kept as read-only reference, work dir separate"
+    ],
+    "failed": [],
+    "not_run": [
+      "MCP/HTTP/workbench/erase: NOT_IMPLEMENTED_IN_STARTER (by design, not a failure)",
+      "real clients / model eval / Win+mac: NOT_RUN"
+    ]
+  },
+  "risks": [
+    "Env differs from kit report (Python 3.12.3 vs 3.12.14, SQLite 3.45.1 vs 3.53.1) — tests pass; keep recording the diff"
+  ],
+  "next_actions": [
+    "T002 discovery",
+    "T003 contract freeze"
+  ]
+}

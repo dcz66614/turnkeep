@@ -1,0 +1,79 @@
+{
+  "task_id": "T030",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": null,
+  "base_revision": "0.1",
+  "changed_files": [
+    "specs/local-app-api.json",
+    "src/turnkeep/cli.py",
+    "src/turnkeep/web/app.py",
+    "src/turnkeep/web/routes.py",
+    "tests/web/test_local_boundary.py",
+    "tests/web/test_routes.py",
+    "tests/ui/overview.spec.ts",
+    "ui/index.html",
+    "ui/package.json",
+    "ui/src/api.ts",
+    "ui/src/components/RecordCard.ts",
+    "ui/src/main.ts",
+    "ui/src/views/History.ts",
+    "ui/src/views/Overview.ts"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "npm",
+        "--prefix",
+        "ui",
+        "run",
+        "build"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "ui/index.html"
+    },
+    {
+      "argv": [
+        "npm",
+        "--prefix",
+        "ui",
+        "run",
+        "test:e2e",
+        "--",
+        "overview.spec.ts"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "tests/ui/overview.spec.ts"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/run_gate.py",
+        "--task",
+        "T030"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/gate/T030.json"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "npm run build PASS (vite 6.4.5, 8 modules, dist 5.18 kB JS)",
+      "npm run test:e2e -- overview.spec.ts 2/2 PASS (real turnkeep serve on temp DB seeded via real CLI; overview shows seeded decision + 当前可用 badge; history lists it; wrong token shows actionable error, no fake data)"
+    ],
+    "failed": [],
+    "not_run": []
+  },
+  "risks": [
+    "3 repairs: (1) argparse --db overwrite — serve/mcp/demo subparsers' --db default None clobbered top-level --db, so serve opened a fresh empty DB (scopes [] / Unknown scope). Fixed with default=argparse.SUPPRESS + getattr guards; same fix for doctor --json. (2) CORS: vite dev (5173) vs API (random port) preflight had no OPTIONS handler and the Origin port check was too strict — loopback origins (any port) now allowed with preflight, non-loopback still 403, token still required; web tests 15/15 incl. new preflight test. (3) UI used record.sources but the API returns source_refs — types + RecordCard fixed to the real API shape.",
+    "API addition (coordinator decision, T029 rule): GET /api/v1/scopes (project list for Overview); OpenAPI snapshot updated to 12 paths, check_openapi PASS",
+    "serve port handling: allow_reuse_address=True + EADDRINUSE auto-picks a free local port with a stderr diagnostic; never 0.0.0.0",
+    "1 repair after staging: run_gate ignored backlog path_aliases (overview.spec.ts -> tests/ui/overview.spec.ts) and failed T030's gate on ownership — run_gate now applies spec path_aliases in check_path_ownership; self-test 6/6 + gate re-run PASS"
+  ],
+  "next_actions": [
+    "T031 Impact view + J03 journey (ui-api mode)"
+  ]
+}

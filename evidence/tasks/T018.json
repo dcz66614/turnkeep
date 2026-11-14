@@ -1,0 +1,65 @@
+{
+  "task_id": "T018",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": null,
+  "base_revision": "0.1",
+  "changed_files": [
+    "fixtures/core/scenarios.json",
+    "tests/integration/test_concurrency.py",
+    "tests/integration/test_core_faults.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/integration/test_core_faults.py",
+        "tests/integration/test_concurrency.py",
+        "-q"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "tests/integration/test_core_faults.py"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/run_gate.py",
+        "--profile",
+        "core"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/gate/profile_core.json"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/run_gate.py",
+        "--task",
+        "T018"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/gate/T018.json"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "pytest integration 8/8 (8-process concurrent remember: no silent last-writer-wins, <=1 active; 4-process concurrent correct: exactly 1 winner + 3 VERSION_CONFLICT; cross-scope/forge/replay/phantom/mis-block/corrupt-input negatives; killed writer leaves no receipt)",
+      "run_gate --profile core PASS (T007-T017 leaf gates)",
+      "run_gate --task T018 PASS",
+      "full suite 109/110 at checkpoint (1 stale-state failure fixed by updating CONTROL_STATE, see below)"
+    ],
+    "failed": [],
+    "not_run": []
+  },
+  "risks": [
+    "1 repair in T018: correct()/retract() reordered to check revision BEFORE state (starter order) so concurrent losers get VERSION_CONFLICT, not INVALID_INPUT"
+  ],
+  "next_actions": [
+    "R2 T019 CLI"
+  ]
+}

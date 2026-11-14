@@ -1,0 +1,49 @@
+{
+  "task_id": "T017",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": null,
+  "base_revision": "0.1",
+  "changed_files": [
+    "src/turnkeep/briefs.py",
+    "src/turnkeep/handoff.py",
+    "tests/core/test_briefs.py",
+    "tests/core/test_handoff.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/core/test_briefs.py",
+        "tests/core/test_handoff.py",
+        "-q"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "tests/core/test_briefs.py"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/run_gate.py",
+        "--task",
+        "T017"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/gate/T017.json"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "pytest briefs+handoff 5/5 (fixed fields + record IDs, budget keeps conflicts, secret-like values redacted, handoff envelope format/scope/note, unknown goal not invented)",
+      "run_gate --task T017 PASS"
+    ],
+    "failed": [],
+    "not_run": []
+  },
+  "risks": [],
+  "next_actions": []
+}

@@ -1,0 +1,79 @@
+{
+  "task_id": "T032",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": null,
+  "base_revision": "0.1",
+  "changed_files": [
+    "specs/local-app-api.json",
+    "src/turnkeep/web/routes.py",
+    "tests/ui/correction.spec.ts",
+    "tests/web/test_write_races.py",
+    "ui/index.html",
+    "ui/src/components/RecordCard.ts",
+    "ui/src/guard.ts",
+    "ui/src/main.ts",
+    "ui/src/views/Conflicts.ts",
+    "ui/src/views/Impact.ts",
+    "ui/src/views/RecordEditor.ts"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "npm",
+        "--prefix",
+        "ui",
+        "run",
+        "test:e2e",
+        "--",
+        "correction.spec.ts"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "tests/ui/correction.spec.ts"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/web/test_write_races.py",
+        "-q"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "tests/web/test_write_races.py"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/run_gate.py",
+        "--task",
+        "T032"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/gate/T032.json"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "npm run test:e2e -- correction.spec.ts 2/2 PASS (editor CAS: concurrent CLI update -> 409 shown, no silent overwrite; conflicts view resolves full candidate set with new evidence)",
+      "pytest tests/web/test_write_races.py 4/4 PASS (concurrent corrects 1 winner + 3x409; stale candidate set -> CANDIDATE_SET_CHANGED whole rejection; body scope/actor forgery ignored; concurrent finish same idempotency key -> identical receipt)",
+      "full e2e suite 5/5 PASS after fixes"
+    ],
+    "failed": [],
+    "not_run": []
+  },
+  "risks": [
+    "API addition (coordinator decision, T029 rule): GET /api/v1/conflicts; OpenAPI snapshot now 15 paths, check_openapi PASS",
+    "1 repair: stale vite dev server (reuseExistingServer) served the old bundle after the nav edit — killed and re-ran; e2e now green. Note: e2e runs must use a fresh dev server when UI files change.",
+    "1 repair (real race): hash-change render race — an older in-flight Overview fetch overwrote the newer Conflicts view. Added ui/src/guard.ts generation guard; all views check isCurrent(gen) after awaits.",
+    "1 repair: Overview rework count used recall without history (conflicted records never appear) — now counts via /api/v1/conflicts.",
+    "1 repair in tests: impact.spec.ts locator ambiguous after the impact path rendered the same key — switched to heading role.",
+    "Source types are the 4 core types (user_statement/tool_observation/agent_inference/imported_text); the race test's 'external_document' was invalid and fixed."
+  ],
+  "next_actions": [
+    "T033 handoff + recovery panel, J02 ui-api journey"
+  ]
+}

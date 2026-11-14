@@ -1,0 +1,85 @@
+{
+  "task_id": "T004",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": null,
+  "base_revision": "0.1",
+  "changed_files": [
+    "LICENSE",
+    "docs/ENVIRONMENT.md",
+    "pyproject.toml",
+    "requirements/base.lock",
+    "requirements/mcp.lock",
+    "requirements/ui.lock",
+    "scripts/bootstrap_product.py",
+    "src/turnkeep/__init__.py",
+    "src/turnkeep/__main__.py",
+    "src/turnkeep/errors.py",
+    "src/turnkeep/store.py",
+    "src/turnkeep/types.py",
+    "tests/baseline/test_seed_parity.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "pip",
+        "install",
+        "-e",
+        ".[dev]"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "requirements/base.lock"
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "turnkeep",
+        "--help"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "docs/ENVIRONMENT.md"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/baseline/test_seed_parity.py",
+        "-q"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "tests/baseline/test_seed_parity.py"
+    },
+    {
+      "argv": [
+        "python3",
+        "scripts/bootstrap_product.py"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "docs/ENVIRONMENT.md"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "pip install -e .[dev] in .venv exit 0 (pytest 9.2.0)",
+      "turnkeep --help exit 0",
+      "pytest tests/baseline/test_seed_parity.py 4/4 passed",
+      "bootstrap_product PASS (demo OK, offline)"
+    ],
+    "failed": [],
+    "not_run": []
+  },
+  "risks": [
+    "System Python is PEP-668 externally managed — venv is the only install route; do not --break-system-packages"
+  ],
+  "next_actions": [
+    "T005 evidence runner"
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "task_id": "T042",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": "3722e933ce664544557b422765a012289f6d81e1",
+  "base_revision": "0.1",
+  "changed_files": [
+    "benchmarks/live/run.py",
+    "benchmarks/live/report.py",
+    "state/eval-budget.json",
+    "docs/EVALUATION_RESULTS.md",
+    "evidence/live-evals/gap.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "benchmarks/live/run.py",
+        "--protocol",
+        "benchmarks/PROTOCOL.md",
+        "--budget-file",
+        "state/eval-budget.json"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 2,
+      "evidence": "evidence/live-evals/gap.json"
+    },
+    {
+      "argv": [
+        "python3",
+        "benchmarks/live/report.py",
+        "--input",
+        "evidence/live-evals"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "docs/EVALUATION_RESULTS.md"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/run_gate.py",
+        "--task",
+        "T042"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/gate/T042.json"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "benchmarks/live/run_live.py",
+        "--suite",
+        "pilot",
+        "--driver",
+        "codex-api"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/live-evals/campaign-20261109-T042-codex-api/live-pilot/summary.json"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "benchmarks/live/run_live.py",
+        "--suite",
+        "confirmation",
+        "--driver",
+        "codex-api",
+        "--parallel",
+        "2"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/summary.json"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "Offline implementation complete: live runner (precondition checker, never simulates a run), report generator, $0 budget template, EVALUATION_RESULTS.md gap table",
+      "codex-api route COMPLETE and CLEAN (Sam 2026-11-09 ~19:54: official Codex API, GPT-6 Luna low effort): pilot CLEAN 43/48 (89.6%), confirmation CLEAN 354/432 (81.9%) - none 46/108 (stale 53.7%), markdown 105/108, log 105/108, turnkeep 98/108 (stale 0.0%, violations 11, redo 2.43); total spend $1.90 for all 480 attempts; commits 298ef6e/b27968c/3722e93",
+      "agy route COMPLETE and CLEAN (2026-11-09 ~05:00 GMT): pilot CLEAN 43/48 (89.6%), confirmation CLEAN 352/432 (81.5%) - turnkeep 95/108 (stale 0.0%, violations 18, redo 21.69); $0 new spend",
+      "run_gate --task T042 PASS (2026-11-10T09:12:09Z)"
+    ],
+    "failed": [],
+    "not_run": [
+      "Copilot-bridge Codex route: pilot contaminated twice (M365 empty-answer outages 00:30Z and 18:31Z); re-run pilot 17/27 valid after deleting 21 artifacts, confirmation NOT run - never quoted as a result",
+      "Two-client comparison (depends on T026) and competitor arms B3/B4 (no real Mem0/Hindsight, Tigerless/Engram installs) NOT_RUN"
+    ]
+  },
+  "risks": [
+    "FINDING IS MIXED: turnkeep arm 0% stale on both clean runs but completion below the file arms (codex-api 90.7% vs 97.2%; agy 88.0% vs 99.1%/97.2%) - no blanket win claim; VALUE_EVALUATED must be graded on that basis",
+    "1 repair: run.py wrote the gap record under benchmarks/evidence/ (ROOT index off by one); fixed to the work root",
+    "The live runner deliberately refuses to start a campaign on its own even if preconditions were met - spending needs Sam's explicit go-ahead"
+  ],
+  "next_actions": [
+    "T042 VERIFIED per Sam 2026-11-10 ~09:08 GMT (codex-api run meets its own bar). No further live runs planned unless Sam asks for a different model/arm"
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "acceptance": {
+    "failed": [],
+    "not_run": [
+      "Dependency vulnerability scan (pip-audit / npm audit): not performed in T045; recorded as a limitation in SECURITY.md section 2 and in release_checks.py output, with a next action for T046/T047. The PASS verdict does not cover known CVEs in pinned dependencies.",
+      "No dynamic penetration test, fuzzing, or external audit was done (out of scope; stated in SECURITY.md)."
+    ],
+    "passed": [
+      "release_checks.py --profile license-and-secrets: exit 0, verdict PASS, 362 files scanned, 0 FAIL/HIGH, 285 INFO (all machine cwd records in evidence/state working files + test/fixture paths), 13 whitelisted fake-secret findings with stated reasons. First run exit 1 (9 FAILs) was a genuine catch: my own check assumed redact() emits '<redacted>' while it emits '[REDACTED]'; fixed the check (not the product) plus allowlisted the two scanners' own leak-pattern lists and reworded a literal machine path out of SECURITY.md. One targeted repair round, then PASS.",
+      "pytest tests/security/test_release_boundary.py -q: 9 passed. Covers LICENSE/NOTICE/SECURITY.md presence, SBOM-vs-lock agreement (Python + Node), no copyleft, release_checks PASS as a subprocess, loopback-only bind, functional brief redaction, secret-key exclusion on import paths, SECURITY.md release-boundary wording. Full tests/security/ dir: 19 passed.",
+      "SBOM verified against locks, not hand-written: release/SBOM.json has 103 components (33 Python from requirements/base.lock + requirements/mcp.lock + installed transitive metadata, 70 Node from ui/package-lock.json: 4 direct + 66 transitive). Licences present: MIT, MIT-0, ISC, PSF-2.0, Apache-2.0, BSD-2/3-Clause. No GPL/AGPL. Graphviz searched across the whole tree: not used, not in SBOM. Core is stdlib + SQLite only; web API is stdlib http.server (no FastAPI/Uvicorn at runtime); no third-party full text bundled (docs quote only short competitor taglines with links; starter seed is original MIT code).",
+      "No real secret found in the repository. All secret-pattern hits are allowlisted fakes: sk-live-123456 / sk-live-999 (redaction + injection tests), SYNTHETIC-SECRET-* (erasure fixtures), api_key=<redacted> placeholders, and the scanners' own pattern lists.",
+      "README check: README.md / README.zh-CN.md say only 'License: MIT' with a pointer to SECURITY.md; no source-available-as-standard-open-source claim was found. No README edit was needed and none was made (README.md is outside T045 owned_paths)."
+    ]
+  },
+  "base_revision": "0.1",
+  "branch": null,
+  "changed_files": [
+    "NOTICE",
+    "SECURITY.md",
+    "release/SBOM.json",
+    "scripts/release_checks.py",
+    "tests/security/test_release_boundary.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/release_checks.py",
+        "--profile",
+        "license-and-secrets"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "evidence": "evidence/tasks/T045.json",
+      "exit_code": 1,
+      "shell": false
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/release_checks.py",
+        "--profile",
+        "license-and-secrets"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "evidence": "evidence/tasks/T045.json",
+      "exit_code": 0,
+      "shell": false
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/security/test_release_boundary.py",
+        "-q"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "evidence": "evidence/tasks/T045.json",
+      "exit_code": 0,
+      "shell": false
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/security/",
+        "-q"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "evidence": "evidence/tasks/T045.json",
+      "exit_code": 0,
+      "shell": false
+    }
+  ],
+  "head_sha": "4c5caad1853b3c9e6071293892fdfd72f5aa2e28",
+  "next_actions": [
+    "Coordinator: verify T045 independently and mark VERIFIED if accepted; commit the 5 new files (LICENSE unchanged — listed in changed_files only because the task card lists it as an owned path that was verified, not modified).",
+    "Requested change outside T045 owned_paths (do NOT silently apply): docs/KNOWN_LIMITATIONS.md item 12 still says T045 is pending and SECURITY.md does not exist yet — now stale; T044/docs owner should update it to point at SECURITY.md / release/SBOM.json / scripts/release_checks.py.",
+    "Requested change outside T045 owned_paths: regenerate or remove stale requirements/ui.lock and update pyproject.toml optional deps (mcp/ui) to match requirements/mcp.lock and ui/package-lock.json (T004/T029 owners).",
+    "T046/T047: run pip-audit / npm audit against release/SBOM.json before any public release; exclude evidence/ and state/ from the shipped package; consider making the two hardcoded test cwd paths repo-root-relative.",
+    "No GitHub/Drive/external publication was done (not authorised in this task)."
+  ],
+  "risks": [
+    "Medium — lock hygiene gap (recorded in NOTICE section 4, SBOM notes, SECURITY.md risk table): requirements/ui.lock is EMPTY/stale while ui/package-lock.json pins the real Node deps; pyproject.toml optional deps mcp=[] / ui=[] are stale while requirements/mcp.lock pins the real MCP deps. The SBOM itself is accurate (built from the real locks + installed metadata), but rebuilding from ui.lock/pyproject alone would give different/missing deps. Fix belongs to the lock owners (T004/T029 paths), outside T045 owned_paths.",
+    "Low — machine home-directory paths appear as cwd records in evidence/ and state/ working files, and as a hardcoded subprocess cwd in tests/core/test_finish_races.py and tests/integration/test_concurrency.py; tests/platform/test_paths.py uses a synthetic Windows fixture path with a placeholder username. Classified INFO by the scanner (visible in every report), not hidden. Precondition to matter: T046 packaging ships evidence/ or state/, or the paths are read as real user data. Follow-up: make the test cwd repo-root-relative (test owners).",
+    "Low — turnkeep serve prints the session token on stdout; same-machine observers only, acceptable only under the single-trusted-user model.",
+    "Low — no dependency vulnerability scan performed (see not_run above); known CVEs in pinned versions unassessed until a scan runs.",
+    "Info — perf FAIL (finish p95 7,760ms @10k; recall p95 3,183ms + finish p95 12,288ms @100k; cold start 159ms PASS) and Windows/macOS NOT_RUN (T043) are release boundaries, not security vulnerabilities; stated in SECURITY.md section 5 and NOT treated as fixed by this task."
+  ],
+  "status": "IMPLEMENTED",
+  "task_id": "T045"
+}

@@ -1,0 +1,1 @@
+Wrote `run migrate-db-v3 then deploy` to `output/plan.txt` and verified it with `cat`.

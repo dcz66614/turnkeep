@@ -1,0 +1,49 @@
+{
+  "task_id": "T010",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": null,
+  "base_revision": "0.1",
+  "changed_files": [
+    "src/turnkeep/memory.py",
+    "src/turnkeep/normalization.py",
+    "tests/core/test_conflicts.py",
+    "tests/core/test_remember.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/core/test_remember.py",
+        "tests/core/test_conflicts.py",
+        "-q"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "tests/core/test_remember.py"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/run_gate.py",
+        "--task",
+        "T010"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/gate/T010.json"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "pytest remember+conflicts 9/9 (reuse/no-op, VERSION_REQUIRED on provenance append, both-conflicted, CONFLICT_REQUIRES_RESOLVE, REPLACEMENT_REQUIRED, imported type kept, case is NOT merged)",
+      "run_gate --task T010 PASS"
+    ],
+    "failed": [],
+    "not_run": []
+  },
+  "risks": [],
+  "next_actions": []
+}

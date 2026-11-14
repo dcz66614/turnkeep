@@ -1,0 +1,158 @@
+{
+  "tool_calls": [
+    {
+      "name": "exec_command",
+      "arguments": "pwd && rg --files -g '!turnkeep' -g '!tk.sqlite3' && ./turnkeep brief --scope bench --goal \\\"Write Acme quote total\\\" && ./turnkeep recall --scope bench --query currency",
+      "timestamp": "2026-11-09T23:22:02.451Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.5 seconds\nOutput:\n/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f11-recovery-turnkeep-seed29/work\ntk.sqlite3.pre-v1.bak\npricing.md\n{\n  \"scope\": \"bench\",\n  \"goal\": \"Write Acme quote total\",\n  \"epoch\": 3,\n  \"current_status\": \"2 active records\",\n  \"valid_decisions\": [],\n  \"open_questions\": [],\n  \"attempts\": [],\n  \"recent_changes\": [\n    {\n      \"epoch\": 3,\n      \"event\": \"correct\",\n      \"affected_ids\": [\n        \"18d6007cc20147f1b9c80abbcf5d9a04\",\n        \"8dda650a7dfa4f55bd790976b31a6312\"\n      ],\n      \"at\": \"2026-11-09T23:21:49.422829+00:00\"\n    },\n    {\n      \"epoch\": 2,\n      \"event\": \"remember\",\n      \"affected_ids\": [\n        \"51736325645549cdb1a7d62559f36959\"\n      ],\n      \"at\": \"2026-11-09T23:21:49.357464+00:00\"\n    },\n    {\n      \"epoch\": 1,\n      \"event\": \"remember\",\n      \"affected_ids\": [\n        \"18d6007cc20147f1b9c80abbcf5d9a04\"\n      ],\n      \"at\": \"2026-11-09T23:21:49.329145+00:00\"\n    }\n  ],\n  \"suggested_next_steps\": [\n    \"Continue from the latest active records\"\n  ],\n  \"records\": [\n    {\n      \"must_keep\": false,\n      \"text\": \"pricing.currency: \\\"EUR\\\" [8dda650a7dfa4f55bd790976b31a6312]\"\n    },\n    {\n      \"must_keep\": false,\n      \"text\": \"quote.total: \\\"$100 USD\\\" [51736325645549cdb1a7d62559f36959]\"\n    }\n  ],\n  \"dropped_record_count\": 0,\n  \"chars_used\": 116,\n  \"max_chars\": 4000,\n  \"estimated_tokens\": 30,\n  \"budget_overrun\": false\n}\n{\n  \"scope\": \"bench\",\n  \"records\": [\n    {\n      \"id\": \"8dda650a7dfa4f55bd790976b31a6312\",\n      \"key\": \"pricing.currency\",\n      \"kind\": \"fact\",\n      \"state\": \"active\",\n      \"revision\": 1,\n      \"created_at\": \"2026-11-09T23:21:49.422536+00:00\",\n      \"updated_at\": \"2026-11-09T23:21:49.422536+00:00\",\n      \"valid_until\": null,\n      \"cause_event_id\": null,\n      \"scope\": \"bench\",\n      \"value\": \"EUR\",\n      \"source_refs\": [\n        {\n          \"id\": \"u:1\",\n          \"type\": \"user_statement\"\n        }\n      ],\n  ",
+      "timestamp": "2026-11-09T23:22:02.934Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "cat pricing.md && ./turnkeep begin --scope bench --task \\\"Write Acme quote total\\\"",
+      "timestamp": "2026-11-09T23:22:04.939Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.4 seconds\nOutput:\n# Pricing\n\nQuotes are $100 in the current pricing currency. The total must be recomputed when the currency changes.\n{\n  \"run_id\": \"12a0b80423ad44a7aeefd8ad34aa40ca\",\n  \"scope\": \"bench\",\n  \"task\": \"Write Acme quote total\",\n  \"read_epoch\": 3,\n  \"records\": [\n    {\n      \"id\": \"8dda650a7dfa4f55bd790976b31a6312\",\n      \"key\": \"pricing.currency\",\n      \"kind\": \"fact\",\n      \"state\": \"active\",\n      \"revision\": 1,\n      \"created_at\": \"2026-11-09T23:21:49.422536+00:00\",\n      \"updated_at\": \"2026-11-09T23:21:49.422536+00:00\",\n      \"valid_until\": null,\n      \"cause_event_id\": null,\n      \"scope\": \"bench\",\n      \"value\": \"EUR\",\n      \"source_refs\": [\n        {\n          \"id\": \"u:1\",\n          \"type\": \"user_statement\"\n        }\n      ],\n      \"parent_ids\": [],\n      \"supersedes_ids\": [\n        \"18d6007cc20147f1b9c80abbcf5d9a04\"\n      ]\n    },\n    {\n      \"id\": \"51736325645549cdb1a7d62559f36959\",\n      \"key\": \"quote.total\",\n      \"kind\": \"fact\",\n      \"state\": \"active\",\n      \"revision\": 1,\n      \"created_at\": \"2026-11-09T23:21:49.357294+00:00\",\n      \"updated_at\": \"2026-11-09T23:21:49.357294+00:00\",\n      \"valid_until\": null,\n      \"cause_event_id\": null,\n      \"scope\": \"bench\",\n      \"value\": \"$100 USD\",\n      \"source_refs\": [\n        {\n          \"id\": \"u:1\",\n          \"type\": \"user_statement\"\n        }\n      ],\n      \"parent_ids\": [],\n      \"supersedes_ids\": []\n    }\n  ],\n  \"conflicts\": [],\n  \"status\": \"open\"\n}\n",
+      "timestamp": "2026-11-09T23:22:05.306Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "mkdir -p output && printf '%s\\\\n' '$100 EUR' > output/quote.txt && cat output/quote.txt && ./turnkeep finish --scope bench --run 12a0b80423ad44a7aeefd8ad34aa40ca --key quote.total --value \\\"$100 EUR\\\" --idempotency-key conf-f11-recovery-1",
+      "timestamp": "2026-11-09T23:22:07.039Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.4 seconds\nOutput:\n$100 EUR\nTraceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/home/hatch/workspace/turnkeep-work/src/turnkeep/__main__.py\", line 7, in <module>\n    raise SystemExit(main())\n                     ^^^^^^\n  File \"/home/hatch/workspace/turnkeep-work/src/turnkeep/cli.py\", line 216, in main\n    out = _com.finish(db, args.scope, args.run, {\"key\": args.key, \"value\": args.value},\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/hatch/workspace/turnkeep-work/src/turnkeep/commits.py\", line 103, in finish\n    result_id = insert_record(db, scope_id, result[\"key\"], _json(result[\"value\"]),\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/hatch/workspace/turnkeep-work/src/turnkeep/storage.py\", line 387, in insert_record\n    db.execute(\"INSERT INTO memories(id, scope_id, key, value_json, kind, state, revision, created_at, updated_at) \"\nsqlite3.IntegrityError: UNIQUE constraint failed: memories.scope_id, memories.key\n",
+      "timestamp": "2026-11-09T23:22:07.396Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "./turnkeep --help && ./turnkeep correct --help",
+      "timestamp": "2026-11-09T23:22:09.866Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.5 seconds\nOutput:\nusage: turnkeep [-h] [--version] [--db DB] [--json] [--non-interactive]\n                {init,remember,begin,correct,retract,resolve,finish,resume,rebase,recall,brief,inspect,history,expire,sweep-expiry,erase,residuals,export,import,demo,doctor,mcp,serve}\n                ...\n\nTurnkeep local project memory (v0.1)\n\npositional arguments:\n  {init,remember,begin,correct,retract,resolve,finish,resume,rebase,recall,brief,inspect,history,expire,sweep-expiry,erase,residuals,export,import,demo,doctor,mcp,serve}\n\noptions:\n  -h, --help            show this help message and exit\n  --version             show program's version number and exit\n  --db DB               SQLite path (default: per-scope data path)\n  --json                stable JSON output\n  --non-interactive     never prompt (default behaviour)\nusage: turnkeep correct [-h] --scope SCOPE --id ID --expected-revision\n                        EXPECTED_REVISION --value VALUE [--source SOURCE]\n\noptions:\n  -h, --help            show this help message and exit\n  --scope SCOPE\n  --id ID\n  --expected-revision EXPECTED_REVISION\n  --value VALUE\n  --source SOURCE\n",
+      "timestamp": "2026-11-09T23:22:10.382Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "sed -n '1,180p' /home/hatch/workspace/turnkeep-work/src/turnkeep/commits.py && ./turnkeep recall --scope bench --query quote.total",
+      "timestamp": "2026-11-09T23:22:12.651Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.3 seconds\nOutput:\n\"\"\"Atomic finish + stale-snapshot rejection (T014). Contract §6, five steps,\nin ONE BEGIN IMMEDIATE transaction:\n\n1. Idempotency FIRST: if this run already succeeded, same request digest ->\n   return the original receipt; different digest -> IDEMPOTENCY_MISMATCH.\n   (Replay precedence over closed-state and epoch checks.)\n2. Read the server-bound run + scope; confirm it can still commit.\n3. Check current epoch == run's read epoch, else STALE_SNAPSHOT with\n   changed_keys / changed_record_ids / why (coarse-grain: epoch diff).\n4. Confirm all declared parents are still usable and in-scope.\n5. Write result + event + idempotency row, bump epoch, close run, store receipt.\n\n- The server merges its snapshot read-set into the result's parent_ids\n  (union with client-declared parents): omitting parents cannot dodge later\n  taint. An empty client parent list still inherits the snapshot set.\n- No LLM / network call inside the write transaction.\n- One run yields at most one result; external actions are NOT atomic with\n  the receipt (contract §7 — never claimed).\n\"\"\"\nfrom __future__ import annotations\nimport json\nfrom .errors import TurnkeepError\nfrom .storage import (transaction, ensure_scope, scope_epoch, row_or_404,\n                      dump_record, insert_record, publish_event, _json,\n                      _text, _ids, _sources, _now, usable)\nfrom .idempotency import request_digest, check as idem_check, store as idem_store\nfrom .runs import get_run\nfrom .memory import active_records\n\n\ndef _changed_since(db, scope_id, run):\n    snap_ids = {r[\"id\"] for r in run[\"snapshot\"][\"records\"]}\n    now = db.execute(\"SELECT id, key, state, revision FROM memories WHERE scope_id=?\",\n                     (scope_id,)).fetchall()\n    changed_ids, changed_keys = [], []\n    now_map = {r[\"id\"]: r for r in now}\n    for r in now:\n        old = next((s for s in run[\"snapshot\"][\"records\"] if s[\"id\"] == r[\"id\"]), None)\n        if old is None or old[\"revis",
+      "timestamp": "2026-11-09T23:22:12.925Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "./turnkeep retract --help",
+      "timestamp": "2026-11-09T23:22:14.942Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.4 seconds\nOutput:\nusage: turnkeep retract [-h] --scope SCOPE --id ID --expected-revision\n                        EXPECTED_REVISION --reason REASON\n\noptions:\n  -h, --help            show this help message and exit\n  --scope SCOPE\n  --id ID\n  --expected-revision EXPECTED_REVISION\n  --reason REASON\n",
+      "timestamp": "2026-11-09T23:22:15.413Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "./turnkeep retract --scope bench --id 51736325645549cdb1a7d62559f36959 --expected-revision 1 --reason \\\"Superseded by recomputed quote total\\\" && ./turnkeep resume --scope bench --run 12a0b80423ad44a7aeefd8ad34aa40ca && ./turnkeep recall --scope bench --query currency && ./turnkeep finish --scope bench --run 12a0b80423ad44a7aeefd8ad34aa40ca --key quote.total --value \\\"$100 EUR\\\" --idempotency-key conf-f11-recovery-1 && cat output/quote.txt",
+      "timestamp": "2026-11-09T23:22:18.014Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 1.3 seconds\nOutput:\n{\n  \"id\": \"51736325645549cdb1a7d62559f36959\",\n  \"key\": \"quote.total\",\n  \"kind\": \"fact\",\n  \"state\": \"retracted\",\n  \"revision\": 2,\n  \"created_at\": \"2026-11-09T23:21:49.357294+00:00\",\n  \"updated_at\": \"2026-11-09T23:22:18.404269+00:00\",\n  \"valid_until\": null,\n  \"cause_event_id\": null,\n  \"scope\": \"bench\",\n  \"value\": \"$100 USD\",\n  \"source_refs\": [\n    {\n      \"id\": \"u:1\",\n      \"type\": \"user_statement\"\n    }\n  ],\n  \"parent_ids\": [],\n  \"supersedes_ids\": []\n}\n{\n  \"run_id\": \"12a0b80423ad44a7aeefd8ad34aa40ca\",\n  \"scope\": \"bench\",\n  \"from_epoch\": 3,\n  \"to_epoch\": 4,\n  \"changed\": [\n    {\n      \"id\": \"51736325645549cdb1a7d62559f36959\",\n      \"key\": \"quote.total\",\n      \"from_state\": \"active\",\n      \"to_state\": \"retracted\",\n      \"from_revision\": 1,\n      \"to_revision\": 2\n    }\n  ],\n  \"added\": [],\n  \"removed\": [],\n  \"changed_keys\": [\n    \"quote.total\"\n  ],\n  \"changed_record_ids\": [\n    \"51736325645549cdb1a7d62559f36959\"\n  ],\n  \"candidate_snapshot\": {\n    \"run_id\": \"53100c44adb4458cb25a7ac6309a17d3\",\n    \"read_epoch\": 4,\n    \"record_ids\": [\n      \"8dda650a7dfa4f55bd790976b31a6312\"\n    ]\n  },\n  \"old_result_still_valid\": false\n}\n{\n  \"scope\": \"bench\",\n  \"records\": [\n    {\n      \"id\": \"8dda650a7dfa4f55bd790976b31a6312\",\n      \"key\": \"pricing.currency\",\n      \"kind\": \"fact\",\n      \"state\": \"active\",\n      \"revision\": 1,\n      \"created_at\": \"2026-11-09T23:21:49.422536+00:00\",\n      \"updated_at\": \"2026-11-09T23:21:49.422536+00:00\",\n      \"valid_until\": null,\n      \"cause_event_id\": null,\n      \"scope\": \"bench\",\n      \"value\": \"EUR\",\n      \"source_refs\": [\n        {\n          \"id\": \"u:1\",\n          \"type\": \"user_statement\"\n        }\n      ],\n      \"parent_ids\": [],\n      \"supersedes_ids\": [\n        \"18d6007cc20147f1b9c80abbcf5d9a04\"\n      ],\n      \"_score\": 1,\n      \"_label\": \"active\",\n      \"_lexical_fallback\": true\n    }\n  ]\n}\n{\n  \"error\": {\n    \"code\": \"STALE_SNAPSHOT\",\n    \"message\": \"Project memory changed after this run read its snapsho",
+      "timestamp": "2026-11-09T23:22:19.308Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "./turnkeep resume --scope bench --run 12a0b80423ad44a7aeefd8ad34aa40ca && ./turnkeep recall --scope bench --query currency && ./turnkeep finish --scope bench --run 53100c44adb4458cb25a7ac6309a17d3 --key quote.total --value \\\"$100 EUR\\\" --idempotency-key conf-f11-recovery-1 && cat output/quote.txt",
+      "timestamp": "2026-11-09T23:22:22.060Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.7 seconds\nOutput:\n{\n  \"run_id\": \"12a0b80423ad44a7aeefd8ad34aa40ca\",\n  \"scope\": \"bench\",\n  \"from_epoch\": 3,\n  \"to_epoch\": 4,\n  \"changed\": [\n    {\n      \"id\": \"51736325645549cdb1a7d62559f36959\",\n      \"key\": \"quote.total\",\n      \"from_state\": \"active\",\n      \"to_state\": \"retracted\",\n      \"from_revision\": 1,\n      \"to_revision\": 2\n    }\n  ],\n  \"added\": [],\n  \"removed\": [],\n  \"changed_keys\": [\n    \"quote.total\"\n  ],\n  \"changed_record_ids\": [\n    \"51736325645549cdb1a7d62559f36959\"\n  ],\n  \"candidate_snapshot\": {\n    \"run_id\": \"990ba092c08b4e0c98bbb844fa332f1b\",\n    \"read_epoch\": 4,\n    \"record_ids\": [\n      \"8dda650a7dfa4f55bd790976b31a6312\"\n    ]\n  },\n  \"old_result_still_valid\": false\n}\n{\n  \"scope\": \"bench\",\n  \"records\": [\n    {\n      \"id\": \"8dda650a7dfa4f55bd790976b31a6312\",\n      \"key\": \"pricing.currency\",\n      \"kind\": \"fact\",\n      \"state\": \"active\",\n      \"revision\": 1,\n      \"created_at\": \"2026-11-09T23:21:49.422536+00:00\",\n      \"updated_at\": \"2026-11-09T23:21:49.422536+00:00\",\n      \"valid_until\": null,\n      \"cause_event_id\": null,\n      \"scope\": \"bench\",\n      \"value\": \"EUR\",\n      \"source_refs\": [\n        {\n          \"id\": \"u:1\",\n          \"type\": \"user_statement\"\n        }\n      ],\n      \"parent_ids\": [],\n      \"supersedes_ids\": [\n        \"18d6007cc20147f1b9c80abbcf5d9a04\"\n      ],\n      \"_score\": 1,\n      \"_label\": \"active\",\n      \"_lexical_fallback\": true\n    }\n  ]\n}\n{\n  \"run_id\": \"53100c44adb4458cb25a7ac6309a17d3\",\n  \"scope\": \"bench\",\n  \"record_id\": \"bf26b0e8fabe4490bae562f86459c775\",\n  \"request_digest\": \"1828d8cdb8f51937c1422564543199c1a34dac80b0f7170a61c43a534de52cf8\",\n  \"read_epoch\": 4,\n  \"commit_epoch\": 5,\n  \"parent_ids\": [\n    \"8dda650a7dfa4f55bd790976b31a6312\"\n  ],\n  \"committed_at\": \"2026-11-09T23:22:22.685429+00:00\",\n  \"status_at_commit\": \"active\",\n  \"guarantee\": \"local_sqlite_commit_only\"\n}\n$100 EUR\n",
+      "timestamp": "2026-11-09T23:22:22.800Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "./turnkeep recall --scope bench --query currency && ./turnkeep recall --scope bench --query quote.total && ./turnkeep brief --scope bench --goal \\\"Write Acme quote total\\\"",
+      "timestamp": "2026-11-09T23:22:38.380Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.6 seconds\nOutput:\n{\n  \"scope\": \"bench\",\n  \"records\": [\n    {\n      \"id\": \"36d3d99d69a54b03b893bccb59bcc9a6\",\n      \"key\": \"pricing.currency\",\n      \"kind\": \"fact\",\n      \"state\": \"active\",\n      \"revision\": 1,\n      \"created_at\": \"2026-11-09T23:22:25.359806+00:00\",\n      \"updated_at\": \"2026-11-09T23:22:25.359806+00:00\",\n      \"valid_until\": null,\n      \"cause_event_id\": null,\n      \"scope\": \"bench\",\n      \"value\": \"GBP\",\n      \"source_refs\": [\n        {\n          \"id\": \"u:1\",\n          \"type\": \"user_statement\"\n        }\n      ],\n      \"parent_ids\": [],\n      \"supersedes_ids\": [\n        \"8dda650a7dfa4f55bd790976b31a6312\"\n      ],\n      \"_score\": 1,\n      \"_label\": \"active\",\n      \"_lexical_fallback\": true\n    }\n  ]\n}\n{\n  \"scope\": \"bench\",\n  \"records\": []\n}\n{\n  \"scope\": \"bench\",\n  \"goal\": \"Write Acme quote total\",\n  \"epoch\": 6,\n  \"current_status\": \"1 active records\",\n  \"valid_decisions\": [],\n  \"open_questions\": [],\n  \"attempts\": [],\n  \"recent_changes\": [\n    {\n      \"epoch\": 6,\n      \"event\": \"correct\",\n      \"affected_ids\": [\n        \"36d3d99d69a54b03b893bccb59bcc9a6\",\n        \"8dda650a7dfa4f55bd790976b31a6312\",\n        \"bf26b0e8fabe4490bae562f86459c775\"\n      ],\n      \"at\": \"2026-11-09T23:22:25.360090+00:00\"\n    },\n    {\n      \"epoch\": 5,\n      \"event\": \"finish\",\n      \"affected_ids\": [\n        \"bf26b0e8fabe4490bae562f86459c775\"\n      ],\n      \"at\": \"2026-11-09T23:22:22.685696+00:00\"\n    },\n    {\n      \"epoch\": 4,\n      \"event\": \"retract\",\n      \"affected_ids\": [\n        \"51736325645549cdb1a7d62559f36959\"\n      ],\n      \"at\": \"2026-11-09T23:22:18.404655+00:00\"\n    },\n    {\n      \"epoch\": 3,\n      \"event\": \"correct\",\n      \"affected_ids\": [\n        \"18d6007cc20147f1b9c80abbcf5d9a04\",\n        \"8dda650a7dfa4f55bd790976b31a6312\"\n      ],\n      \"at\": \"2026-11-09T23:21:49.422829+00:00\"\n    },\n    {\n      \"epoch\": 2,\n      \"event\": \"remember\",\n      \"affected_ids\": [\n        \"51736325645549cdb1a7d62559f36959\"\n      ],\n      \"at\": \"2026-11-09T23",
+      "timestamp": "2026-11-09T23:22:39.001Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "printf '%s\\\\n' '$100 GBP' > output/quote.txt && cat output/quote.txt && ./turnkeep resume --scope bench --run 53100c44adb4458cb25a7ac6309a17d3",
+      "timestamp": "2026-11-09T23:22:41.632Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.4 seconds\nOutput:\n$100 GBP\n{\n  \"run_id\": \"53100c44adb4458cb25a7ac6309a17d3\",\n  \"scope\": \"bench\",\n  \"from_epoch\": 4,\n  \"to_epoch\": 6,\n  \"changed\": [\n    {\n      \"id\": \"8dda650a7dfa4f55bd790976b31a6312\",\n      \"key\": \"pricing.currency\",\n      \"from_state\": \"active\",\n      \"to_state\": \"superseded\",\n      \"from_revision\": 1,\n      \"to_revision\": 2\n    }\n  ],\n  \"added\": [\n    {\n      \"id\": \"36d3d99d69a54b03b893bccb59bcc9a6\",\n      \"key\": \"pricing.currency\"\n    }\n  ],\n  \"removed\": [],\n  \"changed_keys\": [\n    \"pricing.currency\"\n  ],\n  \"changed_record_ids\": [\n    \"36d3d99d69a54b03b893bccb59bcc9a6\",\n    \"8dda650a7dfa4f55bd790976b31a6312\"\n  ],\n  \"candidate_snapshot\": {\n    \"run_id\": \"1a5b8d562d2f49019197af145605221c\",\n    \"read_epoch\": 6,\n    \"record_ids\": [\n      \"36d3d99d69a54b03b893bccb59bcc9a6\"\n    ]\n  },\n  \"old_result_still_valid\": false\n}\n",
+      "timestamp": "2026-11-09T23:22:42.055Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "./turnkeep recall --scope bench --query currency && ./turnkeep finish --scope bench --run 1a5b8d562d2f49019197af145605221c --key quote.total --value \\\"$100 GBP\\\" --idempotency-key conf-f11-recovery-1 && cat output/quote.txt",
+      "timestamp": "2026-11-09T23:22:43.676Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.5 seconds\nOutput:\n{\n  \"scope\": \"bench\",\n  \"records\": [\n    {\n      \"id\": \"36d3d99d69a54b03b893bccb59bcc9a6\",\n      \"key\": \"pricing.currency\",\n      \"kind\": \"fact\",\n      \"state\": \"active\",\n      \"revision\": 1,\n      \"created_at\": \"2026-11-09T23:22:25.359806+00:00\",\n      \"updated_at\": \"2026-11-09T23:22:25.359806+00:00\",\n      \"valid_until\": null,\n      \"cause_event_id\": null,\n      \"scope\": \"bench\",\n      \"value\": \"GBP\",\n      \"source_refs\": [\n        {\n          \"id\": \"u:1\",\n          \"type\": \"user_statement\"\n        }\n      ],\n      \"parent_ids\": [],\n      \"supersedes_ids\": [\n        \"8dda650a7dfa4f55bd790976b31a6312\"\n      ],\n      \"_score\": 1,\n      \"_label\": \"active\",\n      \"_lexical_fallback\": true\n    }\n  ]\n}\n{\n  \"error\": {\n    \"code\": \"IDEMPOTENCY_MISMATCH\",\n    \"message\": \"Same idempotency key with a different request\",\n    \"details\": {}\n  }\n}\n",
+      "timestamp": "2026-11-09T23:22:44.211Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "./turnkeep finish --scope bench --run 1a5b8d562d2f49019197af145605221c --key quote.total --value \\\"$100 GBP\\\" --idempotency-key conf-f11-recovery-2 && cat output/quote.txt",
+      "timestamp": "2026-11-09T23:22:46.274Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.4 seconds\nOutput:\n{\n  \"run_id\": \"1a5b8d562d2f49019197af145605221c\",\n  \"scope\": \"bench\",\n  \"record_id\": \"3f1c2c60673d4f8889970c72bdd1cffe\",\n  \"request_digest\": \"f2be258ffe1b0053d283c36f9d595f916d3f20c74b23a979123863be06437029\",\n  \"read_epoch\": 6,\n  \"commit_epoch\": 7,\n  \"parent_ids\": [\n    \"36d3d99d69a54b03b893bccb59bcc9a6\"\n  ],\n  \"committed_at\": \"2026-11-09T23:22:46.531276+00:00\",\n  \"status_at_commit\": \"active\",\n  \"guarantee\": \"local_sqlite_commit_only\"\n}\n$100 GBP\n",
+      "timestamp": "2026-11-09T23:22:46.701Z"
+    }
+  ],
+  "agent_messages": [
+    "I’ll read the task files and current Turnkeep facts first, then write and verify the quote before recording it.",
+    "The quote file is written and verified as `$100 EUR`. `finish` hit a uniqueness error because `quote.total` already exists in memory; I’m checking the CLI’s supported correction path so the receipt records the recomputed value cleanly.",
+    "Wrote and verified `$100 EUR` in [output/quote.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f11-recovery-turnkeep-seed29/work/output/quote.txt). Recorded the deliverable with a Turnkeep receipt.",
+    "I’ll re-check the current quote and currency in Turnkeep, then update and verify the file if the current facts require it.",
+    "Updated and verified [output/quote.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f11-recovery-turnkeep-seed29/work/output/quote.txt) with `$100 GBP`, using the current currency from Turnkeep."
+  ],
+  "max_total_tokens": 257210,
+  "task_duration_ms": 22246,
+  "last_message": "Updated and verified [output/quote.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f11-recovery-turnkeep-seed29/work/output/quote.txt) with `$100 GBP`, using the current currency from Turnkeep.",
+  "found": true,
+  "task_completed": true,
+  "stale_rejections": 2,
+  "finish_receipt": true,
+  "usage_split": {
+    "input_tokens": 255353,
+    "cached_input_tokens": 169423,
+    "cache_write_input_tokens": 85888,
+    "output_tokens": 1857,
+    "reasoning_output_tokens": 532
+  },
+  "rollout_path": "/home/hatch/.codex/sessions/2026/11/09/rollout-2026-11-09T23-21-50-01a1c29e-3307-7970-9088-43110f27196e.jsonl"
+}

@@ -1,0 +1,71 @@
+{
+  "task_id": "T038",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": null,
+  "base_revision": "0.1",
+  "changed_files": [
+    "src/turnkeep/retention.py",
+    "src/turnkeep/erasure.py",
+    "src/turnkeep/cli.py",
+    "scripts/check_erasure.py",
+    "tests/privacy/test_erasure.py",
+    "tests/privacy/test_expiry.py",
+    "tests/privacy/test_residuals.py",
+    "docs/retention.md"
+  ],
+  "commands": [
+    {
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/privacy/test_erasure.py",
+        "tests/privacy/test_expiry.py",
+        "tests/privacy/test_residuals.py",
+        "-q"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "tests/privacy/"
+    },
+    {
+      "argv": [
+        "python3",
+        "scripts/check_erasure.py",
+        "--synthetic-fixture"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "scripts/check_erasure.py"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/run_gate.py",
+        "--task",
+        "T038"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/gate/T038.json"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "pytest tests/privacy 8/8 PASS (erase removes payload from recall/history/receipts, CAS + already-erased guard, append-only PARTIAL refusal, expiry sweep + taint + idempotency, no probabilistic decay, residuals listed, retract vs erase not confused)",
+      "check_erasure.py --synthetic-fixture PASS (live DB bytes clean after checkpoint+VACUUM, receipt clean, residuals COMPLETE_WITH_RESIDUALS)",
+      "run_gate --task T038 PASS"
+    ],
+    "failed": [],
+    "not_run": []
+  },
+  "risks": [
+    "1 repair: residual report listed the live DB itself as an uncontrolled copy; the live file (+WAL/SHM) is now excluded",
+    "Erasure purges the live file only; SSD/filesystem backups and external client history are reported as residuals, never claimed deleted — see docs/retention.md",
+    "If a payload is also in append-only events, erase returns PARTIAL and leaves the record untouched; the honest path is export-to-fresh-DB + delete the old one"
+  ],
+  "next_actions": [
+    "R4 T039 (backup/restore + crash recovery)"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "schema_version": "turnkeep.evidence/v1",
+  "statuses": [
+    "PASS",
+    "FAIL",
+    "NOT_RUN",
+    "BLOCKED_EXTERNAL",
+    "BLOCKED_CORE"
+  ],
+  "record": {
+    "required": [
+      "task_id",
+      "status",
+      "commands",
+      "evidence_files"
+    ],
+    "command": {
+      "required": [
+        "argv",
+        "exit_code",
+        "evidence"
+      ]
+    }
+  },
+  "rule": "A PASS requires an actually-run command with exit_code 0 and an evidence file. Missing credential/host/runner is NOT_RUN, never PASS. Failures are appended, never overwritten."
+}

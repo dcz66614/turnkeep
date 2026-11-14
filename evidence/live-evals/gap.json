@@ -1,0 +1,11 @@
+{
+  "task": "T042",
+  "status": "NOT_RUN",
+  "reason": "live campaign not started by this script",
+  "details": {
+    "model": "gpt5.6sol",
+    "authorised_spend_usd": 0,
+    "fix": "Preconditions are met, but a live campaign requires an explicit go-ahead. Re-run with --live to run the pilot (6 tasks x 2 variants) first, then the frozen confirmation set, per EVALUATION_PLAN §6-§7."
+  },
+  "note": "No live model call was made by this invocation. Earlier partial/contaminated campaigns, if any, live under evidence/live-evals/campaign-*/ — see their GAP records; do not present this file as the whole T042 story."
+}

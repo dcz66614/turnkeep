@@ -1,0 +1,1 @@
+Wrote `Python 3.12` to [output/manifest.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-pilot/attempts/pilot-f10-changed-log-seed20261108/work/output/manifest.txt) and verified it with `cat`.

@@ -1,0 +1,1 @@
+Wrote `Python 3.11` to `output/manifest.txt`.

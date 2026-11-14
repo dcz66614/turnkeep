@@ -1,0 +1,50 @@
+{
+  "task_id": "T012",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": null,
+  "base_revision": "0.1",
+  "changed_files": [
+    "src/turnkeep/lineage.py",
+    "tests/core/test_lineage.py",
+    "tests/core/test_taint.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/core/test_lineage.py",
+        "tests/core/test_taint.py",
+        "-q"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "tests/core/test_lineage.py"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/run_gate.py",
+        "--task",
+        "T012"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/gate/T012.json"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "pytest lineage+taint 8/8 (chain/diamond taint, cycle CYCLE_DETECTED, cross-scope/missing INVALID_PARENT, impact paths, remember-conflict taints child)",
+      "run_gate --task T012 PASS"
+    ],
+    "failed": [],
+    "not_run": []
+  },
+  "risks": [],
+  "next_actions": [
+    "T013 begin snapshot"
+  ]
+}

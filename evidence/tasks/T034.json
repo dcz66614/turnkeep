@@ -1,0 +1,75 @@
+{
+  "task_id": "T034",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": null,
+  "base_revision": "0.1",
+  "changed_files": [
+    "docs/demo.md",
+    "examples/demo/export-format.replay.jsonl",
+    "examples/demo/research-correction.replay.jsonl",
+    "fixtures/demo/export-format/changes.jsonl",
+    "fixtures/demo/export-format/requirements.csv",
+    "fixtures/demo/research-correction/notes.csv",
+    "fixtures/demo/research-correction/retraction.jsonl",
+    "scripts/record_demo.py",
+    "src/turnkeep/cli.py",
+    "src/turnkeep/demo.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "turnkeep",
+        "demo",
+        "--scenario",
+        "export-format",
+        "--no-model"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "src/turnkeep/demo.py"
+    },
+    {
+      "argv": [
+        "python3",
+        "scripts/record_demo.py",
+        "--scenario",
+        "export-format",
+        "--verify"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "examples/demo/export-format.replay.jsonl"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/run_gate.py",
+        "--task",
+        "T034"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/gate/T034.json"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "turnkeep demo --scenario export-format --no-model PASS (CSV read, JSONL change, stale finish rejected, recompute + idempotent replay)",
+      "record_demo.py --scenario export-format --verify PASS (8 events, chain intact, fresh re-run identical); research-correction also recorded + verified (7 events)",
+      "tamper guard checked: editing a replay value to 'zip' makes --verify FAIL with 'digest chain broken' (exit 1)"
+    ],
+    "failed": [],
+    "not_run": []
+  },
+  "risks": [
+    "2 repairs in research-correction: (1) tainted conclusion cannot be corrected in place — replaced explicitly via remember + replaces_ids; (2) final lookup must use the new active record, not the old tainted id",
+    "1 repair in export-format: finish key collided with the CSV requirement key (UNIQUE scope+key) — CSV row renamed to export.manifest.name",
+    "CLI demo gained --scenario/--no-model; scenario runs without --no-model exit 2 NOT_RUN"
+  ],
+  "next_actions": [
+    "T035 workbench e2e + accessibility + packaging (R3 close)"
+  ]
+}

@@ -1,0 +1,1 @@
+Wrote and verified `run migrate-db-v3 then deploy` in [output/plan.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f12-changed-turnkeep-seed29/work/output/plan.txt). Turnkeep recording failed because `deploy.plan` already exists and the database rejected the duplicate key.

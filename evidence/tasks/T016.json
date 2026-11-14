@@ -1,0 +1,51 @@
+{
+  "task_id": "T016",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": null,
+  "base_revision": "0.1",
+  "changed_files": [
+    "src/turnkeep/budget.py",
+    "src/turnkeep/retrieval.py",
+    "tests/retrieval/test_budget.py",
+    "tests/retrieval/test_filters.py",
+    "tests/retrieval/test_multilingual.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/retrieval/test_filters.py",
+        "tests/retrieval/test_budget.py",
+        "tests/retrieval/test_multilingual.py",
+        "-q"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "tests/retrieval/test_filters.py"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/run_gate.py",
+        "--task",
+        "T016"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/gate/T016.json"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "pytest retrieval 11/11 (cross-scope excluded at candidate stage, invalid records hidden by default + labelled in history, empty query, Chinese tokenise/recall, mixed code symbols, long value, chars-not-tokens, must_keep never dropped)",
+      "run_gate --task T016 PASS"
+    ],
+    "failed": [],
+    "not_run": []
+  },
+  "risks": [],
+  "next_actions": []
+}

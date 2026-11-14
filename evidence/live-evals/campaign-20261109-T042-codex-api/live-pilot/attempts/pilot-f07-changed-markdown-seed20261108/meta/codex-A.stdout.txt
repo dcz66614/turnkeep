@@ -1,0 +1,1 @@
+Wrote and verified `output/manifest.txt` with `Python 3.12`.

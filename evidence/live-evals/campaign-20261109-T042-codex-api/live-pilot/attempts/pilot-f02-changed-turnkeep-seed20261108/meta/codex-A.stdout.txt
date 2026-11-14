@@ -1,0 +1,1 @@
+Wrote and verified `user.display_name` in `output/field.txt`. Turnkeep’s `finish` could not record the receipt because `api.user_field` already exists and its key must be unique.

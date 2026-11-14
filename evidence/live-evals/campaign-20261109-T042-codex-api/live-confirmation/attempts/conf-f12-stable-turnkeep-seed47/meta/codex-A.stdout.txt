@@ -1,0 +1,1 @@
+Wrote and verified `output/plan.txt` with `run migrate-db-v2 then deploy`. Turnkeep’s requested `finish` command failed because `deploy.plan` already exists and the database enforces a unique key.

@@ -1,0 +1,15 @@
+{
+  "server": "turnkeep",
+  "tools": [
+    "begin",
+    "recall",
+    "remember",
+    "correct",
+    "retract",
+    "resolve_conflict",
+    "resume",
+    "finish",
+    "brief"
+  ],
+  "status": "PASS"
+}

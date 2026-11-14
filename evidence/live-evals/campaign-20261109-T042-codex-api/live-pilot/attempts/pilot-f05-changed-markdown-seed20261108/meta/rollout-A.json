@@ -1,0 +1,56 @@
+{
+  "tool_calls": [
+    {
+      "name": "exec_command",
+      "arguments": "rg --files -g 'decisions.md' -g '*report*' -g '*draft*' -g 'AGENTS.md' -g 'README*'",
+      "timestamp": "2026-11-09T23:05:27.874Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.2 seconds\nOutput:\ndecisions.md\nreport-draft.md\n",
+      "timestamp": "2026-11-09T23:05:28.083Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "cat decisions.md && cat report-draft.md",
+      "timestamp": "2026-11-09T23:05:29.664Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.1 seconds\nOutput:\n# Project decisions (memory)\n\nThe LATEST entry for a key wins.\n- report.deadline = Friday (fact) — recorded 2026-11-08, source: user\n- RETRACTED: report.deadline (was Friday) — source retracted 2026-11-08\n# Weekly report (draft)\n\nStatus: on track.\n",
+      "timestamp": "2026-11-09T23:05:29.804Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "mkdir -p output && printf '%s\\\\n' 'deadline unknown — source retracted' > output/summary.txt && cat output/summary.txt",
+      "timestamp": "2026-11-09T23:05:31.464Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.1 seconds\nOutput:\ndeadline unknown — source retracted\n",
+      "timestamp": "2026-11-09T23:05:31.606Z"
+    }
+  ],
+  "agent_messages": [
+    "I’ll read the draft and the latest project memory first, then write and verify the one-line summary.",
+    "Wrote `deadline unknown — source retracted` to [output/summary.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-pilot/attempts/pilot-f05-changed-markdown-seed20261108/work/output/summary.txt) and verified it with `cat`."
+  ],
+  "max_total_tokens": 53897,
+  "task_duration_ms": 17684,
+  "last_message": "Wrote `deadline unknown — source retracted` to [output/summary.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-pilot/attempts/pilot-f05-changed-markdown-seed20261108/work/output/summary.txt) and verified it with `cat`.",
+  "found": true,
+  "task_completed": true,
+  "stale_rejections": 0,
+  "finish_receipt": false,
+  "usage_split": {
+    "input_tokens": 53604,
+    "cached_input_tokens": 26541,
+    "cache_write_input_tokens": 27051,
+    "output_tokens": 293,
+    "reasoning_output_tokens": 13
+  },
+  "rollout_path": "/home/hatch/.codex/sessions/2026/11/09/rollout-2026-11-09T23-05-15-01a1c28f-0649-7ca2-afbe-fe3de1b2766b.jsonl"
+}

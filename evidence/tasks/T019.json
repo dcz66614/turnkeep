@@ -1,0 +1,59 @@
+{
+  "task_id": "T019",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": null,
+  "base_revision": "0.1",
+  "changed_files": [
+    "scripts/run_journey.py",
+    "src/turnkeep/__init__.py",
+    "src/turnkeep/__main__.py",
+    "src/turnkeep/cli.py",
+    "src/turnkeep/demo.py",
+    "tests/cli/test_exit_codes.py",
+    "tests/cli/test_journeys.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/cli/test_journeys.py",
+        "tests/cli/test_exit_codes.py",
+        "-q"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "tests/cli/test_journeys.py"
+    },
+    {
+      "argv": [
+        "python3",
+        "scripts/run_journey.py",
+        "--mode",
+        "cli",
+        "--journey",
+        "J01",
+        "--no-model"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "scripts/run_journey.py"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "pytest CLI 9/9 (J01 full journey, labelled demo, spaces/Chinese/quotes values, STALE_SNAPSHOT + IDEMPOTENCY_MISMATCH exit codes with structured diagnosis)",
+      "run_journey.py --mode cli --journey J01 --no-model PASS (receipt + identical replay)"
+    ],
+    "failed": [],
+    "not_run": []
+  },
+  "risks": [
+    "recall() now raises NOT_FOUND for unknown scopes (T008 invariant: no default global fallback) — added during T019"
+  ],
+  "next_actions": [
+    "T020 Python SDK"
+  ]
+}

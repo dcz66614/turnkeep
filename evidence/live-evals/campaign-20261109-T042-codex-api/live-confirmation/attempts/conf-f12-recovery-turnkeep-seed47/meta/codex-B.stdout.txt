@@ -1,0 +1,1 @@
+Updated and verified `output/plan.txt`: `run migrate-db-v4 then deploy`. Turnkeep `finish` could not record it because the idempotency key was already used and the existing `deploy.plan` key is unique.

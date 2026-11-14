@@ -1,0 +1,74 @@
+{
+  "task_id": "T028",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": null,
+  "base_revision": "0.1",
+  "changed_files": [
+    "docs/install.md",
+    "scripts/install.ps1",
+    "scripts/install.sh",
+    "src/turnkeep/cli.py",
+    "src/turnkeep/doctor.py",
+    "src/turnkeep/storage.py",
+    "tests/platform/test_doctor.py",
+    "tests/platform/test_paths.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/platform/test_paths.py",
+        "tests/platform/test_doctor.py",
+        "-q"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "tests/platform/test_paths.py"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "turnkeep",
+        "doctor",
+        "--json"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "src/turnkeep/doctor.py"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/run_gate.py",
+        "--task",
+        "T028"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/gate/T028.json"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "pytest platform 9/9 (Linux/macOS/Windows data-dir rules, env override, scope sanitisation incl. spaces+Chinese, cwd-independence; doctor JSON shape, real-DB detection)",
+      "turnkeep doctor --json exit 0, overall OK on Linux (db NOT_RUN — no default DB yet, honest)",
+      "run_gate --task T028 PASS"
+    ],
+    "failed": [],
+    "not_run": [
+      "macOS/Windows real install + doctor: NOT_RUN (T043); path rules unit-tested only"
+    ]
+  },
+  "risks": [
+    "1 repair: doctor queried scopes.scope_id — table PK is id; fixed, tests re-run 9/9",
+    "1 repair: doctor subcommand did not accept --json after the subcommand (argparse) — added --json to the doctor subparser",
+    "data_path() now uses platform rules (Windows %APPDATA%\\Turnkeep, macOS ~/Library/Application Support/turnkeep); storage tests re-run 9/9"
+  ],
+  "next_actions": [
+    "R3 T029–T035 workbench UI"
+  ]
+}

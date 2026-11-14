@@ -1,0 +1,1 @@
+Wrote `$100 USD` to `output/quote.txt` and verified it with `cat`.

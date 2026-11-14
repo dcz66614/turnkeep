@@ -1,0 +1,48 @@
+{
+  "task_id": "T015",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": null,
+  "base_revision": "0.1",
+  "changed_files": [
+    "src/turnkeep/recovery.py",
+    "tests/core/test_rebase.py",
+    "tests/core/test_resume.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/core/test_resume.py",
+        "tests/core/test_rebase.py",
+        "-q"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "tests/core/test_resume.py"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/run_gate.py",
+        "--task",
+        "T015"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/gate/T015.json"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "pytest resume+rebase 4/4 (diff + candidate snapshot, old result never re-validated, rebase max 2 then quarantined, old epoch never edited)",
+      "run_gate --task T015 PASS"
+    ],
+    "failed": [],
+    "not_run": []
+  },
+  "risks": [],
+  "next_actions": []
+}

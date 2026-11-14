@@ -1,0 +1,1 @@
+Updated `output/plan.txt` to `run migrate-db-v4 then deploy` and verified it with `cat`.

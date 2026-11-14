@@ -1,0 +1,49 @@
+{
+  "task_id": "T008",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": null,
+  "base_revision": "0.1",
+  "changed_files": [
+    "src/turnkeep/context.py",
+    "src/turnkeep/scopes.py",
+    "tests/core/test_context_binding.py",
+    "tests/core/test_scopes.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/core/test_scopes.py",
+        "tests/core/test_context_binding.py",
+        "-q"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "tests/core/test_scopes.py"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/run_gate.py",
+        "--task",
+        "T008"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/gate/T008.json"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "pytest scopes+context 7/7 passed (two projects same key isolated by scope id; symlink resolves to same scope id; body actor/tenant override FORBIDDEN)",
+      "run_gate --task T008 PASS"
+    ],
+    "failed": [],
+    "not_run": []
+  },
+  "risks": [],
+  "next_actions": []
+}

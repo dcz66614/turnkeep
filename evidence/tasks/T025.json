@@ -1,0 +1,50 @@
+{
+  "task_id": "T025",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": null,
+  "base_revision": "0.1",
+  "changed_files": [
+    "adapters/codex/config.toml",
+    "docs/integrations/codex.md",
+    "scripts/check_adapter.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "scripts/check_adapter.py",
+        "--client",
+        "codex",
+        "--mode",
+        "config"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "adapters/codex/config.toml"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/run_gate.py",
+        "--task",
+        "T025"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/gate/T025.json"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "check_adapter --client codex --mode config PASS (template parses as TOML, [mcp_servers.turnkeep] command+args; syntax verified against current Codex docs: ~/.codex/config.toml; `codex mcp list` runs without auth and reports 'No MCP servers configured yet')",
+      "same DB/scope as Claude Code, different actor label (codex)"
+    ],
+    "failed": [],
+    "not_run": [
+      "live: codex 0.164.0-alpha.9 installed but login/auth state unknown; no login attempted — live client test NOT_RUN; template NOT installed into ~/.codex/config.toml (user's personal config)"
+    ]
+  },
+  "risks": [],
+  "next_actions": []
+}

@@ -1,0 +1,74 @@
+{
+  "task_id": "T031",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": null,
+  "base_revision": "0.1",
+  "changed_files": [
+    "scripts/run_journey.py",
+    "specs/local-app-api.json",
+    "src/turnkeep/web/routes.py",
+    "tests/web/test_routes.py",
+    "tests/ui/impact.spec.ts",
+    "ui/src/components/ImpactPath.ts",
+    "ui/src/main.ts",
+    "ui/src/views/Impact.ts"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "npm",
+        "--prefix",
+        "ui",
+        "run",
+        "test:e2e",
+        "--",
+        "impact.spec.ts"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "tests/ui/impact.spec.ts"
+    },
+    {
+      "argv": [
+        "python3",
+        "scripts/run_journey.py",
+        "--mode",
+        "ui-api",
+        "--journey",
+        "J03",
+        "--no-model"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "scripts/run_journey.py"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/run_gate.py",
+        "--task",
+        "T031"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/gate/T031.json"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "npm run test:e2e -- impact.spec.ts 1/1 PASS (real serve + CLI-seeded stale run; UI shows old 3.11 / new 3.12, impact path req -> release, resume diff lists build.python_version)",
+      "run_journey.py --mode ui-api --journey J03 --no-model PASS (remember/begin/correct/stale finish 409/impact/resume/recompute finish/idempotent replay via real HTTP serve)"
+    ],
+    "failed": [],
+    "not_run": []
+  },
+  "risks": [
+    "API additions (coordinator decision, T029 rule): GET /api/v1/runs + GET /api/v1/impact; OpenAPI snapshot now 14 paths, check_openapi PASS; web tests 7/7 incl. new runs+impact test",
+    "1 repair in J03 journey: resume diff changed_keys includes the tainted child 'release' too (AND-parent semantics) — assertion corrected to membership + state-transition check, not exact equality",
+    "1 repair in Impact view: impact must be queried with the OLD (superseded) record id, because children depend on that id; and ImpactPath now resolves every step's key/state via the recall id-map instead of truncating ids"
+  ],
+  "next_actions": [
+    "T032 correction/retract/conflict UI + write races"
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "task_id": "T007",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": "3131d36",
+  "base_revision": "0.1",
+  "changed_files": [
+    "docs/storage.md",
+    "scripts/run_gate.py",
+    "src/turnkeep/migrations/001_initial.sql",
+    "src/turnkeep/storage.py",
+    "tests/storage/test_constraints.py",
+    "tests/storage/test_migrations.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/storage/test_migrations.py",
+        "tests/storage/test_constraints.py",
+        "-q"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "tests/storage/test_migrations.py"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/run_gate.py",
+        "--task",
+        "T007"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/gate/T007.json"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "pytest tests/storage 9/9 passed (migrations: fresh v1, future-version refusal, starter-format refusal, failed-migration keeps original bytes, cwd-independent data path; constraints: FK, one-active-per-slot, kind/state CHECKs, json_valid)",
+      "run_gate --task T007 PASS (venv python; system python has no pytest — documented route)"
+    ],
+    "failed": [],
+    "not_run": []
+  },
+  "risks": [
+    "run_gate aggregate-spec handling fixed in this task (aggregate specs are top-level-only; recorded DEFERRED_AGGREGATE, not dispatched, not counted as PASS) — see state/DECISIONS.md D-R1-1; harness test still covers aggregate refusal"
+  ],
+  "next_actions": [
+    "T008 scopes + actor binding"
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "task_id": "T002",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": null,
+  "base_revision": "0.1",
+  "changed_files": [
+    "docs/COMPETITORS.md",
+    "docs/DISCOVERY_DECISION.md",
+    "docs/NAME_CHECK.md",
+    "docs/discovery-scorecard.json",
+    "scripts/check_discovery.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "scripts/check_discovery.py",
+        "--ledger",
+        "docs/COMPETITORS.md"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "docs/discovery-scorecard.json"
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "json.tool",
+        "docs/discovery-scorecard.json"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "docs/discovery-scorecard.json"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "check_discovery PASS",
+      "scorecard JSON valid, decision GO_WITH_BOUNDS",
+      "name check: PyPI JSON 404 / npm 404 / GitHub user 404, turnkeep.app collision recorded, trademark NOT_RUN",
+      "new neighbours recorded (Turnbook/Truenex/project-memory); 'first cross-tool memory' claim refuted"
+    ],
+    "failed": [],
+    "not_run": [
+      "full-text re-read of Turnbook/Truenex: NOT_RUN (search-result level only — recorded, not claimed)"
+    ]
+  },
+  "risks": [
+    "Turnbook already does cross-tool sharing with a strong self-reported benchmark — T042 must beat Markdown+logs, not an empty baseline",
+    "turnkeep.app name collision — revisit before any public release"
+  ],
+  "next_actions": [
+    "T003 contract freeze"
+  ]
+}

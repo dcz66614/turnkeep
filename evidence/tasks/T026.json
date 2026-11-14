@@ -1,0 +1,64 @@
+{
+  "task_id": "T026",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": "f9e27862929727944ef021f86d2eaca4efa97798",
+  "base_revision": "0.1",
+  "changed_files": [
+    "docs/COMPATIBILITY.md",
+    "evidence/live-clients/live_client_gate.json",
+    "fixtures/live-handoff/export-format.json",
+    "scripts/live_client_handoff.py",
+    "scripts/run_gate.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "scripts/live_client_handoff.py",
+        "--pair",
+        "claude-code,codex",
+        "--fixture",
+        "export-format",
+        "--record",
+        "evidence/live-clients"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 2,
+      "evidence": "evidence/live-clients/live_client_gate.json"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/run_gate.py",
+        "--profile",
+        "live-clients"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 2,
+      "evidence": "evidence/gate/profile_live-clients.json"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "Substitute run (Sam 2026-11-09 ~18:15 + 2026-11-10 ~09:08: skip real Claude Code, hybrid substitution accepted): pair Codex CLI 0.164.0-alpha.9 via Copilot bridge (GPT-5.6 Sol) + agy 1.5.3 (gemini-3.8-flash-low), two different real host products per the T026 spec substitution clause - evidence/live-clients/run-20261109-01/, commit f9e2786",
+      "agy reverse leg VERIFIED in the DB: smoke PASS (real MCP recall), S3+S3c complete (decision export.checklist.style remembered, checklist written and hash-verified, candidate run finished with receipt, handoff record export.handoff.2 written; 6 real MCP tool calls)"
+    ],
+    "failed": [],
+    "not_run": [
+      "Codex forward leg (S1/S2/S3b/S4) NOT run - M365 backend empty-answer outage from ~18:31Z (4 consecutive empty turns); resume with scripts/run_t026_handover.py --from S1 after a trivial codex exec returns real text",
+      "Strict run_gate --profile live-clients NOT_RUN (09:12): claude CLI absent; the VERIFIED marking rests on Sam's hybrid-substitution decision, not on the strict gate",
+      "Codex exec does not surface MCP tools at all (proven vs turnkeep server + dummy one-tool server) - Codex leg must use the Turnkeep CLI wrapper while agy uses real MCP calls; adapter templates broken on this VM (system python3 has no turnkeep/mcp, only .venv)"
+    ]
+  },
+  "risks": [
+    "Hybrid reading accepted by Sam 2026-11-10 ~09:08 GMT: Codex-via-CLI + agy-via-MCP satisfies T026; a strict MCP-only reading would keep T026 blocked on a Codex limitation, not a Turnkeep defect",
+    "Codex forward leg unrun: the handover was verified in the reverse direction only (agy leg); the forward leg (Codex first, agy resumes) has no evidence",
+    "1 repair: run_gate mapped exit code 2 to FAIL; runner contract says 2 = NOT_RUN - fixed in run_gate.py, self-test 6/6 still PASS",
+    "1 repair: live_client_handoff counted the repo's own .mcp.json template as 'installed' - fixed: only the client's own config (~/.claude.json) counts"
+  ],
+  "next_actions": [
+    "If the Codex forward leg is ever completed: run scripts/run_t026_handover.py --from S1 after a trivial codex exec returns real text, then re-run run_gate --profile live-clients",
+    "Fix adapter templates (system python3 lacks turnkeep/mcp) and re-check whether newer Codex exposes MCP tools; if it does, a strict two-MCP-client run becomes possible"
+  ]
+}

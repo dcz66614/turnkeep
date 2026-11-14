@@ -1,0 +1,534 @@
+OpenAI Codex v0.164.0-alpha.9
+--------
+workdir: /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-pilot/attempts/pilot-f03-stable-turnkeep-seed20261108/work
+model: gpt-6-luna
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: low
+reasoning summaries: none
+session id: 01a1c291-8c20-7493-82b6-e3bd6be15854
+--------
+user
+# Task
+
+You are maintaining the Acme runbook. The runbook must record the build command that currently works. The handover note you were given says the build command is 'npm run build-legacy'. Write the working build command to output/build.txt, exactly one line, nothing else.
+
+# Memory
+
+Your project memory is the Turnkeep database tk.sqlite3 in this directory. Use the ./turnkeep command to consult it BEFORE producing the deliverable — it may have been updated since the brief was written.
+Commands (run them in this directory, each needs --scope bench):
+  ./turnkeep recall --scope bench --query <key>   — show the current value of a fact
+  ./turnkeep brief --scope bench --goal "<goal>"  — show the current brief
+  ./turnkeep begin --scope bench --task "<goal>"  — start a run (prints a run id)
+  ./turnkeep finish --scope bench --run <run-id> --key <deliverable-key> --value "<value>" --idempotency-key <task-id>-1  — record the deliverable with a receipt
+  If finish is rejected with STALE_SNAPSHOT, run ./turnkeep resume --scope bench --run <run-id>, then re-check with recall and finish again.
+  Always record the deliverable with finish (with a receipt) after writing the deliverable file.
+Exact finish command for this task (copy it, filling in <run-id> and <value>):
+  ./turnkeep finish --scope bench --run <run-id> --key build.command --value "<value>" --idempotency-key pilot-f03-stable-1
+
+
+# How to work
+
+Follow these steps in order. You MUST do the work with tool calls (exec_command). Do not just reply in text.
+1. Read the task files and your memory FIRST.
+2. Write the deliverable to output/build.txt with exactly the format the task asks for.
+3. Verify the deliverable with `cat`.
+4. End your turn with a one-line summary of what you wrote and where.
+Only the deliverable file is scored; your chat reply is not scored. The task is NOT finished until the deliverable file exists and you have verified it with `cat`.
+- Never invent facts. Only use the brief, the project files, and your memory.
+- Do not use the network.
+
+warning: Codex could not find bubblewrap on PATH. Install bubblewrap with your OS package manager. See the sandbox prerequisites: https://developers.openai.com/codex/concepts/sandboxing#prerequisites. Codex will use the bundled bubblewrap in the meantime.
+2026-11-09T23:08:01.633314Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: WebSocket protocol error: No "Connection: upgrade" header, url: wss://api.openai.com/v1/responses
+2026-11-09T23:08:03.122064Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: WebSocket protocol error: No "Connection: upgrade" header, url: wss://api.openai.com/v1/responses
+2026-11-09T23:08:03.641294Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: WebSocket protocol error: No "Connection: upgrade" header, url: wss://api.openai.com/v1/responses
+ERROR: Reconnecting... 2/5
+2026-11-09T23:08:04.407453Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: WebSocket protocol error: No "Connection: upgrade" header, url: wss://api.openai.com/v1/responses
+ERROR: Reconnecting... 3/5
+2026-11-09T23:08:05.690755Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: WebSocket protocol error: No "Connection: upgrade" header, url: wss://api.openai.com/v1/responses
+ERROR: Reconnecting... 4/5
+2026-11-09T23:08:07.722605Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: WebSocket protocol error: No "Connection: upgrade" header, url: wss://api.openai.com/v1/responses
+ERROR: Reconnecting... 5/5
+2026-11-09T23:08:11.366165Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: WebSocket protocol error: No "Connection: upgrade" header, url: wss://api.openai.com/v1/responses
+warning: Falling back from WebSockets to HTTPS transport. stream disconnected before completion: WebSocket protocol error: No "Connection: upgrade" header
+codex
+I’ll inspect the project instructions and Turnkeep memory first, then write and verify the one-line command and record it with a receipt.
+exec
+/bin/bash -lc "pwd && rg --files -g 'AGENTS.md' -g 'package.json' -g 'output/**' -g 'README*' -g 'turnkeep' -g 'tk.sqlite3'" in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-pilot/attempts/pilot-f03-stable-turnkeep-seed20261108/work
+ succeeded in 0ms:
+/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-pilot/attempts/pilot-f03-stable-turnkeep-seed20261108/work
+turnkeep
+tk.sqlite3
+
+ERROR: Reconnecting... 1/5
+exec
+/bin/bash -lc 'ls -la && ./turnkeep brief --scope bench --goal "Record the currently working build command to output/build.txt" && ./turnkeep recall --scope bench --query build.command' in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-pilot/attempts/pilot-f03-stable-turnkeep-seed20261108/work
+ succeeded in 455ms:
+total 144
+drwxrws--- 1 root nogroup    152 Nov  9 23:08 .
+drwxrws--- 1 root nogroup     16 Nov  9 23:08 ..
+dr-xr-xr-x 2 root root        40 Nov  9 23:08 .agents
+dr-xr-xr-x 2 root root        40 Nov  9 23:08 .aws
+dr-xr-xr-x 2 root root        40 Nov  9 23:08 .codex
+dr-xr-xr-x 2 root root        40 Nov  9 23:08 .git
+drwxrws--- 1 root nogroup      0 Nov  9 23:08 output
+-rw-rw---- 1 root nogroup     79 Nov  9 23:08 runbook.md
+-rw------- 1 root nogroup 135168 Nov  9 23:08 tk.sqlite3
+-rw-rw---- 1 root nogroup   4096 Nov  9 23:08 tk.sqlite3.pre-v1.bak
+-rwxr-xr-x 1 root nogroup    181 Nov  9 23:08 turnkeep
+{
+  "scope": "bench",
+  "goal": "Record the currently working build command to output/build.txt",
+  "epoch": 1,
+  "current_status": "1 active records",
+  "valid_decisions": [],
+  "open_questions": [],
+  "attempts": [],
+  "recent_changes": [
+    {
+      "epoch": 1,
+      "event": "remember",
+      "affected_ids": [
+        "6afdd24d496e490998b626a8dab385d9"
+      ],
+      "at": "2026-11-09T23:08:00.334890+00:00"
+    }
+  ],
+  "suggested_next_steps": [
+    "Continue from the latest active records"
+  ],
+  "records": [
+    {
+      "must_keep": false,
+      "text": "build.command: \"npm run build-legacy\" [6afdd24d496e490998b626a8dab385d9]"
+    }
+  ],
+  "dropped_record_count": 0,
+  "chars_used": 72,
+  "max_chars": 4000,
+  "estimated_tokens": 18,
+  "budget_overrun": false
+}
+{
+  "scope": "bench",
+  "records": [
+    {
+      "id": "6afdd24d496e490998b626a8dab385d9",
+      "key": "build.command",
+      "kind": "fact",
+      "state": "active",
+      "revision": 1,
+      "created_at": "2026-11-09T23:08:00.334590+00:00",
+      "updated_at": "2026-11-09T23:08:00.334590+00:00",
+      "valid_until": null,
+      "cause_event_id": null,
+      "scope": "bench",
+      "value": "npm run build-legacy",
+      "source_refs": [
+        {
+          "id": "u:1",
+          "type": "user_statement"
+        }
+      ],
+      "parent_ids": [],
+      "supersedes_ids": [],
+      "_score": 2,
+      "_label": "active",
+      "_lexical_fallback": true
+    }
+  ]
+}
+
+exec
+/bin/bash -lc 'cat runbook.md && ./turnkeep begin --scope bench --task "Record the currently working build command to output/build.txt"' in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-pilot/attempts/pilot-f03-stable-turnkeep-seed20261108/work
+ succeeded in 238ms:
+# Runbook
+
+Build: see the recorded build command.
+Deploy: after a green build.
+{
+  "run_id": "cd898173c0a94f7c9ef8c7d1da105bec",
+  "scope": "bench",
+  "task": "Record the currently working build command to output/build.txt",
+  "read_epoch": 1,
+  "records": [
+    {
+      "id": "6afdd24d496e490998b626a8dab385d9",
+      "key": "build.command",
+      "kind": "fact",
+      "state": "active",
+      "revision": 1,
+      "created_at": "2026-11-09T23:08:00.334590+00:00",
+      "updated_at": "2026-11-09T23:08:00.334590+00:00",
+      "valid_until": null,
+      "cause_event_id": null,
+      "scope": "bench",
+      "value": "npm run build-legacy",
+      "source_refs": [
+        {
+          "id": "u:1",
+          "type": "user_statement"
+        }
+      ],
+      "parent_ids": [],
+      "supersedes_ids": []
+    }
+  ],
+  "conflicts": [],
+  "status": "open"
+}
+
+exec
+/bin/bash -lc "printf '%s\\n' 'npm run build-legacy' > output/build.txt && cat output/build.txt" in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-pilot/attempts/pilot-f03-stable-turnkeep-seed20261108/work
+ succeeded in 12ms:
+npm run build-legacy
+
+exec
+/bin/bash -lc './turnkeep finish --scope bench --run cd898173c0a94f7c9ef8c7d1da105bec --key build.command --value "npm run build-legacy" --idempotency-key pilot-f03-stable-1' in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-pilot/attempts/pilot-f03-stable-turnkeep-seed20261108/work
+ exited 1 in 138ms:
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/hatch/workspace/turnkeep-work/src/turnkeep/__main__.py", line 7, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/hatch/workspace/turnkeep-work/src/turnkeep/cli.py", line 216, in main
+    out = _com.finish(db, args.scope, args.run, {"key": args.key, "value": args.value},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hatch/workspace/turnkeep-work/src/turnkeep/commits.py", line 103, in finish
+    result_id = insert_record(db, scope_id, result["key"], _json(result["value"]),
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hatch/workspace/turnkeep-work/src/turnkeep/storage.py", line 387, in insert_record
+    db.execute("INSERT INTO memories(id, scope_id, key, value_json, kind, state, revision, created_at, updated_at) "
+sqlite3.IntegrityError: UNIQUE constraint failed: memories.scope_id, memories.key
+
+codex
+The file is written and verified. The required `finish` call failed because Turnkeep rejected a duplicate `build.command` key, so I’m checking the available CLI behavior to complete the receipt without changing the recorded value.
+exec
+/bin/bash -lc './turnkeep finish --help && ./turnkeep resume --help' in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-pilot/attempts/pilot-f03-stable-turnkeep-seed20261108/work
+ succeeded in 499ms:
+usage: turnkeep finish [-h] --scope SCOPE --run RUN --key KEY --value VALUE
+                       [--parent PARENT] [--idempotency-key IDEMPOTENCY_KEY]
+
+options:
+  -h, --help            show this help message and exit
+  --scope SCOPE
+  --run RUN
+  --key KEY
+  --value VALUE
+  --parent PARENT
+  --idempotency-key IDEMPOTENCY_KEY
+usage: turnkeep resume [-h] --scope SCOPE --run RUN
+
+options:
+  -h, --help     show this help message and exit
+  --scope SCOPE
+  --run RUN
+
+exec
+/bin/bash -lc "sed -n '1,220p' /home/hatch/workspace/turnkeep-work/src/turnkeep/commits.py && sed -n '1,180p' /home/hatch/workspace/turnkeep-work/src/turnkeep/cli.py" in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-pilot/attempts/pilot-f03-stable-turnkeep-seed20261108/work
+ succeeded in 0ms:
+"""Atomic finish + stale-snapshot rejection (T014). Contract §6, five steps,
+in ONE BEGIN IMMEDIATE transaction:
+
+1. Idempotency FIRST: if this run already succeeded, same request digest ->
+   return the original receipt; different digest -> IDEMPOTENCY_MISMATCH.
+   (Replay precedence over closed-state and epoch checks.)
+2. Read the server-bound run + scope; confirm it can still commit.
+3. Check current epoch == run's read epoch, else STALE_SNAPSHOT with
+   changed_keys / changed_record_ids / why (coarse-grain: epoch diff).
+4. Confirm all declared parents are still usable and in-scope.
+5. Write result + event + idempotency row, bump epoch, close run, store receipt.
+
+- The server merges its snapshot read-set into the result's parent_ids
+  (union with client-declared parents): omitting parents cannot dodge later
+  taint. An empty client parent list still inherits the snapshot set.
+- No LLM / network call inside the write transaction.
+- One run yields at most one result; external actions are NOT atomic with
+  the receipt (contract §7 — never claimed).
+"""
+from __future__ import annotations
+import json
+from .errors import TurnkeepError
+from .storage import (transaction, ensure_scope, scope_epoch, row_or_404,
+                      dump_record, insert_record, publish_event, _json,
+                      _text, _ids, _sources, _now, usable)
+from .idempotency import request_digest, check as idem_check, store as idem_store
+from .runs import get_run
+from .memory import active_records
+
+
+def _changed_since(db, scope_id, run):
+    snap_ids = {r["id"] for r in run["snapshot"]["records"]}
+    now = db.execute("SELECT id, key, state, revision FROM memories WHERE scope_id=?",
+                     (scope_id,)).fetchall()
+    changed_ids, changed_keys = [], []
+    now_map = {r["id"]: r for r in now}
+    for r in now:
+        old = next((s for s in run["snapshot"]["records"] if s["id"] == r["id"]), None)
+        if old is None or old["revision"] != r["revision"] or old["state"] != r["state"]:
+            changed_ids.append(r["id"])
+            if r["key"] not in changed_keys:
+                changed_keys.append(r["key"])
+    for s in run["snapshot"]["records"]:
+        if s["id"] not in now_map:
+            changed_ids.append(s["id"])
+    return sorted(set(changed_ids)), sorted(changed_keys)
+
+
+def finish(db, scope_id, run_id, result, *, parent_ids=(), idempotency_key="",
+           actor_binding="local"):
+    scope_id = _text(scope_id, "scope")
+    if not isinstance(result, dict) or "key" not in result or "value" not in result:
+        raise TurnkeepError("INVALID_INPUT", "finish result needs {key, value}")
+    parents = _ids(parent_ids)
+    with transaction(db, write=True):
+        ensure_scope(db, scope_id)
+        run = get_run(db, scope_id, run_id)
+        digest = request_digest("finish", scope_id, actor_binding,
+                                {"run_id": run_id, "result": result})
+        # Same key, different request -> refuse before any work, even on a
+        # run that has not succeeded yet.
+        if idempotency_key:
+            prior = idem_check(db, scope_id, actor_binding, "finish", idempotency_key, digest)
+            if prior is not None:
+                return prior
+        # 1. Idempotent replay precedes closed/epoch checks.
+        if run["status"] == "accepted" and run.get("receipt"):
+            stored = idem_check(db, scope_id, actor_binding, "finish",
+                                idempotency_key or run_id, digest)
+            if stored is not None:
+                return stored
+            # accepted but no idempotency row under this key: same digest via
+            # run-bound digest check
+            if run.get("request_digest") == digest:
+                return run["receipt"]
+            raise TurnkeepError("IDEMPOTENCY_MISMATCH",
+                                "Run already accepted with a different request")
+        if run["status"] != "open":
+            raise TurnkeepError("INVALID_INPUT", f"Run is {run['status']}, cannot finish")
+        # 3. Epoch check (before any write).
+        current_epoch = scope_epoch(db, scope_id)
+        if current_epoch != run["snapshot_epoch"]:
+            changed_ids, changed_keys = _changed_since(db, scope_id, run)
+            raise TurnkeepError("STALE_SNAPSHOT",
+                                "Project memory changed after this run read its snapshot; reread changes and recompute affected work.",
+                                changed_record_ids=changed_ids, changed_keys=changed_keys,
+                                from_epoch=run["snapshot_epoch"], to_epoch=current_epoch)
+        # 4. Declared parents must still be usable + in scope.
+        for p in parents:
+            if not usable(db, scope_id, p):
+                raise TurnkeepError("INVALID_PARENT",
+                                    "Declared parent is missing or unavailable", parent_id=p)
+        # Server read-set is merged in: the client cannot omit snapshot parents.
+        snapshot_ids = [r["id"] for r in run["snapshot"]["records"]]
+        all_parents = sorted(set(parents) | set(snapshot_ids))
+        for p in all_parents:
+            if not usable(db, scope_id, p):
+                raise TurnkeepError("INVALID_PARENT",
+                                    "Snapshot parent is no longer usable", parent_id=p)
+        # 5. Write result + event + receipt + idempotency, in this tx.
+        changes = {}
+        sources = [{"id": f"run:{run_id}", "type": "agent_inference"}]
+        result_id = insert_record(db, scope_id, result["key"], _json(result["value"]),
+                                  result.get("kind", "handoff"), sources, all_parents,
+                                  changes, state="active")
+        receipt = {"run_id": run_id, "scope": scope_id, "record_id": result_id,
+                   "request_digest": digest, "read_epoch": run["snapshot_epoch"],
+                   "commit_epoch": current_epoch + 1, "parent_ids": all_parents,
+                   "committed_at": _now(), "status_at_commit": "active",
+                   "guarantee": "local_sqlite_commit_only"}
+        db.execute("UPDATE runs SET status='accepted', accepted_at=?, result_memory_id=?, "
+                   "request_digest=?, receipt_json=? WHERE scope_id=? AND id=?",
+                   (receipt["committed_at"], result_id, digest, _json(receipt), scope_id, run_id))
+        publish_event(db, scope_id, "finish", actor_binding, changes,
+                      metadata={"key": result["key"], "run_id": run_id})
+        if idempotency_key:
+            idem_store(db, scope_id, actor_binding, "finish", idempotency_key, digest, receipt)
+        return receipt
+"""Turnkeep product CLI (T019). Task-oriented commands, stable --json output.
+
+Commands (all take --db or use the default data path; --scope is always
+explicit — the CLI never guesses a project):
+  init --scope ID [--display-name NAME] [--db PATH]
+  remember --scope S --key K --value V [--kind K] [--source id:type]...
+           [--parent ID]... [--expected-revision N] [--replaces ID]...
+  begin --scope S --task TEXT
+  correct --scope S --id ID --expected-revision N --value V
+  retract --scope S --id ID --expected-revision N --reason TEXT
+  resolve --scope S --key K --value V --candidate ID:REV ...
+  finish --scope S --run RUN_ID --key K --value V [--parent ID]... [--idempotency-key K]
+  resume --scope S --run RUN_ID
+  rebase --scope S --run RUN_ID
+  recall --scope S [--query Q] [--history]
+  brief --scope S [--goal TEXT]
+  inspect --scope S [--history]
+  history --scope S
+  demo [--db PATH]   (scripted J01 demo, clearly labelled, no model calls)
+  doctor [--data-dir DIR] [--json]  (diagnostics, T028; exit 0 always)
+  serve --scope S [--port N] [--db PATH]  (loopback-only workbench API, T027;
+           prints URL + session token on stdout, serves until Ctrl-C)
+
+Errors: non-zero exit + structured JSON diagnosis on stderr with --json
+(or plain text otherwise). --non-interactive is the default behaviour:
+the CLI never prompts; ambiguous scope is an error, never a guess.
+Values with spaces / Chinese / quotes pass through argv unchanged (no
+shell string building anywhere).
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+from pathlib import Path
+
+from . import __version__
+from .context import bind_context
+from .errors import TurnkeepError
+from .storage import open_db, data_path, scope_epoch
+
+
+def _parse_source(spec):
+    if ":" not in spec:
+        raise TurnkeepError("INVALID_INPUT", f"source must be id:type, got {spec!r}")
+    sid, stype = spec.rsplit(":", 1)
+    return {"id": sid, "type": stype}
+
+
+def _parse_candidate(spec):
+    if ":" not in spec:
+        raise TurnkeepError("INVALID_INPUT", f"candidate must be id:revision, got {spec!r}")
+    rid, rev = spec.rsplit(":", 1)
+    return {"id": rid, "revision": int(rev)}
+
+
+def _emit(payload, as_json):
+    if as_json:
+        print(json.dumps(payload, ensure_ascii=False, indent=2))
+    else:
+        print(json.dumps(payload, ensure_ascii=False))
+
+
+def _fail(error, as_json):
+    diag = {"error": {"code": error.code, "message": str(error),
+                      "details": getattr(error, "details", {}) or {}}}
+    if as_json:
+        print(json.dumps(diag, ensure_ascii=False, indent=2), file=sys.stderr)
+    else:
+        print(f"ERROR {error.code}: {error}", file=sys.stderr)
+        details = diag["error"]["details"]
+        if details:
+            print(f"details: {json.dumps(details, ensure_ascii=False)}", file=sys.stderr)
+    return 2
+
+
+def _db_for(args):
+    path = Path(args.db) if getattr(args, "db", None) else data_path(args.scope)
+    return open_db(path)
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(prog="turnkeep", description="Turnkeep local project memory (v0.1)")
+    parser.add_argument("--version", action="version", version=f"turnkeep {__version__}")
+    parser.add_argument("--db", help="SQLite path (default: per-scope data path)")
+    parser.add_argument("--json", action="store_true", help="stable JSON output")
+    parser.add_argument("--non-interactive", action="store_true", help="never prompt (default behaviour)")
+    sub = parser.add_subparsers(dest="command", required=True)
+
+    p = sub.add_parser("init"); p.add_argument("--scope", required=True); p.add_argument("--display-name")
+    p = sub.add_parser("remember"); p.add_argument("--scope", required=True); p.add_argument("--key", required=True)
+    p.add_argument("--value", required=True); p.add_argument("--kind", default="fact")
+    p.add_argument("--source", action="append", default=[]); p.add_argument("--parent", action="append", default=[])
+    p.add_argument("--expected-revision", type=int); p.add_argument("--replaces", action="append", default=[])
+    p = sub.add_parser("begin"); p.add_argument("--scope", required=True); p.add_argument("--task", required=True)
+    p = sub.add_parser("correct"); p.add_argument("--scope", required=True); p.add_argument("--id", required=True)
+    p.add_argument("--expected-revision", type=int, required=True); p.add_argument("--value", required=True)
+    p.add_argument("--source", action="append", default=[])
+    p = sub.add_parser("retract"); p.add_argument("--scope", required=True); p.add_argument("--id", required=True)
+    p.add_argument("--expected-revision", type=int, required=True); p.add_argument("--reason", required=True)
+    p = sub.add_parser("resolve"); p.add_argument("--scope", required=True); p.add_argument("--key", required=True)
+    p.add_argument("--value", required=True); p.add_argument("--candidate", action="append", default=[])
+    p.add_argument("--source", action="append", default=[])
+    p = sub.add_parser("finish"); p.add_argument("--scope", required=True); p.add_argument("--run", required=True)
+    p.add_argument("--key", required=True); p.add_argument("--value", required=True)
+    p.add_argument("--parent", action="append", default=[]); p.add_argument("--idempotency-key", default="")
+    p = sub.add_parser("resume"); p.add_argument("--scope", required=True); p.add_argument("--run", required=True)
+    p = sub.add_parser("rebase"); p.add_argument("--scope", required=True); p.add_argument("--run", required=True)
+    p = sub.add_parser("recall"); p.add_argument("--scope", required=True); p.add_argument("--query", default="")
+    p.add_argument("--history", action="store_true")
+    p = sub.add_parser("brief"); p.add_argument("--scope", required=True); p.add_argument("--goal", default="")
+    p = sub.add_parser("inspect"); p.add_argument("--scope", required=True); p.add_argument("--history", action="store_true")
+    p = sub.add_parser("history"); p.add_argument("--scope", required=True)
+    p = sub.add_parser("expire"); p.add_argument("--scope", required=True); p.add_argument("--id", required=True)
+    p.add_argument("--valid-until", required=True); p.add_argument("--expected-revision", type=int, required=True)
+    p = sub.add_parser("sweep-expiry"); p.add_argument("--scope", required=True)
+    p = sub.add_parser("erase"); p.add_argument("--scope", required=True); p.add_argument("--id", required=True)
+    p.add_argument("--expected-revision", type=int, required=True); p.add_argument("--reason", required=True)
+    p = sub.add_parser("residuals"); p.add_argument("--scope", required=True)
+    p = sub.add_parser("export"); p.add_argument("--scope", required=True)
+    p.add_argument("--out", required=True, help="output directory (manifest.json + records.jsonl + events.jsonl)")
+    p = sub.add_parser("import"); p.add_argument("path", nargs="?", help="package directory or .md file/dir")
+    p.add_argument("--package", help="same as the positional path")
+    p.add_argument("--format", default="turnkeep", choices=["turnkeep", "markdown"],
+                   help="turnkeep: versioned export package (default); markdown: .md files, candidates only")
+    p.add_argument("--scope", help="target scope (default: the package's origin scope, or the path name for markdown)")
+    p.add_argument("--dry-run", action="store_true", help="validate and list conflicts/remap, write nothing")
+    p = sub.add_parser("demo"); p.add_argument("--db", default=argparse.SUPPRESS)
+    p.add_argument("--scenario", default="j01")
+    p.add_argument("--no-model", action="store_true")
+    p = sub.add_parser("doctor"); p.add_argument("--data-dir")
+    p.add_argument("--json", action="store_true", default=argparse.SUPPRESS)
+    p = sub.add_parser("mcp"); p.add_argument("--scope"); p.add_argument("--db", default=argparse.SUPPRESS)
+    p = sub.add_parser("serve"); p.add_argument("--scope", required=True)
+    p.add_argument("--port", type=int, default=0); p.add_argument("--db", default=argparse.SUPPRESS)
+    p.add_argument("--principal", default="web:local", help="actor label bound to this server (one scope + one principal)")
+
+    args = parser.parse_args(argv)
+    as_json = getattr(args, "json", False)
+    try:
+        if args.command == "doctor":
+            from .doctor import run_doctor
+            _emit(run_doctor(args.data_dir), as_json)
+            return 0
+        if args.command == "demo":
+            from .demo import run_demo
+            if getattr(args, "scenario", "j01") != "j01" and not getattr(args, "no_model", False):
+                print("NOT_RUN: scenario demos require --no-model (no model calls exist in this demo)",
+                      file=sys.stderr)
+                return 2
+            _emit(run_demo(Path(args.db) if getattr(args, "db", None) else None,
+                           scenario=getattr(args, "scenario", "j01")), as_json)
+            return 0
+        if args.command == "serve":
+            from .web.app import serve as _serve
+            import threading
+            dbp = Path(args.db) if getattr(args, "db", None) else data_path(args.scope)
+            server, token = _serve(dbp, args.scope, principal=args.principal, port=args.port)
+            print(json.dumps({"url": f"http://127.0.0.1:{server.server_port}",
+                              "token": token, "scope": args.scope}, ensure_ascii=False),
+                  flush=True)
+            print("serving loopback only; Ctrl-C to stop", file=sys.stderr)
+            try:
+                server.serve_forever()
+            except KeyboardInterrupt:
+                pass
+            return 0
+        if args.command == "mcp":
+            from .mcp_server import run_stdio
+            db = _db_for(args) if args.scope else None
+            run_stdio(db_path=Path(args.db) if getattr(args, "db", None) else None, scope=args.scope)
+            return 0
+        if args.command == "import":
+            args.package = getattr(args, "package", None) or getattr(args, "path", None)
+            if not args.package:
+                raise SystemExit("import needs a package path (positional or --package)")
+            if not getattr(args, "scope", None):
+                if getattr(args, "format", "turnkeep") == "markdown":
+                    # Markdown has no manifest: the path name is the scope.
+                    args.scope = Path(args.package).name
+
+codex
+Wrote `npm run build-legacy` to [output/build.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-pilot/attempts/pilot-f03-stable-turnkeep-seed20261108/work/output/build.txt) and verified it with `cat`. Turnkeep’s required `finish` call failed because `build.command` already exists.
+tokens used
+36,716

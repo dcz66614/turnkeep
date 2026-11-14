@@ -1,0 +1,72 @@
+{
+  "task_id": "T041",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": null,
+  "base_revision": "0.1",
+  "changed_files": [
+    "benchmarks/replay.py",
+    "benchmarks/scenarios/core-change.json",
+    "benchmarks/harness/mutations.py",
+    "tests/benchmarks/test_replay.py",
+    "tests/benchmarks/test_mutations.py",
+    "evidence/replay/manifest.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "benchmarks/replay.py",
+        "--suite",
+        "core-change",
+        "--output",
+        "evidence/replay"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/replay/manifest.json"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/benchmarks/test_replay.py",
+        "tests/benchmarks/test_mutations.py",
+        "-q"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "tests/benchmarks/"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/run_gate.py",
+        "--task",
+        "T041"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/gate/T041.json"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "replay.py --suite core-change 25/25 PASS on the real core (post-plan revision, empty-query phantom, concurrent correction, indirect/diamond/shared taint, expiry, erasure, scope isolation, false refusals, restart, conflict adjudication, tampered import)",
+      "pytest tests/benchmarks replay+mutations 6/6 PASS",
+      "run_gate --task T041 PASS"
+    ],
+    "failed": [],
+    "not_run": []
+  },
+  "risks": [
+    "Mutation discrimination verified: no-taint fails 4 taint scenarios (21/25), silent-overwrite fails 3 concurrency scenarios (22/25) — the replay distinguishes broken engines",
+    "Taint has two layers: stored state (drives the default view) and the live usable() check. The no-taint mutation proved the stored layer matters for recall/finish while the live check still protects reads (S11 passes on usable alone; its recall checks were strengthened to cover the stored layer)",
+    "3 repairs: _run_event passed kind='fact' instead of None (broke kind inheritance); Engine.correct always corrected the latest record (concurrent-loser case needs 'first'); _run_event caught only TurnkeepError (a crashing implementation must be a failed event, not a harness crash)",
+    "False refusals (S05/S18) PASS by design and are counted separately (2) in the manifest, not hidden and not counted as model failures"
+  ],
+  "next_actions": [
+    "R4 T042 (live model eval — external gate, expected NOT_RUN without credentials/budget) and T043 (real platforms — Windows/macOS NOT_RUN)"
+  ]
+}

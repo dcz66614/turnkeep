@@ -1,0 +1,1 @@
+Wrote `Python 3.11` to [output/manifest.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-pilot/attempts/pilot-f01-stable-turnkeep-seed20261108/work/output/manifest.txt) and verified it with `cat`. Recorded the deliverable in Turnkeep.

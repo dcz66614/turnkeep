@@ -1,0 +1,46 @@
+{
+  "task_id": "T020",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": null,
+  "base_revision": "0.1",
+  "changed_files": [
+    "examples/python/handoff.py",
+    "src/turnkeep/client.py",
+    "tests/sdk/test_client_contract.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/sdk/test_client_contract.py",
+        "-q"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "tests/sdk/test_client_contract.py"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "examples/python/handoff.py",
+        "--temp-db"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "examples/python/handoff.py"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "pytest SDK 3/3 (two-agent handoff, SDK/CLI same view, close/reopen)",
+      "example handoff.py --temp-db PASS (labelled SCRIPTED_SIMULATION)"
+    ],
+    "failed": [],
+    "not_run": []
+  },
+  "risks": [],
+  "next_actions": []
+}

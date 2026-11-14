@@ -1,0 +1,48 @@
+{
+  "task_id": "T013",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": null,
+  "base_revision": "0.1",
+  "changed_files": [
+    "src/turnkeep/runs.py",
+    "tests/core/test_begin_snapshot.py",
+    "tests/core/test_empty_read.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/core/test_begin_snapshot.py",
+        "tests/core/test_empty_read.py",
+        "-q"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "tests/core/test_begin_snapshot.py"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/run_gate.py",
+        "--task",
+        "T013"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/gate/T013.json"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "pytest begin+empty-read 4/4 (snapshot=epoch+records in one read tx, restart recovery, other-scope ignored, forged run NOT_FOUND, empty-read phantom invalidates)",
+      "run_gate --task T013 PASS"
+    ],
+    "failed": [],
+    "not_run": []
+  },
+  "risks": [],
+  "next_actions": []
+}

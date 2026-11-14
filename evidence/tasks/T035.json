@@ -1,0 +1,70 @@
+{
+  "task_id": "T035",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": null,
+  "base_revision": "0.1",
+  "changed_files": [
+    "evidence/ui/ui-gate.json",
+    "scripts/ui_gate.py",
+    "tests/ui/accessibility.spec.ts",
+    "tests/ui/journeys.spec.ts",
+    "ui/package.json",
+    "ui/playwright.prod.config.ts",
+    "ui/src/api.ts",
+    "ui/src/guard.ts",
+    "ui/vite.config.ts"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "npm",
+        "--prefix",
+        "ui",
+        "run",
+        "test:e2e"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "tests/ui/"
+    },
+    {
+      "argv": [
+        "python3",
+        "scripts/ui_gate.py",
+        "--production-build"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/ui/ui-gate.json"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/run_gate.py",
+        "--task",
+        "T035"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/gate/T035.json"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "npm run test:e2e 11/11 PASS (dev server: overview, impact, correction, recovery, journeys J01/J04, accessibility)",
+      "ui_gate.py --production-build PASS (build ok, dist uses ./assets/ relative paths, no external URLs in dist, full e2e 11/11 against vite preview production build)",
+      "run_gate --task T035 PASS"
+    ],
+    "failed": [],
+    "not_run": []
+  },
+  "risks": [
+    "1 repair: restart changes the session token — api() now clears the stored token on 401 so the connect form reappears instead of a stale error; J04 test covers it",
+    "1 repair: keyboard test assumed the connect form is first in tab order — nav links come first; test now tabs through them",
+    "Automated a11y only (keyboard flow, narrow 375px viewport no overflow, labelled inputs/named buttons); human usability validation NOT done — recorded, not claimed"
+  ],
+  "next_actions": [
+    "R4 T036–T043 (export/migration/erasure/backup/eval/platforms)"
+  ]
+}

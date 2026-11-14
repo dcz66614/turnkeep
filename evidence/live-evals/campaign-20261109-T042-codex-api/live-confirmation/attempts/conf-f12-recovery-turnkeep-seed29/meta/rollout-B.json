@@ -1,0 +1,114 @@
+{
+  "tool_calls": [
+    {
+      "name": "exec_command",
+      "arguments": "pwd && rg --files -g '!*sqlite*' -g '!*.db' | head -200 && ./turnkeep brief --scope bench --goal \\\"Write Acme deploy plan: run the database migration, then deploy\\\" && ./turnkeep recall --scope bench --query migration",
+      "timestamp": "2026-11-10T00:11:30.807Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.3 seconds\nOutput:\n/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f12-recovery-turnkeep-seed29/work\nturnkeep\nrunbook.md\n{\n  \"scope\": \"bench\",\n  \"goal\": \"Write Acme deploy plan: run the database migration, then deploy\",\n  \"epoch\": 2,\n  \"current_status\": \"1 active records\",\n  \"valid_decisions\": [],\n  \"open_questions\": [],\n  \"attempts\": [],\n  \"recent_changes\": [\n    {\n      \"epoch\": 2,\n      \"event\": \"correct\",\n      \"affected_ids\": [\n        \"649d414b98284d558247af13891b938a\",\n        \"f697987d12c649f69a17fdb6469b1fce\"\n      ],\n      \"at\": \"2026-11-10T00:11:27.585503+00:00\"\n    },\n    {\n      \"epoch\": 1,\n      \"event\": \"remember\",\n      \"affected_ids\": [\n        \"649d414b98284d558247af13891b938a\"\n      ],\n      \"at\": \"2026-11-10T00:11:27.539571+00:00\"\n    }\n  ],\n  \"suggested_next_steps\": [\n    \"Continue from the latest active records\"\n  ],\n  \"records\": [\n    {\n      \"must_keep\": false,\n      \"text\": \"deploy.plan: \\\"run migrate-db-v3 then deploy\\\" [f697987d12c649f69a17fdb6469b1fce]\"\n    }\n  ],\n  \"dropped_record_count\": 0,\n  \"chars_used\": 79,\n  \"max_chars\": 4000,\n  \"estimated_tokens\": 20,\n  \"budget_overrun\": false\n}\n{\n  \"scope\": \"bench\",\n  \"records\": []\n}\n",
+      "timestamp": "2026-11-10T00:11:31.110Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "cat runbook.md && ./turnkeep recall --scope bench --query deploy.plan && ./turnkeep begin --scope bench --task \\\"Write Acme deploy plan: run the database migration, then deploy\\\" ",
+      "timestamp": "2026-11-10T00:11:32.464Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.4 seconds\nOutput:\n# Runbook\n\nDeploy plan: run the current database migration step, then deploy. The migration step name changes over time; always use the current one.\n{\n  \"scope\": \"bench\",\n  \"records\": [\n    {\n      \"id\": \"f697987d12c649f69a17fdb6469b1fce\",\n      \"key\": \"deploy.plan\",\n      \"kind\": \"fact\",\n      \"state\": \"active\",\n      \"revision\": 1,\n      \"created_at\": \"2026-11-10T00:11:27.585204+00:00\",\n      \"updated_at\": \"2026-11-10T00:11:27.585204+00:00\",\n      \"valid_until\": null,\n      \"cause_event_id\": null,\n      \"scope\": \"bench\",\n      \"value\": \"run migrate-db-v3 then deploy\",\n      \"source_refs\": [\n        {\n          \"id\": \"u:1\",\n          \"type\": \"user_statement\"\n        }\n      ],\n      \"parent_ids\": [],\n      \"supersedes_ids\": [\n        \"649d414b98284d558247af13891b938a\"\n      ],\n      \"_score\": 2,\n      \"_label\": \"active\",\n      \"_lexical_fallback\": true\n    }\n  ]\n}\n{\n  \"run_id\": \"cb7710167de940faa849ba665371e0c7\",\n  \"scope\": \"bench\",\n  \"task\": \"Write Acme deploy plan: run the database migration, then deploy\",\n  \"read_epoch\": 2,\n  \"records\": [\n    {\n      \"id\": \"f697987d12c649f69a17fdb6469b1fce\",\n      \"key\": \"deploy.plan\",\n      \"kind\": \"fact\",\n      \"state\": \"active\",\n      \"revision\": 1,\n      \"created_at\": \"2026-11-10T00:11:27.585204+00:00\",\n      \"updated_at\": \"2026-11-10T00:11:27.585204+00:00\",\n      \"valid_until\": null,\n      \"cause_event_id\": null,\n      \"scope\": \"bench\",\n      \"value\": \"run migrate-db-v3 then deploy\",\n      \"source_refs\": [\n        {\n          \"id\": \"u:1\",\n          \"type\": \"user_statement\"\n        }\n      ],\n      \"parent_ids\": [],\n      \"supersedes_ids\": [\n        \"649d414b98284d558247af13891b938a\"\n      ]\n    }\n  ],\n  \"conflicts\": [],\n  \"status\": \"open\"\n}\n",
+      "timestamp": "2026-11-10T00:11:32.876Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "mkdir -p output && printf '%s\\\\n' 'run migrate-db-v3 then deploy' > output/plan.txt && cat output/plan.txt && ./turnkeep finish --scope bench --run cb7710167de940faa849ba665371e0c7 --key deploy.plan --value \\\"run migrate-db-v3 then deploy\\\" --idempotency-key conf-f12-recovery-1",
+      "timestamp": "2026-11-10T00:11:34.765Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.2 seconds\nOutput:\nrun migrate-db-v3 then deploy\nTraceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/home/hatch/workspace/turnkeep-work/src/turnkeep/__main__.py\", line 7, in <module>\n    raise SystemExit(main())\n                     ^^^^^^\n  File \"/home/hatch/workspace/turnkeep-work/src/turnkeep/cli.py\", line 216, in main\n    out = _com.finish(db, args.scope, args.run, {\"key\": args.key, \"value\": args.value},\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/hatch/workspace/turnkeep-work/src/turnkeep/commits.py\", line 103, in finish\n    result_id = insert_record(db, scope_id, result[\"key\"], _json(result[\"value\"]),\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/hatch/workspace/turnkeep-work/src/turnkeep/storage.py\", line 387, in insert_record\n    db.execute(\"INSERT INTO memories(id, scope_id, key, value_json, kind, state, revision, created_at, updated_at) \"\nsqlite3.IntegrityError: UNIQUE constraint failed: memories.scope_id, memories.key\n",
+      "timestamp": "2026-11-10T00:11:34.956Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "./turnkeep finish --help && ./turnkeep --help && ./turnkeep brief --scope bench --goal \\\"Write Acme deploy plan: run the database migration, then deploy\\\"",
+      "timestamp": "2026-11-10T00:11:36.159Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.7 seconds\nOutput:\nusage: turnkeep finish [-h] --scope SCOPE --run RUN --key KEY --value VALUE\n                       [--parent PARENT] [--idempotency-key IDEMPOTENCY_KEY]\n\noptions:\n  -h, --help            show this help message and exit\n  --scope SCOPE\n  --run RUN\n  --key KEY\n  --value VALUE\n  --parent PARENT\n  --idempotency-key IDEMPOTENCY_KEY\nusage: turnkeep [-h] [--version] [--db DB] [--json] [--non-interactive]\n                {init,remember,begin,correct,retract,resolve,finish,resume,rebase,recall,brief,inspect,history,expire,sweep-expiry,erase,residuals,export,import,demo,doctor,mcp,serve}\n                ...\n\nTurnkeep local project memory (v0.1)\n\npositional arguments:\n  {init,remember,begin,correct,retract,resolve,finish,resume,rebase,recall,brief,inspect,history,expire,sweep-expiry,erase,residuals,export,import,demo,doctor,mcp,serve}\n\noptions:\n  -h, --help            show this help message and exit\n  --version             show program's version number and exit\n  --db DB               SQLite path (default: per-scope data path)\n  --json                stable JSON output\n  --non-interactive     never prompt (default behaviour)\n{\n  \"scope\": \"bench\",\n  \"goal\": \"Write Acme deploy plan: run the database migration, then deploy\",\n  \"epoch\": 2,\n  \"current_status\": \"1 active records\",\n  \"valid_decisions\": [],\n  \"open_questions\": [],\n  \"attempts\": [],\n  \"recent_changes\": [\n    {\n      \"epoch\": 2,\n      \"event\": \"correct\",\n      \"affected_ids\": [\n        \"649d414b98284d558247af13891b938a\",\n        \"f697987d12c649f69a17fdb6469b1fce\"\n      ],\n      \"at\": \"2026-11-10T00:11:27.585503+00:00\"\n    },\n    {\n      \"epoch\": 1,\n      \"event\": \"remember\",\n      \"affected_ids\": [\n        \"649d414b98284d558247af13891b938a\"\n      ],\n      \"at\": \"2026-11-10T00:11:27.539571+00:00\"\n    }\n  ],\n  \"suggested_next_steps\": [\n    \"Continue from the latest active records\"\n  ],\n  \"records\": [\n    {\n      \"must_keep\": false,\n      \"text\": \"deploy.plan: \\\"run migrate-db",
+      "timestamp": "2026-11-10T00:11:36.909Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "sed -n '1,190p' /home/hatch/workspace/turnkeep-work/src/turnkeep/commits.py && sed -n '340,410p' /home/hatch/workspace/turnkeep-work/src/turnkeep/storage.py",
+      "timestamp": "2026-11-10T00:11:38.489Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.1 seconds\nOutput:\n\"\"\"Atomic finish + stale-snapshot rejection (T014). Contract §6, five steps,\nin ONE BEGIN IMMEDIATE transaction:\n\n1. Idempotency FIRST: if this run already succeeded, same request digest ->\n   return the original receipt; different digest -> IDEMPOTENCY_MISMATCH.\n   (Replay precedence over closed-state and epoch checks.)\n2. Read the server-bound run + scope; confirm it can still commit.\n3. Check current epoch == run's read epoch, else STALE_SNAPSHOT with\n   changed_keys / changed_record_ids / why (coarse-grain: epoch diff).\n4. Confirm all declared parents are still usable and in-scope.\n5. Write result + event + idempotency row, bump epoch, close run, store receipt.\n\n- The server merges its snapshot read-set into the result's parent_ids\n  (union with client-declared parents): omitting parents cannot dodge later\n  taint. An empty client parent list still inherits the snapshot set.\n- No LLM / network call inside the write transaction.\n- One run yields at most one result; external actions are NOT atomic with\n  the receipt (contract §7 — never claimed).\n\"\"\"\nfrom __future__ import annotations\nimport json\nfrom .errors import TurnkeepError\nfrom .storage import (transaction, ensure_scope, scope_epoch, row_or_404,\n                      dump_record, insert_record, publish_event, _json,\n                      _text, _ids, _sources, _now, usable)\nfrom .idempotency import request_digest, check as idem_check, store as idem_store\nfrom .runs import get_run\nfrom .memory import active_records\n\n\ndef _changed_since(db, scope_id, run):\n    snap_ids = {r[\"id\"] for r in run[\"snapshot\"][\"records\"]}\n    now = db.execute(\"SELECT id, key, state, revision FROM memories WHERE scope_id=?\",\n                     (scope_id,)).fetchall()\n    changed_ids, changed_keys = [], []\n    now_map = {r[\"id\"]: r for r in now}\n    for r in now:\n        old = next((s for s in run[\"snapshot\"][\"records\"] if s[\"id\"] == r[\"id\"]), None)\n        if old is None or old[\"revis",
+      "timestamp": "2026-11-10T00:11:38.610Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "./turnkeep correct --help",
+      "timestamp": "2026-11-10T00:11:40.592Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.2 seconds\nOutput:\nusage: turnkeep correct [-h] --scope SCOPE --id ID --expected-revision\n                        EXPECTED_REVISION --value VALUE [--source SOURCE]\n\noptions:\n  -h, --help            show this help message and exit\n  --scope SCOPE\n  --id ID\n  --expected-revision EXPECTED_REVISION\n  --value VALUE\n  --source SOURCE\n",
+      "timestamp": "2026-11-10T00:11:40.776Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "./turnkeep recall --scope bench --query deploy.plan && ./turnkeep brief --scope bench --goal \\\"Write Acme deploy plan: run the database migration, then deploy\\\" && cat runbook.md",
+      "timestamp": "2026-11-10T00:11:45.604Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.5 seconds\nOutput:\n{\n  \"scope\": \"bench\",\n  \"records\": [\n    {\n      \"id\": \"c619b685f496454291fa8e6d116a8f74\",\n      \"key\": \"deploy.plan\",\n      \"kind\": \"fact\",\n      \"state\": \"active\",\n      \"revision\": 1,\n      \"created_at\": \"2026-11-10T00:11:42.522950+00:00\",\n      \"updated_at\": \"2026-11-10T00:11:42.522950+00:00\",\n      \"valid_until\": null,\n      \"cause_event_id\": null,\n      \"scope\": \"bench\",\n      \"value\": \"run migrate-db-v4 then deploy\",\n      \"source_refs\": [\n        {\n          \"id\": \"u:1\",\n          \"type\": \"user_statement\"\n        }\n      ],\n      \"parent_ids\": [],\n      \"supersedes_ids\": [\n        \"f697987d12c649f69a17fdb6469b1fce\"\n      ],\n      \"_score\": 2,\n      \"_label\": \"active\",\n      \"_lexical_fallback\": true\n    }\n  ]\n}\n{\n  \"scope\": \"bench\",\n  \"goal\": \"Write Acme deploy plan: run the database migration, then deploy\",\n  \"epoch\": 3,\n  \"current_status\": \"1 active records\",\n  \"valid_decisions\": [],\n  \"open_questions\": [],\n  \"attempts\": [],\n  \"recent_changes\": [\n    {\n      \"epoch\": 3,\n      \"event\": \"correct\",\n      \"affected_ids\": [\n        \"c619b685f496454291fa8e6d116a8f74\",\n        \"f697987d12c649f69a17fdb6469b1fce\"\n      ],\n      \"at\": \"2026-11-10T00:11:42.576085+00:00\"\n    },\n    {\n      \"epoch\": 2,\n      \"event\": \"correct\",\n      \"affected_ids\": [\n        \"649d414b98284d558247af13891b938a\",\n        \"f697987d12c649f69a17fdb6469b1fce\"\n      ],\n      \"at\": \"2026-11-10T00:11:27.585503+00:00\"\n    },\n    {\n      \"epoch\": 1,\n      \"event\": \"remember\",\n      \"affected_ids\": [\n        \"649d414b98284d558247af13891b938a\"\n      ],\n      \"at\": \"2026-11-10T00:11:27.539571+00:00\"\n    }\n  ],\n  \"suggested_next_steps\": [\n    \"Continue from the latest active records\"\n  ],\n  \"records\": [\n    {\n      \"must_keep\": false,\n      \"text\": \"deploy.plan: \\\"run migrate-db-v4 then deploy\\\" [c619b685f496454291fa8e6d116a8f74]\"\n    }\n  ],\n  \"dropped_record_count\": 0,\n  \"chars_used\": 79,\n  \"max_chars\": 4000,\n  \"estimated_tokens\": 20,\n  \"budget_overrun\"",
+      "timestamp": "2026-11-10T00:11:46.112Z"
+    },
+    {
+      "name": "exec_command",
+      "arguments": "printf '%s\\\\n' 'run migrate-db-v4 then deploy' > output/plan.txt && cat output/plan.txt",
+      "timestamp": "2026-11-10T00:11:46.799Z"
+    },
+    {
+      "name": "__output__",
+      "arguments": "",
+      "output": "Script completed\nWall time 0.1 seconds\nOutput:\nrun migrate-db-v4 then deploy\n",
+      "timestamp": "2026-11-10T00:11:46.901Z"
+    }
+  ],
+  "agent_messages": [
+    "I’ll inspect the task files and query Turnkeep before writing the plan, then verify the file and record it with a receipt.",
+    "Turnkeep’s current `deploy.plan` is `run migrate-db-v3 then deploy`, superseding the earlier value. The runbook says to use the current migration name, so I’m using that value in the one-line deliverable.",
+    "Wrote and verified `output/plan.txt` with `run migrate-db-v3 then deploy`; Turnkeep `finish` failed because `deploy.plan` already exists.",
+    "I’ll re-check the latest Turnkeep value and runbook, then update and verify the plan.",
+    "Updated and verified `output/plan.txt`: `run migrate-db-v4 then deploy`."
+  ],
+  "max_total_tokens": 170039,
+  "task_duration_ms": 4343,
+  "last_message": "Updated and verified `output/plan.txt`: `run migrate-db-v4 then deploy`.",
+  "found": true,
+  "task_completed": true,
+  "stale_rejections": 1,
+  "finish_receipt": true,
+  "usage_split": {
+    "input_tokens": 168895,
+    "cached_input_tokens": 130308,
+    "cache_write_input_tokens": 38557,
+    "output_tokens": 1144,
+    "reasoning_output_tokens": 309
+  },
+  "rollout_path": "/home/hatch/.codex/sessions/2026/11/10/rollout-2026-11-10T00-11-27-01a1c2cb-a271-7290-8552-68c945e50aa4.jsonl"
+}

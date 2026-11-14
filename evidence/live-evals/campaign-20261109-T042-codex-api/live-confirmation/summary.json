@@ -1,0 +1,66 @@
+{
+  "suite": "live-confirmation",
+  "mode": "live",
+  "label": "LIVE_MODEL",
+  "driver": "codex-api",
+  "model": "gpt-6-luna",
+  "note": "Real model (Codex CLI, official OpenAI API, gpt-6-luna, low effort). Scored deterministically from raw traces + deliverable artifacts.",
+  "seed": 20261108,
+  "budget": {
+    "max_seconds": 600,
+    "max_steps": 60,
+    "max_tool_calls": 60
+  },
+  "overall": {
+    "attempts": 432,
+    "completed": 354,
+    "success_rate": 0.8194444444444444,
+    "stale_fact_rate": 0.13425925925925927,
+    "contract_violations": 11,
+    "irrelevant_refusals": 0,
+    "mean_redo_cost_steps": 0.9004629629629629
+  },
+  "per_arm": {
+    "none": {
+      "attempts": 108,
+      "completed": 46,
+      "success_rate": 0.42592592592592593,
+      "stale_fact_rate": 0.5370370370370371,
+      "contract_violations": 0,
+      "irrelevant_refusals": 0,
+      "mean_redo_cost_steps": 0.48148148148148145
+    },
+    "markdown": {
+      "attempts": 108,
+      "completed": 105,
+      "success_rate": 0.9722222222222222,
+      "stale_fact_rate": 0.0,
+      "contract_violations": 0,
+      "irrelevant_refusals": 0,
+      "mean_redo_cost_steps": 0.37962962962962965
+    },
+    "log": {
+      "attempts": 108,
+      "completed": 105,
+      "success_rate": 0.9722222222222222,
+      "stale_fact_rate": 0.0,
+      "contract_violations": 0,
+      "irrelevant_refusals": 0,
+      "mean_redo_cost_steps": 0.3148148148148148
+    },
+    "turnkeep": {
+      "attempts": 108,
+      "completed": 98,
+      "success_rate": 0.9074074074074074,
+      "stale_fact_rate": 0.0,
+      "contract_violations": 11,
+      "irrelevant_refusals": 0,
+      "mean_redo_cost_steps": 2.425925925925926
+    }
+  },
+  "attempts": 432,
+  "not_run_arms": {
+    "mature-memory": "NOT_RUN: no real Mem0/Hindsight install configured",
+    "nearest-workflow": "NOT_RUN: no real Tigerless/Engram install configured"
+  }
+}

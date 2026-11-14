@@ -1,0 +1,1 @@
+Updated and verified `output/plan.txt` with `run migrate-db-v4 then deploy`; Turnkeep finish still failed because `deploy.plan` already exists.

@@ -1,0 +1,49 @@
+{
+  "task_id": "T009",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": null,
+  "base_revision": "0.1",
+  "changed_files": [
+    "src/turnkeep/events.py",
+    "src/turnkeep/idempotency.py",
+    "tests/core/test_event_atomicity.py",
+    "tests/core/test_idempotency.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/core/test_idempotency.py",
+        "tests/core/test_event_atomicity.py",
+        "-q"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "tests/core/test_idempotency.py"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/run_gate.py",
+        "--task",
+        "T009"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/gate/T009.json"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "pytest idempotency+events 7/7 passed (same key+digest returns stored; different digest IDEMPOTENCY_MISMATCH; cross-scope key does not leak; rollback leaves no event and epoch 0; events carry refs only, no bodies)",
+      "run_gate --task T009 PASS (pending — run after T008 VERIFIED)"
+    ],
+    "failed": [],
+    "not_run": []
+  },
+  "risks": [],
+  "next_actions": []
+}

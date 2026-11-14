@@ -1,0 +1,50 @@
+{
+  "task_id": "T024",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": null,
+  "base_revision": "0.1",
+  "changed_files": [
+    "adapters/claude-code/.mcp.json",
+    "adapters/claude-code/README.md",
+    "docs/integrations/claude-code.md",
+    "scripts/check_adapter.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "scripts/check_adapter.py",
+        "--client",
+        "claude-code",
+        "--mode",
+        "config"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "adapters/claude-code/.mcp.json"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/run_gate.py",
+        "--task",
+        "T024"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/gate/T024.json"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "check_adapter --client claude-code --mode config PASS (template parses, mcpServers.turnkeep command+args; syntax verified against current Claude Code docs: .mcp.json project scope, type stdio)"
+    ],
+    "failed": [],
+    "not_run": [
+      "live: claude CLI not installed on this VM; no Claude login available — live client test NOT_RUN"
+    ]
+  },
+  "risks": [],
+  "next_actions": []
+}

@@ -1,0 +1,1 @@
+Wrote and verified `output/manifest.txt` with the single line: `Python 3.12`. Recorded the deliverable with Turnkeep.

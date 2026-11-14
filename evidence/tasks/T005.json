@@ -1,0 +1,90 @@
+{
+  "task_id": "T005",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": null,
+  "base_revision": "0.1",
+  "changed_files": [
+    "evidence/INDEX.json",
+    "evidence/schema.json",
+    "scripts/run_gate.py",
+    "tests/contract/test_schemas.py",
+    "tests/harness/test_runner.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/harness/test_runner.py",
+        "tests/contract/test_schemas.py",
+        "-q"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "tests/harness/test_runner.py"
+    },
+    {
+      "argv": [
+        "python3",
+        "scripts/run_gate.py",
+        "--self-test"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "scripts/run_gate.py"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/run_gate.py",
+        "--task",
+        "T002"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/gate/T002.json"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/run_gate.py",
+        "--task",
+        "T003"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/gate/T003.json"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/run_gate.py",
+        "--task",
+        "T004"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/gate/T004.json"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "pytest harness+contract 14/14 passed (after 1 targeted repair: unknown-dep KeyError in run_task)",
+      "run_gate --self-test PASS (6 checks, fixed corpus, no backlog read, no nested dispatch)",
+      "run_gate --task T002 PASS, --task T003 PASS, --task T004 PASS (backfill, evidence/gate/)",
+      "reentrancy guard verified: nested --task with TURNKEEP_GATE_DEPTH set refused exit 2",
+      "path ownership verified: foreign .py rejected, dep-owned .py allowed"
+    ],
+    "failed": [],
+    "not_run": []
+  },
+  "risks": [
+    "run_gate --task T004 re-runs pip install -e .[dev] (idempotent in venv); system python is PEP-668 blocked, venv is the only route"
+  ],
+  "next_actions": [
+    "T006 state + handoff",
+    "R1 T007 storage"
+  ]
+}

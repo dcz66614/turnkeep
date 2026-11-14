@@ -1,0 +1,457 @@
+OpenAI Codex v0.164.0-alpha.9
+--------
+workdir: /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f12-stable-turnkeep-seed47/work
+model: gpt-6-luna
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: low
+reasoning summaries: none
+session id: 01a1c2bf-1cc5-73a1-a9bc-3494e95b813d
+--------
+user
+# Task
+
+You are writing the Acme deploy plan. The plan is: run the database migration, then deploy. The runbook you were given names the migration step migrate-db-v2. Write the plan to output/plan.txt, exactly one line: 'run <migration> then deploy'.
+
+# Memory
+
+Your project memory is the Turnkeep database tk.sqlite3 in this directory. Use the ./turnkeep command to consult it BEFORE producing the deliverable — it may have been updated since the brief was written.
+Commands (run them in this directory, each needs --scope bench):
+  ./turnkeep recall --scope bench --query <key>   — show the current value of a fact
+  ./turnkeep brief --scope bench --goal "<goal>"  — show the current brief
+  ./turnkeep begin --scope bench --task "<goal>"  — start a run (prints a run id)
+  ./turnkeep finish --scope bench --run <run-id> --key <deliverable-key> --value "<value>" --idempotency-key <task-id>-1  — record the deliverable with a receipt
+  If finish is rejected with STALE_SNAPSHOT, run ./turnkeep resume --scope bench --run <run-id>, then re-check with recall and finish again.
+  Always record the deliverable with finish (with a receipt) after writing the deliverable file.
+Exact finish command for this task (copy it, filling in <run-id> and <value>):
+  ./turnkeep finish --scope bench --run <run-id> --key deploy.plan --value "<value>" --idempotency-key conf-f12-stable-1
+
+
+# How to work
+
+Follow these steps in order. You MUST do the work with tool calls (exec_command). Do not just reply in text.
+1. Read the task files and your memory FIRST.
+2. Write the deliverable to output/plan.txt with exactly the format the task asks for.
+3. Verify the deliverable with `cat`.
+4. End your turn with a one-line summary of what you wrote and where.
+Only the deliverable file is scored; your chat reply is not scored. The task is NOT finished until the deliverable file exists and you have verified it with `cat`.
+- Never invent facts. Only use the brief, the project files, and your memory.
+- Do not use the network.
+
+warning: Codex could not find bubblewrap on PATH. Install bubblewrap with your OS package manager. See the sandbox prerequisites: https://developers.openai.com/codex/concepts/sandboxing#prerequisites. Codex will use the bundled bubblewrap in the meantime.
+codex
+I’ll check the project files and current Turnkeep memory first, then write and verify the plan and record it with a receipt.
+exec
+/bin/bash -lc "pwd && rg --files -g '"'!tk.sqlite3'"' -g '"'!*.sqlite*'"' && ./turnkeep brief --scope bench --goal \"Write Acme deploy plan: run database migration, then deploy\" && ./turnkeep recall --scope bench --query deploy.plan" in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f12-stable-turnkeep-seed47/work
+ succeeded in 258ms:
+/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f12-stable-turnkeep-seed47/work
+turnkeep
+runbook.md
+{
+  "scope": "bench",
+  "goal": "Write Acme deploy plan: run database migration, then deploy",
+  "epoch": 1,
+  "current_status": "1 active records",
+  "valid_decisions": [],
+  "open_questions": [],
+  "attempts": [],
+  "recent_changes": [
+    {
+      "epoch": 1,
+      "event": "remember",
+      "affected_ids": [
+        "7d2766f065f34c1fbc97ca2a87510328"
+      ],
+      "at": "2026-11-09T23:57:46.875722+00:00"
+    }
+  ],
+  "suggested_next_steps": [
+    "Continue from the latest active records"
+  ],
+  "records": [
+    {
+      "must_keep": false,
+      "text": "deploy.plan: \"run migrate-db-v2 then deploy\" [7d2766f065f34c1fbc97ca2a87510328]"
+    }
+  ],
+  "dropped_record_count": 0,
+  "chars_used": 79,
+  "max_chars": 4000,
+  "estimated_tokens": 20,
+  "budget_overrun": false
+}
+{
+  "scope": "bench",
+  "records": [
+    {
+      "id": "7d2766f065f34c1fbc97ca2a87510328",
+      "key": "deploy.plan",
+      "kind": "fact",
+      "state": "active",
+      "revision": 1,
+      "created_at": "2026-11-09T23:57:46.875409+00:00",
+      "updated_at": "2026-11-09T23:57:46.875409+00:00",
+      "valid_until": null,
+      "cause_event_id": null,
+      "scope": "bench",
+      "value": "run migrate-db-v2 then deploy",
+      "source_refs": [
+        {
+          "id": "u:1",
+          "type": "user_statement"
+        }
+      ],
+      "parent_ids": [],
+      "supersedes_ids": [],
+      "_score": 2,
+      "_label": "active",
+      "_lexical_fallback": true
+    }
+  ]
+}
+
+exec
+/bin/bash -lc 'cat runbook.md && ./turnkeep begin --scope bench --task "Write Acme deploy plan: run database migration, then deploy"' in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f12-stable-turnkeep-seed47/work
+ succeeded in 151ms:
+# Runbook
+
+Deploy plan: run the current database migration step, then deploy. The migration step name changes over time; always use the current one.
+{
+  "run_id": "fbe2058b5725434e842fc3ae92d24227",
+  "scope": "bench",
+  "task": "Write Acme deploy plan: run database migration, then deploy",
+  "read_epoch": 1,
+  "records": [
+    {
+      "id": "7d2766f065f34c1fbc97ca2a87510328",
+      "key": "deploy.plan",
+      "kind": "fact",
+      "state": "active",
+      "revision": 1,
+      "created_at": "2026-11-09T23:57:46.875409+00:00",
+      "updated_at": "2026-11-09T23:57:46.875409+00:00",
+      "valid_until": null,
+      "cause_event_id": null,
+      "scope": "bench",
+      "value": "run migrate-db-v2 then deploy",
+      "source_refs": [
+        {
+          "id": "u:1",
+          "type": "user_statement"
+        }
+      ],
+      "parent_ids": [],
+      "supersedes_ids": []
+    }
+  ],
+  "conflicts": [],
+  "status": "open"
+}
+
+codex
+The runbook says to use the current migration step, and Turnkeep’s current `deploy.plan` is `run migrate-db-v2 then deploy`. I’m writing that exact line now.
+exec
+/bin/bash -lc "mkdir -p output && printf '%s\\n' 'run migrate-db-v2 then deploy' > output/plan.txt && cat output/plan.txt && ./turnkeep finish --scope bench --run fbe2058b5725434e842fc3ae92d24227 --key deploy.plan --value \"run migrate-db-v2 then deploy\" --idempotency-key conf-f12-stable-1" in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f12-stable-turnkeep-seed47/work
+ exited 1 in 105ms:
+run migrate-db-v2 then deploy
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/hatch/workspace/turnkeep-work/src/turnkeep/__main__.py", line 7, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/hatch/workspace/turnkeep-work/src/turnkeep/cli.py", line 216, in main
+    out = _com.finish(db, args.scope, args.run, {"key": args.key, "value": args.value},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hatch/workspace/turnkeep-work/src/turnkeep/commits.py", line 103, in finish
+    result_id = insert_record(db, scope_id, result["key"], _json(result["value"]),
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hatch/workspace/turnkeep-work/src/turnkeep/storage.py", line 387, in insert_record
+    db.execute("INSERT INTO memories(id, scope_id, key, value_json, kind, state, revision, created_at, updated_at) "
+sqlite3.IntegrityError: UNIQUE constraint failed: memories.scope_id, memories.key
+
+codex
+The file is written and verified. Turnkeep rejected `finish` because `deploy.plan` already exists as a unique record; I’m checking the CLI’s supported update flow so I can complete the receipt correctly.
+exec
+/bin/bash -lc './turnkeep --help && ./turnkeep finish --help && ./turnkeep resume --help' in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f12-stable-turnkeep-seed47/work
+ succeeded in 713ms:
+usage: turnkeep [-h] [--version] [--db DB] [--json] [--non-interactive]
+                {init,remember,begin,correct,retract,resolve,finish,resume,rebase,recall,brief,inspect,history,expire,sweep-expiry,erase,residuals,export,import,demo,doctor,mcp,serve}
+                ...
+
+Turnkeep local project memory (v0.1)
+
+positional arguments:
+  {init,remember,begin,correct,retract,resolve,finish,resume,rebase,recall,brief,inspect,history,expire,sweep-expiry,erase,residuals,export,import,demo,doctor,mcp,serve}
+
+options:
+  -h, --help            show this help message and exit
+  --version             show program's version number and exit
+  --db DB               SQLite path (default: per-scope data path)
+  --json                stable JSON output
+  --non-interactive     never prompt (default behaviour)
+usage: turnkeep finish [-h] --scope SCOPE --run RUN --key KEY --value VALUE
+                       [--parent PARENT] [--idempotency-key IDEMPOTENCY_KEY]
+
+options:
+  -h, --help            show this help message and exit
+  --scope SCOPE
+  --run RUN
+  --key KEY
+  --value VALUE
+  --parent PARENT
+  --idempotency-key IDEMPOTENCY_KEY
+usage: turnkeep resume [-h] --scope SCOPE --run RUN
+
+options:
+  -h, --help     show this help message and exit
+  --scope SCOPE
+  --run RUN
+
+exec
+/bin/bash -lc "sed -n '1,180p' /home/hatch/workspace/turnkeep-work/src/turnkeep/commits.py && sed -n '1,120p' /home/hatch/workspace/turnkeep-work/src/turnkeep/cli.py" in /home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f12-stable-turnkeep-seed47/work
+ succeeded in 0ms:
+"""Atomic finish + stale-snapshot rejection (T014). Contract §6, five steps,
+in ONE BEGIN IMMEDIATE transaction:
+
+1. Idempotency FIRST: if this run already succeeded, same request digest ->
+   return the original receipt; different digest -> IDEMPOTENCY_MISMATCH.
+   (Replay precedence over closed-state and epoch checks.)
+2. Read the server-bound run + scope; confirm it can still commit.
+3. Check current epoch == run's read epoch, else STALE_SNAPSHOT with
+   changed_keys / changed_record_ids / why (coarse-grain: epoch diff).
+4. Confirm all declared parents are still usable and in-scope.
+5. Write result + event + idempotency row, bump epoch, close run, store receipt.
+
+- The server merges its snapshot read-set into the result's parent_ids
+  (union with client-declared parents): omitting parents cannot dodge later
+  taint. An empty client parent list still inherits the snapshot set.
+- No LLM / network call inside the write transaction.
+- One run yields at most one result; external actions are NOT atomic with
+  the receipt (contract §7 — never claimed).
+"""
+from __future__ import annotations
+import json
+from .errors import TurnkeepError
+from .storage import (transaction, ensure_scope, scope_epoch, row_or_404,
+                      dump_record, insert_record, publish_event, _json,
+                      _text, _ids, _sources, _now, usable)
+from .idempotency import request_digest, check as idem_check, store as idem_store
+from .runs import get_run
+from .memory import active_records
+
+
+def _changed_since(db, scope_id, run):
+    snap_ids = {r["id"] for r in run["snapshot"]["records"]}
+    now = db.execute("SELECT id, key, state, revision FROM memories WHERE scope_id=?",
+                     (scope_id,)).fetchall()
+    changed_ids, changed_keys = [], []
+    now_map = {r["id"]: r for r in now}
+    for r in now:
+        old = next((s for s in run["snapshot"]["records"] if s["id"] == r["id"]), None)
+        if old is None or old["revision"] != r["revision"] or old["state"] != r["state"]:
+            changed_ids.append(r["id"])
+            if r["key"] not in changed_keys:
+                changed_keys.append(r["key"])
+    for s in run["snapshot"]["records"]:
+        if s["id"] not in now_map:
+            changed_ids.append(s["id"])
+    return sorted(set(changed_ids)), sorted(changed_keys)
+
+
+def finish(db, scope_id, run_id, result, *, parent_ids=(), idempotency_key="",
+           actor_binding="local"):
+    scope_id = _text(scope_id, "scope")
+    if not isinstance(result, dict) or "key" not in result or "value" not in result:
+        raise TurnkeepError("INVALID_INPUT", "finish result needs {key, value}")
+    parents = _ids(parent_ids)
+    with transaction(db, write=True):
+        ensure_scope(db, scope_id)
+        run = get_run(db, scope_id, run_id)
+        digest = request_digest("finish", scope_id, actor_binding,
+                                {"run_id": run_id, "result": result})
+        # Same key, different request -> refuse before any work, even on a
+        # run that has not succeeded yet.
+        if idempotency_key:
+            prior = idem_check(db, scope_id, actor_binding, "finish", idempotency_key, digest)
+            if prior is not None:
+                return prior
+        # 1. Idempotent replay precedes closed/epoch checks.
+        if run["status"] == "accepted" and run.get("receipt"):
+            stored = idem_check(db, scope_id, actor_binding, "finish",
+                                idempotency_key or run_id, digest)
+            if stored is not None:
+                return stored
+            # accepted but no idempotency row under this key: same digest via
+            # run-bound digest check
+            if run.get("request_digest") == digest:
+                return run["receipt"]
+            raise TurnkeepError("IDEMPOTENCY_MISMATCH",
+                                "Run already accepted with a different request")
+        if run["status"] != "open":
+            raise TurnkeepError("INVALID_INPUT", f"Run is {run['status']}, cannot finish")
+        # 3. Epoch check (before any write).
+        current_epoch = scope_epoch(db, scope_id)
+        if current_epoch != run["snapshot_epoch"]:
+            changed_ids, changed_keys = _changed_since(db, scope_id, run)
+            raise TurnkeepError("STALE_SNAPSHOT",
+                                "Project memory changed after this run read its snapshot; reread changes and recompute affected work.",
+                                changed_record_ids=changed_ids, changed_keys=changed_keys,
+                                from_epoch=run["snapshot_epoch"], to_epoch=current_epoch)
+        # 4. Declared parents must still be usable + in scope.
+        for p in parents:
+            if not usable(db, scope_id, p):
+                raise TurnkeepError("INVALID_PARENT",
+                                    "Declared parent is missing or unavailable", parent_id=p)
+        # Server read-set is merged in: the client cannot omit snapshot parents.
+        snapshot_ids = [r["id"] for r in run["snapshot"]["records"]]
+        all_parents = sorted(set(parents) | set(snapshot_ids))
+        for p in all_parents:
+            if not usable(db, scope_id, p):
+                raise TurnkeepError("INVALID_PARENT",
+                                    "Snapshot parent is no longer usable", parent_id=p)
+        # 5. Write result + event + receipt + idempotency, in this tx.
+        changes = {}
+        sources = [{"id": f"run:{run_id}", "type": "agent_inference"}]
+        result_id = insert_record(db, scope_id, result["key"], _json(result["value"]),
+                                  result.get("kind", "handoff"), sources, all_parents,
+                                  changes, state="active")
+        receipt = {"run_id": run_id, "scope": scope_id, "record_id": result_id,
+                   "request_digest": digest, "read_epoch": run["snapshot_epoch"],
+                   "commit_epoch": current_epoch + 1, "parent_ids": all_parents,
+                   "committed_at": _now(), "status_at_commit": "active",
+                   "guarantee": "local_sqlite_commit_only"}
+        db.execute("UPDATE runs SET status='accepted', accepted_at=?, result_memory_id=?, "
+                   "request_digest=?, receipt_json=? WHERE scope_id=? AND id=?",
+                   (receipt["committed_at"], result_id, digest, _json(receipt), scope_id, run_id))
+        publish_event(db, scope_id, "finish", actor_binding, changes,
+                      metadata={"key": result["key"], "run_id": run_id})
+        if idempotency_key:
+            idem_store(db, scope_id, actor_binding, "finish", idempotency_key, digest, receipt)
+        return receipt
+"""Turnkeep product CLI (T019). Task-oriented commands, stable --json output.
+
+Commands (all take --db or use the default data path; --scope is always
+explicit — the CLI never guesses a project):
+  init --scope ID [--display-name NAME] [--db PATH]
+  remember --scope S --key K --value V [--kind K] [--source id:type]...
+           [--parent ID]... [--expected-revision N] [--replaces ID]...
+  begin --scope S --task TEXT
+  correct --scope S --id ID --expected-revision N --value V
+  retract --scope S --id ID --expected-revision N --reason TEXT
+  resolve --scope S --key K --value V --candidate ID:REV ...
+  finish --scope S --run RUN_ID --key K --value V [--parent ID]... [--idempotency-key K]
+  resume --scope S --run RUN_ID
+  rebase --scope S --run RUN_ID
+  recall --scope S [--query Q] [--history]
+  brief --scope S [--goal TEXT]
+  inspect --scope S [--history]
+  history --scope S
+  demo [--db PATH]   (scripted J01 demo, clearly labelled, no model calls)
+  doctor [--data-dir DIR] [--json]  (diagnostics, T028; exit 0 always)
+  serve --scope S [--port N] [--db PATH]  (loopback-only workbench API, T027;
+           prints URL + session token on stdout, serves until Ctrl-C)
+
+Errors: non-zero exit + structured JSON diagnosis on stderr with --json
+(or plain text otherwise). --non-interactive is the default behaviour:
+the CLI never prompts; ambiguous scope is an error, never a guess.
+Values with spaces / Chinese / quotes pass through argv unchanged (no
+shell string building anywhere).
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+from pathlib import Path
+
+from . import __version__
+from .context import bind_context
+from .errors import TurnkeepError
+from .storage import open_db, data_path, scope_epoch
+
+
+def _parse_source(spec):
+    if ":" not in spec:
+        raise TurnkeepError("INVALID_INPUT", f"source must be id:type, got {spec!r}")
+    sid, stype = spec.rsplit(":", 1)
+    return {"id": sid, "type": stype}
+
+
+def _parse_candidate(spec):
+    if ":" not in spec:
+        raise TurnkeepError("INVALID_INPUT", f"candidate must be id:revision, got {spec!r}")
+    rid, rev = spec.rsplit(":", 1)
+    return {"id": rid, "revision": int(rev)}
+
+
+def _emit(payload, as_json):
+    if as_json:
+        print(json.dumps(payload, ensure_ascii=False, indent=2))
+    else:
+        print(json.dumps(payload, ensure_ascii=False))
+
+
+def _fail(error, as_json):
+    diag = {"error": {"code": error.code, "message": str(error),
+                      "details": getattr(error, "details", {}) or {}}}
+    if as_json:
+        print(json.dumps(diag, ensure_ascii=False, indent=2), file=sys.stderr)
+    else:
+        print(f"ERROR {error.code}: {error}", file=sys.stderr)
+        details = diag["error"]["details"]
+        if details:
+            print(f"details: {json.dumps(details, ensure_ascii=False)}", file=sys.stderr)
+    return 2
+
+
+def _db_for(args):
+    path = Path(args.db) if getattr(args, "db", None) else data_path(args.scope)
+    return open_db(path)
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(prog="turnkeep", description="Turnkeep local project memory (v0.1)")
+    parser.add_argument("--version", action="version", version=f"turnkeep {__version__}")
+    parser.add_argument("--db", help="SQLite path (default: per-scope data path)")
+    parser.add_argument("--json", action="store_true", help="stable JSON output")
+    parser.add_argument("--non-interactive", action="store_true", help="never prompt (default behaviour)")
+    sub = parser.add_subparsers(dest="command", required=True)
+
+    p = sub.add_parser("init"); p.add_argument("--scope", required=True); p.add_argument("--display-name")
+    p = sub.add_parser("remember"); p.add_argument("--scope", required=True); p.add_argument("--key", required=True)
+    p.add_argument("--value", required=True); p.add_argument("--kind", default="fact")
+    p.add_argument("--source", action="append", default=[]); p.add_argument("--parent", action="append", default=[])
+    p.add_argument("--expected-revision", type=int); p.add_argument("--replaces", action="append", default=[])
+    p = sub.add_parser("begin"); p.add_argument("--scope", required=True); p.add_argument("--task", required=True)
+    p = sub.add_parser("correct"); p.add_argument("--scope", required=True); p.add_argument("--id", required=True)
+    p.add_argument("--expected-revision", type=int, required=True); p.add_argument("--value", required=True)
+    p.add_argument("--source", action="append", default=[])
+    p = sub.add_parser("retract"); p.add_argument("--scope", required=True); p.add_argument("--id", required=True)
+    p.add_argument("--expected-revision", type=int, required=True); p.add_argument("--reason", required=True)
+    p = sub.add_parser("resolve"); p.add_argument("--scope", required=True); p.add_argument("--key", required=True)
+    p.add_argument("--value", required=True); p.add_argument("--candidate", action="append", default=[])
+    p.add_argument("--source", action="append", default=[])
+    p = sub.add_parser("finish"); p.add_argument("--scope", required=True); p.add_argument("--run", required=True)
+    p.add_argument("--key", required=True); p.add_argument("--value", required=True)
+    p.add_argument("--parent", action="append", default=[]); p.add_argument("--idempotency-key", default="")
+    p = sub.add_parser("resume"); p.add_argument("--scope", required=True); p.add_argument("--run", required=True)
+    p = sub.add_parser("rebase"); p.add_argument("--scope", required=True); p.add_argument("--run", required=True)
+    p = sub.add_parser("recall"); p.add_argument("--scope", required=True); p.add_argument("--query", default="")
+    p.add_argument("--history", action="store_true")
+    p = sub.add_parser("brief"); p.add_argument("--scope", required=True); p.add_argument("--goal", default="")
+    p = sub.add_parser("inspect"); p.add_argument("--scope", required=True); p.add_argument("--history", action="store_true")
+    p = sub.add_parser("history"); p.add_argument("--scope", required=True)
+    p = sub.add_parser("expire"); p.add_argument("--scope", required=True); p.add_argument("--id", required=True)
+    p.add_argument("--valid-until", required=True); p.add_argument("--expected-revision", type=int, required=True)
+    p = sub.add_parser("sweep-expiry"); p.add_argument("--scope", required=True)
+    p = sub.add_parser("erase"); p.add_argument("--scope", required=True); p.add_argument("--id", required=True)
+    p.add_argument("--expected-revision", type=int, required=True); p.add_argument("--reason", required=True)
+    p = sub.add_parser("residuals"); p.add_argument("--scope", required=True)
+    p = sub.add_parser("export"); p.add_argument("--scope", required=True)
+
+codex
+Wrote and verified `output/plan.txt` with `run migrate-db-v2 then deploy`. Turnkeep’s requested `finish` command failed because `deploy.plan` already exists and the database enforces a unique key.
+tokens used
+20,023

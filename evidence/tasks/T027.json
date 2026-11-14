@@ -1,0 +1,71 @@
+{
+  "task_id": "T027",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": null,
+  "base_revision": "0.1",
+  "changed_files": [
+    "specs/local-app-api.json",
+    "scripts/check_openapi.py",
+    "src/turnkeep/cli.py",
+    "src/turnkeep/web/__init__.py",
+    "src/turnkeep/web/app.py",
+    "src/turnkeep/web/routes.py",
+    "tests/web/test_local_boundary.py",
+    "tests/web/test_routes.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/web/test_routes.py",
+        "tests/web/test_local_boundary.py",
+        "-q"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "tests/web/test_routes.py"
+    },
+    {
+      "argv": [
+        "python3",
+        "scripts/check_openapi.py",
+        "--snapshot",
+        "specs/local-app-api.json"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "specs/local-app-api.json"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/run_gate.py",
+        "--task",
+        "T027"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/gate/T027.json"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "pytest web 13/13 (routes: health/remember/recall/begin/finish stale 409 with changed_keys, error shapes match CLI/MCP, no DB path leaked; boundary: missing/wrong token 401, cross-origin 403, spoofed Host 403, 1.2MB body 400, traversal 404, non-loopback bind ValueError, cross-site GET cannot write)",
+      "check_openapi PASS (11 paths, snapshot == route table)",
+      "live CLI check: `turnkeep serve` on 127.0.0.1:48821, health ok with session token"
+    ],
+    "failed": [],
+    "not_run": []
+  },
+  "risks": [
+    "1 repair: health returned 404 on an unregistered scope (scope_epoch NOT_FOUND) — health now returns epoch null for unregistered scopes",
+    "1 repair: serve startup JSON was block-buffered and lost on kill — print with flush=True",
+    "stdlib-only: no FastAPI/Uvicorn; ui extra stays empty, core install unchanged"
+  ],
+  "next_actions": [
+    "T028 install + doctor (CLI doctor subcommand to add)"
+  ]
+}

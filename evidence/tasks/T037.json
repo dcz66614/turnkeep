@@ -1,0 +1,75 @@
+{
+  "task_id": "T037",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": null,
+  "base_revision": "0.1",
+  "changed_files": [
+    "src/turnkeep/importers/__init__.py",
+    "src/turnkeep/importers/markdown.py",
+    "src/turnkeep/cli.py",
+    "docs/migration.md",
+    "tests/data/test_markdown_import.py",
+    "tests/data/test_import_injection.py",
+    "fixtures/imports/markdown-sample/notes.md",
+    "fixtures/imports/markdown-sample/injection.md"
+  ],
+  "commands": [
+    {
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/data/test_markdown_import.py",
+        "tests/data/test_import_injection.py",
+        "-q"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "tests/data/"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "turnkeep",
+        "import",
+        "--format",
+        "markdown",
+        "--dry-run",
+        "fixtures/imports/example-project"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "docs/migration.md"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/run_gate.py",
+        "--task",
+        "T037"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/gate/T037.json"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "pytest tests/data markdown+injection 12/12 PASS (structured items only, stable keys, duplicates, conflicts for adjudication, code fence/prose never facts, oversize/symlink rejected, injection inert, file links not read)",
+      "turnkeep import --format markdown --dry-run fixtures/imports/example-project exit 0 (0 candidates, no .md files, no DB change)",
+      "run_gate --task T037 PASS"
+    ],
+    "failed": [],
+    "not_run": []
+  },
+  "risks": [
+    "2 repairs: CLI opened the DB before resolving the import scope (args.scope None -> data_path returned a directory -> sqlite connect failed); fixed by resolving the scope before _db_for. Symlink check ran after Path.resolve() had already followed the link; now checked on the raw path first",
+    "The backlog acceptance path fixtures/imports/example-project contains no .md files, so the acceptance command exercises the 0-candidate path; real Markdown coverage comes from fixtures/imports/markdown-sample/ (SYNTHETIC, labelled as such) and the 12 tests",
+    "No real open-source memory-system export was available to parse; docs/migration.md marks Obsidian/Notion/other systems UNVERIFIED rather than claiming compatibility"
+  ],
+  "next_actions": [
+    "R4 T038 (expiry, privacy erasure, residual report)"
+  ]
+}

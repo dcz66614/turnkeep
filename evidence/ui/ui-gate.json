@@ -1,0 +1,28 @@
+{
+  "task": "T035",
+  "gate": "ui production build",
+  "status": "PASS",
+  "checks": {
+    "build": {
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    "relative_assets": {
+      "status": "PASS",
+      "detail": "dist/index.html uses ./assets/ (relative)"
+    },
+    "no_external_urls": {
+      "status": "PASS",
+      "external": []
+    },
+    "e2e_production_build": {
+      "exit_code": 0,
+      "status": "PASS",
+      "tail": "\n> turnkeep-workbench@0.1.0 test:e2e:prod\n> NODE_PATH=./node_modules playwright test -c playwright.prod.config.ts\n\n\nRunning 11 tests using 2 workers\n\n  ✓   2 ../tests/ui/correction.spec.ts:55:1 › editor corrects with CAS; concurrent update surfaces 409, no silent overwrite (2.8s)\n  ✓   1 ../tests/ui/accessibility.spec.ts:48:1 › keyboard-only: connect form and nav work without a mouse (3.4s)\n  ✓   4 ../tests/ui/accessibility.spec.ts:81:1 › narrow viewport: no horizontal overflow, buttons stay reachable (1.6s)\n  ✓   3 ../tests/ui/correction.spec.ts:79:1 › conflicts view resolves the full candidate set with new evidence (2.2s)\n  ✓   5 ../tests/ui/accessibility.spec.ts:106:1 › every input has a label and every button has an accessible name (537ms)\n  ✓   6 ../tests/ui/impact.spec.ts:56:1 › impact view shows old/new, the path, and resume diff (2.5s)\n  ✓   7 ../tests/ui/journeys.spec.ts:55:1 › J01: screen matches DB after a correction (2.3s)\n  ✓   8 ../tests/ui/overview.spec.ts:52:1 › overview shows seeded decision and history lists it (1.6s)\n  ✓  10 ../tests/ui/overview.spec.ts:73:1 › wrong token shows an actionable error, not fake data (961ms)\n  ✓   9 ../tests/ui/journeys.spec.ts:78:1 › J04: restart recovers runs and records (DB, not localStorage) (3.3s)\n  ✓  11 ../tests/ui/recovery.spec.ts:50:1 › recovery shows diff, rebases twice, then quarantines; handoff exports (2.5s)\n\n  11 passed (15.3s)\n"
+    }
+  },
+  "notes": [
+    "Automated a11y checks only — not a substitute for human usability validation.",
+    "No green 'connected' indicator exists in the UI; a dead API shows the error card, never a fake connected state."
+  ]
+}

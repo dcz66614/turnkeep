@@ -1,0 +1,263 @@
+{
+  "suite": "core-change",
+  "version": 1,
+  "mutation": "none",
+  "label": "SCRIPTED_REPLAY_NO_MODEL_CALLS",
+  "scenarios": 25,
+  "passed": 25,
+  "failed": 0,
+  "false_refusals": 2,
+  "false_refusal_note": "Scenarios flagged false_refusal demonstrate the conservative contract rejecting a finish on an unrelated change; they PASS when the rejection + recompute behave as specified, and are reported separately from model failures.",
+  "results": [
+    {
+      "id": "S01-post-plan-correct",
+      "title": "Post-plan correction rejects the stale finish, resume + recompute succeeds",
+      "family": "F01",
+      "status": "PASS",
+      "failures": [],
+      "recoveries": 1,
+      "events": 6,
+      "false_refusal": false
+    },
+    {
+      "id": "S02-post-plan-retract",
+      "title": "Post-plan retraction rejects the stale finish; the recomputed summary cites no dead evidence",
+      "family": "F05",
+      "status": "PASS",
+      "failures": [],
+      "recoveries": 1,
+      "events": 6,
+      "false_refusal": false
+    },
+    {
+      "id": "S03-post-plan-conflict",
+      "title": "Post-plan conflict rejects the stale finish; resolve then recompute succeeds",
+      "family": "F08",
+      "status": "PASS",
+      "failures": [],
+      "recoveries": 0,
+      "events": 6,
+      "false_refusal": false
+    },
+    {
+      "id": "S04-empty-query-add",
+      "title": "Empty read then a new fact: phantom protection rejects the first finish",
+      "family": "F07",
+      "status": "PASS",
+      "failures": [],
+      "recoveries": 1,
+      "events": 6,
+      "false_refusal": false
+    },
+    {
+      "id": "S05-empty-query-add-irrelevant",
+      "title": "Empty read then an unrelated fact: conservative rejection (false refusal, reported separately)",
+      "family": "F10",
+      "status": "PASS",
+      "failures": [],
+      "recoveries": 1,
+      "events": 6,
+      "false_refusal": true
+    },
+    {
+      "id": "S06-concurrent-correct-one-wins",
+      "title": "Two concurrent corrections on the same revision: one wins, one conflicts",
+      "family": "F01",
+      "status": "PASS",
+      "failures": [],
+      "recoveries": 0,
+      "events": 2,
+      "false_refusal": false
+    },
+    {
+      "id": "S07-correct-after-retract-refused",
+      "title": "Correcting a retracted record is refused, not a silent revival",
+      "family": "F01",
+      "status": "PASS",
+      "failures": [],
+      "recoveries": 0,
+      "events": 2,
+      "false_refusal": false
+    },
+    {
+      "id": "S08-concurrent-finish-same-key",
+      "title": "Two runs finishing with the same idempotency key: different payload refused, same payload replayed",
+      "family": "F01",
+      "status": "PASS",
+      "failures": [],
+      "recoveries": 0,
+      "events": 5,
+      "false_refusal": false
+    },
+    {
+      "id": "S09-indirect-taint-chain",
+      "title": "Retracting the root taints the whole chain",
+      "family": "F11",
+      "status": "PASS",
+      "failures": [],
+      "recoveries": 0,
+      "events": 1,
+      "false_refusal": false
+    },
+    {
+      "id": "S10-indirect-taint-diamond",
+      "title": "Retracting the diamond root taints both branches and the join",
+      "family": "F11",
+      "status": "PASS",
+      "failures": [],
+      "recoveries": 0,
+      "events": 1,
+      "false_refusal": false
+    },
+    {
+      "id": "S11-shared-subgraph-taint",
+      "title": "Shared parent taints both children and the grandchild; unrelated records stay usable",
+      "family": "F11",
+      "status": "PASS",
+      "failures": [],
+      "recoveries": 0,
+      "events": 1,
+      "false_refusal": false
+    },
+    {
+      "id": "S12-expire-taint",
+      "title": "Expiry removes the record from the view and taints its children",
+      "family": "F01",
+      "status": "PASS",
+      "failures": [],
+      "recoveries": 0,
+      "events": 2,
+      "false_refusal": false
+    },
+    {
+      "id": "S13-erase-payload-gone",
+      "title": "Erasure removes the payload from every read path",
+      "family": "F05",
+      "status": "PASS",
+      "failures": [],
+      "recoveries": 0,
+      "events": 1,
+      "false_refusal": false
+    },
+    {
+      "id": "S14-erase-then-export",
+      "title": "An erased record stays erased through export and import",
+      "family": "F05",
+      "status": "PASS",
+      "failures": [],
+      "recoveries": 0,
+      "events": 2,
+      "false_refusal": false
+    },
+    {
+      "id": "S15-scope-isolation-recall",
+      "title": "The same key in two scopes holds two different values",
+      "family": "F04",
+      "status": "PASS",
+      "failures": [],
+      "recoveries": 0,
+      "events": 2,
+      "false_refusal": false
+    },
+    {
+      "id": "S16-scope-isolation-taint",
+      "title": "Retraction in one scope does not taint the other scope",
+      "family": "F04",
+      "status": "PASS",
+      "failures": [],
+      "recoveries": 0,
+      "events": 3,
+      "false_refusal": false
+    },
+    {
+      "id": "S17-scope-isolation-erase",
+      "title": "Erasure in one scope leaves the other scope alone",
+      "family": "F04",
+      "status": "PASS",
+      "failures": [],
+      "recoveries": 0,
+      "events": 2,
+      "false_refusal": false
+    },
+    {
+      "id": "S18-irrelevant-update-false-refusal",
+      "title": "An unrelated update rejects the finish (false refusal, reported separately)",
+      "family": "F10",
+      "status": "PASS",
+      "failures": [],
+      "recoveries": 1,
+      "events": 6,
+      "false_refusal": true
+    },
+    {
+      "id": "S19-other-scope-update-no-refusal",
+      "title": "An update in another scope does not reject the finish",
+      "family": "F10",
+      "status": "PASS",
+      "failures": [],
+      "recoveries": 0,
+      "events": 3,
+      "false_refusal": false
+    },
+    {
+      "id": "S20-restart-recovers-run",
+      "title": "Restart recovers the open run; resume + recompute finishes",
+      "family": "F07",
+      "status": "PASS",
+      "failures": [],
+      "recoveries": 1,
+      "events": 6,
+      "false_refusal": false
+    },
+    {
+      "id": "S21-restart-recovers-records",
+      "title": "Restart recovers the records; a new run finishes",
+      "family": "F07",
+      "status": "PASS",
+      "failures": [],
+      "recoveries": 0,
+      "events": 3,
+      "false_refusal": false
+    },
+    {
+      "id": "S22-restart-after-finish",
+      "title": "Restart after finish: the identical replay returns the receipt",
+      "family": "F07",
+      "status": "PASS",
+      "failures": [],
+      "recoveries": 0,
+      "events": 4,
+      "false_refusal": false
+    },
+    {
+      "id": "S23-conflict-resolve",
+      "title": "A conflict is resolved with the full candidate set; the winner is active",
+      "family": "F08",
+      "status": "PASS",
+      "failures": [],
+      "recoveries": 0,
+      "events": 2,
+      "false_refusal": false
+    },
+    {
+      "id": "S24-conflict-resolve-incomplete-set-refused",
+      "title": "Resolving with a partial candidate set is refused",
+      "family": "F08",
+      "status": "PASS",
+      "failures": [],
+      "recoveries": 0,
+      "events": 2,
+      "false_refusal": false
+    },
+    {
+      "id": "S25-import-tampered-refused",
+      "title": "A tampered export package is refused on import",
+      "family": "F05",
+      "status": "PASS",
+      "failures": [],
+      "recoveries": 0,
+      "events": 1,
+      "false_refusal": false
+    }
+  ]
+}

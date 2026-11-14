@@ -1,0 +1,1 @@
+Wrote and verified `npm run build` in [output/build.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-pilot/attempts/pilot-f03-changed-turnkeep-seed20261108/work/output/build.txt). Turnkeep’s `finish` failed twice with a duplicate-key integrity error, including after resuming the run.

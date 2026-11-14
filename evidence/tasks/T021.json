@@ -1,0 +1,38 @@
+{
+  "task_id": "T021",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": null,
+  "base_revision": "0.1",
+  "changed_files": [
+    "requirements/mcp.lock",
+    "src/turnkeep/mcp_server.py",
+    "tests/mcp/test_lifecycle.py",
+    "tests/mcp/test_tools.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/mcp/test_tools.py",
+        "tests/mcp/test_lifecycle.py",
+        "-q"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "tests/mcp/test_tools.py"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "pytest MCP 6/6 via official SDK client (9 tools listed, remember/begin/finish roundtrip, stale finish returns STALE_SNAPSHOT domain error, invalid payload touches nothing, lifecycle clean shutdown, unknown tool is_error)",
+      "mcp 2.3.0 pinned (FastMCP renamed MCPServer in 2.x — v2 API used); recall/resume/brief MCP tools close the T003 HTTP-path gap"
+    ],
+    "failed": [],
+    "not_run": []
+  },
+  "risks": [],
+  "next_actions": []
+}

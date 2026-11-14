@@ -1,0 +1,67 @@
+{
+  "task_id": "T039",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": null,
+  "base_revision": "0.1",
+  "changed_files": [
+    "src/turnkeep/backup.py",
+    "scripts/restore_check.py",
+    "tests/storage/test_backup_restore.py",
+    "tests/storage/test_restore_erasure.py",
+    "docs/recovery.md"
+  ],
+  "commands": [
+    {
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/storage/test_backup_restore.py",
+        "tests/storage/test_restore_erasure.py",
+        "-q"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "tests/storage/"
+    },
+    {
+      "argv": [
+        "python3",
+        "scripts/restore_check.py",
+        "--fixture",
+        "restart-handoff"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "scripts/restore_check.py"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/run_gate.py",
+        "--task",
+        "T039"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/gate/T039.json"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "pytest tests/storage backup+restore-erasure 7/7 PASS (live backup roundtrip, second-connection backup, truncated refusal, overwrite guard + force, diagnose OK/CORRUPT, pre-erasure restore resurrects payload, post-erasure backup stays clean)",
+      "restore_check.py --fixture restart-handoff PASS (live backup, restore, resume same run, truncated + overwrite refusals)",
+      "run_gate --task T039 PASS"
+    ],
+    "failed": [],
+    "not_run": []
+  },
+  "risks": [
+    "2 repairs: Path.read_bytes(n) takes no size argument (fixed in backup.py + one test); PRAGMA integrity_check raises sqlite3.DatabaseError on a truncated file instead of returning a bad value (wrapped into TurnkeepError INVALID_INPUT in _verify_db and diagnose)",
+    "Restoring a pre-erasure backup resurrects erased payloads — documented as expected point-in-time behaviour in docs/recovery.md and tests/storage/test_restore_erasure.py; backups stay listed as uncontrolled residuals (T038)"
+  ],
+  "next_actions": [
+    "R4 T040 (fair baseline + evaluation runner)"
+  ]
+}

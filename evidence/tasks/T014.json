@@ -1,0 +1,48 @@
+{
+  "task_id": "T014",
+  "status": "IMPLEMENTED",
+  "branch": null,
+  "head_sha": null,
+  "base_revision": "0.1",
+  "changed_files": [
+    "src/turnkeep/commits.py",
+    "tests/core/test_finish.py",
+    "tests/core/test_finish_races.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/core/test_finish.py",
+        "tests/core/test_finish_races.py",
+        "-q"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "tests/core/test_finish.py"
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/run_gate.py",
+        "--task",
+        "T014"
+      ],
+      "cwd": "/home/hatch/workspace/turnkeep-work",
+      "exit_code": 0,
+      "evidence": "evidence/gate/T014.json"
+    }
+  ],
+  "acceptance": {
+    "passed": [
+      "pytest finish+races 6/6 (commit-once + idempotent replay, same-key/different-request IDEMPOTENCY_MISMATCH, STALE_SNAPSHOT with changed_keys and no partial write, empty parent_ids inherit snapshot parents then taint, 2-process race 1 winner, killed writer leaves no receipt/epoch unchanged)",
+      "run_gate --task T014 PASS"
+    ],
+    "failed": [],
+    "not_run": []
+  },
+  "risks": [],
+  "next_actions": []
+}

@@ -1,0 +1,73 @@
+{
+  "status": "FAIL",
+  "failures": [
+    "finish p95 7759.9ms > 500ms at 10000 records",
+    "recall p95 3182.9ms > 1000ms at 100000 records",
+    "finish p95 12288.3ms > 500ms at 100000 records"
+  ],
+  "hardware": {
+    "platform": "Linux-7.0.0-43-generic-x86_64-with-glibc2.39",
+    "python": "3.12.3",
+    "cpu_count": 4,
+    "memory_total_mb": 7934,
+    "filesystem": "/",
+    "sqlite": "3.45.1"
+  },
+  "thresholds": {
+    "recall_p95_ms_max": 1000,
+    "finish_p95_ms_max": 500,
+    "cold_start_ms_max": 3000
+  },
+  "cold_start_ms": 159.4,
+  "concurrency": {
+    "writers": 8,
+    "won": 1,
+    "version_conflicts": 7,
+    "busy_errors": []
+  },
+  "datasets": [
+    {
+      "records": 1000,
+      "recall_ms": {
+        "p50": 24.584251499845777,
+        "p95": 76.0878410001169,
+        "max": 76.0878410001169
+      },
+      "finish_ms": {
+        "p50": 217.87603700022373,
+        "p95": 442.0714940001744,
+        "max": 442.0714940001744
+      },
+      "db_bytes": 4243456
+    },
+    {
+      "records": 10000,
+      "recall_ms": {
+        "p50": 251.24577199994746,
+        "p95": 350.0042640002903,
+        "max": 350.0042640002903
+      },
+      "finish_ms": {
+        "p50": 1923.6058690000846,
+        "p95": 7759.862665000128,
+        "max": 7759.862665000128
+      },
+      "db_bytes": 41058304
+    },
+    {
+      "records": 100000,
+      "recall_ms": {
+        "p50": 2917.090698500033,
+        "p95": 3182.9258139996455,
+        "max": 3182.9258139996455
+      },
+      "finish_ms": {
+        "p50": 12275.116429999798,
+        "p95": 12288.324352000018,
+        "max": 12288.324352000018
+      },
+      "db_bytes": 150347776
+    }
+  ],
+  "note": "Fixed sizes on this machine; numbers are experiment points, not a promised upper bound."
+}

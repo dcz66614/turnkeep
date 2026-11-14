@@ -1,0 +1,1 @@
+Wrote `run migrate-db-v3 then deploy` to [output/plan.txt](/home/hatch/workspace/turnkeep-work/evidence/live-evals/campaign-20261109-T042-codex-api/live-confirmation/attempts/conf-f12-changed-markdown-seed29/work/output/plan.txt).

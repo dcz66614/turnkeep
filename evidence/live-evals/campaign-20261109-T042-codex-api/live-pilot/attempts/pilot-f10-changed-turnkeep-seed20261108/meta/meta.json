@@ -1,0 +1,12 @@
+{
+  "turnkeep_ids": {
+    "build.python_version": {
+      "id": "e284a36e6fd44e07a2ea175b2511aa10",
+      "revision": 1
+    },
+    "unrelated.note": {
+      "id": "9797e35486f94f8080f8eb2149261680",
+      "revision": 1
+    }
+  }
+}
