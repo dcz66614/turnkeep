@@ -1,0 +1,66 @@
+{
+  "suite": "live-pilot",
+  "mode": "live",
+  "label": "LIVE_MODEL",
+  "driver": "codex",
+  "model": "gpt5.6sol",
+  "note": "Real model (Codex CLI via copilot-codex-bridge, gpt5.6sol). Scored deterministically from raw traces + deliverable artifacts.",
+  "seed": 20261108,
+  "budget": {
+    "max_seconds": 600,
+    "max_steps": 60,
+    "max_tool_calls": 60
+  },
+  "overall": {
+    "attempts": 27,
+    "completed": 17,
+    "success_rate": 0.6296296296296297,
+    "stale_fact_rate": 0.07407407407407407,
+    "contract_violations": 0,
+    "irrelevant_refusals": 0,
+    "mean_redo_cost_steps": 2.740740740740741
+  },
+  "per_arm": {
+    "none": {
+      "attempts": 7,
+      "completed": 2,
+      "success_rate": 0.2857142857142857,
+      "stale_fact_rate": 0.2857142857142857,
+      "contract_violations": 0,
+      "irrelevant_refusals": 0,
+      "mean_redo_cost_steps": 4.571428571428571
+    },
+    "markdown": {
+      "attempts": 7,
+      "completed": 5,
+      "success_rate": 0.7142857142857143,
+      "stale_fact_rate": 0.0,
+      "contract_violations": 0,
+      "irrelevant_refusals": 0,
+      "mean_redo_cost_steps": 5.285714285714286
+    },
+    "log": {
+      "attempts": 7,
+      "completed": 4,
+      "success_rate": 0.5714285714285714,
+      "stale_fact_rate": 0.0,
+      "contract_violations": 0,
+      "irrelevant_refusals": 0,
+      "mean_redo_cost_steps": 0.0
+    },
+    "turnkeep": {
+      "attempts": 6,
+      "completed": 6,
+      "success_rate": 1.0,
+      "stale_fact_rate": 0.0,
+      "contract_violations": 0,
+      "irrelevant_refusals": 0,
+      "mean_redo_cost_steps": 0.8333333333333334
+    }
+  },
+  "attempts": 27,
+  "not_run_arms": {
+    "mature-memory": "NOT_RUN: no real Mem0/Hindsight install configured",
+    "nearest-workflow": "NOT_RUN: no real Tigerless/Engram install configured"
+  }
+}

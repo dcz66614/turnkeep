@@ -1,0 +1,1 @@
+已写入并验证 `output/summary.txt`：deadline Friday。
