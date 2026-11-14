@@ -1,0 +1,2 @@
+2026-11-08T10:00:00Z remember projA.api_url = https://api-a.example.com/v1 (fact)
+2026-11-08T10:00:00Z remember projB.api_url = https://api-b.example.com/v1 (fact)
