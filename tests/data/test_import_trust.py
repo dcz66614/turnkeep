@@ -17,14 +17,14 @@ FIX = Path(__file__).resolve().parents[2] / "fixtures" / "imports"
 def _make_pkg(pkg, recs, scope="t"):
     """Write a minimal hand-built export package from record dicts."""
     pkg.mkdir(parents=True, exist_ok=True)
-    (pkg / "records.jsonl").write_text("".join(json.dumps(r) + "\n" for r in recs))
-    (pkg / "events.jsonl").write_text("")
+    (pkg / "records.jsonl").write_text("".join(json.dumps(r) + "\n" for r in recs), encoding="utf-8")
+    (pkg / "events.jsonl").write_text("", encoding="utf-8")
     files = {n: hashlib.sha256((pkg / n).read_bytes()).hexdigest()
              for n in ("records.jsonl", "events.jsonl")}
     (pkg / "manifest.json").write_text(json.dumps(
         {"format": "turnkeep-export", "schema_version": 1, "scope_id": scope,
          "exported_at": "2026-11-08T00:00:00Z", "tool": "test", "record_count": len(recs),
-         "event_count": 0, "files": files}) + "\n")
+         "event_count": 0, "files": files}) + "\n", encoding="utf-8")
 
 
 def _db(tmp_path, scope="t"):
@@ -63,14 +63,14 @@ def test_missing_parent_quarantined_not_repaired(tmp_path):
          "revision": 1, "source_refs": [{"id": "u:1", "type": "user_statement"}],
          "parent_ids": ["o-missing"], "supersedes_ids": []},
     ]
-    (pkg / "records.jsonl").write_text("".join(json.dumps(r) + "\n" for r in recs))
-    (pkg / "events.jsonl").write_text("")
+    (pkg / "records.jsonl").write_text("".join(json.dumps(r) + "\n" for r in recs), encoding="utf-8")
+    (pkg / "events.jsonl").write_text("", encoding="utf-8")
     import hashlib
     files = {n: hashlib.sha256((pkg / n).read_bytes()).hexdigest() for n in ("records.jsonl", "events.jsonl")}
     (pkg / "manifest.json").write_text(json.dumps(
         {"format": "turnkeep-export", "schema_version": 1, "scope_id": "t",
          "exported_at": "2026-11-08T00:00:00Z", "tool": "test", "record_count": 2,
-         "event_count": 0, "files": files}) + "\n")
+         "event_count": 0, "files": files}) + "\n", encoding="utf-8")
     db = _db(tmp_path)
     imp = import_package(db, pkg)
     assert imp["imported"] == 1
@@ -92,14 +92,14 @@ def test_active_claim_with_quarantined_parent_becomes_tainted(tmp_path):
          "revision": 1, "source_refs": [{"id": "u:1", "type": "user_statement"}],
          "parent_ids": ["o1"], "supersedes_ids": []},
     ]
-    (pkg / "records.jsonl").write_text("".join(json.dumps(r) + "\n" for r in recs))
-    (pkg / "events.jsonl").write_text("")
+    (pkg / "records.jsonl").write_text("".join(json.dumps(r) + "\n" for r in recs), encoding="utf-8")
+    (pkg / "events.jsonl").write_text("", encoding="utf-8")
     import hashlib
     files = {n: hashlib.sha256((pkg / n).read_bytes()).hexdigest() for n in ("records.jsonl", "events.jsonl")}
     (pkg / "manifest.json").write_text(json.dumps(
         {"format": "turnkeep-export", "schema_version": 1, "scope_id": "t",
          "exported_at": "2026-11-08T00:00:00Z", "tool": "test", "record_count": 2,
-         "event_count": 0, "files": files}) + "\n")
+         "event_count": 0, "files": files}) + "\n", encoding="utf-8")
     db = _db(tmp_path)
     imp = import_package(db, pkg)
     assert imp["imported"] == 1
@@ -117,14 +117,14 @@ def test_incoming_actor_claim_is_not_authority(tmp_path):
              "revision": 1, "actor_id": "admin", "authority": "root",
              "source_refs": [{"id": "u:1", "type": "user_statement"}],
              "parent_ids": [], "supersedes_ids": []}]
-    (pkg / "records.jsonl").write_text(json.dumps(recs[0]) + "\n")
-    (pkg / "events.jsonl").write_text("")
+    (pkg / "records.jsonl").write_text(json.dumps(recs[0]) + "\n", encoding="utf-8")
+    (pkg / "events.jsonl").write_text("", encoding="utf-8")
     import hashlib
     files = {n: hashlib.sha256((pkg / n).read_bytes()).hexdigest() for n in ("records.jsonl", "events.jsonl")}
     (pkg / "manifest.json").write_text(json.dumps(
         {"format": "turnkeep-export", "schema_version": 1, "scope_id": "t",
          "exported_at": "2026-11-08T00:00:00Z", "tool": "test", "record_count": 1,
-         "event_count": 0, "files": files}) + "\n")
+         "event_count": 0, "files": files}) + "\n", encoding="utf-8")
     db = _db(tmp_path)
     imp = import_package(db, pkg)
     assert imp["imported"] == 1

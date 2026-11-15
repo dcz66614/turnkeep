@@ -24,7 +24,7 @@ def main():
         return 1
     attempts = []
     for f in sorted(inp.glob("attempts*.jsonl")):
-        attempts.extend(json.loads(l) for l in f.read_text().splitlines() if l.strip())
+        attempts.extend(json.loads(l) for l in f.read_text(encoding="utf-8").splitlines() if l.strip())
     # Campaigns (T042 live runs) keep their attempts under
     # campaign-*/live-pilot|live-confirmation/attempts.jsonl.
     campaigns = []
@@ -35,7 +35,7 @@ def main():
             sfile = cdir / suite / "summary.json"
             if sfile.exists():
                 try:
-                    s = json.loads(sfile.read_text())
+                    s = json.loads(sfile.read_text(encoding="utf-8"))
                 except ValueError:
                     continue
                 entry[suite] = {"attempts": s.get("attempts"),
@@ -43,13 +43,13 @@ def main():
                                 "success_rate": s.get("overall", {}).get("success_rate")}
                 attempts.extend(
                     json.loads(l) for l in
-                    (cdir / suite / "attempts.jsonl").read_text().splitlines()
+                    (cdir / suite / "attempts.jsonl").read_text(encoding="utf-8").splitlines()
                     if l.strip()) if (cdir / suite / "attempts.jsonl").exists() else []
         campaigns.append(entry)
     gap = {}
     gap_path = inp / "gap.json"
     if gap_path.exists():
-        gap = json.loads(gap_path.read_text())
+        gap = json.loads(gap_path.read_text(encoding="utf-8"))
     report = {"status": "NOT_RUN" if not attempts else "HAS_LIVE_RESULTS",
               "attempts": len(attempts),
               "campaigns": campaigns,

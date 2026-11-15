@@ -41,9 +41,9 @@ def _campaign_complete():
         return None
     for campaign in sorted(base.glob("campaign-*"), reverse=True):
         try:
-            pilot = json.loads((campaign / "live-pilot" / "summary.json").read_text())
-            conf = json.loads((campaign / "live-confirmation" / "summary.json").read_text())
-            manifest = json.loads((campaign / "manifest.json").read_text())
+            pilot = json.loads((campaign / "live-pilot" / "summary.json").read_text(encoding="utf-8"))
+            conf = json.loads((campaign / "live-confirmation" / "summary.json").read_text(encoding="utf-8"))
+            manifest = json.loads((campaign / "manifest.json").read_text(encoding="utf-8"))
         except (OSError, ValueError, KeyError):
             continue
         if (campaign / "CONTAMINATED").exists():

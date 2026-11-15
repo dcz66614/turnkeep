@@ -277,7 +277,7 @@ def test_pending_marker_never_exported(tmp_path):
         out_dir = tmp_path / "export"
         export_scope(db, "s", out_dir)
         for name in ("events.jsonl", "records.jsonl", "manifest.json"):
-            text = (out_dir / name).read_text()
+            text = (out_dir / name).read_text(encoding="utf-8")
             assert "wal_checkpoint" not in text
             assert "maintenance_pending" not in text
     finally:

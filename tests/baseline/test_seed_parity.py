@@ -54,7 +54,7 @@ def test_demo_replay_via_cli(tmp_path):
     env = dict(os.environ)
     env["PYTHONPATH"] = str(Path(__file__).resolve().parents[2] / "src")
     r = subprocess.run([sys.executable, "-m", "turnkeep", "demo"], cwd=str(tmp_path),
-                       env=env, capture_output=True, text=True, timeout=60)
+                       env=env, capture_output=True, text=True, timeout=60, encoding="utf-8")
     assert r.returncode == 0, r.stderr
     d = json.loads(r.stdout)
     assert d["demonstration"] == "SCRIPTED_SIMULATION_NO_MODEL_CALLS"

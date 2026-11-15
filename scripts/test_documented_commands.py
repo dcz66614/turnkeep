@@ -40,7 +40,8 @@ class DocTest:
         label = note or " ".join(argv[2:6])
         try:
             proc = subprocess.run(argv, capture_output=True, text=True,
-                                  timeout=TIMEOUT, cwd=ROOT, env=self.env)
+                                  timeout=TIMEOUT, cwd=ROOT, env=self.env,
+                                  encoding="utf-8")
         except subprocess.TimeoutExpired:
             print(f"FAIL [{self.steps}] {label}: timed out after {TIMEOUT}s")
             raise SystemExit(1)

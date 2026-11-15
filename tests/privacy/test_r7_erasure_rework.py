@@ -62,8 +62,13 @@ def _mk_package(tmp_path, records, scope="s"):
     d = tmp_path / "pkg"
     d.mkdir()
     rec_text = "".join(_json(r) + "\n" for r in records)
-    (d / "records.jsonl").write_text(rec_text, encoding="utf-8")
-    (d / "events.jsonl").write_text("", encoding="utf-8")
+    # write_bytes, not write_text: text mode would translate "\n" to
+    # "\r\n" on Windows while the manifest digest below is over the
+    # in-memory (LF) text, so import would refuse the package as
+    # tampered. Writing bytes keeps the file identical to the digest
+    # input on every platform.
+    (d / "records.jsonl").write_bytes(rec_text.encode("utf-8"))
+    (d / "events.jsonl").write_bytes(b"")
     files = {
         "records.jsonl": hashlib.sha256(rec_text.encode()).hexdigest(),
         "events.jsonl": hashlib.sha256(b"").hexdigest(),
@@ -506,7 +511,7 @@ def test_export_keeps_legal_timestamp_containing_short_needle(tmp_path):
     out_dir = tmp_path / "exp"
     rep = export_scope(db, "s", out_dir)
     assert rep["stripped_illegal_timestamps"] == []
-    exported = [json.loads(l) for l in (out_dir / "records.jsonl").read_text().splitlines()]
+    exported = [json.loads(l) for l in (out_dir / "records.jsonl").read_text(encoding="utf-8").splitlines()]
     assert exported[0]["valid_until"] == LEGAL_TS
     db.close()
 
@@ -519,7 +524,7 @@ def test_export_strips_timestamp_equal_to_payload(tmp_path):
     _legacy(db, "valid_until", LEGAL_TS)
     out_dir = tmp_path / "exp"
     export_scope(db, "s", out_dir)
-    exported = [json.loads(l) for l in (out_dir / "records.jsonl").read_text().splitlines()]
+    exported = [json.loads(l) for l in (out_dir / "records.jsonl").read_text(encoding="utf-8").splitlines()]
     assert exported[0]["valid_until"] is None
     db.close()
 

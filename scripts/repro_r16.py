@@ -242,7 +242,7 @@ def _spawn_crash(db_path, record_id, revision, mode, point, reason=None):
             str(revision), mode, point]
     if reason is not None:
         argv.append(reason)
-    return subprocess.run(argv, capture_output=True, text=True, timeout=120)
+    return subprocess.run(argv, capture_output=True, text=True, timeout=120, encoding="utf-8")
 
 
 def _spawn_off_residue(db_path, a_id, a_rev, b_id, b_rev):
@@ -251,7 +251,7 @@ def _spawn_off_residue(db_path, a_id, a_rev, b_id, b_rev):
     the OFF chain, without closing)."""
     argv = [sys.executable, str(OFF_RESIDUE_CHILD), str(db_path), a_id,
             str(a_rev), b_id, str(b_rev)]
-    return subprocess.run(argv, capture_output=True, text=True, timeout=120)
+    return subprocess.run(argv, capture_output=True, text=True, timeout=120, encoding="utf-8")
 
 
 def _setup_pin(name):

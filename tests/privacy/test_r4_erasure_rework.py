@@ -215,8 +215,8 @@ def test_pin_not_brute_forceable_from_export(tmp_path):
     assert out["status"] == "COMPLETE"
     out_dir = tmp_path / "export"
     export_scope(db, "s", out_dir)
-    events_text = (out_dir / "events.jsonl").read_text()
-    records_text = (out_dir / "records.jsonl").read_text()
+    events_text = (out_dir / "events.jsonl").read_text(encoding="utf-8")
+    records_text = (out_dir / "records.jsonl").read_text(encoding="utf-8")
     # Structured check (see _holds_pin): a raw-text "4826" not in
     # events_text is flaky — a microsecond timestamp can contain the
     # PIN by coincidence (the known R7 flake). The assertion is
@@ -351,7 +351,7 @@ def test_end_to_end_privacy_chain(tmp_path):
     assert rep["status"] == "COMPLETE_WITH_RESIDUALS"  # uncontrolled copies listed, controlled clean
     out_dir = tmp_path / "export"
     export_scope(db, "s", out_dir)
-    events_text = (out_dir / "events.jsonl").read_text()
+    events_text = (out_dir / "events.jsonl").read_text(encoding="utf-8")
     assert "4826" not in events_text
     exported_hashes = set()
     for line in events_text.splitlines():

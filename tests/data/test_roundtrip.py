@@ -14,7 +14,7 @@ FIX = Path(__file__).resolve().parents[2] / "fixtures" / "imports"
 
 
 def _norm(pkgdir):
-    recs = [json.loads(l) for l in (Path(pkgdir) / "records.jsonl").read_text().splitlines() if l.strip()]
+    recs = [json.loads(l) for l in (Path(pkgdir) / "records.jsonl").read_text(encoding="utf-8").splitlines() if l.strip()]
     by_id = {r["id"]: r for r in recs}
     out = {}
     for r in recs:
@@ -78,7 +78,7 @@ def test_export_excludes_long_structured_secret(tmp_path):
     exp = export_scope(db1, "rt", pkg)
     assert exp["records_exported"] == 1
     assert [e["key"] for e in exp["records_excluded_secrets"]] == ["cfg.api"]
-    blob = (pkg / "records.jsonl").read_text()
+    blob = (pkg / "records.jsonl").read_text(encoding="utf-8")
     assert secret not in blob and "SHOULD_NOT_EXPORT_R2" not in blob
     assert "long.note" in blob
     db1.close()
@@ -155,15 +155,15 @@ def test_import_child_before_parent_keeps_edge(tmp_path):
     pkg = tmp_path / "pkg"
     export_scope(db1, "rt", pkg)
     db1.close()
-    recs = [json.loads(l) for l in (pkg / "records.jsonl").read_text().splitlines() if l.strip()]
+    recs = [json.loads(l) for l in (pkg / "records.jsonl").read_text(encoding="utf-8").splitlines() if l.strip()]
     assert len(recs) == 2
     recs.sort(key=lambda r: 0 if r["key"] == "child.k" else 1)  # child first
     assert recs[0]["key"] == "child.k"
-    (pkg / "records.jsonl").write_text("".join(json.dumps(r) + "\n" for r in recs))
-    manifest = json.loads((pkg / "manifest.json").read_text())
+    (pkg / "records.jsonl").write_text("".join(json.dumps(r) + "\n" for r in recs), encoding="utf-8")
+    manifest = json.loads((pkg / "manifest.json").read_text(encoding="utf-8"))
     manifest["files"]["records.jsonl"] = hashlib.sha256(
         (pkg / "records.jsonl").read_bytes()).hexdigest()
-    (pkg / "manifest.json").write_text(json.dumps(manifest) + "\n")
+    (pkg / "manifest.json").write_text(json.dumps(manifest) + "\n", encoding="utf-8")
 
     db2 = open_db(tmp_path / "b.sqlite3")
     register_scope(db2, "rt")

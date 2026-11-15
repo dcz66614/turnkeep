@@ -233,7 +233,7 @@ def _spawn_child(db_path, record_id, revision, mode, point, reason=None):
             str(revision), mode, point]
     if reason is not None:
         argv.append(reason)
-    return subprocess.run(argv, capture_output=True, text=True, timeout=120)
+    return subprocess.run(argv, capture_output=True, text=True, timeout=120, encoding="utf-8")
 
 
 def _crash_setup_pin(name):

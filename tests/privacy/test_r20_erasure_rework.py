@@ -309,7 +309,7 @@ def _spawn_off_residue(db_path, a_id, a_rev, b_id, b_rev, key_out=None):
     env = dict(os.environ)
     env["PYTHONPATH"] = str(REPO_ROOT / "src")
     return subprocess.run(argv, capture_output=True, text=True,
-                          timeout=120, env=env)
+                          timeout=120, env=env, encoding="utf-8")
 
 
 def _spawn_off_residue_scope(db_path, a_id, a_rev, b_id, b_rev, key_out, scope):
@@ -321,7 +321,7 @@ def _spawn_off_residue_scope(db_path, a_id, a_rev, b_id, b_rev, key_out, scope):
     env = dict(os.environ)
     env["PYTHONPATH"] = str(REPO_ROOT / "src")
     return subprocess.run(argv, capture_output=True, text=True,
-                          timeout=120, env=env)
+                          timeout=120, env=env, encoding="utf-8")
 
 
 @contextlib.contextmanager
@@ -563,7 +563,12 @@ def test_b1_marker_write_fails_under_lock_then_retries(tmp_path):
         writer.close()
     assert state["txn_calls"] == 2, state
     assert state["writer_committed_at"] is not None
-    assert state["writer_committed_at"] < returned
+    # <=, not <: the writer commits inside the 2nd transaction call,
+    # so it strictly precedes the return in real time; equality is
+    # only clock granularity (coarse timer resolution on Windows CI),
+    # not a late commit. The intent — the commit happened no later
+    # than the purge's return — is preserved.
+    assert state["writer_committed_at"] <= returned
     assert out["cleaned"] is False, out
     assert isinstance(out.get("error"), str), out
     assert "database is locked" in out["error"], out

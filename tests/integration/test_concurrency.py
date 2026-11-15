@@ -51,7 +51,7 @@ WORKER_CORRECT = textwrap.dedent("""
 def _run(code, dbpath, *args):
     env = dict(os.environ)
     r = subprocess.run([sys.executable, "-c", code, str(dbpath), *args],
-                       cwd=ROOT, capture_output=True, text=True, timeout=120, env=env)
+                       cwd=ROOT, capture_output=True, text=True, timeout=120, env=env, encoding="utf-8")
     assert r.returncode == 0, r.stderr
     return r.stdout.strip()
 

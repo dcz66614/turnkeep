@@ -13,5 +13,5 @@ def test_claude_config_parses_and_binds_scope():
     assert srv["env"]["TURNKEEP_PRINCIPAL"] == "claude-code"
 
 def test_claude_config_has_placeholder_note():
-    readme = (ROOT / "adapters" / "claude-code" / "README.md").read_text()
+    readme = (ROOT / "adapters" / "claude-code" / "README.md").read_text(encoding="utf-8")
     assert "<turnkeep-work>" in readme

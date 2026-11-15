@@ -35,7 +35,7 @@ def _run_cli(dbpath, *args, expect_fail=False):
     cmd = [sys.executable, "-m", "turnkeep", "--db", str(dbpath), "--json", *args]
     env = {"PYTHONPATH": str(ROOT / "src"), "PATH": "/usr/bin:/bin:/usr/local/bin",
            "HOME": "/tmp", "TMPDIR": "/tmp"}
-    r = subprocess.run(cmd, capture_output=True, text=True, timeout=120, env=env)
+    r = subprocess.run(cmd, capture_output=True, text=True, timeout=120, env=env, encoding="utf-8")
     if expect_fail:
         assert r.returncode != 0, (cmd, r.stdout, r.stderr)
         return json.loads(r.stderr)
@@ -222,7 +222,7 @@ def journey_j05_cli(tmp):
     import json as _json
 
     def _norm(pkgdir):
-        recs = [_json.loads(l) for l in (Path(pkgdir) / "records.jsonl").read_text().splitlines() if l.strip()]
+        recs = [_json.loads(l) for l in (Path(pkgdir) / "records.jsonl").read_text(encoding="utf-8").splitlines() if l.strip()]
         by_id = {r["id"]: r for r in recs}
         out = {}
         for r in recs:

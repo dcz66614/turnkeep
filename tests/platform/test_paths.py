@@ -44,5 +44,8 @@ def test_scope_path_sanitises_spaces_and_chinese(tmp_path, monkeypatch):
 
 def test_data_path_cwd_independent(tmp_path, monkeypatch):
     monkeypatch.setenv("TURNKEEP_DATA_DIR", str(tmp_path))
-    monkeypatch.chdir("/tmp")
+    # chdir somewhere else to prove the data path does not depend on
+    # the cwd; /tmp does not exist on Windows, so use the pytest temp
+    # dir (which exists on every platform).
+    monkeypatch.chdir(tmp_path)
     assert data_path("s1") == tmp_path / "s1.sqlite3"

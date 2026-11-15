@@ -24,8 +24,8 @@ def main():
     if missing:
         print(f"NOT_RUN missing: {missing}")
         return 2
-    state = json.loads((root / args.state).read_text())
-    backlog = json.loads((root / args.backlog).read_text())
+    state = json.loads((root / args.state).read_text(encoding="utf-8"))
+    backlog = json.loads((root / args.backlog).read_text(encoding="utf-8"))
     tasks = {t["id"]: t for t in backlog["tasks"]}
     if len(tasks) != 48:
         errors.append(f"backlog has {len(tasks)} tasks, expected 48")

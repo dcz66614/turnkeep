@@ -313,7 +313,7 @@ def test_erase_reason_equal_to_secret_rejected(tmp_path):
         " LIKE ?", (f"%{secret}%",)).fetchone()[0] == 0
     out_dir = tmp_path / "export"
     export_scope(db, "s", out_dir)
-    assert secret not in (out_dir / "events.jsonl").read_text()
+    assert secret not in (out_dir / "events.jsonl").read_text(encoding="utf-8")
     rep = residual_report(db, "s")
     assert rep["controlled"]["live_tables_clean"] is True
     assert rep["controlled"]["controlled_residuals"] == []

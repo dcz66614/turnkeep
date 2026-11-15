@@ -27,7 +27,7 @@ VENV_PY = ROOT / ".venv" / "bin" / "python"
 
 
 def _run(argv, **kw):
-    return subprocess.run(argv, capture_output=True, text=True, timeout=300, **kw)
+    return subprocess.run(argv, capture_output=True, text=True, timeout=300, **kw, encoding="utf-8")
 
 
 def main():
@@ -73,7 +73,7 @@ def main():
     # Restart recovery (J04) is covered by the UI e2e suite; record the
     # production-build gate result if it exists.
     ui_gate = ROOT / "evidence" / "ui" / "ui-gate.json"
-    checks["ui_production_gate"] = (json.loads(ui_gate.read_text())["status"]
+    checks["ui_production_gate"] = (json.loads(ui_gate.read_text(encoding="utf-8"))["status"]
                                     if ui_gate.exists() else "NOT_RUN")
 
     record = {"status": "PASS" if not failures else "FAIL", "failures": failures,

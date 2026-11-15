@@ -257,9 +257,9 @@ def test_end_to_end_privacy_chain_after_repair(tmp_path):
     assert rep["controlled"]["controlled_residuals"] == []
     out_dir = tmp_path / "export"
     export_scope(db, "s", out_dir)
-    events_text = (out_dir / "events.jsonl").read_text()
+    events_text = (out_dir / "events.jsonl").read_text(encoding="utf-8")
     assert SECRET not in events_text
-    assert SECRET not in (out_dir / "records.jsonl").read_text()
+    assert SECRET not in (out_dir / "records.jsonl").read_text(encoding="utf-8")
     # Every erase event in the export carries only a controlled label
     # as its reason — no free text that could hold the secret.
     for line in events_text.splitlines():

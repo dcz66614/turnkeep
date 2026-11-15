@@ -21,7 +21,7 @@ ROOT = Path(__file__).resolve().parent.parent.parent
 
 def _parse_py_lock(path: Path) -> dict[str, str]:
     out: dict[str, str] = {}
-    for line in path.read_text().splitlines():
+    for line in path.read_text(encoding="utf-8").splitlines():
         line = line.strip()
         if not line or line.startswith("#"):
             continue
@@ -32,15 +32,15 @@ def _parse_py_lock(path: Path) -> dict[str, str]:
 
 
 def _load_sbom() -> dict:
-    return json.loads((ROOT / "release" / "SBOM.json").read_text())
+    return json.loads((ROOT / "release" / "SBOM.json").read_text(encoding="utf-8"))
 
 
 def test_license_notice_security_exist():
-    lic = (ROOT / "LICENSE").read_text()
+    lic = (ROOT / "LICENSE").read_text(encoding="utf-8")
     assert "MIT License" in lic
     assert "Permission is hereby granted" in lic
     assert (ROOT / "NOTICE").exists()
-    sec = (ROOT / "SECURITY.md").read_text()
+    sec = (ROOT / "SECURITY.md").read_text(encoding="utf-8")
     assert "single" in sec.lower() and "trusted" in sec.lower()
     assert "retract" in sec.lower()
     assert "127.0.0.1" in sec
@@ -60,7 +60,7 @@ def test_sbom_matches_node_lock():
     sbom = _load_sbom()
     by_key = {(c["ecosystem"], c["name"].lower()): str(c["version"])
               for c in sbom["components"]}
-    pl = json.loads((ROOT / "ui" / "package-lock.json").read_text())
+    pl = json.loads((ROOT / "ui" / "package-lock.json").read_text(encoding="utf-8"))
     count = 0
     for key, val in pl["packages"].items():
         if key == "":
@@ -88,7 +88,7 @@ def test_release_checks_pass():
     proc = subprocess.run(
         [sys.executable, "scripts/release_checks.py",
          "--profile", "license-and-secrets"],
-        cwd=ROOT, capture_output=True, text=True, timeout=300)
+        cwd=ROOT, capture_output=True, text=True, timeout=300, encoding="utf-8")
     assert proc.returncode == 0, proc.stdout[-3000:] + proc.stderr[-1000:]
     report = json.loads(proc.stdout)
     assert report["verdict"] == "PASS"
@@ -98,10 +98,10 @@ def test_release_checks_pass():
 
 
 def test_loopback_only():
-    app = (ROOT / "src" / "turnkeep" / "web" / "app.py").read_text()
+    app = (ROOT / "src" / "turnkeep" / "web" / "app.py").read_text(encoding="utf-8")
     assert '("127.0.0.1"' in app
     assert not re.search(r'\(\s*["\']0\.0\.0\.0["\']', app)
-    cli = (ROOT / "src" / "turnkeep" / "cli.py").read_text()
+    cli = (ROOT / "src" / "turnkeep" / "cli.py").read_text(encoding="utf-8")
     assert "http://127.0.0.1:" in cli
 
 
@@ -121,12 +121,12 @@ def test_import_path_excludes_secret_like_keys():
     for keys in (_SECRET_LIKE, _MD_SECRET_LIKE):
         for k in ("api_key", "password", "token", "secret"):
             assert k in keys
-    port = (ROOT / "src" / "turnkeep" / "portability.py").read_text()
+    port = (ROOT / "src" / "turnkeep" / "portability.py").read_text(encoding="utf-8")
     assert "imported_text" in port
 
 
 def test_security_md_states_release_boundaries():
-    sec = (ROOT / "SECURITY.md").read_text()
+    sec = (ROOT / "SECURITY.md").read_text(encoding="utf-8")
     # Perf FAIL + platform NOT_RUN are release boundaries, not vulns.
     assert "7,760" in sec and "12,288" in sec
     assert "NOT_RUN" in sec

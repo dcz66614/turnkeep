@@ -518,20 +518,20 @@ def test_cli_export_clean_after_label_partial(tmp_path):
     r = subprocess.run(
         [sys.executable, "-m", "turnkeep", "--db", str(dbpath), "--json",
          "init", "--scope", "s"],
-        capture_output=True, text=True, timeout=60, env=env)
+        capture_output=True, text=True, timeout=60, env=env, encoding="utf-8")
     assert r.returncode == 0, r.stderr
     r = subprocess.run(
         [sys.executable, "-m", "turnkeep", "--db", str(dbpath), "--json",
          "remember", "--scope", "s", "--key", "pin", "--value", payload,
          "--kind", "fact", "--source", "u:1:user_statement"],
-        capture_output=True, text=True, timeout=60, env=env)
+        capture_output=True, text=True, timeout=60, env=env, encoding="utf-8")
     assert r.returncode == 0, r.stderr
     rec = json.loads(r.stdout)
     r = subprocess.run(
         [sys.executable, "-m", "turnkeep", "--db", str(dbpath), "--json",
          "erase", "--scope", "s", "--id", rec["id"],
          "--expected-revision", str(rec["revision"]), "--reason", "rotation"],
-        capture_output=True, text=True, timeout=60, env=env)
+        capture_output=True, text=True, timeout=60, env=env, encoding="utf-8")
     assert r.returncode == 0, r.stderr
     out = json.loads(r.stdout)
     assert out["status"] == "PARTIAL"

@@ -12,4 +12,4 @@ def test_codex_config_parses_and_binds_scope():
     assert srv["env"]["TURNKEEP_PRINCIPAL"] == "codex"
 
 def test_codex_config_has_placeholder_note():
-    assert "<turnkeep-work>" in CFG.read_text()
+    assert "<turnkeep-work>" in CFG.read_text(encoding="utf-8")

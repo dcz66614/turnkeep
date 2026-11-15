@@ -146,9 +146,9 @@ def test_clean_first_erase_with_label_succeeds(tmp_path):
     assert residual_report(db, "s")["controlled"]["live_tables_clean"] is True
     out_dir = tmp_path / "export"
     export_scope(db, "s", out_dir)
-    events_text = (out_dir / "events.jsonl").read_text()
+    events_text = (out_dir / "events.jsonl").read_text(encoding="utf-8")
     assert KEY not in events_text
-    assert KEY not in (out_dir / "records.jsonl").read_text()
+    assert KEY not in (out_dir / "records.jsonl").read_text(encoding="utf-8")
     for line in events_text.splitlines():
         event = json.loads(line)
         if event.get("event_type") == "erase":
@@ -182,8 +182,8 @@ def test_retract_encoded_reason_rejected(tmp_path, label, enc):
     assert out2["status"] == "COMPLETE"
     out_dir = tmp_path / "export"
     export_scope(db, "s", out_dir)
-    assert enc not in (out_dir / "events.jsonl").read_text()
-    assert KEY not in (out_dir / "events.jsonl").read_text()
+    assert enc not in (out_dir / "events.jsonl").read_text(encoding="utf-8")
+    assert KEY not in (out_dir / "events.jsonl").read_text(encoding="utf-8")
     db.close()
 
 
@@ -278,15 +278,15 @@ def _package_with_valid_until(tmp_path, valid_until):
     export_scope(src, "s", pkg)
     src.close()
     recs_path = pkg / "records.jsonl"
-    lines = [json.loads(l) for l in recs_path.read_text().splitlines() if l.strip()]
+    lines = [json.loads(l) for l in recs_path.read_text(encoding="utf-8").splitlines() if l.strip()]
     lines[0]["valid_until"] = valid_until
     recs_path.write_text("".join(json.dumps(x, sort_keys=True, separators=(",", ":")) + "\n"
-                                 for x in lines))
+                                 for x in lines), encoding="utf-8")
     man_path = pkg / "manifest.json"
-    man = json.loads(man_path.read_text())
+    man = json.loads(man_path.read_text(encoding="utf-8"))
     for name in ("records.jsonl", "events.jsonl"):
         man["files"][name] = hashlib.sha256((pkg / name).read_bytes()).hexdigest()
-    man_path.write_text(json.dumps(man, sort_keys=True, separators=(",", ":")) + "\n")
+    man_path.write_text(json.dumps(man, sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
     return pkg
 
 
@@ -353,9 +353,9 @@ def test_end_to_end_privacy_chain(tmp_path):
     assert rep["status"] == "COMPLETE_WITH_RESIDUALS"  # uncontrolled copies listed, controlled clean
     out_dir = tmp_path / "export"
     export_scope(db, "s", out_dir)
-    events_text = (out_dir / "events.jsonl").read_text()
+    events_text = (out_dir / "events.jsonl").read_text(encoding="utf-8")
     assert "4826" not in events_text
-    assert "4826" not in (out_dir / "records.jsonl").read_text()
+    assert "4826" not in (out_dir / "records.jsonl").read_text(encoding="utf-8")
     exported_hashes = set()
     for line in events_text.splitlines():
         event = json.loads(line)

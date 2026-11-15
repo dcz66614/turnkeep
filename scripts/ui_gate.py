@@ -25,7 +25,7 @@ EVIDENCE = ROOT / "evidence" / "ui" / "ui-gate.json"
 
 
 def _run(argv, cwd=ROOT):
-    r = subprocess.run(argv, cwd=str(cwd), capture_output=True, text=True, timeout=600)
+    r = subprocess.run(argv, cwd=str(cwd), capture_output=True, text=True, timeout=600, encoding="utf-8")
     return r
 
 

@@ -11,7 +11,7 @@ ENV = {"PYTHONPATH": str(ROOT / "src"), "PATH": "/usr/bin:/bin:/usr/local/bin",
 
 def run(dbpath, *args):
     return subprocess.run([sys.executable, "-m", "turnkeep", "--db", str(dbpath), "--json", *args],
-                          capture_output=True, text=True, timeout=60, env=ENV)
+                          capture_output=True, text=True, timeout=60, env=ENV, encoding="utf-8")
 
 
 def test_stale_snapshot_exit_nonzero_with_structured_diagnosis(tmp_path):

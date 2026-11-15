@@ -33,7 +33,7 @@ def test_sdk_and_cli_same_view(tmp_path):
     env = {"PYTHONPATH": str(ROOT / "src"), "PATH": "/usr/bin:/bin:/usr/local/bin", "HOME": "/tmp"}
     r = subprocess.run([sys.executable, "-m", "turnkeep", "--db", str(db), "--json",
                         "recall", "--scope", "s1", "--query", "v1"],
-                       capture_output=True, text=True, timeout=60, env=env)
+                       capture_output=True, text=True, timeout=60, env=env, encoding="utf-8")
     assert r.returncode == 0, r.stderr
     assert json.loads(r.stdout)["records"][0]["value"] == "v1"
 

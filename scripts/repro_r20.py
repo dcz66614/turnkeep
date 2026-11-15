@@ -471,7 +471,7 @@ def _run_off_child(child, path, a_id, a_rev, b_id, b_rev, key_out,
     if scope != "s":
         argv.append(scope)
     return subprocess.run(argv, capture_output=True, text=True,
-                          timeout=120, env=env)
+                          timeout=120, env=env, encoding="utf-8")
 
 
 def _skip_many(names, why):

@@ -39,7 +39,26 @@ def _ignore(path, names):
     return ignored
 
 
+def _usable_bash():
+    """True when a real bash exists. On Windows without WSL, "bash"
+    resolves to C:\\Windows\\System32\\bash.exe — the WSL launcher —
+    which fails with "Windows Subsystem for Linux has no installed
+    distributions."; install.sh cannot run there, so the test must
+    skip instead of failing on the launcher's error."""
+    bash = shutil.which("bash")
+    if not bash:
+        return False
+    try:
+        r = subprocess.run([bash, "--version"], capture_output=True,
+                           text=True, encoding="utf-8", timeout=30)
+    except (OSError, subprocess.SubprocessError):
+        return False
+    return r.returncode == 0
+
+
 def test_offline_install_from_shipped_wheel(tmp_path):
+    if not _usable_bash():
+        pytest.skip("no usable bash (no WSL distribution on Windows)")
     if not (ROOT / WHEEL_REL).is_file():
         pytest.skip(f"shipped wheel missing: {WHEEL_REL}")
     copy = tmp_path / "checkout"
@@ -54,19 +73,19 @@ def test_offline_install_from_shipped_wheel(tmp_path):
     env["PYTHON"] = sys.executable
 
     r = subprocess.run(["bash", "scripts/install.sh"], cwd=str(copy),
-                       capture_output=True, text=True, timeout=600, env=env)
+                       capture_output=True, text=True, timeout=600, env=env, encoding="utf-8")
     assert r.returncode == 0, r.stdout + r.stderr
     assert "turnkeep installed as" in r.stdout
 
     venv_bin = copy / ".venv" / "bin"
     assert (venv_bin / "turnkeep").is_file()
     ver = subprocess.run([str(venv_bin / "turnkeep"), "--version"],
-                         capture_output=True, text=True, timeout=60, env=env)
+                         capture_output=True, text=True, timeout=60, env=env, encoding="utf-8")
     assert ver.returncode == 0, ver.stdout + ver.stderr
     assert "0.1.0" in ver.stdout + ver.stderr
 
     doctor = subprocess.run([str(venv_bin / "turnkeep"), "doctor", "--json"],
-                            capture_output=True, text=True, timeout=60, env=env)
+                            capture_output=True, text=True, timeout=60, env=env, encoding="utf-8")
     assert doctor.returncode == 0, doctor.stdout + doctor.stderr
     report = json.loads(doctor.stdout)
     assert report["python"]["status"] == "PASS"

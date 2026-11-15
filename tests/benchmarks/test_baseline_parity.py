@@ -11,9 +11,9 @@ ROOT = Path(__file__).resolve().parents[2]
 def _run_smoke(out):
     r = subprocess.run([sys.executable, "benchmarks/harness/run.py", "--suite", "smoke",
                         "--mode", "deterministic", "--output", str(out)],
-                       cwd=ROOT, capture_output=True, text=True, timeout=300)
+                       cwd=ROOT, capture_output=True, text=True, timeout=300, encoding="utf-8")
     assert r.returncode == 0, r.stderr
-    return json.loads((out / "summary.json").read_text())
+    return json.loads((out / "summary.json").read_text(encoding="utf-8"))
 
 
 def test_all_arms_share_task_budget_seed(tmp_path):
@@ -23,7 +23,7 @@ def test_all_arms_share_task_budget_seed(tmp_path):
     assert summary["label"] == "SCRIPTED_SIMULATION_NO_MODEL_CALLS"
     assert summary["seed"] == 20261108
     assert summary["budget"] == {"max_steps": 20, "max_seconds": 60}
-    attempts = [json.loads(l) for l in (out / "attempts.jsonl").read_text().splitlines()]
+    attempts = [json.loads(l) for l in (out / "attempts.jsonl").read_text(encoding="utf-8").splitlines()]
     assert len(attempts) == 12  # 3 tasks x 4 arms
     for a in attempts:
         assert a["seed"] == 20261108 and a["mode"] == "deterministic"
@@ -37,7 +37,7 @@ def test_all_arms_share_task_budget_seed(tmp_path):
 def test_markdown_arm_keeps_search_and_update(tmp_path):
     out = tmp_path / "res"
     _run_smoke(out)
-    attempts = [json.loads(l) for l in (out / "attempts.jsonl").read_text().splitlines()]
+    attempts = [json.loads(l) for l in (out / "attempts.jsonl").read_text(encoding="utf-8").splitlines()]
     md = [a for a in attempts if a["arm"] == "markdown"]
     assert all(any(s["action"] == "grep" for s in a["steps"]) for a in md)
     assert all(any(s["action"] == "change_applied" for s in a["steps"]) for a in md)

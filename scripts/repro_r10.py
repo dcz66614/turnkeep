@@ -300,7 +300,7 @@ env["PYTHONPATH"] = str(Path(__file__).resolve().parents[1] / "src")
 proc = subprocess.run([sys.executable, "-m", "turnkeep", "--db", str(TMPROOT / "a4-cli.sqlite3"),
                        "export", "--scope", "s", "--out", str(TMPROOT / "exp-a4-cli")],
                       capture_output=True, text=True, env=env,
-                      cwd=str(Path(__file__).resolve().parents[1]))
+                      cwd=str(Path(__file__).resolve().parents[1]), encoding="utf-8")
 check("A4-cli: CLI stdout carries no raw payload and no Base64 of it",
       proc.returncode == 0 and PAYLOAD not in proc.stdout and enc_b64 not in proc.stdout,
       f"rc={proc.returncode}")

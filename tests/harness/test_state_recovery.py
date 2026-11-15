@@ -30,8 +30,8 @@ def _require_evidence_tasks():
 
 def test_control_state_matches_backlog():
     _require_state()
-    state = json.loads((ROOT / "state/CONTROL_STATE.json").read_text())
-    backlog = json.loads((ROOT / "state/backlog.json").read_text())
+    state = json.loads((ROOT / "state/CONTROL_STATE.json").read_text(encoding="utf-8"))
+    backlog = json.loads((ROOT / "state/backlog.json").read_text(encoding="utf-8"))
     verified = {t["id"] for t in backlog["tasks"] if t["status"] == "VERIFIED"}
     assert set(state["completed_tasks"]) == verified
 
@@ -39,7 +39,7 @@ def test_control_state_matches_backlog():
 def test_verified_tasks_have_evidence():
     _require_state()
     _require_evidence_tasks()
-    backlog = json.loads((ROOT / "state/backlog.json").read_text())
+    backlog = json.loads((ROOT / "state/backlog.json").read_text(encoding="utf-8"))
     for t in backlog["tasks"]:
         if t["status"] == "VERIFIED":
             assert (ROOT / "evidence/tasks" / f"{t['id']}.json").exists()
@@ -47,8 +47,8 @@ def test_verified_tasks_have_evidence():
 
 def test_handoff_names_next_task():
     _require_state()
-    hand = (ROOT / "HANDOFF.md").read_text()
-    state = json.loads((ROOT / "state/CONTROL_STATE.json").read_text())
+    hand = (ROOT / "HANDOFF.md").read_text(encoding="utf-8")
+    state = json.loads((ROOT / "state/CONTROL_STATE.json").read_text(encoding="utf-8"))
     assert state["next_action"]
     # HANDOFF must contain the next task id mentioned in CONTROL_STATE
     assert "T007" in hand or "R1" in hand
@@ -56,7 +56,7 @@ def test_handoff_names_next_task():
 
 def test_no_task_ready_before_deps():
     _require_state()
-    backlog = json.loads((ROOT / "state/backlog.json").read_text())
+    backlog = json.loads((ROOT / "state/backlog.json").read_text(encoding="utf-8"))
     tasks = {t["id"]: t for t in backlog["tasks"]}
     for t in backlog["tasks"]:
         if t["status"] in ("READY", "RUNNING"):
@@ -68,6 +68,6 @@ def test_no_task_ready_before_deps():
 def test_backlog_symlink_single_source():
     _require_state()
     # tasks/backlog.json must resolve to the same content as state/backlog.json
-    a = (ROOT / "tasks/backlog.json").read_text()
-    b = (ROOT / "state/backlog.json").read_text()
+    a = (ROOT / "tasks/backlog.json").read_text(encoding="utf-8")
+    b = (ROOT / "state/backlog.json").read_text(encoding="utf-8")
     assert a == b

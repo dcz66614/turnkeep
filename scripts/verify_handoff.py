@@ -77,7 +77,7 @@ def _run(argv, cwd=None, env=None, timeout=600):
     if env:
         merged.update(env)
     return subprocess.run(argv, cwd=str(cwd) if cwd else None, env=merged,
-                          capture_output=True, text=True, timeout=timeout)
+                          capture_output=True, text=True, timeout=timeout, encoding="utf-8")
 
 
 def main():

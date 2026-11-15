@@ -10,7 +10,7 @@ from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
 
 ROOT = Path(__file__).resolve().parents[2]
-VENV_PY = str(ROOT / ".venv" / "bin" / "python")
+VENV_PY = sys.executable  # the test process runs under the venv interpreter in CI; a POSIX .venv/bin path does not exist on Windows
 ENV = {"PYTHONPATH": str(ROOT / "src"), "PATH": "/usr/bin:/bin:/usr/local/bin",
        "HOME": "/tmp", "TMPDIR": "/tmp"}
 

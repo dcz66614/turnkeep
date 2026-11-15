@@ -96,7 +96,7 @@ def run_leaf(argv, cwd, timeout=600):
     # never dump env into evidence
     try:
         r = subprocess.run(argv, cwd=str(cwd), env=env, capture_output=True,
-                           text=True, timeout=timeout)
+                           text=True, timeout=timeout, encoding="utf-8")
         return {"argv": argv, "cwd": str(cwd), "exit_code": r.returncode,
                 "duration_s": round(time.time() - started, 3),
                 "stdout_tail": r.stdout[-2000:], "stderr_tail": r.stderr[-2000:],
@@ -188,7 +188,7 @@ def self_test():
     #    real binary with the depth marker set and confirm it refuses.
     env = dict(os.environ); env["TURNKEEP_GATE_DEPTH"] = "1"
     p = subprocess.run([sys.executable, "scripts/run_gate.py", "--task", "T001"],
-                       cwd=Path.cwd(), env=env, capture_output=True, text=True, timeout=60)
+                       cwd=Path.cwd(), env=env, capture_output=True, text=True, timeout=60, encoding="utf-8")
     checks.append(("nested --task refused with depth set", p.returncode == 2 and "REENTRANCY" in p.stdout + p.stderr))
     # 5. path ownership: a .py outside owned paths is rejected (static check)
     fake = {"tasks": [{"id": "T999", "dependencies": [], "owned_paths": ["scripts/a.py"]}]}

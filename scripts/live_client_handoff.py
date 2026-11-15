@@ -37,7 +37,7 @@ def check_claude():
     for cand in [HOME / ".claude.json"]:
         if cand.exists():
             try:
-                data = json.loads(cand.read_text())
+                data = json.loads(cand.read_text(encoding="utf-8"))
                 if "turnkeep" in data.get("mcpServers", {}):
                     cfg = str(cand)
             except Exception:
@@ -51,7 +51,7 @@ def check_claude():
 def check_codex():
     bin_ = shutil.which("codex")
     cfg_path = HOME / ".codex" / "config.toml"
-    installed = cfg_path.exists() and "[mcp_servers.turnkeep]" in cfg_path.read_text(errors="ignore")
+    installed = cfg_path.exists() and "[mcp_servers.turnkeep]" in cfg_path.read_text(encoding="utf-8", errors="ignore")
     auth = (HOME / ".codex" / "auth.json").exists()
     return {"binary": bool(bin_), "turnkeep_installed": installed,
             "config_path": str(cfg_path) if installed else None,
@@ -108,7 +108,7 @@ def main():
                  "Two real host products are required; two SDK test processes are NOT "
                  "a substitute (backlog invariant). No mock recording was made."),
     }
-    (record_dir / "live_client_gate.json").write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n")
+    (record_dir / "live_client_gate.json").write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(json.dumps(record, indent=2, ensure_ascii=False))
     return 0 if ready else 2
 

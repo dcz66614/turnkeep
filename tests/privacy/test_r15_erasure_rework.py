@@ -223,7 +223,7 @@ def _spawn_child(db_path, record_id, revision, mode, point, reason=None):
     env = dict(os.environ)
     env["PYTHONPATH"] = str(REPO_ROOT / "src")
     return subprocess.run(argv, capture_output=True, text=True,
-                          timeout=120, env=env)
+                          timeout=120, env=env, encoding="utf-8")
 
 
 def _setup_pin(tmp_path, name):

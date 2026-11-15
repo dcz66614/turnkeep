@@ -359,7 +359,7 @@ def _run_codex(workdir, prompt, session_id, timeout_s, meta_dir):
         # (reproduced: cwd set -> instant fail; cwd unset + -C -> works).
         # The agent's commands still run with cwd=workdir (codex sets it).
         proc = subprocess.run(argv, input=prompt, capture_output=True, text=True,
-                              timeout=timeout_s, env=env)
+                              timeout=timeout_s, env=env, encoding="utf-8")
         timed_out = False
         stdout, stderr = proc.stdout, proc.stderr
         rc = proc.returncode

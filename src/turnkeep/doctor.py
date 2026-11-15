@@ -87,10 +87,10 @@ def _check_clients():
     codex_tpl = root / "adapters" / "codex" / "config.toml"
     home = Path.home()
     claude_installed = (home / ".claude.json").exists() and \
-        "turnkeep" in (home / ".claude.json").read_text(errors="ignore")
+        "turnkeep" in (home / ".claude.json").read_text(encoding="utf-8", errors="ignore")
     codex_cfg = home / ".codex" / "config.toml"
     codex_installed = codex_cfg.exists() and \
-        "[mcp_servers.turnkeep]" in codex_cfg.read_text(errors="ignore")
+        "[mcp_servers.turnkeep]" in codex_cfg.read_text(encoding="utf-8", errors="ignore")
     return {
         "claude-code": {"config_template": str(claude_tpl),
                         "template_present": claude_tpl.exists(),

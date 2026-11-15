@@ -120,7 +120,7 @@ def _sha256_bytes(data):
 
 def _git(*args):
     r = subprocess.run(["git", *args], cwd=str(ROOT), capture_output=True,
-                       text=True)
+                       text=True, encoding="utf-8")
     return r.stdout.strip() if r.returncode == 0 else None
 
 
@@ -341,7 +341,7 @@ def _tree_clean_problems(built_at, root):
                 "current tree"]
     problems = []
     r = subprocess.run(["git", "status", "--porcelain"], cwd=str(root),
-                       capture_output=True, text=True)
+                       capture_output=True, text=True, encoding="utf-8")
     if r.returncode != 0:
         return ["tree-cleanliness check: git status failed; cannot prove "
                 "the tree is clean"]

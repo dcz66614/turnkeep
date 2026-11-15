@@ -56,7 +56,7 @@ def check_codex():
     listed = None
     if cli:
         try:
-            out = subprocess.run([cli, "mcp", "list"], capture_output=True, text=True, timeout=30)
+            out = subprocess.run([cli, "mcp", "list"], capture_output=True, text=True, timeout=30, encoding="utf-8")
             listed = (out.stdout + out.stderr).strip()
             installed = "turnkeep" in listed
         except Exception as e:

@@ -151,7 +151,7 @@ def scan_secrets(findings, whitelisted):
 
 def _parse_py_lock(path: Path) -> dict:
     out = {}
-    for line in path.read_text().splitlines():
+    for line in path.read_text(encoding="utf-8").splitlines():
         line = line.strip()
         if not line or line.startswith("#"):
             continue
@@ -168,7 +168,7 @@ def check_sbom(findings):
                          "file": "release/SBOM.json"})
         return
     try:
-        sbom = json.loads(sbom_path.read_text())
+        sbom = json.loads(sbom_path.read_text(encoding="utf-8"))
     except json.JSONDecodeError as exc:
         findings.append({"kind": "sbom-invalid-json", "severity": "FAIL",
                          "file": "release/SBOM.json", "note": str(exc)})
@@ -188,7 +188,7 @@ def check_sbom(findings):
                                  "note": f"{name}: lock {version} vs SBOM {got}"})
     pl_path = ROOT / "ui" / "package-lock.json"
     if pl_path.exists():
-        pl = json.loads(pl_path.read_text())
+        pl = json.loads(pl_path.read_text(encoding="utf-8"))
         for key, val in pl.get("packages", {}).items():
             if key == "":
                 continue
@@ -206,7 +206,7 @@ def check_sbom(findings):
 
 def check_files(findings):
     lic = ROOT / "LICENSE"
-    if not lic.exists() or "MIT License" not in lic.read_text(errors="ignore"):
+    if not lic.exists() or "MIT License" not in lic.read_text(encoding="utf-8", errors="ignore"):
         findings.append({"kind": "license", "severity": "FAIL",
                          "file": "LICENSE", "note": "MIT licence text missing"})
     for name in ("NOTICE", "SECURITY.md", "release/SBOM.json"):
@@ -215,8 +215,10 @@ def check_files(findings):
 
 
 def check_boundaries(findings):
+    # All reads below are UTF-8 (the default locale encoding on Windows
+    # is cp1252, which cannot decode the non-ASCII bytes in these files).
     app = ROOT / "src" / "turnkeep" / "web" / "app.py"
-    text = app.read_text() if app.exists() else ""
+    text = app.read_text(encoding="utf-8") if app.exists() else ""
     if '("127.0.0.1"' not in text:
         findings.append({"kind": "loopback-bind", "severity": "FAIL",
                          "file": "src/turnkeep/web/app.py",
@@ -226,7 +228,7 @@ def check_boundaries(findings):
                          "file": "src/turnkeep/web/app.py",
                          "note": "0.0.0.0 bind tuple present"})
     cli = ROOT / "src" / "turnkeep" / "cli.py"
-    if cli.exists() and "http://127.0.0.1:" not in cli.read_text():
+    if cli.exists() and "http://127.0.0.1:" not in cli.read_text(encoding="utf-8"):
         findings.append({"kind": "loopback-url", "severity": "FAIL",
                          "file": "src/turnkeep/cli.py",
                          "note": "serve URL is not loopback"})
@@ -246,18 +248,24 @@ def check_boundaries(findings):
         sys.path.pop(0)
     for rel in ("src/turnkeep/portability.py", "src/turnkeep/importers/markdown.py"):
         p = ROOT / rel
-        t = p.read_text() if p.exists() else ""
+        t = p.read_text(encoding="utf-8") if p.exists() else ""
         if not all(k in t for k in ("api_key", "password", "token", "secret")):
             findings.append({"kind": "secret-exclusion", "severity": "FAIL",
                              "file": rel, "note": "_SECRET_LIKE keys incomplete"})
     port = ROOT / "src" / "turnkeep" / "portability.py"
-    if port.exists() and "imported_text" not in port.read_text():
+    if port.exists() and "imported_text" not in port.read_text(encoding="utf-8"):
         findings.append({"kind": "import-trust", "severity": "FAIL",
                          "file": "src/turnkeep/portability.py",
                          "note": "imported_text source kind not referenced"})
 
 
 def main(argv=None) -> int:
+    # The JSON report can contain non-ASCII matched text; force UTF-8
+    # stdout so printing it does not fail on Windows (cp1252 default).
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:  # noqa: BLE001 - stdout may be replaced/closed in tests
+        pass
     ap = argparse.ArgumentParser(description="Turnkeep release checks (T045)")
     ap.add_argument("--profile", required=True)
     ap.add_argument("--output", default=None, help="write JSON report to this path")
@@ -299,7 +307,7 @@ def main(argv=None) -> int:
     }
     text = json.dumps(report, ensure_ascii=False, indent=2)
     if args.output:
-        Path(args.output).write_text(text + "\n")
+        Path(args.output).write_text(text + "\n", encoding="utf-8")
     print(text)
     return 0 if verdict == "PASS" else 1
 

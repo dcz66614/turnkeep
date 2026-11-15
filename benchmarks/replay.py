@@ -208,7 +208,8 @@ def _export_import(engine, tmp, *, tamper=False):
     export_scope(engine.db, engine.scope, pkg)
     if tamper:
         p = pkg / "records.jsonl"
-        p.write_text(p.read_text().replace('"', "'", 1))
+        p.write_text(p.read_text(encoding="utf-8").replace('"', "'", 1),
+                     encoding="utf-8")
     fresh = open_db(Path(tmp) / "fresh.sqlite3")
     register_scope(fresh, engine.scope)
     try:
@@ -241,6 +242,12 @@ def replay_scenario(scenario, mutation=None):
             outcomes.append(_run_event(engine, {"op": "remember", **item}))
         for i, ev in enumerate(scenario.get("events", [])):
             if ev["op"] == "restart":
+                # Close the LIVE connection (engine.db): after an
+                # export_import it is the fresh DB, while the local
+                # `db` still points at the already-closed original.
+                # Leaving it open makes TemporaryDirectory cleanup
+                # fail on Windows (WinError 32, open sqlite file).
+                engine.db.close()
                 db.close()
                 db = open_db(Path(tmp) / "r.sqlite3")
                 engine.db = db
@@ -278,7 +285,15 @@ def replay_scenario(scenario, mutation=None):
                 if not ok:
                     failures.append({"observation": obs, "error": err,
                                      "explanation": obs.get("explanation", "")})
-        db.close()
+        # Close the LIVE connection (engine.db): after an export_import
+        # it is the fresh DB, while the local `db` still points at the
+        # already-closed original. On POSIX unlinking an open file
+        # succeeds (silent leak); on Windows the TemporaryDirectory
+        # cleanup fails with WinError 32.
+        try:
+            engine.db.close()
+        finally:
+            db.close()
         return {"id": scenario["id"], "title": scenario.get("title", ""),
                 "family": scenario.get("family", ""),
                 "status": "PASS" if not failures else "FAIL",

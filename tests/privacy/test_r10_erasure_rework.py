@@ -659,7 +659,7 @@ def test_cli_erase_stdout_has_no_payload(tmp_path):
         [sys.executable, "-m", "turnkeep", "--db", str(dbpath),
          "erase", "--scope", "s", "--id", rec["id"],
          "--expected-revision", str(rec["revision"]), "--reason", "rotation"],
-        capture_output=True, text=True, timeout=60, env=ENV)
+        capture_output=True, text=True, timeout=60, env=ENV, encoding="utf-8")
     assert proc.returncode == 0
     assert PIN not in proc.stdout
     assert "key_redacted" in proc.stdout

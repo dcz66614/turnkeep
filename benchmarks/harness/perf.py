@@ -90,7 +90,7 @@ def _cold_start_ms():
                         "from turnkeep.storage import open_db; "
                         "import tempfile, pathlib; "
                         "db = open_db(pathlib.Path(tempfile.mkdtemp()) / 'c.sqlite3'); db.close()"],
-                       cwd=ROOT, capture_output=True, text=True, timeout=120)
+                       cwd=ROOT, capture_output=True, text=True, timeout=120, encoding="utf-8")
     if r.returncode != 0:
         raise RuntimeError(f"cold start failed: {r.stderr[-500:]}")
     return (time.monotonic() - t0) * 1000
@@ -142,7 +142,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dataset", required=True)
     args = ap.parse_args()
-    manifest = json.loads(Path(args.dataset).read_text())
+    manifest = json.loads(Path(args.dataset).read_text(encoding="utf-8"))
     hardware = {"platform": platform.platform(), "python": platform.python_version(),
                 "cpu_count": os.cpu_count(),
                 "memory_total_mb": None, "filesystem": str(Path.home().anchor)}

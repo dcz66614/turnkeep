@@ -11,8 +11,8 @@ def main():
     root = Path.cwd(); errors = []
     spec_p = root / args.spec
     if not spec_p.exists(): print(f"NOT_RUN missing {args.spec}"); return 2
-    spec = json.loads(spec_p.read_text())
-    api = json.loads((root / "specs/PUBLIC_API.json").read_text())
+    spec = json.loads(spec_p.read_text(encoding="utf-8"))
+    api = json.loads((root / "specs/PUBLIC_API.json").read_text(encoding="utf-8"))
     if len(spec.get("operations", {})) != len(api.get("paths", {})):
         errors.append(f"operations {len(spec.get('operations',{}))} != API paths {len(api.get('paths',{}))} (note: multiple methods per path are collapsed by operationId; paths={len(api['paths'])})")
     # Count operations by method+path instead
@@ -33,10 +33,10 @@ def main():
                              ("correct_missing_revision.json", None), ("finish_valid.json", "result")):
         p = fx / name
         if not p.exists(): errors.append(f"missing fixture {name}"); continue
-        d = json.loads(p.read_text())
+        d = json.loads(p.read_text(encoding="utf-8"))
         if must_have and must_have not in d: errors.append(f"fixture {name} missing {must_have}")
     if "remember_missing_key.json" in [p.name for p in fx.iterdir()]:
-        d = json.loads((fx / "remember_missing_key.json").read_text())
+        d = json.loads((fx / "remember_missing_key.json").read_text(encoding="utf-8"))
         if "key" in d: errors.append("remember_missing_key fixture actually has a key")
     if errors:
         print("FAIL:"); [print(" -", e) for e in errors]; return 1

@@ -203,7 +203,7 @@ def _spawn_off_residue(db_path, a_id, a_rev, b_id, b_rev, key_out=None):
     env = dict(os.environ)
     env["PYTHONPATH"] = str(Path(__file__).resolve().parents[1] / "src")
     return subprocess.run(argv, capture_output=True, text=True,
-                          timeout=120, env=env)
+                          timeout=120, env=env, encoding="utf-8")
 
 
 def _make_off_residue(name, value):

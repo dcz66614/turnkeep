@@ -613,7 +613,7 @@ else:
         proc = subprocess.run(
             [sys.executable, str(child), str(path), a_id, str(a_rev),
              b_id, str(b_rev), str(key_out)],
-            capture_output=True, text=True, timeout=120, env=env)
+            capture_output=True, text=True, timeout=120, env=env, encoding="utf-8")
         _state6["proc"] = proc
 
     with _ProbeHook(2, _fire_off_child) as hook6:

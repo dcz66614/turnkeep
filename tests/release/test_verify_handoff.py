@@ -63,7 +63,7 @@ def extracted_rc(tmp_path):
     shutil.copy2(SCRIPT, root / "scripts" / "verify_handoff.py")
     # The manifest under test is the extracted one: null by design.
     manifest = json.loads(
-        (root / "release" / "DELIVERY_MANIFEST.json").read_text())
+        (root / "release" / "DELIVERY_MANIFEST.json").read_text(encoding="utf-8"))
     assert manifest.get("archive_sha256") is None
     return RC_ZIP, root, _sha256(RC_ZIP)
 
@@ -71,7 +71,7 @@ def extracted_rc(tmp_path):
 def _run_verifier(script, argv, cwd):
     r = subprocess.run([sys.executable, str(script), *argv],
                        cwd=str(cwd), capture_output=True, text=True,
-                       timeout=600)
+                       timeout=600, encoding="utf-8")
     report = json.loads(r.stdout)
     return r.returncode, report, r.stderr
 

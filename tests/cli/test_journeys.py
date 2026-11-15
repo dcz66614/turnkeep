@@ -12,7 +12,7 @@ ENV = {"PYTHONPATH": str(ROOT / "src"), "PATH": "/usr/bin:/bin:/usr/local/bin",
 
 def cli(dbpath, *args, expect_fail=False):
     r = subprocess.run([sys.executable, "-m", "turnkeep", "--db", str(dbpath), "--json", *args],
-                       capture_output=True, text=True, timeout=60, env=ENV)
+                       capture_output=True, text=True, timeout=60, env=ENV, encoding="utf-8")
     if expect_fail:
         assert r.returncode != 0
         return json.loads(r.stderr)
@@ -40,7 +40,7 @@ def test_j01_full_journey(tmp_path):
 
 def test_demo_is_labelled_scripted(tmp_path):
     r = subprocess.run([sys.executable, "-m", "turnkeep", "--db", str(tmp_path / "d.sqlite3"),
-                        "--json", "demo"], capture_output=True, text=True, timeout=60, env=ENV)
+                        "--json", "demo"], capture_output=True, text=True, timeout=60, env=ENV, encoding="utf-8")
     assert r.returncode == 0, r.stderr
     d = json.loads(r.stdout)
     assert d["demonstration"] == "SCRIPTED_SIMULATION_NO_MODEL_CALLS"

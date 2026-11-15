@@ -92,6 +92,15 @@ def _db_for(args):
 
 
 def main(argv=None):
+    # stdout/stderr default to the locale encoding (cp1252 on Windows),
+    # which cannot encode non-ASCII payloads (e.g. Chinese values) that
+    # --json prints with ensure_ascii=False. Force UTF-8 so the CLI
+    # behaves the same on every platform.
+    for _stream in (sys.stdout, sys.stderr):
+        try:
+            _stream.reconfigure(encoding="utf-8")
+        except Exception:  # noqa: BLE001 - the stream may be replaced/closed in tests
+            pass
     parser = argparse.ArgumentParser(prog="turnkeep", description="Turnkeep local project memory (v0.1)")
     parser.add_argument("--version", action="version", version=f"turnkeep {__version__}")
     parser.add_argument("--db", help="SQLite path (default: per-scope data path)")

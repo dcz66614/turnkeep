@@ -722,7 +722,7 @@ proc = subprocess.run(
      "erase", "--scope", "s", "--id", rec["id"],
      "--expected-revision", str(rec["revision"]), "--reason", "rotation"],
     capture_output=True, text=True, env=env, timeout=60,
-    cwd=str(Path(__file__).resolve().parents[1]))
+    cwd=str(Path(__file__).resolve().parents[1]), encoding="utf-8")
 check("A3-cli.1 CLI erase exits 0, stdout carries no raw payload key",
       proc.returncode == 0 and PIN not in proc.stdout, f"rc={proc.returncode}")
 check("A3-cli.2 CLI stdout flags key_redacted", "key_redacted" in proc.stdout)
@@ -753,7 +753,7 @@ proc = subprocess.run(
     [sys.executable, "-m", "turnkeep", "--db", str(TMPROOT / "a3-cli.sqlite3"),
      "residuals", "--scope", "s"],
     capture_output=True, text=True, env=env, timeout=60,
-    cwd=str(Path(__file__).resolve().parents[1]))
+    cwd=str(Path(__file__).resolve().parents[1]), encoding="utf-8")
 check("A3-resid-cli: residuals CLI stdout carries no raw payload key",
       proc.returncode == 0 and PIN not in proc.stdout, f"rc={proc.returncode}")
 

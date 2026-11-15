@@ -12,9 +12,9 @@ ROOT = Path(__file__).resolve().parents[2]
 def _replay_mutation(out, mutation):
     r = subprocess.run([sys.executable, "benchmarks/replay.py", "--suite", "core-change",
                         "--output", str(out), "--mutation", mutation],
-                       cwd=ROOT, capture_output=True, text=True, timeout=300)
+                       cwd=ROOT, capture_output=True, text=True, timeout=300, encoding="utf-8")
     assert r.returncode == 0, r.stderr
-    return json.loads((out / "manifest-mutation.json").read_text())
+    return json.loads((out / "manifest-mutation.json").read_text(encoding="utf-8"))
 
 
 def test_no_taint_mutation_fails_taint_scenarios(tmp_path):

@@ -101,7 +101,7 @@ def _run(argv, cwd=ROOT, env=None, timeout=900):
     if resolved is not None:
         argv[0] = resolved
     return subprocess.run(argv, cwd=str(cwd), env=merged,
-                          capture_output=True, text=True, timeout=timeout)
+                          capture_output=True, text=True, timeout=timeout, encoding="utf-8")
 
 
 def _sha256(path):

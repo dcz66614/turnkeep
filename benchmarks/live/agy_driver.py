@@ -63,7 +63,8 @@ def _run_agy(workdir, prompt, conversation_id, timeout_s, meta_dir):
         # the init event reports cwd == workdir). Unlike codex, passing
         # cwd=workdir does not break startup.
         proc = subprocess.run(argv, capture_output=True, text=True,
-                              timeout=timeout_s, env=env, cwd=str(workdir))
+                              timeout=timeout_s, env=env, cwd=str(workdir),
+                              encoding="utf-8")
         timed_out = False
         stdout, stderr = proc.stdout, proc.stderr
         rc = proc.returncode

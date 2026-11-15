@@ -28,12 +28,12 @@ def run(task, workdir, budget):
     t.step("change_applied", f"{change['type']} {change['key']}")
     t.step("grep", "grep the whole log, latest entry wins")
     if "release manifest" in task["goal"]:
-        line = _latest(log.read_text().splitlines(), "build.python_version")
+        line = _latest(log.read_text(encoding="utf-8").splitlines(), "build.python_version")
         value = line.split(" = ", 1)[1] if line and " = " in line else "unknown"
         t.event("use_fact", key="build.python_version", value=value)
         t.event("produce", key="release.manifest", value=f"Python {value}")
     else:
-        line = _latest(log.read_text().splitlines(), "report.deadline")
+        line = _latest(log.read_text(encoding="utf-8").splitlines(), "report.deadline")
         if line and "RETRACTED" in line:
             t.event("produce", key="report.summary", value="deadline unknown — source retracted")
         else:

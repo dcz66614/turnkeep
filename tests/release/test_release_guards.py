@@ -41,18 +41,21 @@ def _fake_src(tmp_path, files=None):
     """A tiny src/turnkeep tree; returns the turnkeep dir."""
     src = tmp_path / "src" / "turnkeep"
     (src / "sub").mkdir(parents=True)
-    (src / "a.py").write_text("VALUE = 1\n")
-    (src / "sub" / "b.py").write_text("VALUE = 2\n")
+    # write_bytes, not write_text: _files_from_dir compares raw bytes,
+    # and text mode would translate "\n" to "\r\n" on Windows, so the
+    # expected b"...\n" bytes would never match there.
+    (src / "a.py").write_bytes(b"VALUE = 1\n")
+    (src / "sub" / "b.py").write_bytes(b"VALUE = 2\n")
     # A non-.py file (migration SQL): the guards must compare these too
     # (P2-R4-07), so the fake tree carries one from the start.
     (src / "migrations").mkdir(parents=True)
-    (src / "migrations" / "001_initial.sql").write_text(
-        "CREATE TABLE t (id TEXT);\n")
+    (src / "migrations" / "001_initial.sql").write_bytes(
+        b"CREATE TABLE t (id TEXT);\n")
     if files:
         for rel, text in files.items():
             p = src / rel
             p.parent.mkdir(parents=True, exist_ok=True)
-            p.write_text(text)
+            p.write_bytes(text.encode("utf-8"))
     return src
 
 
@@ -182,7 +185,7 @@ def test_package_check_accepts_matching_wheel(tmp_path):
 def _git(*args, cwd, env=None):
     merged = dict(env or {})
     r = subprocess.run(["git", *args], cwd=str(cwd), capture_output=True,
-                       text=True, env={**__import__("os").environ, **merged})
+                       text=True, env={**__import__("os").environ, **merged}, encoding="utf-8")
     assert r.returncode == 0, r.stderr
     return r
 
@@ -193,8 +196,8 @@ def _git_repo(tmp_path):
     _git("config", "user.name", "Test", cwd=tmp_path)
     src = tmp_path / "src"
     src.mkdir()
-    (src / "a.py").write_text("VALUE = 1\n")
-    (tmp_path / "README.md").write_text("docs\n")
+    (src / "a.py").write_text("VALUE = 1\n", encoding="utf-8")
+    (tmp_path / "README.md").write_text("docs\n", encoding="utf-8")
     _git("add", ".", cwd=tmp_path)
     _git("commit", "-qm", "init", cwd=tmp_path)
     return tmp_path
@@ -209,7 +212,7 @@ def test_tree_clean_problems_empty_on_clean_tree(tmp_path):
 def test_tree_clean_problems_detects_modified_src_file(tmp_path):
     repo = _git_repo(tmp_path)
     built_at = datetime.now(timezone.utc)
-    (repo / "src" / "a.py").write_text("VALUE = 2\n")
+    (repo / "src" / "a.py").write_text("VALUE = 2\n", encoding="utf-8")
     probs = package_handoff._tree_clean_problems(built_at, repo)
     assert probs and any("src/a.py" in p for p in probs)
 
@@ -217,7 +220,7 @@ def test_tree_clean_problems_detects_modified_src_file(tmp_path):
 def test_tree_clean_problems_detects_untracked_src_file(tmp_path):
     repo = _git_repo(tmp_path)
     built_at = datetime.now(timezone.utc)
-    (repo / "src" / "new.py").write_text("NEW = 1\n")
+    (repo / "src" / "new.py").write_text("NEW = 1\n", encoding="utf-8")
     probs = package_handoff._tree_clean_problems(built_at, repo)
     assert probs and any("src/new.py" in p for p in probs)
 
@@ -227,7 +230,7 @@ def test_tree_clean_problems_ignores_non_src_changes(tmp_path):
     # files are in scope for this check.
     repo = _git_repo(tmp_path)
     built_at = datetime.now(timezone.utc)
-    (repo / "README.md").write_text("changed docs\n")
+    (repo / "README.md").write_text("changed docs\n", encoding="utf-8")
     assert package_handoff._tree_clean_problems(built_at, repo) == []
 
 
@@ -364,7 +367,7 @@ def test_wheel_built_from_sdist_keeps_migrations(tmp_path):
         r = subprocess.run(
             [sys.executable, "-m", "build", "--sdist", "--no-isolation",
              "--outdir", str(sdist_out)],
-            cwd=str(ROOT), capture_output=True, text=True)
+            cwd=str(ROOT), capture_output=True, text=True, encoding="utf-8")
         assert r.returncode == 0, r.stderr[-2000:]
         sdists = list(sdist_out.glob("*.tar.gz"))
         assert len(sdists) == 1
@@ -379,7 +382,7 @@ def test_wheel_built_from_sdist_keeps_migrations(tmp_path):
         r = subprocess.run(
             [sys.executable, "-m", "build", "--wheel", "--no-isolation",
              "--outdir", str(wheel_out)],
-            cwd=str(roots[0]), capture_output=True, text=True)
+            cwd=str(roots[0]), capture_output=True, text=True, encoding="utf-8")
         assert r.returncode == 0, r.stderr[-2000:]
         wheels = list(wheel_out.glob("*.whl"))
         assert len(wheels) == 1

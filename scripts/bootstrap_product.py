@@ -17,7 +17,7 @@ def main():
     env.update({k: v for k, v in os.environ.items() if k in ("HOME", "LANG", "LC_ALL", "TMPDIR")})
     with tempfile.TemporaryDirectory() as td:
         r = subprocess.run([sys.executable, "-m", "turnkeep", "demo"], cwd=td,
-                           env=env, capture_output=True, text=True, timeout=120)
+                           env=env, capture_output=True, text=True, timeout=120, encoding="utf-8")
         try:
             demo = json.loads(r.stdout)
             ok = demo.get("demonstration") == "SCRIPTED_SIMULATION_NO_MODEL_CALLS" and demo.get("idempotent_replay_identical") is True

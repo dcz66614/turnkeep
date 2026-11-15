@@ -47,7 +47,7 @@ def test_two_processes_one_finish_wins(tmp_path):
     for val in ("A", "B"):
         r = subprocess.run([sys.executable, "-c", WORKER, str(dbpath), val],
                            cwd=str(ROOT),
-                           capture_output=True, text=True, timeout=60, env=env)
+                           capture_output=True, text=True, timeout=60, env=env, encoding="utf-8")
         outs.append(r.stdout.strip())
     assert sum("ACCEPTED" in o for o in outs) == 1, outs
     db = open_db(dbpath)
@@ -74,7 +74,7 @@ def test_killed_writer_leaves_no_receipt(tmp_path):
     """)
     r = subprocess.run([sys.executable, "-c", killer, str(dbpath)],
                        cwd=str(ROOT),
-                       capture_output=True, text=True, timeout=60)
+                       capture_output=True, text=True, timeout=60, encoding="utf-8")
     assert r.returncode == 137
     db = open_db(dbpath)
     assert db.execute("SELECT COUNT(*) FROM memories WHERE key='killed'").fetchone()[0] == 0

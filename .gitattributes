@@ -1,0 +1,11 @@
+# Line endings: this repo is LF-only. Byte-exact content must not have
+# its line endings rewritten by a checkout: committed manifests record
+# sha256 digests of checked-in files (fixtures/imports/*/manifest.json),
+# and a Windows checkout with autocrlf=true would turn their LF into
+# CRLF and break the digests on import ("export package tampered").
+# `text=auto eol=lf` forces LF in the working tree on every platform.
+# (Verified in a scratch repo with core.autocrlf=true: `* text=lf`
+# alone still checks out CRLF, while `text=auto eol=lf` keeps LF.)
+# PowerShell accepts LF (scripts/install.ps1 is LF already); there are
+# no CRLF-native files (.bat/.cmd) in this repo.
+* text=auto eol=lf

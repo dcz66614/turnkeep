@@ -84,7 +84,7 @@ PILOT_SEEDS = (20261108,)
 
 
 def _api_key():
-    return (Path.home() / "workspace" / "copilot-codex-bridge" / ".api-key").read_text().strip()
+    return (Path.home() / "workspace" / "copilot-codex-bridge" / ".api-key").read_text(encoding="utf-8").strip()
 
 
 def bridge_get(path, timeout=10):
@@ -121,7 +121,7 @@ def freeze_manifest(suite_names, out_dir):
         "model": info["model"],
         "model_detail": info["model_detail"],
         "provider_seed_support": "none: seeds are repetition indices only, recorded, never claimed as reproducible sampling.",
-        "budget": json.loads((ROOT / info["budget_file"]).read_text()),
+        "budget": json.loads((ROOT / info["budget_file"]).read_text(encoding="utf-8")),
         "file_hashes": {f: sha256_file(ROOT / f) for f in files},
         "quota_before": None,
         "blindness_limitation": "Suite author and runner are the same agent (Muse); this is a process measure against accidental leakage, not a true independent blind test (EVALUATION_PLAN §6).",
@@ -142,7 +142,7 @@ def freeze_manifest(suite_names, out_dir):
 
 
 def build_jobs(suite_name, arms, seeds):
-    suite = json.loads((ROOT / "benchmarks" / "suites" / f"{suite_name}.json").read_text())
+    suite = json.loads((ROOT / "benchmarks" / "suites" / f"{suite_name}.json").read_text(encoding="utf-8"))
     jobs = []
     for task in suite["tasks"]:
         for seed in seeds:
@@ -161,7 +161,7 @@ def run_suite(suite_name, arms, seeds, out_dir, parallel, limit, resume):
     attempts_path = out_dir / "attempts.jsonl"
     done_keys = set()
     if resume and attempts_path.exists():
-        for line in attempts_path.read_text().splitlines():
+        for line in attempts_path.read_text(encoding="utf-8").splitlines():
             if line.strip():
                 a = json.loads(line)
                 done_keys.add((a["task_id"], a["arm"], a["seed"]))
@@ -174,7 +174,7 @@ def run_suite(suite_name, arms, seeds, out_dir, parallel, limit, resume):
     stop_event = threading.Event()
     quota_streak = 0
     if attempts_path.exists():
-        for line in attempts_path.read_text().splitlines():
+        for line in attempts_path.read_text(encoding="utf-8").splitlines():
             if line.strip():
                 attempts.append(json.loads(line))
     for a in attempts:
@@ -365,7 +365,7 @@ def main():
         try:
             quota_after = bridge_get("/v1/quota").get("metering", {})
             manifest_path = base / "manifest.json"
-            manifest = json.loads(manifest_path.read_text())
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
             manifest["quota_after"] = quota_after
             manifest_path.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
         except Exception as e:  # noqa: BLE001
