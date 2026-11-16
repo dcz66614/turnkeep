@@ -22,6 +22,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -71,7 +72,7 @@ def extracted_rc(tmp_path):
 def _run_verifier(script, argv, cwd):
     r = subprocess.run([sys.executable, str(script), *argv],
                        cwd=str(cwd), capture_output=True, text=True,
-                       timeout=600, encoding="utf-8")
+                       timeout=600, encoding="utf-8", errors="replace")
     report = json.loads(r.stdout)
     return r.returncode, report, r.stderr
 
@@ -147,3 +148,40 @@ def test_source_tree_verifier_still_passes_without_flag():
     assert report["status"] == "PASS"
     assert report["failures"] == []
     assert len(report["checks"]) == 7
+
+
+# -- R6: non-ASCII report must survive a cp1252 locale ------------------
+
+def test_verifier_report_survives_cp1252_stdout(extracted_rc):
+    # CI #5: the no-flag failure message carries an em dash. Under a
+    # cp1252 stdout locale (the Windows default) the verifier printed
+    # it as byte 0x97, which a strict-UTF-8 parent could not decode,
+    # so _run_verifier died before json.loads. The verifier must emit
+    # valid UTF-8 regardless of the locale encoding.
+    zip_path, root, _real_sha = extracted_rc
+    env = dict(os.environ)
+    env["PYTHONIOENCODING"] = "cp1252"  # simulate Windows locale stdout
+    r = subprocess.run(
+        [sys.executable, str(root / "scripts" / "verify_handoff.py"),
+         "--archive", str(zip_path)],
+        cwd=str(root), capture_output=True, text=True, timeout=600,
+        encoding="utf-8", env=env)
+    report = json.loads(r.stdout)
+    assert r.returncode == 1, f"{r.stderr}\n{json.dumps(report, indent=2)}"
+    assert report["status"] == "FAIL"
+    assert len(report["failures"]) == 1
+    assert "--expected-sha256" in report["failures"][0]
+    assert "archive_sha256" in report["failures"][0]
+
+
+def test_run_verifier_tolerates_undecodable_child_output(tmp_path):
+    # R6: even if a child emits a stray non-UTF-8 byte, _run_verifier
+    # must return the parsed report instead of raising in the decoder.
+    stub = tmp_path / "stub.py"
+    stub.write_bytes(
+        b"import sys\n"
+        b"sys.stdout.buffer.write(b'{\"status\": \"FAIL\", \"checks\": [], "
+        b"\"failures\": [\"x \\x97 y\"]}\\n')\n")
+    rc, report, _stderr = _run_verifier(stub, [], cwd=tmp_path)
+    assert rc == 0
+    assert report["status"] == "FAIL"

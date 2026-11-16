@@ -103,6 +103,13 @@ def _read_text(path: Path) -> str | None:
 def scan_secrets(findings, whitelisted):
     scanned = 0
     for path, rel in _iter_files():
+        # str(Path) uses backslashes on Windows, but the allowlist
+        # suffixes and the top-dir split below assume forward slashes;
+        # without this, every personal-path hit in evidence/state/
+        # tests/fixtures becomes FAIL instead of INFO on Windows
+        # (CI #5: 23,619 hard findings) and path-based allowlist
+        # entries stop matching.
+        rel = rel.replace("\\", "/")
         text = _read_text(path)
         if text is None:
             continue  # binary / unreadable: recorded as a limitation

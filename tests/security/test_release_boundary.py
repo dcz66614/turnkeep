@@ -8,6 +8,7 @@ and secret exclusion on the import path.
 
 from __future__ import annotations
 
+import importlib.util
 import json
 import re
 import subprocess
@@ -95,6 +96,40 @@ def test_release_checks_pass():
     assert report["summary"]["fail"] == 0
     assert report["files_scanned"] > 100
     assert report["limitations"], "scan must state its limitations"
+
+
+def test_scan_secrets_windows_backslash_paths_find_no_hard():
+    # R6 (CI #5): on Windows, str(Path) yields backslash rel paths,
+    # but the allowlist suffixes and the top-dir split assumed forward
+    # slashes, so every personal-path hit in evidence/state/tests/
+    # fixtures became FAIL instead of INFO (23,619 hard findings) and
+    # path-based allowlist entries stopped matching. Simulating the
+    # Windows rel form must give the same result as the native run.
+    spec = importlib.util.spec_from_file_location(
+        "release_checks", ROOT / "scripts" / "release_checks.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    findings, whitelisted = [], []
+    mod.scan_secrets(findings, whitelisted)
+    hard_native = [f for f in findings
+                   if f.get("severity") in ("HIGH", "FAIL")]
+    assert hard_native == []
+    orig_iter = mod._iter_files
+
+    def win_iter():
+        for path, rel in orig_iter():
+            yield path, rel.replace("/", "\\")
+
+    mod._iter_files = win_iter
+    try:
+        findings_w, whitelisted_w = [], []
+        mod.scan_secrets(findings_w, whitelisted_w)
+    finally:
+        mod._iter_files = orig_iter
+    hard_win = [f for f in findings_w
+                if f.get("severity") in ("HIGH", "FAIL")]
+    assert hard_win == []
+    assert len(whitelisted_w) == len(whitelisted)
 
 
 def test_loopback_only():

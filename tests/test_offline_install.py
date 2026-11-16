@@ -40,20 +40,54 @@ def _ignore(path, names):
 
 
 def _usable_bash():
-    """True when a real bash exists. On Windows without WSL, "bash"
-    resolves to C:\\Windows\\System32\\bash.exe — the WSL launcher —
+    """True when the `bash` the test will actually invoke can run a
+    script. The test calls bare "bash", and on Windows subprocess
+    resolves a bare name the CreateProcess way (System32 first), so
+    it hits C:\\Windows\\System32\\bash.exe — the WSL launcher —
     which fails with "Windows Subsystem for Linux has no installed
-    distributions."; install.sh cannot run there, so the test must
-    skip instead of failing on the launcher's error."""
-    bash = shutil.which("bash")
-    if not bash:
-        return False
+    distributions." when no distro is installed. shutil.which()
+    must NOT be used here: it searches PATH only and finds Git Bash,
+    which answers --version fine while the launcher the test would
+    hit fails — the probe and the invocation would test different
+    executables (CI #5). Probing the same bare name tests exactly
+    what the test will run; on POSIX the resolution is identical
+    either way."""
     try:
-        r = subprocess.run([bash, "--version"], capture_output=True,
+        r = subprocess.run(["bash", "--version"], capture_output=True,
                            text=True, encoding="utf-8", timeout=30)
     except (OSError, subprocess.SubprocessError):
         return False
     return r.returncode == 0
+
+
+def test_usable_bash_ignores_which_result(monkeypatch):
+    # R6 (CI #5): the probe must test the bare "bash" the test will
+    # invoke, not the shutil.which() result. which() finds Git Bash
+    # (answers --version fine) while the test's bare "bash" resolves
+    # the CreateProcess way to the System32 WSL launcher, which fails
+    # with no installed distributions. A bogus which() result must
+    # therefore not change the probe's answer on a machine with bash.
+    monkeypatch.setattr(shutil, "which", lambda name: "/nonexistent/bash")
+    assert _usable_bash() is True
+
+
+def test_usable_bash_probes_bare_bash(monkeypatch):
+    # R6: the probe argv must start with the bare name "bash" — the
+    # same resolution the test's own subprocess.run(["bash", ...])
+    # will use — never a which()-resolved absolute path.
+    seen = {}
+
+    def spy(*args, **kwargs):
+        seen["argv"] = args[0]
+
+        class _R:  # noqa: D106
+            returncode = 0
+
+        return _R()
+
+    monkeypatch.setattr(subprocess, "run", spy)
+    assert _usable_bash() is True
+    assert seen["argv"][0] == "bash"
 
 
 def test_offline_install_from_shipped_wheel(tmp_path):

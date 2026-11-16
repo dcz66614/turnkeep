@@ -76,11 +76,25 @@ def _run(argv, cwd=None, env=None, timeout=600):
     merged = dict(os.environ)
     if env:
         merged.update(env)
+    # errors="replace": a stray undecodable byte in a child (e.g. a
+    # cp1252 byte in CLI output on Windows) must not crash the whole
+    # verifier run; the JSON the callers parse stays parseable.
     return subprocess.run(argv, cwd=str(cwd) if cwd else None, env=merged,
-                          capture_output=True, text=True, timeout=timeout, encoding="utf-8")
+                          capture_output=True, text=True, timeout=timeout,
+                          encoding="utf-8", errors="replace")
 
 
 def main():
+    # The JSON report can contain non-ASCII text (the no-flag failure
+    # message carries an em dash); force UTF-8 on stdout AND stderr so
+    # the child emits valid UTF-8 on Windows (cp1252 default), where a
+    # strict-UTF-8 parent would otherwise choke on the 0x97 byte
+    # (CI #5: test_extracted_verifier_fails_without_flag_and_names_it).
+    for _stream in (sys.stdout, sys.stderr):
+        try:
+            _stream.reconfigure(encoding="utf-8")
+        except Exception:  # noqa: BLE001 - stream may be replaced/closed
+            pass
     ap = argparse.ArgumentParser()
     ap.add_argument("--archive", default="release/TURNKEEP_RC.zip")
     ap.add_argument("--manifest", default="release/DELIVERY_MANIFEST.json")
