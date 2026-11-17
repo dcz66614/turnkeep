@@ -12,7 +12,8 @@ ROOT = Path(__file__).resolve().parents[2]
 def _replay_mutation(out, mutation):
     r = subprocess.run([sys.executable, "benchmarks/replay.py", "--suite", "core-change",
                         "--output", str(out), "--mutation", mutation],
-                       cwd=ROOT, capture_output=True, text=True, timeout=300, encoding="utf-8")
+                       cwd=ROOT, capture_output=True, text=True, timeout=300, encoding="utf-8",
+                       errors="replace")
     assert r.returncode == 0, r.stderr
     return json.loads((out / "manifest-mutation.json").read_text(encoding="utf-8"))
 

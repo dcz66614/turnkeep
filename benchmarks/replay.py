@@ -303,6 +303,17 @@ def replay_scenario(scenario, mutation=None):
 
 
 def main():
+    # FAIL lines can contain non-ASCII scenario text (an event value
+    # carries an em dash: 'deadline unknown — source retracted');
+    # force UTF-8 on stdout AND stderr so the child emits valid UTF-8
+    # on Windows (cp1252 default), where a strict-UTF-8 parent would
+    # otherwise choke on the 0x97 byte (CI #6: two
+    # PytestUnhandledThreadExceptionWarnings in test_mutations.py).
+    for _stream in (sys.stdout, sys.stderr):
+        try:
+            _stream.reconfigure(encoding="utf-8")
+        except Exception:  # noqa: BLE001 - stream may be replaced/closed
+            pass
     ap = argparse.ArgumentParser()
     ap.add_argument("--suite", required=True)
     ap.add_argument("--output", required=True)

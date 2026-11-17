@@ -17,7 +17,8 @@ def _replay(out, mutation=None):
            "--output", str(out)]
     if mutation:
         cmd += ["--mutation", mutation]
-    r = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, timeout=300, encoding="utf-8")
+    r = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, timeout=300, encoding="utf-8",
+                       errors="replace")
     assert r.returncode == 0, r.stderr
     name = "manifest-mutation.json" if mutation else "manifest.json"
     return json.loads((out / name).read_text(encoding="utf-8"))

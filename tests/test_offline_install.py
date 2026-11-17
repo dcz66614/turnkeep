@@ -61,14 +61,20 @@ def _usable_bash():
 
 
 def test_usable_bash_ignores_which_result(monkeypatch):
-    # R6 (CI #5): the probe must test the bare "bash" the test will
-    # invoke, not the shutil.which() result. which() finds Git Bash
-    # (answers --version fine) while the test's bare "bash" resolves
-    # the CreateProcess way to the System32 WSL launcher, which fails
-    # with no installed distributions. A bogus which() result must
-    # therefore not change the probe's answer on a machine with bash.
+    # R7 (CI #6): the probe must test the bare "bash" the test will
+    # invoke, not the shutil.which() result. The R6 version asserted
+    # the probe is True unconditionally ("on a machine with bash"),
+    # which is wrong on a Windows runner with no WSL distribution:
+    # there bare "bash" is the System32 launcher and correctly fails,
+    # so the probe returns False and the offline-install test skips.
+    # What the probe must NOT do is change its answer when which()
+    # is faked: compare the answer with the real which() against the
+    # answer with a bogus which(). On Linux both are True; on
+    # WSL-less Windows both are False. The R5 probe (which-based)
+    # fails this: faking which() flips its answer True -> False.
+    baseline = _usable_bash()
     monkeypatch.setattr(shutil, "which", lambda name: "/nonexistent/bash")
-    assert _usable_bash() is True
+    assert _usable_bash() is baseline
 
 
 def test_usable_bash_probes_bare_bash(monkeypatch):
